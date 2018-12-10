@@ -10,7 +10,7 @@
 
     <name>math</name>
     <url>https://github.com/agdturner/math</url>
-    <description>A Java Library with generally used classes.</description>
+    <description>A Java Library for arithmetic and statistics.</description>
     <scm>
         <url>git@github.com:agdturner/math.git</url>
         <connection>scm:git:git@github.com:agdturner/math.git</connection>
