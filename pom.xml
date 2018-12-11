@@ -4,22 +4,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>uk.ac.leeds.ccg.andyt</groupId>
-    <artifactId>math</artifactId>
+    <artifactId>agdt-math</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>math</name>
-    <url>https://github.com/agdturner/math</url>
+    <name>agdt-math</name>
+    <url>https://github.com/agdturner/agdt-math</url>
     <description>A Java Library for arithmetic and statistics.</description>
     <scm>
-        <url>git@github.com:agdturner/math.git</url>
-        <connection>scm:git:git@github.com:agdturner/math.git</connection>
-        <developerConnection>scm:git:git@github.com:agdturner/math</developerConnection>
+        <url>git@github.com:agdturner/agdt-math.git</url>
+        <connection>scm:git:git@github.com:agdturner/agdt-math.git</connection>
+        <developerConnection>scm:git:git@github.com:agdturner/agdt-math</developerConnection>
     </scm>
     <licenses>
         <license>
             <name>Apache License 2.0</name>
-            <url>https://github.com/agdturner/math/LICENSE.txt</url>
+            <url>https://github.com/agdturner/agdt-math/LICENSE.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -42,7 +42,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <generic.version>1.0-SNAPSHOT</generic.version>
+        <agdt-generic.version>1.0-SNAPSHOT</agdt-generic.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -50,8 +50,8 @@
     <dependencies>
         <dependency>
             <groupId>uk.ac.leeds.ccg.andyt</groupId>
-            <artifactId>generic</artifactId>
-            <version>${generic.version}</version>
+            <artifactId>agdt-generic</artifactId>
+            <version>${agdt-generic.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
