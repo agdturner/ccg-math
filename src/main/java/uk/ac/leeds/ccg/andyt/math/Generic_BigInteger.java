@@ -193,7 +193,7 @@ public class Generic_BigInteger
         Integer y;
         int key = lastKey + 1;
         for (int keys = key; keys <= x; keys++) {
-            y = new Integer(keys);
+            y = keys;
             value = new BigInteger("" + keys);
             factorial = lastFactorial.multiply(value);
             _Factorial_TreeMap.put(y, factorial);

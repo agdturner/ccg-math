@@ -121,10 +121,10 @@ public class Generic_BigDecimal
     }
 
     /**
-     * @param a_RoundingMode
+     * @param r sets _RoundingMode to r.
      */
-    public void set_RoundingMode(RoundingMode a_RoundingMode) {
-        this._RoundingMode = a_RoundingMode;
+    public void set_RoundingMode(RoundingMode r) {
+        this._RoundingMode = r;
     }
 
     /**
