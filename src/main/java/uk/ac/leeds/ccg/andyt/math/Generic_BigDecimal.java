@@ -85,6 +85,7 @@ public class Generic_BigDecimal
 
     /**
      * Creates a new instance of Generic_BigDecimal based on _Generic_BigDecimal
+     *
      * @param _Generic_BigDecimal
      */
     public Generic_BigDecimal(Generic_BigDecimal _Generic_BigDecimal) {
@@ -102,6 +103,7 @@ public class Generic_BigDecimal
      * Creates a new instance of Generic_BigDecimal initialising
      * _Generic_BigInteger with n entries and initialising _E to n decimal
      * places.
+     *
      * @param n
      */
     public Generic_BigDecimal(int n) {
@@ -795,9 +797,10 @@ public class Generic_BigDecimal
      * Creates and returns a new list containing all the numbers in list divided
      * by divisor using decimalPlaces and roundingMode and rounding if
      * necessary.
+     *
      * @param roundingMode
      * @param decimalPlaces
-     * @return 
+     * @return
      */
     public static ArrayList<BigDecimal> divideRoundIfNecessary(
             ArrayList<BigDecimal> list,
@@ -1239,8 +1242,6 @@ public class Generic_BigDecimal
 //        if (y1.compareTo(epsilon_BigDecimal) == -1) {
 //            return new BigDecimal(BigInteger.ZERO, decimalPlaces);
 //        }
-
-
 //    if (x.compareTo (BigDecimal.ONE) 
 //        == -1 && x.compareTo(BigDecimal.ONE.negate()) == 1) {
 //
@@ -3802,9 +3803,10 @@ public class Generic_BigDecimal
      * system. We can stop. Obviously, if you're working with a system which has
      * arbitrarily many digits of precision, you will want to put something else
      * in there to limit the loop."
+     *
      * @param a_RoundingMode
      * @param decimalPlaces
-     * @return 
+     * @return
      */
     public static BigDecimal log(
             int base_int,
@@ -3823,8 +3825,8 @@ public class Generic_BigDecimal
         }
         if (x.compareTo(BigDecimal.ONE) == -1) {
             BigDecimal oneOverX = Generic_BigDecimal.reciprocal(
-                    x, 
-                    decimalPlaces, 
+                    x,
+                    decimalPlaces,
                     a_RoundingMode);
             BigDecimal logOneOverX = Generic_BigDecimal.log(
                     base_int,
@@ -3885,12 +3887,12 @@ public class Generic_BigDecimal
             }
             ite++;
 
-            condition =
-                    ((resultplusfraction).compareTo(result) == 1)
+            condition
+                    = ((resultplusfraction).compareTo(result) == 1)
                     && (input.compareTo(BigDecimal.ONE) == 1);
 
         } while (condition);
-        
+
         return roundIfNecessary(result, decimalPlaces, a_RoundingMode);
     }
 
@@ -4060,31 +4062,30 @@ public class Generic_BigDecimal
 
     /**
      *
-     * @param value
+     * @param v
      * @param significantDigits
      * @return
      */
-    public static int getDecimalPlacePrecision(
-            BigDecimal value,
+    public static int getDecimalPlacePrecision(BigDecimal v,
             int significantDigits) {
-        int result = 0;
-        if (value != null) {
-            int scale = value.scale();
-            int precision = value.precision();
+        int r = 0;
+        if (v != null) {
+            int scale = v.scale();
+            int precision = v.precision();
             int integerScale = precision - scale;
             if (integerScale < 0) {
                 // e.g. 0.00123467891011; scale = 15, precision = 12
-                result = (integerScale * -1) + significantDigits;
+                r = (integerScale * -1) + significantDigits;
             } else {
                 // e.g. 192.1231213; scale = 7, precision = 10
                 if (integerScale < significantDigits) {
-                    result = significantDigits - integerScale;
+                    r = significantDigits - integerScale;
                 } else {
-                    result = 1;
+                    r = 1;
                 }
             }
         }
-        return result;
+        return r;
     }
 
     /**
@@ -4774,8 +4775,9 @@ public class Generic_BigDecimal
 //    }
     /**
      * Returns a copy of the maximum BigDecimal in the list.
+     *
      * @param list
-     * @return 
+     * @return
      */
     public static BigDecimal max(
             ArrayList<BigDecimal> list) {
@@ -5009,8 +5011,8 @@ public class Generic_BigDecimal
             }
             // x > 1
             //int safeDecimalPlaces = decimalPlaces + 5;
-            BigDecimal epsilon_BigDecimal =
-                    new BigDecimal(BigInteger.ONE, decimalPlaces);
+            BigDecimal epsilon_BigDecimal
+                    = new BigDecimal(BigInteger.ONE, decimalPlaces);
             // Check there is a rootRoundIfNecessary in the precision and return 0 if not
             BigDecimal comparator = BigDecimal.ONE.add(epsilon_BigDecimal);
             boolean powerTest = powerTestAbove(
@@ -5200,10 +5202,10 @@ public class Generic_BigDecimal
             divisor = resultipowrootsubtract1.multiply(root_BigDecimal);
             result = result.subtract(
                     Generic_BigDecimal.divideNoCaseCheckRoundIfNecessary(
-                    resultipowroot.subtract(x),
-                    divisor,
-                    divprecision,
-                    a_RoundingMode));
+                            resultipowroot.subtract(x),
+                            divisor,
+                            divprecision,
+                            a_RoundingMode));
 //            result = result.subtract(
 //                    resultipowroot.subtract(x).divide(divisor, a_MathContext));
             // Test for convergence
@@ -5265,8 +5267,8 @@ public class Generic_BigDecimal
             divisor = resultipowrootsubtract1.multiply(root_BigDecimal);
             result = result.subtract(
                     Generic_BigDecimal.divideNoCaseCheckNoRounding(
-                    resultipowroot.subtract(x),
-                    divisor));
+                            resultipowroot.subtract(x),
+                            divisor));
             // Test for convergence
             if (previousResult_BigDecimal.compareTo(result) == 0) {
                 break;
@@ -5819,8 +5821,8 @@ public class Generic_BigDecimal
                 return roundIfNecessary(result, decimalPlaces, a_RoundingMode);
             }
         }
-        BigDecimal epsilon_BigDecimal =
-                new BigDecimal(BigInteger.ONE, decimalPlaces);
+        BigDecimal epsilon_BigDecimal
+                = new BigDecimal(BigInteger.ONE, decimalPlaces);
         BigDecimal comparator = BigDecimal.ONE.add(epsilon_BigDecimal);
         // Check there is a rootRoundIfNecessary in the precision and return 0 if not
         BigInteger root_BigInteger = BigInteger.valueOf(root);
@@ -5988,8 +5990,8 @@ public class Generic_BigDecimal
             //Generic_BigDecimal a_Generic_BigDecimal,
             int decimalPlaces,
             RoundingMode a_RoundingMode) {
-        BigDecimal epsilon_BigDecimal =
-                new BigDecimal(BigInteger.ONE, decimalPlaces);
+        BigDecimal epsilon_BigDecimal
+                = new BigDecimal(BigInteger.ONE, decimalPlaces);
         //BigDecimal comparator = BigDecimal.ONE.subtract(epsilon_BigDecimal);
 //        // Check there is a rootRoundIfNecessary in the precision and return 1 if not
 //        boolean powerTest = powerTestBelow(
@@ -6087,8 +6089,8 @@ public class Generic_BigDecimal
             //Generic_BigDecimal a_Generic_BigDecimal,
             int decimalPlaces,
             RoundingMode a_RoundingMode) {
-        BigDecimal epsilon_BigDecimal =
-                new BigDecimal(BigInteger.ONE, decimalPlaces);
+        BigDecimal epsilon_BigDecimal
+                = new BigDecimal(BigInteger.ONE, decimalPlaces);
         int newtonRaphsonMaxite = decimalPlaces + x.scale();
         return newtonRaphsonLessThanOne(
                 x,
@@ -6176,9 +6178,6 @@ public class Generic_BigDecimal
                 //System.out.println("Root found in iteration " + i + " out of " + maxite);
                 maxiteReached = false;
                 break;
-
-
-
 
             }
         }
@@ -7245,12 +7244,12 @@ public class Generic_BigDecimal
                 decimalPlacePrecision + 10,
                 aRoundingMode);
         sinx = Generic_BigDecimal.roundIfNecessary(
-                sinx, 
+                sinx,
                 decimalPlacePrecision + 8,
                 RoundingMode.DOWN);
         BigDecimal cosx = cos(
                 x,
-                a_Generic_BigDecimal, 
+                a_Generic_BigDecimal,
                 decimalPlacePrecision + 10,
                 aRoundingMode);
         cosx = Generic_BigDecimal.roundIfNecessary(
@@ -7263,7 +7262,7 @@ public class Generic_BigDecimal
         BigDecimal tanx = Generic_BigDecimal.divideRoundIfNecessary(
                 sinx,
                 cosx,
-                decimalPlacePrecision, 
+                decimalPlacePrecision,
                 aRoundingMode);
         return tanx;
     }
