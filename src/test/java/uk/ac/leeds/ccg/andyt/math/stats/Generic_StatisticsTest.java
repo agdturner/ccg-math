@@ -25,6 +25,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import uk.ac.leeds.ccg.andyt.math.stats.Generic_Statistics;
 import static org.junit.Assert.*;
 
 /**
