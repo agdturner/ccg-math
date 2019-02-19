@@ -5600,7 +5600,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         } else {
             return !randomTest(rand, BigDecimal.ONE.subtract(probability),
                     BigDecimal.ZERO, BigDecimal.ONE, midTestValue,
-                    half_BigDecimal,                    two_BigDecimal,                    mc);
+                    half_BigDecimal, two_BigDecimal, mc);
         }
     }
 
@@ -6005,31 +6005,23 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
     /**
      * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
      *
-     * @param a_Generic_BigInteger
      * @param aPI
      * @param x
      * @param twoPI
-     * @param decimalPlacePrecision
-     * @param a_Generic_BigDecimal
-     * @param aRoundingMode
+     * @param dp decimalPlacePrecision
+     * @param bd
+     * @param rm RoundingMode
      * @return
      */
-    protected static BigDecimal sinAngleBetweenZeroAndPI(
-            BigDecimal x,
-            BigDecimal aPI,
-            BigDecimal twoPI,
-            Generic_BigDecimal a_Generic_BigDecimal,
-            int decimalPlacePrecision,
-            RoundingMode aRoundingMode) {
+    protected static BigDecimal sinAngleBetweenZeroAndPI(BigDecimal x,
+            BigDecimal aPI, BigDecimal twoPI, Generic_BigDecimal bd,
+            int dpp, RoundingMode rm) {
         BigDecimal aPIBy2 = Generic_BigDecimal.divideRoundIfNecessary(
-                aPI,
-                BigInteger.valueOf(2),
-                decimalPlacePrecision + 2,
-                aRoundingMode);
+                aPI, BigInteger.valueOf(2), dpp + 2, rm);
         // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
-        Generic_BigInteger aGeneric_BigInteger = a_Generic_BigDecimal.bi;
+        Generic_BigInteger aGeneric_BigInteger = bd.bi;
         if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
-            BigDecimal precision = new BigDecimal(BigInteger.ONE, decimalPlacePrecision + 4);
+            BigDecimal precision = new BigDecimal(BigInteger.ONE, dpp + 4);
             BigDecimal sinx = new BigDecimal(x.toString());
             int factor = 3;
             BigInteger factorial;
@@ -6040,11 +6032,11 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                 power = Generic_BigDecimal.power(
                         x,
                         factor,
-                        decimalPlacePrecision + 2, aRoundingMode);
+                        dpp + 2, rm);
                 BigDecimal division = Generic_BigDecimal.divideRoundIfNecessary(
                         power,
                         factorial,
-                        decimalPlacePrecision + 2, aRoundingMode);
+                        dpp + 2, rm);
                 if (division.compareTo(precision) != -1) {
                     if (alternator) {
                         alternator = false;
@@ -6059,7 +6051,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                 factor += 2;
             }
             sinx = Generic_BigDecimal.roundIfNecessary(
-                    sinx, decimalPlacePrecision, aRoundingMode);
+                    sinx, dpp, rm);
             return sinx;
         }
         return null;
