@@ -222,12 +222,11 @@ public class Generic_intTest {
 
     /**
      * For printing details of testIsEven() tests
+     *
      * @param x
      * @param result
      */
-    private void printTestIsEven(
-            int x,
-            boolean result) {
+    private void printTestIsEven(int x, boolean result) {
         System.out.println("x " + x);
         System.out.println("result " + result);
     }

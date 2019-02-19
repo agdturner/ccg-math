@@ -222,12 +222,11 @@ public class Generic_longTest {
 
     /**
      * For printing details of testIsEven() tests
+     *
      * @param x
      * @param result
      */
-    private void printTestIsEven(
-            long x,
-            boolean result) {
+    private void printTestIsEven(long x, boolean result) {
         System.out.println("x " + x);
         System.out.println("result " + result);
     }

@@ -56,8 +56,6 @@ public class Generic_BigDecimalTest {
         testReciprocal(); // Test passes
         testReciprocalWillBeInteger(); // Test passes
         testGetEulerConstant(); // Test passes
-        testMax(); // Test passes
-        testMin(); // Test passes
         testPositionSignificantDigit(); // Test passes
         testFloorSignificantDigit(); // Test passes
         testCeilingSignificantDigit(); // Test passes
@@ -301,12 +299,12 @@ public class Generic_BigDecimalTest {
 
     public void testMultiplyRoundIfNecessary_4args_1_test4() {
         System.out.println("testMultiplyRoundIfNecessary_4args_1_test4");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        BigDecimal x;
+        BigDecimal y ;
+        int decimalPlaces ;
+        RoundingMode a_RoundingMode ;
+        BigDecimal expResult ;
+        BigDecimal result ;
         x = new BigDecimal(
                 "-104364183462747328754328957134895713471589717049613406.123456"
                 + "78910111213141516171819919676766754");
@@ -1121,75 +1119,6 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of powerTestAbove method, of class Generic_BigDecimal.
-     */
-    public void testPowerTestAbove_6args_2() {
-        System.out.println("testPowerTestAbove_6args_2");
-        testPowerTestAbove_6args_2_test1();
-        testPowerTestAbove_6args_2_test2();
-    }
-
-    public void testPowerTestAbove_6args_2_test1() {
-        System.out.println("testPowerTestAbove_6args_2_test1");
-        BigDecimal compare = null;
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        boolean expResult;
-        boolean result;
-        compare = new BigDecimal("100");
-        x = new BigDecimal("9.99999999999999999999999999999999999999999999999");
-        y = 2;
-        div = 64;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = false;
-        result = Generic_BigDecimal.powerTestAbove(
-                compare, x, y, div, decimalPlaces, a_RoundingMode);
-        assertEquals(expResult, result);
-        printPowerTestAbove_6args_2(
-                compare,
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
-    }
-
-    public void testPowerTestAbove_6args_2_test2() {
-        System.out.println("testPowerTestAbove_6args_2_test2");
-        BigDecimal compare = null;
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        boolean expResult;
-        boolean result;
-        compare = new BigDecimal("100");
-        x = new BigDecimal("10.0000000000000000000000000000000000000000000001");
-        y = 2;
-        div = 64;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = true;
-        result = Generic_BigDecimal.powerTestAbove(
-                compare, x, y, div, decimalPlaces, a_RoundingMode);
-        printPowerTestAbove_6args_2(
-                compare,
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    /**
      * For printing out individual tests of testPowerTestAbove_6args_2()
      *
      * @param compare
@@ -1217,110 +1146,10 @@ public class Generic_BigDecimalTest {
         System.out.println("result " + result);
     }
 
-    /**
-     * Test of powerTestBelow method, of class Generic_BigDecimal.
-     */
-    public void testPowerTestBelow_6args_2() {
-        System.out.println("testPowerTestBelow_6args_2");
-        testPowerTestBelow_6args_2_test1();
-        testPowerTestBelow_6args_2_test2();
-    }
-
-    public void testPowerTestBelow_6args_2_test1() {
-        System.out.println("testPowerTestBelow_6args_2_test1");
-        BigDecimal compare = null;
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        boolean expResult;
-        boolean result;
-        compare = new BigDecimal("100");
-        x = new BigDecimal("9.99999999999999999999999999999999999999999999999");
-        y = 2;
-        div = 64;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = true;
-        result = Generic_BigDecimal.powerTestBelow(
-                compare, x, y, div, decimalPlaces, a_RoundingMode);
-        printPowerTestBelow_6args_2(
-                compare,
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    public void testPowerTestBelow_6args_2_test2() {
-        System.out.println("testPowerTestBelow_6args_2_test2");
-        BigDecimal compare = null;
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        boolean expResult;
-        boolean result;
-        compare = new BigDecimal("100");
-        x = new BigDecimal("10.0000000000000000000000000000000000000000000001");
-        y = 2;
-        div = 64;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = false;
-        result = Generic_BigDecimal.powerTestBelow(
-                compare, x, y, div, decimalPlaces, a_RoundingMode);
-        printPowerTestBelow_6args_2(
-                compare,
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testPowerTestBelow_6args_2()
-     *
-     * @param compare
-     * @param x
-     * @param y
-     * @param div
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printPowerTestBelow_6args_2(
-            BigDecimal compare,
-            BigDecimal x,
-            int y,
-            int div,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            boolean result) {
-        System.out.println("compare " + compare);
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("div " + div);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
     public void testPower() {
         testPowerNoRounding_3args(); // Test passes
         testPowerUnscaled1Precision1_2args(); // Test passes
         testPowerTestAbove_6args_1(); // Test passes
-        testPowerTestBelow_6args_1(); // Test passes
-        testPowerTestAbove_6args_2(); // Test passes
-        testPowerTestBelow_6args_2(); // Test passes
         testPower_5args_1(); // Test passes
         testPower_5args_2(); // Test passes
         testPowerNoRounding_2args(); // Test passes
@@ -4772,114 +4601,6 @@ public class Generic_BigDecimalTest {
 //                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
 //        assertEquals(expResult, result);
 //    }
-    /**
-     * Test of max method, of class Generic_BigDecimal.
-     */
-    public void testMax() {
-        System.out.println("testMax");
-        testMax_test1();
-        testMax_test2();
-    }
-
-    public void testMax_test1() {
-        System.out.println("testMax_test1");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("0.00000000000000000000000000000000000000000000001");
-        y = new BigDecimal("0.00000000000000000000000000000000000000000000002");
-        expResult = new BigDecimal(
-                "0.00000000000000000000000000000000000000000000002");
-        result = Generic_BigDecimal.max(x, y);
-        printTestMax(x, y, result);
-        assertEquals(expResult, result);
-    }
-
-    public void testMax_test2() {
-        System.out.println("testMax_test2");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("0.00000000000000000000000000000000000000000000001");
-        y = new BigDecimal("-0.0000000000000000000000000000000000000000000002");
-        expResult = new BigDecimal(
-                "0.00000000000000000000000000000000000000000000001");
-        result = Generic_BigDecimal.max(x, y);
-        printTestMax(x, y, result);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testGetMax()
-     *
-     * @param x
-     * @param y
-     * @param result
-     */
-    private void printTestMax(
-            BigDecimal x,
-            BigDecimal y,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of min method, of class Generic_BigDecimal.
-     */
-    public void testMin() {
-        System.out.println("testMin");
-        testMin_test1();
-    }
-
-    public void testMin_test1() {
-        System.out.println("testMin_test1");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("0.00000000000000000000000000000000000000000000001");
-        y = new BigDecimal("0.00000000000000000000000000000000000000000000002");
-        expResult = new BigDecimal(
-                "0.00000000000000000000000000000000000000000000001");
-        result = Generic_BigDecimal.min(x, y);
-        printTestMin(x, y, result);
-        assertEquals(expResult, result);
-    }
-
-    public void testMin_test2() {
-        System.out.println("testMin_test2");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("0.00000000000000000000000000000000000000000000001");
-        y = new BigDecimal("-0.0000000000000000000000000000000000000000000002");
-        expResult = new BigDecimal(
-                "-0.0000000000000000000000000000000000000000000002");
-        result = Generic_BigDecimal.min(x, y);
-        printTestMin(x, y, result);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testGetMin()
-     *
-     * @param x
-     * @param y
-     * @param result
-     */
-    private void printTestMin(
-            BigDecimal x,
-            BigDecimal y,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("result " + result);
-    }
 
     /**
      * Test of positionSignificantDigit method, of class Generic_BigDecimal.

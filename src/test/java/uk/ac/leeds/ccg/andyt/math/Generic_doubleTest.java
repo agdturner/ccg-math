@@ -50,14 +50,14 @@ public class Generic_doubleTest {
     }
     
     /**
-     * Test of isDoubleStrict method, of class Generic_double.
+     * Test of isDoubleExact method, of class Generic_double.
      */
     @Test
-    public void testIsDoubleStrict() {
-        System.out.println("isDoubleStrict");
+    public void testIsDoubleExact() {
+        System.out.println("isDoubleExact");
         String s;
         s = "0.1";
-        assertFalse(Generic_double.isDoubleStrict(s));
+        assertFalse(Generic_double.isDoubleExact(s));
     }
 
     /**
@@ -70,13 +70,13 @@ public class Generic_doubleTest {
         String expResult;
         String result;
         // Test 1
-        d = 0.0;
+        d = 0.0d;
         expResult = "0";
         result = Generic_double.toPlainString(d);
         //System.out.println(result);
         assertEquals(expResult, result);
         // Test 2
-        d = 0.1;
+        d = 0.1d;
         expResult = "0.1000000000000000055511151231257827021181583404541015625";
         result = Generic_double.toPlainString(d);
         System.out.println(result);

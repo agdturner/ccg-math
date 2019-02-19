@@ -56,8 +56,6 @@ public class Generic_BigIntegerTest {
     public void testAll() {
         testCeiling();
         testFloor();
-        testMin();
-        testMax();
         testFactorial();
         testPower_4args_1();
         testPower_4args_2();
@@ -141,96 +139,6 @@ public class Generic_BigIntegerTest {
             BigDecimal x,
             BigInteger result) {
         System.out.println("x " + x);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of max method, of class Generic_BigInteger.
-     */
-    public void testMax() {
-        System.out.println("max");
-        BigInteger x = null;
-        BigInteger y = null;
-        BigInteger expResult = null;
-        BigInteger result = null;
-        // Test 1
-        System.out.println("Test 1");
-        x = new BigInteger("1000000000000000000000000000000000000000000000001");
-        y = new BigInteger("1000000000000000000000000000000000000000000000002");
-        expResult = new BigInteger(
-                "1000000000000000000000000000000000000000000000002");
-        result = Generic_BigInteger.max(x, y);
-        printTestMax(x, y, result);
-        assertEquals(expResult, result);
-        // Test 2
-        System.out.println("Test 2");
-        x = new BigInteger("1000000000000000000000000000000000000000000000001");
-        y = new BigInteger("-100000000000000000000000000000000000000000000002");
-        expResult = new BigInteger(
-                "1000000000000000000000000000000000000000000000001");
-        result = Generic_BigInteger.max(x, y);
-        printTestMax(x, y, result);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testGetMax()
-     *
-     * @param x
-     * @param y
-     * @param result
-     */
-    private void printTestMax(
-            BigInteger x,
-            BigInteger y,
-            BigInteger result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of min method, of class Generic_BigInteger.
-     */
-    public void testMin() {
-        System.out.println("min");
-        BigInteger x = null;
-        BigInteger y = null;
-        BigInteger expResult = null;
-        BigInteger result = null;
-        // Test 1
-        System.out.println("Test 1");
-        x = new BigInteger("1000000000000000000000000000000000000000000000001");
-        y = new BigInteger("1000000000000000000000000000000000000000000000002");
-        expResult = new BigInteger(
-                "1000000000000000000000000000000000000000000000001");
-        result = Generic_BigInteger.min(x, y);
-        printTestMin(x, y, result);
-        assertEquals(expResult, result);
-        // Test 2
-        System.out.println("Test 2");
-        x = new BigInteger("1000000000000000000000000000000000000000000000001");
-        y = new BigInteger("-100000000000000000000000000000000000000000000002");
-        expResult = new BigInteger(
-                "-100000000000000000000000000000000000000000000002");
-        result = Generic_BigInteger.min(x, y);
-        printTestMin(x, y, result);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testGetMin()
-     *
-     * @param x
-     * @param y
-     * @param result
-     */
-    private void printTestMin(
-            BigInteger x,
-            BigInteger y,
-            BigInteger result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
         System.out.println("result " + result);
     }
 
