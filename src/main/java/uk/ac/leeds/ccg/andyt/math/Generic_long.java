@@ -17,30 +17,11 @@ package uk.ac.leeds.ccg.andyt.math;
 
 import java.io.Serializable;
 
-public class Generic_long
-        extends Generic_Number
-        implements Serializable {
+public class Generic_long extends Generic_Number implements Serializable {
 
-    static final long serialVersionUID = 1L;
+    public static final long INTEGER_MAX_VALUE = Integer.MAX_VALUE;
 
-    public static final long Integer_MAX_VALUE = Integer.MAX_VALUE;
-    
-    /** Creates a new instance of Generic_BigDecimal */
-    public Generic_long() {
-        //super();
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new Generic_long().test();
-    }
-
-    private void test() {
-    }
-
-    public static boolean isEven(long x){
+    public static boolean isEven(long x) {
         return x % 2 == 0;
     }
 }

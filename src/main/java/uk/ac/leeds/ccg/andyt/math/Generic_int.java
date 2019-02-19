@@ -16,29 +16,8 @@
 package uk.ac.leeds.ccg.andyt.math;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Random;
 
-public class Generic_int
-        extends Generic_Number
-        implements Serializable {
-
-    static final long serialVersionUID = 1L;
-
-    /** Creates a new instance of Generic_BigDecimal */
-    public Generic_int() {
-        //super();
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new Generic_int().test();
-    }
-
-    private void test() {
-    }
+public class Generic_int extends Generic_Number implements Serializable {
 
     public static boolean isEven(int x) {
         return x % 2 == 0;

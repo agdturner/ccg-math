@@ -56,41 +56,6 @@ public class Generic_BigInteger
     }
 
     /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new Generic_BigInteger().test();
-    }
-
-    private void test() {
-        // Place for initial testing code
-        System.out.println("getRandom");
-        BigInteger upperLimit;
-        BigInteger result;
-        BigInteger expResult = null;
-        Generic_BigInteger a_Generic_BigInteger = new Generic_BigInteger();
-        int length;
-        long seed;
-        // Test 1
-        upperLimit = new BigInteger("64");
-        result = getRandom(
-                upperLimit);
-        System.out.println(result);
-        // Test 2
-        upperLimit = new BigInteger("321432412413264");
-        result = a_Generic_BigInteger.getRandom(
-                upperLimit);
-        System.out.println(result);
-        // Test 3
-        upperLimit = new BigInteger("321432416342148743936189324781973817444121"
-                + "421414124144444444444444444444444444444444444444444444444444"
-                + "4444444444443243242222222222432222222222234222222322413264");
-        result = a_Generic_BigInteger.getRandom(
-                upperLimit);
-        System.out.println(result);
-    }
-
-    /**
      * Initialises _Factorial_TreeMap
      */
     protected void init_Factorial_TreeMap() {
@@ -114,8 +79,7 @@ public class Generic_BigInteger
      * @return If x is an integer then return a BigInteger value of x. Otherwise
      * return the next integer further away from zero;
      */
-    public static BigInteger ceiling(
-            BigDecimal x) {
+    public static BigInteger ceiling(            BigDecimal x) {
         if (x.compareTo(BigDecimal.ZERO) == -1) {
             BigInteger ceiling = ceiling(x.negate());
             return ceiling.negate();
@@ -135,43 +99,12 @@ public class Generic_BigInteger
      * @return If x is an integer then return a BigInteger value of x. Otherwise
      * return the next integer closer to zero;
      */
-    public static BigInteger floor(
-            BigDecimal x) {
+    public static BigInteger floor(            BigDecimal x) {
         if (x.compareTo(BigDecimal.ZERO) == -1) {
             BigInteger floor = floor(x.negate());
             return floor.negate();
         }
         return x.toBigInteger();
-    }
-
-    /**
-     * @param x
-     * @param y
-     * @return the larger (closer to positive infinity) of either x or y
-     */
-    public static BigInteger max(
-            BigInteger x,
-            BigInteger y) {
-        if (x.compareTo(y) == -1) {
-            return new BigInteger(y.toString());
-        } else {
-            return new BigInteger(x.toString());
-        }
-    }
-
-    /**
-     * @param x
-     * @param y
-     * @return the larger (closer to negative infinity) of either x or y
-     */
-    public static BigInteger min(
-            BigInteger x,
-            BigInteger y) {
-        if (x.compareTo(y) == -1) {
-            return new BigInteger(x.toString());
-        } else {
-            return new BigInteger(y.toString());
-        }
     }
 
     /**
@@ -356,7 +289,7 @@ public class Generic_BigInteger
             long y,
             int decimalPlaces,
             RoundingMode a_RoundingMode) {
-        if (y <= Generic_long.Integer_MAX_VALUE) {
+        if (y <= Generic_long.INTEGER_MAX_VALUE) {
             return power(
                     x,
                     (int) y,
@@ -364,7 +297,7 @@ public class Generic_BigInteger
                     a_RoundingMode);
         }
         BigDecimal result;
-        long y0 = y / Generic_long.Integer_MAX_VALUE;
+        long y0 = y / Generic_long.INTEGER_MAX_VALUE;
         BigDecimal y0Power = power(
                 x,
                 y0,

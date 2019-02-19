@@ -20,66 +20,51 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-public class Generic_double
-        extends Generic_Number
-        implements Serializable {
+public class Generic_double extends Generic_Number implements Serializable {
 
     /**
-     * Creates a new instance of Generic_BigDecimal
-     */
-    public Generic_double() {
-        //super();
-    }
-
-    /**
-     * For testing is s can be represented as a double (excluding
-     * -Double.MAX_VALUE which is reserved for representing noDataValues).
+     * For testing is s can be parsed as a double. If the result is equal to
+     * -Double.MAX_VALUE then this will return false as -Double.MAX_VALUE is
+     * reserved for representing noDataValues).
      *
      * @param s The String to be tested as to whether it can be represented as a
      * byte excluding Double.MIN_VALUE which is reserved for representing
      * noDataValues).
-     * @return true iff s can be represented as a Byte greater than
-     * Double.MIN_VALUE which is reserved for representing noDataValues).
+     * @return true iff s can be represented as a double greater than
+     * -Double.MAX_VALUE which is reserved for representing noDataValues).
      */
     public static boolean isDouble(String s) {
         try {
             double d = Double.parseDouble(s);
-            if (d == -Double.MAX_VALUE) {
-                return false;
-            }
-            return true;
+            return d != -Double.MAX_VALUE;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
     /**
-     * For testing if s can be represented as a double (excluding
-     * -Double.MAX_VALUE which is reserved for representing noDataValues). This
-     * strictly allows no rounding to the nearest double. So 0.1 cannot for
-     * instance be represented as a double as the nearest double greater than or
-     * equal to 0.1 is
+     * For testing if s can be parsed as a double exactly. If the result is equal
+     * to -Double.MAX_VALUE then this will return false as -Double.MAX_VALUE is
+     * reserved for representing noDataValues). This allows no rounding to the
+     * nearest double. e.g. 0.1 cannot for instance be represented as a double
+     * as the nearest double greater than or equal to 0.1 is
      * 0.10000000000000001942890293094023945741355419158935546875 and the
      * nearest double less than or equal to 0.1 is
      * 0.09999999999999999167332731531132594682276248931884765625
      *
-     *
      * @param s The String to be tested as to whether it can be represented as a
-     * byte excluding Double.MIN_VALUE which is reserved for representing
+     * double excluding -Double.MAX_VALUE which is reserved for representing
      * noDataValues).
-     * @return true iff s can be represented as a Byte greater than
-     * Double.MIN_VALUE which is reserved for representing noDataValues).
+     * @return true iff s can be represented as a double greater than
+     * -Double.MAX_VALUE which is reserved for representing noDataValues).
      */
-    public static boolean isDoubleStrict(String s) {
+    public static boolean isDoubleExact(String s) {
         try {
             double d = Double.parseDouble(s);
             BigDecimal bds = new BigDecimal(s);
             BigDecimal bdd = new BigDecimal(d);
             if (bds.compareTo(bdd) == 0) {
-                if (d == -Double.MAX_VALUE) {
-                    return false;
-                }
-                return true;
+                return d != -Double.MAX_VALUE;
             } else {
                 return false;
             }
@@ -89,18 +74,16 @@ public class Generic_double
     }
 
     /**
-     * The count is written to System.out after each 100000000
-     *
      * @param l The lower value in the range.
      * @param u The upper value in the range.
-     * @return The total number of doubles represented in (l, u)
+     * @return The total number of doubles represented in the range (l, u)
      */
     public static BigInteger getNumberOfDoublesInRange(double l, double u) {
         BigInteger r = BigInteger.ZERO;
         //BigInteger divisor = new BigInteger("100000000");
-        double v = l;
-        while (v < u) {
-            v = Math.nextUp(v);
+        double d = l;
+        while (d < u) {
+            d = Math.nextUp(d);
             r = r.add(BigInteger.ONE);
             //if (r % 100000000 == 0){
 //            if (r.remainder(divisor).compareTo(BigInteger.ZERO) == 0) {
@@ -112,13 +95,13 @@ public class Generic_double
     }
 
     /**
-     *
-     * @param v
-     * @return
+     * 
+     * @param d Number to be rounded up to the nearest int.
+     * @return d rounded up to the nearest int
      */
-    public static int roundUpToNearestInt(double v) {
+    public static int roundUpToNearestInt(double d) {
         int r = Generic_BigDecimal.roundStrippingTrailingZeros(
-                new BigDecimal(v), 0, RoundingMode.UP).intValue();
+                new BigDecimal(d), 0, RoundingMode.UP).intValue();
         return r;
     }
 
