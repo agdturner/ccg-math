@@ -54,21 +54,18 @@ public class Math_doubleTest {
      * Test of isDouble method, of class Math_double.
      */
     @Test
-    public void testIsDouble_3args() {
-        System.out.println("isDouble(String,int,RoundingMode)");
+    public void testIsDouble_2args() {
+        System.out.println("isDouble(String,int)");
         String s;
         int dp;
-        RoundingMode rm;
         // Test 1
         s = "0.1";
         dp = 3;
-        rm = RoundingMode.HALF_UP;
-        assertTrue(Math_double.isDouble(s,dp, rm));
+        assertTrue(Math_double.isDouble(s,dp));
         // Test 2
         s = "0.1";
         dp = 17;
-        rm = RoundingMode.HALF_UP;
-        assertFalse(Math_double.isDouble(s,dp, rm));
+        assertFalse(Math_double.isDouble(s,dp));
     }
     /**
      * Test of isDoubleExact method, of class Math_double.

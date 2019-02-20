@@ -54,21 +54,18 @@ public class Math_floatTest {
      * Test of isFloat method, of class Math_float.
      */
     @Test
-    public void testIsFloat_3args() {
-        System.out.println("isFloat(String,int,RoundingMode)");
+    public void testIsFloat_2args() {
+        System.out.println("isFloat(String,int)");
         String s;
         int dp;
-        RoundingMode rm;
         // Test 1
         s = "0.1";
         dp = 3;
-        rm = RoundingMode.HALF_UP;
-        assertTrue(Math_float.isFloat(s,dp, rm));
+        assertTrue(Math_float.isFloat(s,dp));
         // Test 2
         s = "0.1";
         dp = 9;
-        rm = RoundingMode.HALF_UP;
-        assertFalse(Math_float.isFloat(s,dp, rm));
+        assertFalse(Math_float.isFloat(s,dp));
     }
     
     /**
