@@ -20,6 +20,26 @@ public class Math_long extends Math_Number  {
     public static final long INTEGER_MAX_VALUE = Integer.MAX_VALUE;
 
     /**
+     * For testing if s can be parsed as a int. If the result is equal to
+     * Long.MIN_VALUE then this will return false as Long.MIN_VALUE is
+     * reserved for representing noDataValues.
+     *
+     * @param s The String to be tested as to whether it can be represented as a
+     * byte (excluding Long.MIN_VALUE which is reserved for representing
+     * noDataValues).
+     * @return true iff s can be represented as a double (excluding
+     * Long.MIN_VALUE which is reserved for representing noDataValues).
+     */
+    public static boolean isLong(String s) {
+        try {
+            long x = Long.parseLong(s);
+            return x != Long.MIN_VALUE;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
+    /**
      * 
      * @param x The number to test as to whether it is even.
      * @return True iff x is even. 
