@@ -25,7 +25,7 @@ public class Math_int extends Math_Number {
      * @param s The String to be tested as to whether it can be represented as a
      * byte (excluding Integer.MIN_VALUE which is reserved for representing
      * noDataValues).
-     * @return true iff s can be represented as a double (excluding
+     * @return true iff s can be represented as a int (excluding
      * Integer.MIN_VALUE which is reserved for representing noDataValues).
      */
     public static boolean isInt(String s) {

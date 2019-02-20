@@ -506,4 +506,20 @@ public class Math_BigInteger extends Math_Number {
         }
         return nFactorial;
     }
+    
+    /**
+     * For testing if s can be parsed as a BigInteger.
+     *
+     * @param s The String to be tested as to whether it can be represented as a
+     * BigInteger.
+     * @return true iff s can be represented as a BigInteger.
+     */
+    public static boolean isBigInteger(String s) {
+        try {
+            new BigInteger(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

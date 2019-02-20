@@ -6005,4 +6005,20 @@ public class Math_BigDecimal extends Math_Number {
         }
         return Math_BigDecimal.divideRoundIfNecessary(sinx, cosx, dpp, rm);
     }
+    
+    /**
+     * For testing if s can be parsed as a BigDecimal.
+     *
+     * @param s The String to be tested as to whether it can be represented as a
+     * BigDecimal.
+     * @return true iff s can be represented as a BigDecimal.
+     */
+    public static boolean isBigDecimal(String s) {
+        try {
+            new BigDecimal(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

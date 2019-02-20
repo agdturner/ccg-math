@@ -22,20 +22,16 @@ import java.math.RoundingMode;
 public class Math_float extends Math_Number {
 
     /**
-     * For testing if s can be parsed as a float. If the result is equal to
-     * -Float.MAX_VALUE then this will return false as -Float.MAX_VALUE is
-     * reserved for representing noDataValues.
+     * For testing if s can be parsed as a float.
      *
      * @param s The String to be tested as to whether it can be represented as a
-     * float excluding -Float.MAX_VALUE which is reserved for representing
-     * noDataValues).
-     * @return true iff s can be represented as a Float greater than
-     * -Float.MAX_VALUE which is reserved for representing noDataValues.
+     * float.
+     * @return true iff s can be represented as a float.
      */
     public static boolean isFloat(String s) {
         try {
-            float x = Float.parseFloat(s);
-            return x != -Float.MAX_VALUE;
+            Float.parseFloat(s);
+            return true;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -43,69 +39,44 @@ public class Math_float extends Math_Number {
 
     /**
      * For testing if s can be parsed as a float and is precise to {@code dp}
-     * decimal places using {@code rm} RoundingMode if necessary to round the
-     * parsed value.If the result is equal to -Float.MAX_VALUE then this will
-     * return false as -Float.MAX_VALUE is reserved for representing
-     * noDataValues.
+     * decimal places.
      *
      * @param s The String to be tested as to whether it can be represented as a
-     * float excluding -Float.MAX_VALUE which is reserved for representing
-     * noDataValues).
+     * float.
      * @param dp The number of decimal places the result must be accurate to.
-     * @param rm The RoundingMode used to round.
-     * @return true iff s can be represented as a Float greater than
-     * -Float.MAX_VALUE which is reserved for representing noDataValues.
+     * @return true iff s can be represented as a float.
      */
-    public static boolean isFloat(String s, int dp, RoundingMode rm) {
+    public static boolean isFloat(String s, int dp) {
         try {
             float x = Float.parseFloat(s);
             BigDecimal bds = new BigDecimal(s);
             BigDecimal bdd = new BigDecimal(x);
+            RoundingMode rm = RoundingMode.HALF_UP;
             BigDecimal bdsr = Math_BigDecimal.roundIfNecessary(bds,dp,rm);
             BigDecimal bddr = Math_BigDecimal.roundIfNecessary(bdd,dp,rm);
-//            System.out.println(bdsr.toPlainString());
-//            System.out.println(bddr.toPlainString());
-            if (bdsr.compareTo(bddr) == 0) {
-                return x != -Float.MAX_VALUE;
-            } else {
-//                System.out.println(bdd.toPlainString());
-//                System.out.println(new BigDecimal(Math.nextDown(f)));
-//                System.out.println(new BigDecimal(Math.nextUp(f)));
-                return false;
-            }
+            return bdsr.compareTo(bddr) == 0;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
     /**
-     * For testing if s can be parsed as a float exactly. If the result is equal
-     * to -Float.MAX_VALUE then this will return false as -Float.MAX_VALUE is
-     * reserved for representing noDataValues. This allows no rounding to the
+     * For testing if s can be parsed as a float exactly. This allows no rounding to the
      * nearest float. e.g. 0.1 cannot for instance be represented as a float as
      * the nearest float greater than or equal to 0.1 is
      * 0.100000001490116119384765625 and the nearest float less than or equal to
      * 0.1 is 0.0999999940395355224609375
      *
      * @param s The String to be tested as to whether it can be represented as a
-     * float excluding -Float.MAX_VALUE which is reserved for representing
-     * noDataValues).
-     * @return true iff s can be represented as a float greater than
-     * -Float.MAX_VALUE which is reserved for representing noDataValue).
+     * float.
+     * @return true iff s can be represented as a float.
      */
     public static boolean isFloatExact(String s) {
         try {
             float x = Float.parseFloat(s);
             BigDecimal bds = new BigDecimal(s);
             BigDecimal bdd = new BigDecimal(x);
-            if (bds.compareTo(bdd) == 0) {
-                return x != -Float.MAX_VALUE;
-            } else {
-//                System.out.println(bdd.toPlainString());
-//                System.out.println(new BigDecimal(Math.nextDown(f)));
-//                System.out.println(new BigDecimal(Math.nextUp(f)));
-                return false;
-            }
+            return bds.compareTo(bdd) == 0;
         } catch (NumberFormatException e) {
             return false;
         }

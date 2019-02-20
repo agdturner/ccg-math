@@ -27,7 +27,7 @@ public class Math_long extends Math_Number  {
      * @param s The String to be tested as to whether it can be represented as a
      * byte (excluding Long.MIN_VALUE which is reserved for representing
      * noDataValues).
-     * @return true iff s can be represented as a double (excluding
+     * @return true iff s can be represented as a long (excluding
      * Long.MIN_VALUE which is reserved for representing noDataValues).
      */
     public static boolean isLong(String s) {
