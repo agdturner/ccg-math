@@ -15,6 +15,7 @@
  */
 package uk.ac.leeds.ccg.andyt.math;
 
+import java.math.BigInteger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,6 +48,27 @@ public class Math_longTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of isByte method, of class Math_long.
+     */
+    @Test
+    public void testIsLong() {
+        System.out.println("isLong");
+        String s;
+        // Test 1
+        long sh = Long.MIN_VALUE;
+        s = Long.toString(sh);
+        assertFalse(Math_long.isLong(s));
+        // Test 2
+        sh += 1;
+        s = Long.toString(sh);
+        assertTrue(Math_long.isLong(s));
+        // Test 3
+        BigInteger bi = Math_BigInteger.LONG_MAX_VALUE.add(BigInteger.ONE);
+        s = bi.toString();
+        assertFalse(Math_long.isLong(s));
+    }
+    
     /**
      * Test of isEven method, of class Math_long.
      */
