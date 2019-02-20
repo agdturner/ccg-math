@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
+import uk.ac.leeds.ccg.andyt.generic.io.Generic_Files;
 import uk.ac.leeds.ccg.andyt.generic.io.Generic_IO;
 
 /**
@@ -34,18 +35,8 @@ import uk.ac.leeds.ccg.andyt.generic.io.Generic_IO;
  *
  * @author geoagdt
  */
-public class Generic_PrimeNumbers {
+public class Math_PrimeNumbers {
 
-// This uses a BitSet instead of a boolean array to see
-// if this saves any memory.  It enables me to test approx.
-// 8x as many numbers.  109905151 is no longer my max.
-// The highest number I've reached, so far, is around 879,400,000.
-//
-// After giving more memory to the app, I can check for primes up
-// to around 2 billion.  I've not determined the upper limit, but
-// I suspect it is the java max integer size.  It finds almost 
-// 100 million primes in under a minute.
-// 2^31 = 2,147,483,648 
     /**
      * @param args
      * @throws IOException
@@ -55,45 +46,42 @@ public class Generic_PrimeNumbers {
         /**
          * Prime numbers are incredibly useful for IDs when you want to be able
          * to trace something when IDs are combined. So for example for
-         * inheritance with two parents each individual can be assigned their
-         * own unique prime number as an ID. They can then also have an
-         * inherited ID which is the multiplication of their parents inherited
-         * IDs and their parents unique prime number ID. It may then be possible
-         * to see how related any two children are. After many generations it
-         * could be that there are many common ancestors. Other than for
-         * assessing the multiple inheritance I can't think of a good use of
-         * this. Maybe Godel numbering will help...
-         * https://en.wikipedia.org/wiki/G%C3%B6del_numbering Let's reserve the
-         * first 1000 prime numbers in case we later think of a special use for
-         * them. The 1st prime is 2, the 1000th prime is 7933. Let's reserve the
-         * next 999000 prime numbers for roles. The 1001st prime is 7937, the
-         * 100000th prime is 1299743. What are roles? Well, I'm thinking things
-         * like "author", "data contributor", "reviewer". That might seem like a
-         * lot of roles, but we might want to get fine grained with them, there
-         * might be lots of different types of author contributions and indeed
-         * lots of different types of reviewer. Let's reserve the next 9900000
-         * prime numbers for legal entity like organisations. The 100001st prime
-         * is 1299763, the 10000000th prime is 179424697. This is not for all
-         * organisations. Other types of organisation, can be allowed to get
-         * their own individual IDs along with any individuals and also research
-         * outputs, programs etc... The 10000001st prime number is 179424719,
-         * there are infinitely many prime numbers. The 14630841th prime is
-         * 268435399.
+         * inheritance each new individual can be assigned their own unique
+         * prime number as an ID. They can then also have an inherited ID which
+         * is the multiplication of their parents inherited IDs and their
+         * parents unique prime number ID. After a number of generating it may
+         * then be possible to quickly see how related any two children are
+         * based on the factorisation of these IDs. There may be a completely
+         * different and better way to do this!
          *
-         * Let us assume that all individual people are either working
-         * independently or for a legal entity. Let us say that a number of
-         * these work together to produce a research output which is given an
-         * ID. That research output can also be given another number which is
-         * the product of all the inputs that have gone into it.It can also be
-         * given For a research organisation that is not a legal entity output
-         * The composition of a research group will change over time. It will
-         * comprise of individuals fulfilling roles
+         * Consider the application of Godel numbering to keeping track of
+         * research publications and who working in what organisations has
+         * played a part in the evolution of science:
+         * https://en.wikipedia.org/wiki/G%C3%B6del_numbering
          *
-         * At any one time, and individuals may have a role on a project
+         * Let's reserve the first 1000 prime numbers in case we later think of
+         * a special use for them. The 1st prime is 2, the 1000th prime is 7933.
+         * Let's reserve the next 999000 prime numbers for roles. The 1001st
+         * prime is 7937, the 100000th prime is 1299743. What are roles? Well,
+         * I'm thinking things like "author", "data contributor", "reviewer".
+         * That might seem like a lot of roles, but we might want to get fine
+         * grained with them, there might be lots of different types of author
+         * contributions and indeed lots of different types of reviewer. Let's
+         * reserve the next 9900000 prime numbers for organisation IDs. The
+         * 100001st prime is 1299763, the 10000000th prime is 179424697. Let us
+         * assume that all individual people are either working independently or
+         * for an organisation. Let us say that a number of these work together
+         * to produce a research output which is given an ID. That research
+         * output can also be given another number which is the product of all
+         * the inputs that have gone into it. That number is kind of like the
+         * Godel number of the work. For any two works, it should be possible to
+         * find out if they have something in common by factorising the Godel
+         * numbers. The more factors they share, the more common they are. How
+         * common different factor are can be summarised and analysed.
          *
          */
         File dir;
-        dir = new File("C:/Temp/Generic");
+        dir = Generic_Files.getDefaultDataDir();
         dir.mkdirs();
 
         int maxSize;
@@ -112,6 +100,7 @@ public class Generic_PrimeNumbers {
         HashMap<Integer, Integer> PrimeIndexMap;
         int maxPrime;
         String name;
+        int million = 1000000;
 
         if (!fBitSet.exists()) {
             PrimeList = new ArrayList<>();
@@ -155,10 +144,10 @@ public class Generic_PrimeNumbers {
                     PrimeIndexMap.put(k, i);
                     i++;
                     primeCount += 1;
-                    if (primeCount % 1000000 == 0) {
-                        System.out.format("the " + ((primeCount / 1000000 < 100) ? " " : "")
-                                + ((primeCount / 1000000 < 10) ? " " : "")
-                                + primeCount / 1000000 + " millionth prime is: %,11d%n", maxPrime);
+                    if (primeCount % million == 0) {
+                        System.out.format("the " + ((primeCount / million < 100) ? " " : "")
+                                + ((primeCount / million < 10) ? " " : "")
+                                + primeCount / million + " millionth prime is: %,11d%n", maxPrime);
                     }
                 }
             }
@@ -173,10 +162,12 @@ public class Generic_PrimeNumbers {
             System.out.format("max factor         : %,11d%n \n", maxSearch);
 
             long stopTime = System.currentTimeMillis();
-            System.out.println("That took " + (stopTime - startTime) / 1000.0 + " seconds");
+            System.out.println("That took " + (stopTime - startTime)
+                    / 1000.0 + " seconds");
         } else {
             PrimeList = (ArrayList<Integer>) Generic_IO.readObject(fPrimeList);
-            PrimeIndexMap = (HashMap<Integer, Integer>) Generic_IO.readObject(fPrimeIndexMap);
+            PrimeIndexMap = (HashMap<Integer, Integer>) Generic_IO.readObject(
+                    fPrimeIndexMap);
             numbList = (BitSet) Generic_IO.readObject(fBitSet);
             maxPrime = PrimeList.get(PrimeList.size() - 1);
         }
@@ -185,9 +176,12 @@ public class Generic_PrimeNumbers {
             while (name.compareTo("-1") != 0) {
                 int n = Integer.parseInt(name);
                 if (n < numbList.cardinality()) {
-                    System.out.println("The " + n + "th prime is " + PrimeList.get(n));
+                    System.out.println("The " + n + "th prime is "
+                            + PrimeList.get(n));
                 } else {
-                    System.out.println("Sorry, not calculated the " + n + "th prime yet, only calculated the first " + (numbList.cardinality() - 1) + " primes!");
+                    System.out.println("Sorry, not calculated the " + n + "th "
+                            + "prime yet, only calculated the first "
+                            + (numbList.cardinality() - 1) + " primes!");
                 }
                 name = getTheNthPrime();
             }

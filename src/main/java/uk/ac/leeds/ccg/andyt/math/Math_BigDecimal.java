@@ -15,8 +15,6 @@
  */
 package uk.ac.leeds.ccg.andyt.math;
 
-//import java.lang.Math;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -38,13 +36,13 @@ import java.util.Random;
  * The aim is for accuracy within a fixed number of decimal places. All methods
  * need to be fully tested to ensure compliance...
  */
-public class Generic_BigDecimal extends Generic_Number implements Serializable {
+public class Math_BigDecimal extends Math_Number {
 
     /**
-     * A Generic_BigInteger is often wanted (such as in Taylor Series
-     * calculations).
+     * A Math_BigInteger is often wanted (such as in Taylor Series
+ calculations).
      */
-    public Generic_BigInteger bi;
+    public Math_BigInteger bi;
     /**
      * For storing the Euler–Mascheroni constant correct to a fixed decimal
      * place precision
@@ -79,7 +77,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * Creates a new instance initialising {@link #bi} with 1000 entries and
      * initialising {@link #pi} to 1000 decimal places.
      */
-    public Generic_BigDecimal() {
+    public Math_BigDecimal() {
         this(1000);
     }
 
@@ -88,9 +86,9 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      *
      * @param bd The Generic_BigDecimal used to initialise this.
      */
-    public Generic_BigDecimal(Generic_BigDecimal bd) {
+    public Math_BigDecimal(Math_BigDecimal bd) {
         this.e = new BigDecimal(bd.e.toString());
-        this.bi = new Generic_BigInteger(bd.bi);
+        this.bi = new Math_BigInteger(bd.bi);
         this.pi = new BigDecimal(bd.pi.toString());
         this.rm = bd.rm;
     }
@@ -101,7 +99,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      *
      * @param n
      */
-    public Generic_BigDecimal(int n) {
+    public Math_BigDecimal(int n) {
         rm = DEFAULT_ROUNDING_MODE;
         initBIF(n);
         initE(n);
@@ -130,7 +128,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * @param n
      */
     private void initBIF(int n) {
-        bi = new Generic_BigInteger();
+        bi = new Math_BigInteger();
         bi.factorial(n);
     }
 
@@ -579,7 +577,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         Iterator<BigDecimal> ite = list.iterator();
         while (ite.hasNext()) {
             BigDecimal v = ite.next();
-            BigDecimal dividedValue = Generic_BigDecimal.divideRoundIfNecessary(
+            BigDecimal dividedValue = Math_BigDecimal.divideRoundIfNecessary(
                     v, divisor, dp, rm);
             r.add(dividedValue);
         }
@@ -1750,7 +1748,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         }
 ////        // Check a_Generic_BigDecimal
 ////        if (a_Generic_BigDecimal == null) {
-////            a_Generic_BigDecimal = new Generic_BigDecimal();
+////            a_Generic_BigDecimal = new Math_BigDecimal();
 ////        }
 //        BigDecimal result;
 //        // Case where y is negative
@@ -1776,8 +1774,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //
 //
 ////        //Integer part
-////        BigDecimal partresult = Generic_BigInteger.power(
-////                Generic_BigInteger.Two,
+////        BigDecimal partresult = Math_BigInteger.power(
+////                Math_BigInteger.TWO,
 ////                ylog2x.intValue(),
 ////                decimalPlaces,
 ////                a_RoundingMode);
@@ -1961,7 +1959,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         }
 ////        // Check a_Generic_BigDecimal
 ////        if (a_Generic_BigDecimal == null) {
-////            a_Generic_BigDecimal = new Generic_BigDecimal();
+////            a_Generic_BigDecimal = new Math_BigDecimal();
 ////        }
 //        BigDecimal result;
 //        // Case where y is negative
@@ -1987,8 +1985,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //
 //
 ////        //Integer part
-////        BigDecimal partresult = Generic_BigInteger.power(
-////                Generic_BigInteger.Two,
+////        BigDecimal partresult = Math_BigInteger.power(
+////                Math_BigInteger.TWO,
 ////                ylog2x.intValue(),
 ////                decimalPlaces,
 ////                a_RoundingMode);
@@ -2135,7 +2133,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //                    decimalPlaces,
 //                    a_RoundingMode);
 //        }
-//        BigInteger[] party = y.divideAndRemainder(Generic_BigInteger.Hundred);
+//        BigInteger[] party = y.divideAndRemainder(Math_BigInteger.ONE_HUNDRED);
 //        BigDecimal result = power4(
 //                x,
 //                party[0],
@@ -2186,7 +2184,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //                    decimalPlaces,
 //                    a_RoundingMode);
 //        }
-//        BigInteger[] party = y.divideAndRemainder(Generic_BigInteger.Hundred);
+//        BigInteger[] party = y.divideAndRemainder(Math_BigInteger.ONE_HUNDRED);
 //        BigDecimal result = power3(
 //                x,
 //                party[0],
@@ -2238,7 +2236,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //                    a_RoundingMode);
 //        }
 //        BigInteger[] party = y.divideAndRemainder(
-//                Generic_BigInteger.Hundred);
+//                Math_BigInteger.ONE_HUNDRED);
 //        BigDecimal result = power2(
 //                x,
 //                party[0],
@@ -2369,7 +2367,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //                    div,
 //                    decimalPlaces,
 //                    a_RoundingMode);
-//            if (Generic_int.isEven(y)) {
+//            if (Math_int.isEven(y)) {
 //                return result.negate();
 //            } else {
 //                return result;
@@ -2521,14 +2519,14 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             return roundIfNecessary(x, dp, rm);
         }
         // y = 2
-        if (y.compareTo(Generic_BigInteger.Two) == 0) {
+        if (y.compareTo(Math_BigInteger.TWO) == 0) {
             BigDecimal result = multiplyRoundIfNecessary(x, x, dp, rm);
             return result;
         }
         // x < 0
         if (x.compareTo(BigDecimal.ZERO) == -1) {
             BigDecimal result = power(x.negate(), y, div, dp, rm);
-            if (Generic_BigInteger.isEven(y)) {
+            if (Math_BigInteger.isEven(y)) {
                 return result.negate();
                 //return round(result.negate(), decimalPlaces, a_RoundingMode);
             } else {
@@ -2578,14 +2576,14 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             return new BigDecimal(x.toString());
         }
         // y = 2
-        if (y.compareTo(Generic_BigInteger.Two) == 0) {
+        if (y.compareTo(Math_BigInteger.TWO) == 0) {
             BigDecimal result = x.multiply(x);
             return result;
         }
         // x < 0
         if (x.compareTo(BigDecimal.ZERO) == -1) {
             BigDecimal r = powerNoRounding(x.negate(), y, div);
-            if (Generic_BigInteger.isEven(y)) {
+            if (Math_BigInteger.isEven(y)) {
                 return r.negate();
                 //return round(result.negate(), decimalPlaces, a_RoundingMode);
             } else {
@@ -2633,7 +2631,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         BigInteger[] yDivideAndRemainder;
         if (y1.compareTo(div_BigInteger) != 1) {
             while (y1.compareTo(div_BigInteger) != 1) {
-                div_BigInteger = div_BigInteger.divide(Generic_BigInteger.Two);
+                div_BigInteger = div_BigInteger.divide(Math_BigInteger.TWO);
                 div = div / 2;
             }
         }
@@ -2705,7 +2703,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         BigInteger[] yDivideAndRemainder;
         if (y1.compareTo(div_BigInteger) != 1) {
             while (y1.compareTo(div_BigInteger) != 1) {
-                div_BigInteger = div_BigInteger.divide(Generic_BigInteger.Two);
+                div_BigInteger = div_BigInteger.divide(Math_BigInteger.TWO);
                 div = div / 2;
             }
         }
@@ -3136,8 +3134,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             return BigDecimal.ONE;
         }
         if (x.compareTo(BigDecimal.ONE) == -1) {
-            BigDecimal oneOverX = Generic_BigDecimal.reciprocal(x, dp, rm);
-            BigDecimal logOneOverX = Generic_BigDecimal.log(base_int, oneOverX,
+            BigDecimal oneOverX = Math_BigDecimal.reciprocal(x, dp, rm);
+            BigDecimal logOneOverX = Math_BigDecimal.log(base_int, oneOverX,
                     dp, rm);
             return logOneOverX.negate();
         }
@@ -3174,9 +3172,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                 break;
             }
             if (maxite == ite) {
-                System.out.println(
-                        "Warning: maxite reached in "
-                        + Generic_BigDecimal.class.getName()
+                System.out.println("Warning: maxite reached in "
+                        + Math_BigDecimal.class.getName()
                         + ".log(int,BigDecimal,int,RoundingMode) "
                         + " log("
                         + base_int + ", "
@@ -3257,9 +3254,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                 break;
             }
             if (maxite.compareTo(ite) == 0) {
-                System.out.println(
-                        "Warning: maxite reached in "
-                        + Generic_BigDecimal.class.getName()
+                System.out.println("Warning: maxite reached in "
+                        + Math_BigDecimal.class.getName()
                         + ".log(BigDecimal,BigDecimal,int,RoundingMode) "
                         + " log("
                         + base + ", "
@@ -3614,7 +3610,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 ////        } else {
 ////            bi.factorial(maxite);
 ////        }
-////        BigDecimal Three = new BigDecimal("3");
+////        BigDecimal THREE = new BigDecimal("3");
 ////        BigDecimal Twelve = new BigDecimal("12");
 ////        BigInteger a = BigInteger.valueOf(13591409);
 ////        BigInteger b = BigInteger.valueOf(54514013);
@@ -3646,7 +3642,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 ////            threekfactorial = bi.factorial(k_int * 3);
 ////            kfactorialcubed = kfactorial.pow(3);
 ////            d = a.add(b.multiply(k_BigInteger));
-////            h = (Three.multiply(k_BigDecimal)).add(onePointFive);
+////            h = (THREE.multiply(k_BigDecimal)).add(onePointFive);
 ////            cToh = power(
 ////                    c,
 ////                    h,
@@ -3778,7 +3774,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         for (int i = 2; i < maxite; i++) {
             factorialKey = i;
             factorial = new BigDecimal(
-                    bi._Factorial_TreeMap.get(factorialKey));
+                    bi.factorials.get(factorialKey));
             oneOverFactorial = BigDecimal.ONE.divide(factorial, safeDecimalPlaces, getRoundingMode());
             e = e.add(oneOverFactorial);
             if (oneOverFactorial.compareTo(tollerance) == -1) {
@@ -3793,14 +3789,14 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * e^y = 1 + y/1! + y^2/2! + y^3/3! +...
      *
      * @param y
-     * @param bd may be null. Passing a Generic_BigDecimal in can save
-     * computation. The Euler constant is used in most invocations.
+     * @param bd may be null. Passing a Math_BigDecimal in can save
+ computation. The Euler constant is used in most invocations.
      * @param dp decimalPlaces
      * @param rm RoundingMode
      * @return e^y where e is the Euler constant. The result is returned correct
      * to decimalPlaces decimal place precision.
      */
-    public static BigDecimal exp(BigDecimal y, Generic_BigDecimal bd, int dp,
+    public static BigDecimal exp(BigDecimal y, Math_BigDecimal bd, int dp,
             RoundingMode rm) {
         BigDecimal r;
         // Deal with special cases
@@ -3809,7 +3805,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         }
         // Check a_Generic_BigDecimal
         if (bd == null) {
-            bd = new Generic_BigDecimal();
+            bd = new Math_BigDecimal();
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
             return bd.getEulerConstantToAFixedDecimalPlacePrecision(dp, rm);
@@ -3864,7 +3860,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //     */
 //    private static BigDecimal expLessThanOne(
 //            BigDecimal y,
-//            Generic_BigDecimal a_Generic_BigDecimal,
+//            Math_BigDecimal a_Generic_BigDecimal,
 //            int decimalPlaces,
 //            RoundingMode a_RoundingMode) {
 //        BigDecimal result;
@@ -3929,7 +3925,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * @return the natural logarithm of x accurate to decimalPlaces number of
      * decimal places and with result rounded using a_RoundingMode if necessary.
      */
-    public static BigDecimal ln(BigDecimal x, Generic_BigDecimal bd, int dp,
+    public static BigDecimal ln(BigDecimal x, Math_BigDecimal bd, int dp,
             RoundingMode rm) {
         // Check that x > 0.
         if (x.compareTo(BigDecimal.ZERO) != 1) {
@@ -3960,7 +3956,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * decimal place precision using Newton's algorithm.
      * http://stackoverflow.com/questions/739532/logarithm-of-a-bigdecimal
      */
-    private static BigDecimal lnNewton(BigDecimal x, Generic_BigDecimal a,
+    private static BigDecimal lnNewton(BigDecimal x, Math_BigDecimal a,
             int scale, RoundingMode rm) {
         BigDecimal r = new BigDecimal(x.toString());
         int sp1 = scale + 1;
@@ -4130,7 +4126,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             if (x.compareTo(BigDecimal.ZERO) != 1) {
                 // Complex roots are not handled!
                 throw new IllegalArgumentException(
-                        "x <= 0 in " + Generic_BigDecimal.class
+                        "x <= 0 in " + Math_BigDecimal.class
                         + ".root(BigDecimal,BigInteger,int,RoundingMode)");
             }
             // x = 1
@@ -4165,7 +4161,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                             numeratorUnrooted, root,
                             dp + xscale + rootLength, // Can we cope with less or do we need more?
                             rm);
-                    BigDecimal r = Generic_BigDecimal.divideRoundIfNecessary(
+                    BigDecimal r = Math_BigDecimal.divideRoundIfNecessary(
                             numerator, denominator, dp, rm);
                     return r;
                 } else {
@@ -4181,9 +4177,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             boolean powerTest = powerTestAbove(x, comparator, root, 256, dp,
                     rm);
             if (powerTest) {
-                System.out.println(
-                        "No root in the precision returning BigDecimal.ONE"
-                        + "in " + Generic_BigDecimal.class
+                System.out.println("No root in the precision returning BigDecimal.ONE"
+                        + "in " + Math_BigDecimal.class
                         + ".root(BigDecimal,BigInteger,int,RoundingMode)");
 
                 return BigDecimal.ONE;
@@ -4221,7 +4216,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             if (x.compareTo(BigDecimal.ZERO) != 1) {
                 // Complex roots are not handled!
                 throw new IllegalArgumentException(
-                        "x <= 0 in " + Generic_BigDecimal.class
+                        "x <= 0 in " + Math_BigDecimal.class
                         + ".root(BigDecimal,BigInteger,int,RoundingMode)");
             }
             // x = 1
@@ -4247,7 +4242,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                     BigDecimal denominator = rootNoRounding(denominatorUnrooted, root);
                     int denominatorScale = denominator.scale();
                     BigDecimal numerator = rootNoRounding(numeratorUnrooted, root);
-                    BigDecimal r = Generic_BigDecimal.divideNoRounding(
+                    BigDecimal r = Math_BigDecimal.divideNoRounding(
                             numerator, denominator);
                     return r;
                 } else {
@@ -4318,7 +4313,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             resultipowroot = power(r, root, 64, precision, rm);
             resultipowrootsubtract1 = power(r, rootsubtract1, 64, precision, rm);
             divisor = resultipowrootsubtract1.multiply(root_BigDecimal);
-            r = r.subtract(Generic_BigDecimal.divideNoCaseCheckRoundIfNecessary(
+            r = r.subtract(Math_BigDecimal.divideNoCaseCheckRoundIfNecessary(
                     resultipowroot.subtract(x), divisor, divprecision, rm));
 //            result = result.subtract(
 //                    resultipowroot.subtract(x).divide(divisor, a_MathContext));
@@ -4335,7 +4330,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //        if (maxiteReached) {
 //            System.out.println(
 //                    "maxite reached without finding rootRoundIfNecessary in "
-//                    + Generic_BigDecimal.class.getName() + ".newtonRaphson(...)"
+//                    + Math_BigDecimal.class.getName() + ".newtonRaphson(...)"
 //                    + " previousResult_BigDecimal0.subtract(result).abs() "
 //                    + previousResult_BigDecimal0.subtract(result).abs());
 //        }
@@ -4371,7 +4366,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             resultipowroot = powerNoRounding(r, root, 64);
             resultipowrootsubtract1 = powerNoRounding(r, rootsubtract1, 64);
             divisor = resultipowrootsubtract1.multiply(root_BigDecimal);
-            r = r.subtract(Generic_BigDecimal.divideNoCaseCheckNoRounding(
+            r = r.subtract(Math_BigDecimal.divideNoCaseCheckNoRounding(
                     resultipowroot.subtract(x), divisor));
             // Test for convergence
             if (previousResult_BigDecimal.compareTo(r) == 0) {
@@ -4546,7 +4541,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                 } else {
                     b = c;
                     //b = new BigDecimal(c.toString());
-                    rootdiv = rootdiv.divide(Generic_BigInteger.Two);
+                    rootdiv = rootdiv.divide(Math_BigInteger.TWO);
                     result = b;
 //                        difference_BigDecimal = (result.subtract(c)).abs();
 //                        if (difference_BigDecimal.compareTo(epsilon_BigDecimal) == -1) {
@@ -4608,7 +4603,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                     a = c;
                 } else {
                     b = c;
-                    rootdiv = rootdiv.divide(Generic_BigInteger.Two);
+                    rootdiv = rootdiv.divide(Math_BigInteger.TWO);
                     r = b;
                 }
                 // Bisect
@@ -4633,7 +4628,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //            BigDecimal maxError_BigDecimal,
 //            BigDecimal a0,
 //            BigDecimal e,
-//            Generic_BigDecimal a_Generic_BigDecimal,
+//            Math_BigDecimal a_Generic_BigDecimal,
 //            int decimalPlaces,
 //            MathContext a_MathContext,
 //            RoundingMode a_RoundingMode) {
@@ -4773,7 +4768,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         // Deal with special cases
         if (x.compareTo(BigDecimal.ZERO) == -1) {
             throw new IllegalArgumentException(
-                    "x < 0 in " + Generic_BigDecimal.class
+                    "x < 0 in " + Math_BigDecimal.class
                     + ".root(BigDecimal,int,int,RoundingMode)");
         }
         if (x.compareTo(BigDecimal.ZERO) == 0) {
@@ -4784,7 +4779,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         }
         if (root == 0) {
             throw new IllegalArgumentException(
-                    "root = 0 in " + Generic_BigDecimal.class
+                    "root = 0 in " + Math_BigDecimal.class
                     + ".root(BigDecimal,int,int,RoundingMode)");
         }
         if (root == 1) {
@@ -4796,8 +4791,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         // for BigDecimal x and int n is
         // -999999999 < n < 999999999
         if (root >= 999999999) {
-//            Generic_BigDecimal a_Generic_BigDecimal =
-//                    new Generic_BigDecimal();
+//            Math_BigDecimal a_Generic_BigDecimal =
+//                    new Math_BigDecimal();
             BigDecimal r = rootRoundIfNecessary(x, BigInteger.valueOf(root), dp, rm);
             return r;
             //return round(result, decimalPlaces, a_RoundingMode);
@@ -4824,7 +4819,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                         //a_Generic_BigDecimal,
                         dp + rootLength, // Can we cope with less or do we need more?
                         rm);
-                BigDecimal r = Generic_BigDecimal.divideRoundIfNecessary(
+                BigDecimal r = Math_BigDecimal.divideRoundIfNecessary(
                         numerator, denominator, dp, rm);
                 return r;
             } else {
@@ -4857,7 +4852,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         // Deal with special cases
         if (x.compareTo(BigDecimal.ZERO) == -1) {
             throw new IllegalArgumentException(
-                    "x < 0 in " + Generic_BigDecimal.class
+                    "x < 0 in " + Math_BigDecimal.class
                     + ".root(BigDecimal,int,int,RoundingMode)");
         }
         if (x.compareTo(BigDecimal.ZERO) == 0) {
@@ -4868,7 +4863,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         }
         if (root == 0) {
             throw new IllegalArgumentException(
-                    "root = 0 in " + Generic_BigDecimal.class
+                    "root = 0 in " + Math_BigDecimal.class
                     + ".root(BigDecimal,int,int,RoundingMode)");
         }
         if (root == 1) {
@@ -4879,8 +4874,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         // for BigDecimal x and int n is
         // -999999999 < n < 999999999
         if (root >= 999999999) {
-//            Generic_BigDecimal a_Generic_BigDecimal =
-//                    new Generic_BigDecimal();
+//            Math_BigDecimal a_Generic_BigDecimal =
+//                    new Math_BigDecimal();
             BigDecimal result = rootNoRounding(
                     x,
                     BigInteger.valueOf(root));
@@ -5071,17 +5066,17 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         for (int i = 0; i < maxite; i++) {
             result0 = new BigDecimal(r.toString());
             p = r.multiply(rootsubtract1);
-            resultipowrootsubtract1 = Generic_BigDecimal.power(r, rootsubtract1,
+            resultipowrootsubtract1 = Math_BigDecimal.power(r, rootsubtract1,
                     root.intValue() + precision, rm);
-            adivresultipowrootsubtract1 = Generic_BigDecimal.divideRoundIfNecessary(
+            adivresultipowrootsubtract1 = Math_BigDecimal.divideRoundIfNecessary(
                     x, resultipowrootsubtract1, precision, rm);
             add_MathContext = new MathContext(
                     p.toBigInteger().toString().length() + generalAddPrecision,
                     rm);
             inside = p.add(adivresultipowrootsubtract1, add_MathContext);
-            r = Generic_BigDecimal.divideRoundIfNecessary(inside, root,
+            r = Math_BigDecimal.divideRoundIfNecessary(inside, root,
                     precision, rm);
-//            result = Generic_BigDecimal.divide(
+//            result = Math_BigDecimal.divide(
 //                    inside,
 //                    rootRoundIfNecessary, 
 //                    divprecision, 
@@ -5095,9 +5090,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             }
         }
         if (maxiteReached) {
-            System.out.println(
-                    "maxite reached without finding root in "
-                    + Generic_BigDecimal.class.getName() + ".newtonRaphson(...)"
+            System.out.println("maxite reached without finding root in "
+                    + Math_BigDecimal.class.getName() + ".newtonRaphson(...)"
                     + " previousResult_BigDecimal0.subtract(result).abs() "
                     + result0.subtract(r).abs());
         }
@@ -5132,7 +5126,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         while (true) {
             result0 = new BigDecimal(r.toString());
             p = r.multiply(rootsubtract1);
-            resultipowrootsubtract1 = Generic_BigDecimal.powerNoRounding(
+            resultipowrootsubtract1 = Math_BigDecimal.powerNoRounding(
                     r, rootsubtract1);
             adivresultipowrootsubtract1 = divideNoRounding(
                     x, resultipowrootsubtract1);
@@ -5331,7 +5325,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             int dp, RoundingMode rm) {
         BigDecimal b;// = BigDecimal.ONE;
         BigDecimal r = BigDecimal.ONE.subtract(epsilon_BigDecimal);
-//        BigDecimal result = BigDecimal.ONE.subtract(Generic_BigDecimal.reciprocal(new BigDecimal(rootRoundIfNecessary), decimalPlaces, a_RoundingMode));
+//        BigDecimal result = BigDecimal.ONE.subtract(Math_BigDecimal.reciprocal(new BigDecimal(rootRoundIfNecessary), decimalPlaces, a_RoundingMode));
 //        return result;
         boolean powerTestBelow;
 //        boolean powerTestBelow = powerTestBelow(
@@ -5362,7 +5356,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                 a = c;
             } else {
                 b = c;
-                rootdiv = rootdiv.divide(Generic_BigInteger.Two);
+                rootdiv = rootdiv.divide(Math_BigInteger.TWO);
                 r = b;
             }
             // Bisect;
@@ -5408,7 +5402,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                 a = c;
             } else {
                 b = c;
-                rootdiv = rootdiv.divide(Generic_BigInteger.Two);
+                rootdiv = rootdiv.divide(Math_BigInteger.TWO);
                 r = b;
             }
             // Bisect;
@@ -5485,9 +5479,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             if (probability.compareTo(BigDecimal.ZERO) == 0) {
                 return false;
             } else {
-                System.out.println(
-                        "Warning probabilty negative in "
-                        + Generic_BigDecimal.class
+                System.out.println("Warning probabilty negative in "
+                        + Math_BigDecimal.class
                         + ".randomUniformTest(Random,BigDecimal). "
                         + "Returning false.");
                 return false;
@@ -5498,9 +5491,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             if (probability.compareTo(BigDecimal.ONE) == 0) {
                 return true;
             } else {
-                System.out.println(
-                        "Warning probabilty greater > 1 in "
-                        + Generic_BigDecimal.class
+                System.out.println("Warning probabilty greater > 1 in "
+                        + Math_BigDecimal.class
                         + ".randomUniformTest(Random,BigDecimal). "
                         + "Returning true.");
                 return true;
@@ -5512,7 +5504,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         if (dp < probabilityScale) {
 //            System.out.println(
 //                    "Input decimalPlaces < probabilty.scale() in "
-//                    + Generic_BigDecimal.class
+//                    + Math_BigDecimal.class
 //                    + ".randomUniformTest(Random,BigDecimal). "
 //                    + "Set decimalPlaces = probabilty.scale().");
             dp = probabilityScale;
@@ -5551,9 +5543,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             if (probability.compareTo(BigDecimal.ZERO) == 0) {
                 return false;
             } else {
-                System.out.println(
-                        "Warning probabilty negative in "
-                        + Generic_BigDecimal.class
+                System.out.println("Warning probabilty negative in "
+                        + Math_BigDecimal.class
                         + ".randomUniformTest(Random,BigDecimal). "
                         + "Returning false.");
                 return false;
@@ -5564,9 +5555,8 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             if (probability.compareTo(BigDecimal.ONE) == 0) {
                 return true;
             } else {
-                System.out.println(
-                        "Warning probabilty greater > 1 in "
-                        + Generic_BigDecimal.class
+                System.out.println("Warning probabilty greater > 1 in "
+                        + Math_BigDecimal.class
                         + ".randomUniformTest(Random,BigDecimal). "
                         + "Returning true.");
                 return true;
@@ -5750,7 +5740,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * number of decimal places
      */
     public static BigDecimal getRandom(
-            Generic_BigInteger a_Generic_BigInteger,
+            Math_BigInteger a_Generic_BigInteger,
             int decimalPlaces,
             BigDecimal lowerLimit,
             BigDecimal upperLimit) {
@@ -5765,7 +5755,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
     }
 
     public static BigDecimal getRandom(
-            Generic_BigInteger a_Generic_BigInteger,
+            Math_BigInteger a_Generic_BigInteger,
             Random random,
             int decimalPlaces,
             BigDecimal lowerLimit,
@@ -5784,22 +5774,19 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
     /**
      * Provided for convenience.
      *
-     * @param a_Generic_Number
-     * @param decimalPlaces
+     * @param gn A Math_Number
+     * @param dp decimalPlaces
      * @return a random BigDecimal between 0 and 1 inclusive which can have up
      * to decimalPlaces number of decimal places
      */
-    public static BigDecimal getRandom(
-            Generic_Number a_Generic_Number,
-            int decimalPlaces) {
-        //Generic_BigDecimal a_Generic_BigDecimal = new Generic_BigDecimal();
-        Random[] random = a_Generic_Number.get_RandomArrayMinLength(
-                decimalPlaces);
+    public static BigDecimal getRandom(Math_Number gn, int dp) {
+        //Generic_BigDecimal a_Generic_BigDecimal = new Math_BigDecimal();
+        Random[] random = gn.getRandoms(dp);
         //System.out.println("Got Random[] size " + random.length);
         String value = "0.";
         int digit;
         int ten_int = 10;
-        for (int i = 0; i < decimalPlaces; i++) {
+        for (int i = 0; i < dp; i++) {
             digit = random[i].nextInt(ten_int);
             value += digit;
         }
@@ -5822,37 +5809,27 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * @return true iff last digit of x is even
      */
     public static boolean isEven(BigDecimal x) {
-        String xString = x.toPlainString();
-        String lastDigit_String = xString.substring(xString.length() - 1);
-        int lastDigit_int = new Integer(lastDigit_String);
-        return Generic_int.isEven(lastDigit_int);
+        String xS = x.toPlainString();
+        String xSLastDigit = xS.substring(xS.length() - 1);
+        return Math_int.isEven(Integer.valueOf(xSLastDigit));
     }
 
     /**
      * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
      *
-     * @param a_Generic_BigDecimal
+     * @param bd A Math_BigDecimal
      * @param x
-     * @param decimalPlacePrecision
-     * @param aRoundingMode
+     * @param dp decimalPlacePrecision
+     * @param rm RoundingMode
      * @return
      */
-    public static BigDecimal cos(
-            BigDecimal x,
-            Generic_BigDecimal a_Generic_BigDecimal,
-            int decimalPlacePrecision,
-            RoundingMode aRoundingMode) {
-        BigDecimal aPI = a_Generic_BigDecimal.get_PI();
-        BigDecimal aPIBy2 = Generic_BigDecimal.divideRoundIfNecessary(
-                aPI,
-                BigInteger.valueOf(2),
-                decimalPlacePrecision + 2,
-                aRoundingMode);
-        return sin(x.add(aPIBy2),
-                a_Generic_BigDecimal,
-                decimalPlacePrecision,
-                aRoundingMode);
-//        Generic_BigInteger aGeneric_BigInteger = a_Generic_BigDecimal.bi;
+    public static BigDecimal cos(BigDecimal x, Math_BigDecimal bd, int dp,
+            RoundingMode rm) {
+        BigDecimal aPI = bd.get_PI();
+        BigDecimal aPIBy2 = Math_BigDecimal.divideRoundIfNecessary(aPI,
+                BigInteger.valueOf(2), dp + 2, rm);
+        return sin(x.add(aPIBy2), bd, dp, rm);
+//        Math_BigInteger aGeneric_BigInteger = a_Generic_BigDecimal.bi;
 //        BigDecimal aPI1000 = a_Generic_BigDecimal.get_PI();
 //        // cosx = 1-(x^2)/(2!)+(x^4)/(4!)-(x^6)/(6!)+...
 //        BigDecimal precision = new BigDecimal(BigInteger.ONE, decimalPlacePrecision + 2);
@@ -5863,11 +5840,11 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //        boolean alternator = true;
 //        while (true) {
 //            factorial = aGeneric_BigInteger.factorial(factor);
-//            power = Generic_BigDecimal.power(
+//            power = Math_BigDecimal.power(
 //                    x,
 //                    factor,
 //                    decimalPlacePrecision + 2, aRoundingMode);
-//            BigDecimal division = Generic_BigDecimal.divideRoundIfNecessary(
+//            BigDecimal division = Math_BigDecimal.divideRoundIfNecessary(
 //                    power,
 //                    factorial,
 //                    decimalPlacePrecision + 2, aRoundingMode);
@@ -5884,7 +5861,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
 //            }
 //            factor += 2;
 //        }
-//        cosx = Generic_BigDecimal.roundIfNecessary(
+//        cosx = Math_BigDecimal.roundIfNecessary(
 //                cosx, decimalPlacePrecision, aRoundingMode);
 //        return cosx;
     }
@@ -5892,18 +5869,14 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
     /**
      * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
      *
-     * @param a_Generic_BigDecimal
+     * @param bd A Math_BigDecimal
      * @param x
-     * @param decimalPlacePrecision
-     * @param aRoundingMode
+     * @param dp decimalPlacePrecision
+     * @param rm RoundingMode
      * @return
      */
-    public static BigDecimal sin(
-            BigDecimal x,
-            Generic_BigDecimal a_Generic_BigDecimal,
-            int decimalPlacePrecision,
-            RoundingMode aRoundingMode) {
-        BigDecimal aPI = a_Generic_BigDecimal.get_PI();
+    public static BigDecimal sin(BigDecimal x, Math_BigDecimal bd, int dp, RoundingMode rm) {
+        BigDecimal aPI = bd.get_PI();
         BigDecimal twoPI = BigDecimal.valueOf(2).multiply(aPI);
         while (x.compareTo(BigDecimal.ZERO) == -1) {
             x = x.add(twoPI);
@@ -5921,19 +5894,9 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         if (x.compareTo(twoPI) == 0) {
             return BigDecimal.ZERO;
         }
-        BigDecimal aPIBy2 = Generic_BigDecimal.divideRoundIfNecessary(
-                aPI,
-                BigInteger.valueOf(2),
-                decimalPlacePrecision + 2,
-                aRoundingMode);
-        return sinNoCaseCheck(
-                x,
-                aPI,
-                twoPI,
-                aPIBy2,
-                a_Generic_BigDecimal,
-                decimalPlacePrecision,
-                aRoundingMode);
+        BigDecimal aPIBy2 = Math_BigDecimal.divideRoundIfNecessary(aPI,
+                BigInteger.valueOf(2), dp + 2, rm);
+        return sinNoCaseCheck(x, aPI, twoPI, aPIBy2, bd, dp, rm);
     }
 
     /**
@@ -5949,7 +5912,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * @return
      */
     protected static BigDecimal sinNoCaseCheck(BigDecimal x, BigDecimal aPI,
-            BigDecimal twoPI, BigDecimal aPIBy2, Generic_BigDecimal bd, int dp, 
+            BigDecimal twoPI, BigDecimal aPIBy2, Math_BigDecimal bd, int dp,
             RoundingMode rm) {
         // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
         if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
@@ -5976,12 +5939,12 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * @return
      */
     protected static BigDecimal sinAngleBetweenZeroAndPI(BigDecimal x,
-            BigDecimal aPI, BigDecimal twoPI, Generic_BigDecimal bd,
+            BigDecimal aPI, BigDecimal twoPI, Math_BigDecimal bd,
             int dpp, RoundingMode rm) {
-        BigDecimal aPIBy2 = Generic_BigDecimal.divideRoundIfNecessary(
+        BigDecimal aPIBy2 = Math_BigDecimal.divideRoundIfNecessary(
                 aPI, BigInteger.valueOf(2), dpp + 2, rm);
         // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
-        Generic_BigInteger aGeneric_BigInteger = bd.bi;
+        Math_BigInteger aGeneric_BigInteger = bd.bi;
         if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
             BigDecimal precision = new BigDecimal(BigInteger.ONE, dpp + 4);
             BigDecimal sinx = new BigDecimal(x.toString());
@@ -5991,11 +5954,11 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             boolean alternator = true;
             while (true) {
                 factorial = aGeneric_BigInteger.factorial(factor);
-                power = Generic_BigDecimal.power(
+                power = Math_BigDecimal.power(
                         x,
                         factor,
                         dpp + 2, rm);
-                BigDecimal division = Generic_BigDecimal.divideRoundIfNecessary(
+                BigDecimal division = Math_BigDecimal.divideRoundIfNecessary(
                         power,
                         factorial,
                         dpp + 2, rm);
@@ -6012,7 +5975,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
                 }
                 factor += 2;
             }
-            sinx = Generic_BigDecimal.roundIfNecessary(
+            sinx = Math_BigDecimal.roundIfNecessary(
                     sinx, dpp, rm);
             return sinx;
         }
@@ -6030,16 +5993,16 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * @param rm RoundingMode
      * @return
      */
-    public static BigDecimal tan(BigDecimal x, Generic_BigDecimal bd, int dpp,
+    public static BigDecimal tan(BigDecimal x, Math_BigDecimal bd, int dpp,
             RoundingMode rm) {
         BigDecimal sinx = sin(x, bd, dpp + 10, rm);
         RoundingMode rmd = RoundingMode.DOWN;
-        sinx = Generic_BigDecimal.roundIfNecessary(sinx, dpp + 8, rmd);
+        sinx = Math_BigDecimal.roundIfNecessary(sinx, dpp + 8, rmd);
         BigDecimal cosx = cos(x, bd, dpp + 10, rm);
-        cosx = Generic_BigDecimal.roundIfNecessary(cosx, dpp + 8, rmd);
+        cosx = Math_BigDecimal.roundIfNecessary(cosx, dpp + 8, rmd);
         if (cosx.compareTo(BigDecimal.ZERO) == 0) {
             return null;
         }
-        return Generic_BigDecimal.divideRoundIfNecessary(sinx, cosx, dpp, rm);
+        return Math_BigDecimal.divideRoundIfNecessary(sinx, cosx, dpp, rm);
     }
 }

@@ -15,33 +15,69 @@
  */
 package uk.ac.leeds.ccg.andyt.math;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-public class Generic_double extends Generic_Number implements Serializable {
+public class Math_double extends Math_Number {
 
     /**
-     * For testing is s can be parsed as a double. If the result is equal to
+     * For testing if s can be parsed as a double. If the result is equal to
      * -Double.MAX_VALUE then this will return false as -Double.MAX_VALUE is
-     * reserved for representing noDataValues).
+     * reserved for representing noDataValues.
      *
      * @param s The String to be tested as to whether it can be represented as a
      * byte excluding Double.MIN_VALUE which is reserved for representing
      * noDataValues).
      * @return true iff s can be represented as a double greater than
-     * -Double.MAX_VALUE which is reserved for representing noDataValues).
+     * -Double.MAX_VALUE which is reserved for representing noDataValues.
      */
     public static boolean isDouble(String s) {
         try {
-            double d = Double.parseDouble(s);
-            return d != -Double.MAX_VALUE;
+            double x = Double.parseDouble(s);
+            return x != -Double.MAX_VALUE;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
+    /**
+     * For testing if s can be parsed as a double and is precise to {@code dp}
+     * decimal places using {@code rm} RoundingMode if necessary to round the
+     * parsed value.If the result is equal to -Double.MAX_VALUE then this will
+     * return false as -Double.MAX_VALUE is reserved for representing
+     * noDataValues.
+     *
+     * @param s The String to be tested as to whether it can be represented as a
+     * double excluding -Double.MAX_VALUE which is reserved for representing
+     * noDataValues).
+     * @param dp The number of decimal places the result must be accurate to.
+     * @param rm The RoundingMode used to round.
+     * @return true iff s can be represented as a Double greater than
+     * -Double.MAX_VALUE which is reserved for representing noDataValues.
+     */
+    public static boolean isDouble(String s, int dp, RoundingMode rm) {
+        try {
+            double x = Double.parseDouble(s);
+            BigDecimal bds = new BigDecimal(s);
+            BigDecimal bdd = new BigDecimal(x);
+            BigDecimal bdsr = Math_BigDecimal.roundIfNecessary(bds,dp,rm);
+            BigDecimal bddr = Math_BigDecimal.roundIfNecessary(bdd,dp,rm);
+//            System.out.println(bdsr.toPlainString());
+//            System.out.println(bddr.toPlainString());
+            if (bdsr.compareTo(bddr) == 0) {
+                return x != -Double.MAX_VALUE;
+            } else {
+//                System.out.println(bdd.toPlainString());
+//                System.out.println(new BigDecimal(Math.nextDown(f)));
+//                System.out.println(new BigDecimal(Math.nextUp(f)));
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
     /**
      * For testing if s can be parsed as a double exactly. If the result is equal
      * to -Double.MAX_VALUE then this will return false as -Double.MAX_VALUE is
@@ -56,16 +92,19 @@ public class Generic_double extends Generic_Number implements Serializable {
      * double excluding -Double.MAX_VALUE which is reserved for representing
      * noDataValues).
      * @return true iff s can be represented as a double greater than
-     * -Double.MAX_VALUE which is reserved for representing noDataValues).
+     * -Double.MAX_VALUE which is reserved for representing noDataValues.
      */
     public static boolean isDoubleExact(String s) {
         try {
-            double d = Double.parseDouble(s);
+            double x = Double.parseDouble(s);
             BigDecimal bds = new BigDecimal(s);
-            BigDecimal bdd = new BigDecimal(d);
+            BigDecimal bdd = new BigDecimal(x);
             if (bds.compareTo(bdd) == 0) {
-                return d != -Double.MAX_VALUE;
+                return x != -Double.MAX_VALUE;
             } else {
+//                System.out.println(bdd.toPlainString());
+//                System.out.println(new BigDecimal(Math.nextDown(d)));
+//                System.out.println(new BigDecimal(Math.nextUp(d)));
                 return false;
             }
         } catch (NumberFormatException e) {
@@ -80,12 +119,13 @@ public class Generic_double extends Generic_Number implements Serializable {
      */
     public static BigInteger getNumberOfDoublesInRange(double l, double u) {
         BigInteger r = BigInteger.ZERO;
-        //BigInteger divisor = new BigInteger("100000000");
-        double d = l;
-        while (d < u) {
-            d = Math.nextUp(d);
+//        int i = 100000000;
+//        BigInteger divisor = new BigInteger(Integer.toString(i));
+        double x = l;
+        while (x < u) {
+            x = Math.nextUp(x);
             r = r.add(BigInteger.ONE);
-            //if (r % 100000000 == 0){
+            //if (r % i == 0){
 //            if (r.remainder(divisor).compareTo(BigInteger.ZERO) == 0) {
 //                System.out.println("" + r + " values between " + l + " and " + u);
 //                System.out.println(toPlainString(value));
@@ -96,12 +136,12 @@ public class Generic_double extends Generic_Number implements Serializable {
 
     /**
      * 
-     * @param d Number to be rounded up to the nearest int.
+     * @param x Number to be rounded up to the nearest int.
      * @return d rounded up to the nearest int
      */
-    public static int roundUpToNearestInt(double d) {
-        int r = Generic_BigDecimal.roundStrippingTrailingZeros(
-                new BigDecimal(d), 0, RoundingMode.UP).intValue();
+    public static int roundUpToNearestInt(double x) {
+        int r = Math_BigDecimal.roundStrippingTrailingZeros(
+                new BigDecimal(x), 0, RoundingMode.UP).intValue();
         return r;
     }
 

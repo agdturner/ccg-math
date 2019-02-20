@@ -15,12 +15,15 @@
  */
 package uk.ac.leeds.ccg.andyt.math;
 
-import java.io.Serializable;
-
-public class Generic_long extends Generic_Number implements Serializable {
+public class Math_long extends Math_Number  {
 
     public static final long INTEGER_MAX_VALUE = Integer.MAX_VALUE;
 
+    /**
+     * 
+     * @param x The number to test as to whether it is even.
+     * @return True iff x is even. 
+     */
     public static boolean isEven(long x) {
         return x % 2 == 0;
     }
