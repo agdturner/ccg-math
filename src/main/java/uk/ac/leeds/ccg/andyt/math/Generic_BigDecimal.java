@@ -1129,11 +1129,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         if (y.compareTo(div_BigInteger) == -1) {
             powerDecimalPlaces = Math.min(compareScale + 1, dp);
             toCompare0 = power(x, y, div, powerDecimalPlaces, rm);
-            if (toCompare0.compareTo(compare) == 1) {
-                return true;
-            } else {
-                return false;
-            }
+            return toCompare0.compareTo(compare) == 1;
         }
         BigInteger y1 = new BigInteger(y.toString());
         BigInteger[] yDivideAndRemainder;
@@ -1205,11 +1201,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         // Deal with special case
         if (y.compareTo(div_BigInteger) == -1) {
             toCompare0 = powerNoRounding(x, y, div);
-            if (toCompare0.compareTo(compare) == 1) {
-                return true;
-            } else {
-                return false;
-            }
+            return toCompare0.compareTo(compare) == 1;
         }
         BigInteger y1 = new BigInteger(y.toString());
         BigInteger[] yDivideAndRemainder;
@@ -1276,11 +1268,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             toCompare0 = power(x, y, div,
                     dp, // @TODO Is this sufficient?
                     rm);
-            if (toCompare0.compareTo(compare) == -1) {
-                return true;
-            } else {
-                return false;
-            }
+            return toCompare0.compareTo(compare) == -1;
         }
         BigInteger y1 = new BigInteger(y.toString());
         BigInteger[] yDivideAndRemainder;
@@ -1356,11 +1344,7 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
         // Deal with special case
         if (y.compareTo(div_BigInteger) == -1) {
             toCompare0 = powerNoRounding(x, y, div);
-            if (toCompare0.compareTo(compare) == -1) {
-                return true;
-            } else {
-                return false;
-            }
+            return toCompare0.compareTo(compare) == -1;
         }
         BigInteger y1 = new BigInteger(y.toString());
         BigInteger[] yDivideAndRemainder;
@@ -2495,7 +2479,6 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
             if (xprecision - rootRoundIfNecessary > 1) {
                 r = x.movePointLeft(xprecision - rootRoundIfNecessary);
             } else {
-                r = x.movePointLeft(xprecision - rootRoundIfNecessary);
                 r = rootRoundIfNecessary(x, rootRoundIfNecessary, dp,
                         RoundingMode.UP);
             }
@@ -3115,15 +3098,15 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
     /**
      * Adapted from
      * http://stackoverflow.com/questions/739532/logarithm-of-a-bigdecimal
-     * "Pseudocode algorithm for doing a logarithm. Assuming we want log_n of
+     * "Pseudocode algorithm for doing a logarithm.Assuming we want log_n of
      * toCompare
      *
      * toCompare = 0; base = x_BigDecimal; input = toCompare; while (input >
      * base) toCompare++; input /= base; fraction = 1/2; input *= input; while
-     * (((toCompare + fraction) > toCompare) && (input > 1)) if (input > base)
+     * (((toCompare + fraction) > toCompare) &;&; (input > 1)) if (input > base)
      * input /= base; toCompare += fraction; input *= input; fraction /= 2.0;
      *
-     * The big while loop may seem a bit confusing. On each pass, you can either
+     * The big while loop may seem a bit confusing.On each pass, you can either
      * square your input or you can take the square rootRoundIfNecessary of your
      * base; either way, you must divide your fraction by 2. I find squaring the
      * input, and leaving the base alone, to be more accurate. If the input goes
@@ -3134,7 +3117,9 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * arbitrarily many digits of precision, you will want to put something else
      * in there to limit the loop."
      *
+     * @param base_int
      * @param rm RoundingMode
+     * @param x
      * @param dp decimalPlaces
      * @return
      */
@@ -4221,7 +4206,6 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
     /**
      * @param x
      * @param root
-     * @param rootRoundIfNecessary
      * @return The rootRoundIfNecessary of x to decimalPlaces precision
      */
     public static BigDecimal rootNoRounding(BigDecimal x, BigInteger root) {
@@ -5555,12 +5539,13 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
      * 1 and comparing it with probability and if it were higher then return
      * false and otherwise return true
      *
-     * @param a_Random
+     * @param rand
      * @param probability 0 <= probability <=1
      * @param mc
      * @return true or false based on a random uniform test of probability
      */
-    public static boolean randomUniformTest(Random rand, BigDecimal probability, MathContext mc) {
+    public static boolean randomUniformTest(Random rand, BigDecimal probability,
+            MathContext mc) {
         // Special case probability <= 0
         if (probability.compareTo(BigDecimal.ZERO) != 1) {
             if (probability.compareTo(BigDecimal.ZERO) == 0) {
@@ -5954,50 +5939,27 @@ public class Generic_BigDecimal extends Generic_Number implements Serializable {
     /**
      * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
      *
-     * @param a_Generic_BigInteger
      * @param x
+     * @param aPI
      * @param twoPI
-     * @param decimalPlacePrecision
+     * @param dp
      * @param aPIBy2
-     * @param aRoundingMode
-     * @param a_Generic_BigDecimal
+     * @param rm
+     * @param bd
      * @return
      */
-    protected static BigDecimal sinNoCaseCheck(
-            BigDecimal x,
-            BigDecimal aPI,
-            BigDecimal twoPI,
-            BigDecimal aPIBy2,
-            Generic_BigDecimal a_Generic_BigDecimal,
-            int decimalPlacePrecision,
-            RoundingMode aRoundingMode) {
+    protected static BigDecimal sinNoCaseCheck(BigDecimal x, BigDecimal aPI,
+            BigDecimal twoPI, BigDecimal aPIBy2, Generic_BigDecimal bd, int dp, 
+            RoundingMode rm) {
         // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
         if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
-            return sinAngleBetweenZeroAndPI(
-                    x,
-                    aPI,
-                    twoPI,
-                    a_Generic_BigDecimal,
-                    decimalPlacePrecision,
-                    aRoundingMode);
+            return sinAngleBetweenZeroAndPI(x, aPI, twoPI, bd, dp, rm);
         } else {
             if (x.compareTo(aPI) == -1) {
-                return sinAngleBetweenZeroAndPI(
-                        aPI.subtract(x),
-                        aPI,
-                        twoPI,
-                        a_Generic_BigDecimal,
-                        decimalPlacePrecision,
-                        aRoundingMode);
+                return sinAngleBetweenZeroAndPI(aPI.subtract(x), aPI, twoPI, bd, dp, rm);
             }
-            BigDecimal uncorrectedResult = sinNoCaseCheck(
-                    twoPI.subtract(x),
-                    aPI,
-                    twoPI,
-                    aPIBy2,
-                    a_Generic_BigDecimal,
-                    decimalPlacePrecision,
-                    aRoundingMode);
+            BigDecimal uncorrectedResult = sinNoCaseCheck(twoPI.subtract(x),
+                    aPI, twoPI, aPIBy2, bd, dp, rm);
             return uncorrectedResult.negate();
         }
     }
