@@ -6,22 +6,21 @@
 package uk.ac.leeds.ccg.andyt.math;
 
 import java.math.BigInteger;
-import java.util.Random;
+import java.math.RoundingMode;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static uk.ac.leeds.ccg.andyt.math.Generic_float.getNumberOfFloatsInRange;
 
 /**
  *
  * @author geoagdt
  */
-public class Generic_floatTest {
+public class Math_floatTest {
     
-    public Generic_floatTest() {
+    public Math_floatTest() {
     }
     
     @BeforeClass
@@ -41,29 +40,50 @@ public class Generic_floatTest {
     }
 
     /**
-     * Test of isFloat method, of class Generic_float.
+     * Test of isFloat method, of class Math_float.
      */
     @Test
-    public void testIsFloat() {
+    public void testIsFloat_String() {
         System.out.println("isFloat");
         String s;
         s = "0.1";
-        assertTrue(Generic_float.isFloat(s));
+        assertTrue(Math_float.isFloat(s));
     }
     
     /**
-     * Test of isFloatExact method, of class Generic_float.
+     * Test of isFloat method, of class Math_float.
+     */
+    @Test
+    public void testIsFloat_3args() {
+        System.out.println("isFloat(String,int,RoundingMode)");
+        String s;
+        int dp;
+        RoundingMode rm;
+        // Test 1
+        s = "0.1";
+        dp = 3;
+        rm = RoundingMode.HALF_UP;
+        assertTrue(Math_float.isFloat(s,dp, rm));
+        // Test 2
+        s = "0.1";
+        dp = 9;
+        rm = RoundingMode.HALF_UP;
+        assertFalse(Math_float.isFloat(s,dp, rm));
+    }
+    
+    /**
+     * Test of isFloatExact method, of class Math_float.
      */
     @Test
     public void testIsFloatExact() {
         System.out.println("isFloatExact");
         String s;
         s = "0.1";
-        assertFalse(Generic_float.isFloatExact(s));
+        assertFalse(Math_float.isFloatExact(s));
     }
 
     /**
-     * Test of toPlainString method, of class Generic_float.
+     * Test of toPlainString method, of class Math_float.
      */
     @Test
     public void testToPlainString() {
@@ -74,19 +94,19 @@ public class Generic_floatTest {
         // Test 1
         f = 0.0f;
         expResult = "0.0";
-        result = Generic_float.toPlainString(f);
+        result = Math_float.toPlainString(f);
         //System.out.println(result);
         assertEquals(expResult, result);
         // Test 2
         f = 0.1f;
         expResult = "0.1";
-        result = Generic_float.toPlainString(f);
+        result = Math_float.toPlainString(f);
         System.out.println(result);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of getNumberOfFloatsInRange method, of class Generic_float.
+     * Test of getNumberOfFloatsInRange method, of class Math_float.
      */
     @Test
     public void testGetNumberOfFloatsInRange() {
@@ -98,7 +118,19 @@ public class Generic_floatTest {
         l = 0.999999f;
         u = 1.0f;
         expResult = new BigInteger("17");
-        BigInteger result = Generic_float.getNumberOfFloatsInRange(l, u);
+        BigInteger result = Math_float.getNumberOfFloatsInRange(l, u);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of roundUpToNearestInt method, of class Math_float.
+     */
+    @Test
+    public void testRoundUpToNearestInt() {
+        System.out.println("roundUpToNearestInt");
+        float f = 0.1F;
+        int expResult = 1;
+        int result = Math_float.roundUpToNearestInt(f);
         assertEquals(expResult, result);
     }
 }

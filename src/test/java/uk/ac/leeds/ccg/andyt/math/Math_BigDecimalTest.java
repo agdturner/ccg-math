@@ -27,9 +27,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class Generic_BigDecimalTest {
+public class Math_BigDecimalTest {
 
-    public Generic_BigDecimalTest() {
+    public Math_BigDecimalTest() {
     }
 
     @BeforeClass
@@ -88,7 +88,7 @@ public class Generic_BigDecimalTest {
         BigDecimal expResult = null;
         BigDecimal result = null;
         expResult = new BigDecimal("100");
-        result = Generic_BigDecimal.powerUnscaled1Precision1(x, y);
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
         assertEquals(expResult, result);
     }
 
@@ -99,7 +99,7 @@ public class Generic_BigDecimalTest {
         BigDecimal expResult = null;
         BigDecimal result = null;
         expResult = new BigDecimal("0.01");
-        result = Generic_BigDecimal.powerUnscaled1Precision1(x, y);
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
         assertEquals(expResult, result);
     }
 
@@ -110,7 +110,7 @@ public class Generic_BigDecimalTest {
         BigDecimal expResult = null;
         BigDecimal result = null;
         expResult = new BigDecimal("1000000");
-        result = Generic_BigDecimal.powerUnscaled1Precision1(x, y);
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
         assertEquals(expResult, result);
     }
 
@@ -121,7 +121,7 @@ public class Generic_BigDecimalTest {
         BigDecimal expResult = null;
         BigDecimal result = null;
         expResult = new BigDecimal("0.000001");
-        result = Generic_BigDecimal.powerUnscaled1Precision1(x, y);
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
         assertEquals(expResult, result);
     }
 
@@ -132,7 +132,7 @@ public class Generic_BigDecimalTest {
         BigDecimal expResult = null;
         BigDecimal result = null;
         expResult = new BigDecimal("1e-80");
-        result = Generic_BigDecimal.powerUnscaled1Precision1(x, y);
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
         assertEquals(expResult, result);
     }
 
@@ -163,7 +163,7 @@ public class Generic_BigDecimalTest {
         a_MathContext = new MathContext(3, a_RoundingMode);
         decimalPlaces = 2;
         expResult = new BigDecimal("1.21");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x,
                 y,
                 a_MathContext,
@@ -193,7 +193,7 @@ public class Generic_BigDecimalTest {
         a_MathContext = new MathContext(14, a_RoundingMode);
         decimalPlaces = 10;
         expResult = new BigDecimal("1386.4843121938");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x,
                 y,
                 a_MathContext,
@@ -230,7 +230,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 10;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("10.123456789");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_1(
                 x,
@@ -255,7 +255,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         // The exact answer if precision were unlimited is 10.1234578013456789
         expResult = new BigDecimal("10.1234578013");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_1(
                 x,
@@ -286,7 +286,7 @@ public class Generic_BigDecimalTest {
                 "15271348307693848498083695561135354493017650234872663109391721"
                 + "32466014.413624453917232477798220907377131857747836727698261"
                 + "8524788288629667703506739052902096156722546642754");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_1(
                 x,
@@ -300,11 +300,11 @@ public class Generic_BigDecimalTest {
     public void testMultiplyRoundIfNecessary_4args_1_test4() {
         System.out.println("testMultiplyRoundIfNecessary_4args_1_test4");
         BigDecimal x;
-        BigDecimal y ;
-        int decimalPlaces ;
-        RoundingMode a_RoundingMode ;
-        BigDecimal expResult ;
-        BigDecimal result ;
+        BigDecimal y;
+        int decimalPlaces;
+        RoundingMode a_RoundingMode;
+        BigDecimal expResult;
+        BigDecimal result;
         x = new BigDecimal(
                 "-104364183462747328754328957134895713471589717049613406.123456"
                 + "78910111213141516171819919676766754");
@@ -317,7 +317,7 @@ public class Generic_BigDecimalTest {
                 + "023487266310939172132466014.41362445391723247779822090737713"
                 + "185774783672769826185247882886296677035067390529020961567225"
                 + "46642754");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_1(
                 x,
@@ -347,7 +347,7 @@ public class Generic_BigDecimalTest {
                 "-1527134830769384849808369556113535449301765023487266310939172"
                 + "132466014.41362445391723247779822090737713185774783672769826"
                 + "18524788288629667703506739052902096156722546642754");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_1(
                 x,
@@ -381,7 +381,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of multiply method, of class Generic_BigDecimal.
+     * Test of multiply method, of class Math_BigDecimal.
      */
     public void testMultiplyRoundIfNecessary_4args_2() {
         System.out.println("testMultiplyRoundIfNecessary_4args_2");
@@ -407,7 +407,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "2.010");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_2(
                 x,
@@ -434,7 +434,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "3.018");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_2(
                 x,
@@ -461,7 +461,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "3.02");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_2(
                 x,
@@ -489,7 +489,7 @@ public class Generic_BigDecimalTest {
         // Accurate result 13882318.493816040742784
         expResult = new BigDecimal(
                 "13882318.49");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_2(
                 x,
@@ -519,7 +519,7 @@ public class Generic_BigDecimalTest {
                 "18065121239467745048010407669300110379939339155567645320133264"
                 + "901389499811971334588569293633668157618732327166017614283.96"
                 + "9122789");
-        result = Generic_BigDecimal.multiplyRoundIfNecessary(
+        result = Math_BigDecimal.multiplyRoundIfNecessary(
                 x, y, decimalPlaces, a_RoundingMode);
         printTestMultiply_4args_2(
                 x,
@@ -583,7 +583,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         decimalPlaces = 6;
         expResult = new BigDecimal("2489.338843");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -610,7 +610,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         decimalPlaces = 28;
         expResult = new BigDecimal("2489.3388429752066115702479338843");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -637,7 +637,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         decimalPlaces = 4;
         expResult = new BigDecimal("2489.3388");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -664,7 +664,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         decimalPlaces = 6;
         expResult = new BigDecimal("2489.338843");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -691,7 +691,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         decimalPlaces = 6;
         expResult = new BigDecimal("0.999982");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -718,7 +718,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         decimalPlaces = 30;
         expResult = new BigDecimal("0.999982021400738696662826767313");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -745,7 +745,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         decimalPlaces = 25;
         expResult = new BigDecimal("0.9999820214007386966628268");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -782,7 +782,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of divide method, of class Generic_BigDecimal.
+     * Test of divide method, of class Math_BigDecimal.
      */
     public void testDivideRoundIfNecessary_4args_2() {
         System.out.println("testDivideRoundIfNecessary_4args_2");
@@ -805,7 +805,7 @@ public class Generic_BigDecimalTest {
                 "0.000000000000000000000000000000000000000000000024398012439801"
                 + "248608678869240874632067769163126799290634383673965707848596"
                 + "2697307032484628");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -842,7 +842,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of divide method, of class Generic_BigDecimal.
+     * Test of divide method, of class Math_BigDecimal.
      */
     public void testDivideRoundIfNecessary_4args_3() {
         System.out.println("testDivide_4args_3");
@@ -864,7 +864,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "828925.6198347107438016528925619834710743801652892561983471074"
                 + "380165289256198347107438016528925619834710744");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -920,7 +920,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.000427594757321643640141879606795286430721613260877266705174"
                 + "3527215084724511952595046150604841950021");
-        result = Generic_BigDecimal.divideRoundIfNecessary(
+        result = Math_BigDecimal.divideRoundIfNecessary(
                 x,
                 y,
                 decimalPlaces,
@@ -957,7 +957,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of powerTestAbove method, of class Generic_BigDecimal.
+     * Test of powerTestAbove method, of class Math_BigDecimal.
      */
     public void testPowerTestAbove_6args_1() {
         System.out.println("testPowerTestAbove_6args_1");
@@ -980,7 +980,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 19;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = true;
-        result = Generic_BigDecimal.powerTestAbove(
+        result = Math_BigDecimal.powerTestAbove(
                 compare, x, y, div, decimalPlaces, a_RoundingMode);
         printPowerTestAbove_6args_1(
                 compare,
@@ -1022,7 +1022,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of powerTestBelow method, of class Generic_BigDecimal.
+     * Test of powerTestBelow method, of class Math_BigDecimal.
      */
     public void testPowerTestBelow_6args_1() {
         System.out.println("testPowerTestBelow_6args_1");
@@ -1047,7 +1047,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = true;
-        result = Generic_BigDecimal.powerTestBelow(
+        result = Math_BigDecimal.powerTestBelow(
                 compare, x, y, div, decimalPlaces, a_RoundingMode);
         printPowerTestBelow_6args_1(
                 compare,
@@ -1077,7 +1077,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = false;
-        result = Generic_BigDecimal.powerTestBelow(
+        result = Math_BigDecimal.powerTestBelow(
                 compare, x, y, div, decimalPlaces, a_RoundingMode);
         printPowerTestBelow_6args_1(
                 compare,
@@ -1176,7 +1176,7 @@ public class Generic_BigDecimalTest {
         y = new BigInteger("20");
         div = 2;
         expResult = new BigDecimal("141710986707530.43575626125424226001");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y,
                 div);
@@ -1215,7 +1215,7 @@ public class Generic_BigDecimalTest {
                 + "000000000000000000000000000151222140000000000000000000000000"
                 + "000000000000000049419000000000000000000000000000000000000000"
                 + "000010200000000000000000000000000000000000000000000001");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y,
                 div);
@@ -1254,7 +1254,7 @@ public class Generic_BigDecimalTest {
                 + "000000000000000000000000000151222140000000000000000000000000"
                 + "000000000000000049419000000000000000000000000000000000000000"
                 + "000010200000000000000000000000000000000000000000000001");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y,
                 div);
@@ -1437,7 +1437,7 @@ public class Generic_BigDecimalTest {
                 + "000000000000000000000517599000000000000000000000000000000000"
                 + "000000000010200000000000000000000000000000000000000000000000"
                 + "1");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y,
                 div);
@@ -1492,7 +1492,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.1");
         y = 2;
         expResult = new BigDecimal("26.01");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1511,7 +1511,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.1");
         y = 20;
         expResult = new BigDecimal("141710986707530.43575626125424226001");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1531,7 +1531,7 @@ public class Generic_BigDecimalTest {
         y = 20;
         expResult = new BigDecimal(
                 "141710986707530.4357562612542422600100000000000000000000");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1566,7 +1566,7 @@ public class Generic_BigDecimalTest {
                 + "000000000000000000000000000151222140000000000000000000000000"
                 + "000000000000000049419000000000000000000000000000000000000000"
                 + "000010200000000000000000000000000000000000000000000001");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1585,7 +1585,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.2");
         y = 2;
         expResult = new BigDecimal("27.04");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1604,7 +1604,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.3");
         y = 2;
         expResult = new BigDecimal("28.09");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1623,7 +1623,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.4");
         y = 2;
         expResult = new BigDecimal("29.16");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1642,7 +1642,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.5");
         y = 2;
         expResult = new BigDecimal("30.25");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1661,7 +1661,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.6");
         y = 2;
         expResult = new BigDecimal("31.36");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1680,7 +1680,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.7");
         y = 2;
         expResult = new BigDecimal("32.49");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1699,7 +1699,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.8");
         y = 2;
         expResult = new BigDecimal("33.64");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1718,7 +1718,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("5.9");
         y = 2;
         expResult = new BigDecimal("34.81");
-        result = Generic_BigDecimal.powerNoRounding(
+        result = Math_BigDecimal.powerNoRounding(
                 x,
                 y);
         printPowerNoRounding_2args(
@@ -1746,7 +1746,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     //@Test
     public void testPower_6args() {
@@ -1779,7 +1779,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test1() {
         System.out.println("testPower_6args_test1");
@@ -1799,7 +1799,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "1.020075592235233496296126665026067483207748617172583488021310"
                 + "8734138226078100585587805435645098947068");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -1814,7 +1814,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test2() {
         System.out.println("testPower_6args_test2");
@@ -1831,7 +1831,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "1.000198787101384878642452720694744868971170929418775037222019"
                 + "2032254156701221277775377001688988217835");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -1846,7 +1846,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test3() {
         System.out.println("testPower_6args_test3");
@@ -1863,7 +1863,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999801252407073026532411361647635459308346680589674812109435"
                 + "6355033399665871513258400090997521879138");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -1896,7 +1896,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999801252407073026532411361647635459308346680589674812109435"
                 + "6355033399665871513258400090997521879138");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -1929,7 +1929,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999999996741518925848289291581390088493740454739378865003717"
                 + "6765269179691805288720372301300181098212");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -1962,7 +1962,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999999999996741518920544748674219018662252981309537110886643"
                 + "3325558136648752946348246771904715458001");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -1977,7 +1977,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test7() {
         System.out.println("testPower_6args_test7");
@@ -1994,7 +1994,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999999999996741518920544748674219018662252981309537110886643"
                 + "3325558136648752946348246771904715458001");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2009,7 +2009,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test8() {
         System.out.println("testPower_6args_test8");
@@ -2043,7 +2043,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.065988035845312537076790187596846424938577048252796436402473"
                 + "5415723927466340880862459929685632483709");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2058,7 +2058,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test9() {
         System.out.println("testPower_6args_test9");
@@ -2075,7 +2075,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.000000000705507910865533257124642715759347962165079496127873"
                 + "1576287122320926208555158293415657929853");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2090,7 +2090,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test10() {
         System.out.println("testPower_6args_test10");
@@ -2110,7 +2110,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "189905276.4604618242121820463954116340585832240009877848127251"
                 + "456103762646167989140750662066593328455813588181");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2125,7 +2125,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test11() {
         System.out.println("testPower_6args_test11");
@@ -2145,7 +2145,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "1.000000000000000000000000000002000000000000000000000000000001"
                 + "9999000000000000000000000000013331333400");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2160,7 +2160,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test12() {
         System.out.println("testPower_6args_test12");
@@ -2177,7 +2177,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "11.80925729618850935047900283877251871123117528236149368178447"
                 + "43606317427155216550611985572658924014225");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2192,7 +2192,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test13() {
         System.out.println("testPower_6args_test13");
@@ -2209,7 +2209,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.909532576082962189535366090754262974443473210154553394006625"
                 + "8156584379857622915775444454069734604216");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2224,7 +2224,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test14() {
         System.out.println("testPower_6args_test14");
@@ -2242,7 +2242,7 @@ public class Generic_BigDecimalTest {
                 "0.125892541179416721042395410639580060609361740946693106910792"
                 + "301952664761578250202412105096627594617");
         expResult = expResult.setScale(decimalPlaces);
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2257,7 +2257,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test15() {
         System.out.println("testPower_6args_test15");
@@ -2275,7 +2275,7 @@ public class Generic_BigDecimalTest {
                 "0.989519258206214392646230170419804832155538415337091539600605"
                 + "544414212962464564723600065458219541611");
         expResult = expResult.setScale(decimalPlaces);
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2290,7 +2290,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test16() {
         System.out.println("testPower_6args_test16");
@@ -2307,7 +2307,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.987436328376606708739063494229909542239622211966688276138278"
                 + "1495703008692225765762583023898416587461");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2322,7 +2322,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test17() {
         System.out.println("testPower_6args_test17");
@@ -2342,7 +2342,7 @@ public class Generic_BigDecimalTest {
 //        expResult = new BigDecimal(
 //                "0.749047055475647117310421468815370379819904146132649930111430"
 //                + "8616900168333963941855154477042245371721");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2357,7 +2357,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test18() {
         System.out.println("testPower_6args_test18");
@@ -2375,7 +2375,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.100002072348056530317390970017713311383030160316867649898675"
                 + "1042536233958380984224300502095831919852");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2390,7 +2390,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test19() {
         System.out.println("testPower_6args_test19");
@@ -2408,7 +2408,7 @@ public class Generic_BigDecimalTest {
                 //0.10000000020723265858419098518432
                 "0.100000000207232449276900938780572607600670362630328624897040"
                 + "9053787443199517073876579178209190227768");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2423,7 +2423,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test20() {
         System.out.println("testPower_6args_test20");
@@ -2441,7 +2441,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999658330476842250517859191452511308247518473356535240882710"
                 + "507544024872721215314306435063439340094");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2456,7 +2456,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_6args_test21() {
         System.out.println("testPower_6args_test21");
@@ -2472,7 +2472,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("-2");
         expResult = expResult.setScale(decimalPlaces);
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2499,7 +2499,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("3125");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2526,7 +2526,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("3450.25251");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2560,7 +2560,7 @@ public class Generic_BigDecimalTest {
 //        a_RoundingMode = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal(
 //                "3670.6841971500593934826989552872");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2598,7 +2598,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPowerLessThanOne_4args() {
         System.out.println("powerLessThanOne");
@@ -2614,7 +2614,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 10;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1.0180832024");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x,
                 y,
                 decimalPlaces,
@@ -2623,7 +2623,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_5args_1() {
         System.out.println("testPower_5args_1");
@@ -2655,7 +2655,7 @@ public class Generic_BigDecimalTest {
         y = 13;
         div = 8;
         expResult = new BigDecimal("1579109656.3156692196");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2682,7 +2682,7 @@ public class Generic_BigDecimalTest {
         y = 13;
         div = 12;
         expResult = new BigDecimal("1579109656.3156692196");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2711,7 +2711,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "61053505308866480538551405717028781301447815633741042337063285"
                 + "637565296816330773386.1309180477");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2739,7 +2739,7 @@ public class Generic_BigDecimalTest {
         div = 3;
         expResult = new BigDecimal(
                 "93648.0464059980");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2767,7 +2767,7 @@ public class Generic_BigDecimalTest {
         div = 3;
         expResult = new BigDecimal(
                 "93648.04640599799415742896");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2795,7 +2795,7 @@ public class Generic_BigDecimalTest {
         div = 3;
         expResult = new BigDecimal(
                 "93648.046405997994157428955669854799");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2823,7 +2823,7 @@ public class Generic_BigDecimalTest {
         div = 3;
         expResult = new BigDecimal(
                 "0.000016935087808430286711036597");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2851,7 +2851,7 @@ public class Generic_BigDecimalTest {
         div = 3;
         expResult = new BigDecimal(
                 "0.0000169350878084302867110365967247540178");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2879,7 +2879,7 @@ public class Generic_BigDecimalTest {
         div = 3;
         expResult = new BigDecimal(
                 "0.0000169345233158524213740774680469856220");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2907,7 +2907,7 @@ public class Generic_BigDecimalTest {
         div = 3;
         expResult = new BigDecimal(
                 "1.180752785902410385735038642706422321146970536E-85");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2937,7 +2937,7 @@ public class Generic_BigDecimalTest {
                 "10000000000.000000000000000000000000000000");
 //        expResult = new BigDecimal(
 //                "1E+10");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -2965,7 +2965,7 @@ public class Generic_BigDecimalTest {
         div = 3;
         expResult = new BigDecimal(
                 "93648.046405997994157428955669854799");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_1(
                 x,
@@ -3003,7 +3003,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal.
+     * Test of power method, of class Math_BigDecimal.
      */
     public void testPower_5args_2() {
         System.out.println("testPower_5args_2");
@@ -3045,7 +3045,7 @@ public class Generic_BigDecimalTest {
         div = 2;
         expResult = new BigDecimal(
                 "1");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3073,7 +3073,7 @@ public class Generic_BigDecimalTest {
         div = 2;
         expResult = new BigDecimal(
                 "4");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3101,7 +3101,7 @@ public class Generic_BigDecimalTest {
         div = 8;
         expResult = new BigDecimal(
                 "4");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3129,7 +3129,7 @@ public class Generic_BigDecimalTest {
         div = 2;
         expResult = new BigDecimal(
                 "8");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3157,7 +3157,7 @@ public class Generic_BigDecimalTest {
         div = 8;
         expResult = new BigDecimal(
                 "8");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3185,7 +3185,7 @@ public class Generic_BigDecimalTest {
         div = 4;
         expResult = new BigDecimal(
                 "16");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3213,7 +3213,7 @@ public class Generic_BigDecimalTest {
         div = 2;
         expResult = new BigDecimal(
                 "16");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3241,7 +3241,7 @@ public class Generic_BigDecimalTest {
         div = 3;
         expResult = new BigDecimal(
                 "16");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3269,7 +3269,7 @@ public class Generic_BigDecimalTest {
         div = 8;
         expResult = new BigDecimal(
                 "256");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3297,7 +3297,7 @@ public class Generic_BigDecimalTest {
         div = 64;
         expResult = new BigDecimal(
                 "1024");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3325,7 +3325,7 @@ public class Generic_BigDecimalTest {
         div = 64;
         expResult = new BigDecimal(
                 "2048");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3353,7 +3353,7 @@ public class Generic_BigDecimalTest {
         div = 32;
         expResult = new BigDecimal(
                 "36893488147419103232");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3381,7 +3381,7 @@ public class Generic_BigDecimalTest {
         div = 17;
         expResult = new BigDecimal(
                 "36893488147419103232");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3412,7 +3412,7 @@ public class Generic_BigDecimalTest {
                 + "637565092974889024013.95170173462077405598021935614839617008"
                 + "687986713833910778545970838802156925519570602363713165609193"
                 + "54");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3440,7 +3440,7 @@ public class Generic_BigDecimalTest {
         div = 8;
         expResult = new BigDecimal(
                 "3.161757585765373988090713703424E-10");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3468,7 +3468,7 @@ public class Generic_BigDecimalTest {
         div = 8;
         expResult = new BigDecimal(
                 "0");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3548,7 +3548,7 @@ public class Generic_BigDecimalTest {
                 + "811711817735060315993183660630801180299388370977016001053753"
                 + "213675590341472292056479804429326923743981250071473193821515"
                 + "915066035479225636617768291794944E-3051");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3682,7 +3682,7 @@ public class Generic_BigDecimalTest {
                 + "703087457290093111633254634388438823165743886696298824349345"
                 + "656496377276196412103923039892904397552591077832462093232455"
                 + "91101586589950430363520701982464337600308855098521E-3590");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3712,7 +3712,7 @@ public class Generic_BigDecimalTest {
                 "-1.25365998693568959676678134576311434191784180749571395739232"
                 + "878897951918031315109522890632250338730775085419737311675655"
                 + "57247684654582741706554500513064226816E-35");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3766,7 +3766,7 @@ public class Generic_BigDecimalTest {
 //                + "161134455819574164533018002589203787042509960656909323878421"
 //                + "932179493755007178830228770626643007805900714109670294445996"
 //                + "80564930616575338758E-126");
-        result = Generic_BigDecimal.power(
+        result = Math_BigDecimal.power(
                 x, y, div, decimalPlaces, a_RoundingMode);
         printTestPower_5args_2(
                 x,
@@ -3810,49 +3810,49 @@ public class Generic_BigDecimalTest {
         int expResult;
         value = new BigDecimal("0.001234567891011");
         significantDigits = 3;
-        result = Generic_BigDecimal.getDecimalPlacePrecision(
+        result = Math_BigDecimal.getDecimalPlacePrecision(
                 value,
                 significantDigits);
         expResult = 5;
         assertEquals(expResult, result);
         value = new BigDecimal("0.00100234567891011");
         significantDigits = 3;
-        result = Generic_BigDecimal.getDecimalPlacePrecision(
+        result = Math_BigDecimal.getDecimalPlacePrecision(
                 value,
                 significantDigits);
         expResult = 5;
         assertEquals(expResult, result);
         value = new BigDecimal("100.001234567891011");
         significantDigits = 3;
-        result = Generic_BigDecimal.getDecimalPlacePrecision(
+        result = Math_BigDecimal.getDecimalPlacePrecision(
                 value,
                 significantDigits);
         expResult = 1;
         assertEquals(expResult, result);
         value = new BigDecimal("1.001234567891011");
         significantDigits = 3;
-        result = Generic_BigDecimal.getDecimalPlacePrecision(
+        result = Math_BigDecimal.getDecimalPlacePrecision(
                 value,
                 significantDigits);
         expResult = 2;
         assertEquals(expResult, result);
         value = new BigDecimal("10.001234567891011");
         significantDigits = 3;
-        result = Generic_BigDecimal.getDecimalPlacePrecision(
+        result = Math_BigDecimal.getDecimalPlacePrecision(
                 value,
                 significantDigits);
         expResult = 1;
         assertEquals(expResult, result);
         value = new BigDecimal("0.001234567891011");
         significantDigits = 5;
-        result = Generic_BigDecimal.getDecimalPlacePrecision(
+        result = Math_BigDecimal.getDecimalPlacePrecision(
                 value,
                 significantDigits);
         expResult = 7;
         assertEquals(expResult, result);
         value = new BigDecimal("23.001234567891011");
         significantDigits = 3;
-        result = Generic_BigDecimal.getDecimalPlacePrecision(
+        result = Math_BigDecimal.getDecimalPlacePrecision(
                 value,
                 significantDigits);
         expResult = 1;
@@ -3861,7 +3861,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of reciprocal method, of class Generic_BigDecimal.
+     * Test of reciprocal method, of class Math_BigDecimal.
      */
     public void testReciprocal() {
         testReciprocal_test1();
@@ -3882,7 +3882,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("1");
         expResult = new BigDecimal("1.0000000000");
         //expResult = new BigDecimal("1");
-        result = Generic_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
         printTestReciprocal(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
     }
@@ -3903,7 +3903,7 @@ public class Generic_BigDecimalTest {
         //expResult = new BigDecimal("1E+1");
         //expResult = new BigDecimal("10");
         expResult = new BigDecimal("10.0000000000");
-        result = Generic_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
         printTestReciprocal(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
     }
@@ -3924,7 +3924,7 @@ public class Generic_BigDecimalTest {
         //expResult = new BigDecimal("100000000000000000000000");
         //expResult = new BigDecimal("1E+23");
         expResult = new BigDecimal("100000000000000000000000.0000000000");
-        result = Generic_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
         printTestReciprocal(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
     }
@@ -3945,7 +3945,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "9.999999999999999999999999999999999999999999999900000000000000"
                 + "000000000000000E-25");
-        result = Generic_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
         printTestReciprocal(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
     }
@@ -3971,7 +3971,7 @@ public class Generic_BigDecimalTest {
 
     /**
      * Test of reciprocalWillBeIntegerReturnBigInteger method, of class
-     * Generic_BigDecimal.
+ Math_BigDecimal.
      */
     public void testReciprocalWillBeInteger() {
         System.out.println("reciprocalWillBeInteger");
@@ -3987,7 +3987,7 @@ public class Generic_BigDecimalTest {
         BigInteger result = null;
         x = new BigDecimal("1");
         expResult = new BigInteger("1");
-        result = Generic_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
+        result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
         printTestReciprocalWillBeInteger(x, result);
         assertEquals(expResult, result);
     }
@@ -3999,7 +3999,7 @@ public class Generic_BigDecimalTest {
         BigInteger result = null;
         x = new BigDecimal("0.1");
         expResult = new BigInteger("10");
-        result = Generic_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
+        result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
         printTestReciprocalWillBeInteger(x, result);
         assertEquals(expResult, result);
     }
@@ -4011,7 +4011,7 @@ public class Generic_BigDecimalTest {
         BigInteger result = null;
         x = new BigDecimal("0.00000000000000000000001");
         expResult = new BigInteger("100000000000000000000000");
-        result = Generic_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
+        result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
         printTestReciprocalWillBeInteger(x, result);
         assertEquals(expResult, result);
     }
@@ -4032,7 +4032,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of log method, of class Generic_BigDecimal.
+     * Test of log method, of class Math_BigDecimal.
      */
     public void testLog() {
         testLog_4args_1();
@@ -4040,7 +4040,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of log method, of class Generic_BigDecimal.
+     * Test of log method, of class Math_BigDecimal.
      */
     public void testLog_4args_1() {
         System.out.println("testLog_4args_1");
@@ -4062,7 +4062,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 10;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1");
-        result = Generic_BigDecimal.log(
+        result = Math_BigDecimal.log(
                 base_int,
                 x,
                 decimalPlaces,
@@ -4083,7 +4083,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 10;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("2.0000000000");
-        result = Generic_BigDecimal.log(
+        result = Math_BigDecimal.log(
                 base_int,
                 x,
                 decimalPlaces,
@@ -4104,7 +4104,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 10;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("5.0004345113");
-        result = Generic_BigDecimal.log(
+        result = Math_BigDecimal.log(
                 base_int,
                 x,
                 decimalPlaces,
@@ -4130,7 +4130,7 @@ public class Generic_BigDecimalTest {
         base = new BigDecimal("10");
         x = new BigDecimal("10");
         expResult = new BigDecimal("1");
-        result = Generic_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
         assertEquals(expResult, result);
     }
 
@@ -4147,7 +4147,7 @@ public class Generic_BigDecimalTest {
         base = new BigDecimal("10");
         x = new BigDecimal("1");
         expResult = new BigDecimal("0");
-        result = Generic_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
         assertEquals(expResult, result);
     }
 
@@ -4164,7 +4164,7 @@ public class Generic_BigDecimalTest {
         base = new BigDecimal("11");
         x = new BigDecimal("10");
         expResult = new BigDecimal("0.9602525678");
-        result = Generic_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
         assertEquals(expResult, result);
     }
 
@@ -4181,7 +4181,7 @@ public class Generic_BigDecimalTest {
         base = new BigDecimal("10.5");
         x = new BigDecimal("10");
         expResult = new BigDecimal("0.9792503710");
-        result = Generic_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
         assertEquals(expResult, result);
     }
 
@@ -4209,7 +4209,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal("1.00");
-        result = Generic_BigDecimal.roundToAndSetDecimalPlaces(
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
                 x, decimalPlaces, a_RoundingMode);
         printTestRound(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
@@ -4227,7 +4227,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal("1.02");
-        result = Generic_BigDecimal.roundToAndSetDecimalPlaces(
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
                 x, decimalPlaces, a_RoundingMode);
         printTestRound(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
@@ -4245,7 +4245,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal("1543543.00500");
-        result = Generic_BigDecimal.roundToAndSetDecimalPlaces(
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
                 x, decimalPlaces, a_RoundingMode);
         printTestRound(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
@@ -4263,7 +4263,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal("1.00");
-        result = Generic_BigDecimal.roundToAndSetDecimalPlaces(
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
                 x, decimalPlaces, a_RoundingMode);
         printTestRound(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
@@ -4280,7 +4280,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 2;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1.01");
-        result = Generic_BigDecimal.roundToAndSetDecimalPlaces(
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
                 x, decimalPlaces, a_RoundingMode);
         printTestRound(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
@@ -4297,7 +4297,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 2;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.00");
-        result = Generic_BigDecimal.roundToAndSetDecimalPlaces(
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
                 x, decimalPlaces, a_RoundingMode);
         printTestRound(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
@@ -4314,7 +4314,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 2;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.01");
-        result = Generic_BigDecimal.roundToAndSetDecimalPlaces(
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
                 x, decimalPlaces, a_RoundingMode);
         printTestRound(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
@@ -4331,7 +4331,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 6;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.001235");
-        result = Generic_BigDecimal.roundToAndSetDecimalPlaces(
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
                 x, decimalPlaces, a_RoundingMode);
         printTestRound(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
@@ -4348,7 +4348,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 7;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.0012346");
-        result = Generic_BigDecimal.roundToAndSetDecimalPlaces(
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
                 x, decimalPlaces, a_RoundingMode);
         printTestRound(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
@@ -4374,7 +4374,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of getEMinDecimalPlaces method, of class Generic_BigDecimal.
+     * Test of getEMinDecimalPlaces method, of class Math_BigDecimal.
      */
     public void testGetEulerConstantToAMinimumDecimalPlacePrecision() {
         System.out.println("testGetEulerConstantToAMinimumDecimalPlacePrecision");
@@ -4384,7 +4384,7 @@ public class Generic_BigDecimalTest {
     public void testGetEulerConstantToAMinimumDecimalPlacePrecision_test1() {
         System.out.println("testGetEulerConstantToAMinimumDecimalPlacePrecision_test1");
         int decimalPlaces = 0;
-        Generic_BigDecimal instance = new Generic_BigDecimal();
+        Math_BigDecimal instance = new Math_BigDecimal();
         BigDecimal expResult = null;
         BigDecimal result = null;
         decimalPlaces = 1000;
@@ -4440,12 +4440,12 @@ public class Generic_BigDecimalTest {
 
     public void testGetEulerConstantToAFixedDecimalPlacePrecision_test1() {
         System.out.println("testGetEulerConstantToAFixedDecimalPlacePrecision_test1");
-        Generic_BigDecimal instance;
+        Math_BigDecimal instance;
         int decimalPlaces;
         RoundingMode a_RoundingMode;
         BigDecimal expResult = null;
         BigDecimal result = null;
-        instance = new Generic_BigDecimal();
+        instance = new Math_BigDecimal();
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
@@ -4460,12 +4460,12 @@ public class Generic_BigDecimalTest {
 
     public void testGetEulerConstantToAFixedDecimalPlacePrecision_test2() {
         System.out.println("testGetEulerConstantToAFixedDecimalPlacePrecision_test2");
-        Generic_BigDecimal instance;
+        Math_BigDecimal instance;
         int decimalPlaces;
         RoundingMode a_RoundingMode;
         BigDecimal expResult = null;
         BigDecimal result = null;
-        instance = new Generic_BigDecimal();
+        instance = new Math_BigDecimal();
         decimalPlaces = 1000;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
@@ -4509,13 +4509,13 @@ public class Generic_BigDecimalTest {
     }
 
 //    /**
-//     * Test of exp method, of class Generic_BigDecimal.
+//     * Test of exp method, of class Math_BigDecimal.
 //     */
 //    @Test
 //    public void testExp() {
 //        System.out.println("exp");
 //        BigDecimal x = null;
-//        Generic_BigDecimal a_Generic_BigDecimal = null;
+//        Math_BigDecimal a_Generic_BigDecimal = null;
 //        int decimalPlaces = 0;
 //        RoundingMode a_RoundingMode = null;
 //        BigDecimal expResult = null;
@@ -4526,7 +4526,7 @@ public class Generic_BigDecimalTest {
 //        decimalPlaces = 10;
 //        a_RoundingMode = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal("7.3890545668");
-//        result = Generic_BigDecimal.exp(
+//        result = Math_BigDecimal.exp(
 //                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
 //        assertEquals(expResult, result);
 //        // Test 2
@@ -4535,7 +4535,7 @@ public class Generic_BigDecimalTest {
 //        decimalPlaces = 10;
 //        a_RoundingMode = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal("0.0000240835");
-//        result = Generic_BigDecimal.exp(
+//        result = Math_BigDecimal.exp(
 //                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
 //        assertEquals(expResult, result);
 //        // Test 3
@@ -4544,7 +4544,7 @@ public class Generic_BigDecimalTest {
 //        decimalPlaces = 10;
 //        a_RoundingMode = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal("0.0000000000");
-//        result = Generic_BigDecimal.exp(
+//        result = Math_BigDecimal.exp(
 //                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
 //        assertEquals(expResult, result);
 //        // Test 4
@@ -4555,7 +4555,7 @@ public class Generic_BigDecimalTest {
 //        expResult = new BigDecimal(
 //                "0.000000000000000000000294430173036448917951275819843218363632"
 //                + "0493797907240661183598466156605197338635");
-//        result = Generic_BigDecimal.exp(
+//        result = Math_BigDecimal.exp(
 //                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
 //        assertEquals(expResult, result);
 //        // Test 5
@@ -4576,7 +4576,7 @@ public class Generic_BigDecimalTest {
 //                + "05868688623026692684.163632156232358690924047183584316158333"
 //                + "675721857593135877969643591237953992931456902718860364075323"
 //                + "7");
-//        result = Generic_BigDecimal.exp(
+//        result = Math_BigDecimal.exp(
 //                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
 //        assertEquals(expResult, result);
 //        // Test 6
@@ -4597,13 +4597,12 @@ public class Generic_BigDecimalTest {
 //                + "10899554214585338563.173832288281282191708046629849175523366"
 //                + "725273703318641625995899652501875438449418493817553176244532"
 //                + "");
-//        result = Generic_BigDecimal.exp(
+//        result = Math_BigDecimal.exp(
 //                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
 //        assertEquals(expResult, result);
 //    }
-
     /**
-     * Test of positionSignificantDigit method, of class Generic_BigDecimal.
+     * Test of positionSignificantDigit method, of class Math_BigDecimal.
      */
     public void testPositionSignificantDigit() {
         System.out.println("testPositionSignificantDigit");
@@ -4624,7 +4623,7 @@ public class Generic_BigDecimalTest {
         int result;
         x = new BigDecimal("100000");
         expResult = 6;
-        result = Generic_BigDecimal.positionSignificantDigit(x);
+        result = Math_BigDecimal.positionSignificantDigit(x);
         printTestPositionSignificantDigit(x, result);
         assertEquals(expResult, result);
     }
@@ -4636,7 +4635,7 @@ public class Generic_BigDecimalTest {
         int result;
         x = new BigDecimal("1000000000000000000000000000000000000000000000000");
         expResult = 49;
-        result = Generic_BigDecimal.positionSignificantDigit(x);
+        result = Math_BigDecimal.positionSignificantDigit(x);
         printTestPositionSignificantDigit(x, result);
         assertEquals(expResult, result);
     }
@@ -4648,7 +4647,7 @@ public class Generic_BigDecimalTest {
         int result;
         x = new BigDecimal("0.1234");
         expResult = -1;
-        result = Generic_BigDecimal.positionSignificantDigit(x);
+        result = Math_BigDecimal.positionSignificantDigit(x);
         printTestPositionSignificantDigit(x, result);
         assertEquals(expResult, result);
     }
@@ -4660,7 +4659,7 @@ public class Generic_BigDecimalTest {
         int result;
         x = new BigDecimal("0.00000000000000000000000000000000001234567891011");
         expResult = -35;
-        result = Generic_BigDecimal.positionSignificantDigit(x);
+        result = Math_BigDecimal.positionSignificantDigit(x);
         printTestPositionSignificantDigit(x, result);
         assertEquals(expResult, result);
     }
@@ -4672,7 +4671,7 @@ public class Generic_BigDecimalTest {
         int result;
         x = new BigDecimal("-100000");
         expResult = 6;
-        result = Generic_BigDecimal.positionSignificantDigit(x);
+        result = Math_BigDecimal.positionSignificantDigit(x);
         printTestPositionSignificantDigit(x, result);
         assertEquals(expResult, result);
     }
@@ -4685,7 +4684,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal(
                 "-1000000000000000000000000000000000000000000000000");
         expResult = 49;
-        result = Generic_BigDecimal.positionSignificantDigit(x);
+        result = Math_BigDecimal.positionSignificantDigit(x);
         printTestPositionSignificantDigit(x, result);
         assertEquals(expResult, result);
     }
@@ -4697,7 +4696,7 @@ public class Generic_BigDecimalTest {
         int result;
         x = new BigDecimal("-0.1234");
         expResult = -1;
-        result = Generic_BigDecimal.positionSignificantDigit(x);
+        result = Math_BigDecimal.positionSignificantDigit(x);
         printTestPositionSignificantDigit(x, result);
         assertEquals(expResult, result);
     }
@@ -4710,7 +4709,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal(
                 "-0.00000000000000000000000000000000001234567891011");
         expResult = -35;
-        result = Generic_BigDecimal.positionSignificantDigit(x);
+        result = Math_BigDecimal.positionSignificantDigit(x);
         printTestPositionSignificantDigit(x, result);
         assertEquals(expResult, result);
     }
@@ -4729,7 +4728,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of floorSignificantDigit method, of class Generic_BigDecimal.
+     * Test of floorSignificantDigit method, of class Math_BigDecimal.
      */
     public void testFloorSignificantDigit() {
         System.out.println("testFloorSignificantDigit");
@@ -4743,7 +4742,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("0.0001");
         expResult = new BigDecimal("0.0001");
-        result = Generic_BigDecimal.floorSignificantDigit(x);
+        result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -4754,7 +4753,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("0.00012");
         expResult = new BigDecimal("0.0001");
-        result = Generic_BigDecimal.floorSignificantDigit(x);
+        result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -4765,7 +4764,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("0.0009");
         expResult = new BigDecimal("0.0009");
-        result = Generic_BigDecimal.floorSignificantDigit(x);
+        result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -4776,7 +4775,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("1.00099");
         expResult = new BigDecimal("1");
-        result = Generic_BigDecimal.floorSignificantDigit(x);
+        result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -4788,7 +4787,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("10008798.00099");
         //expResult = new BigDecimal("10000000");
         expResult = new BigDecimal("1E+7");
-        result = Generic_BigDecimal.floorSignificantDigit(x);
+        result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -4799,7 +4798,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("-1.00099");
         expResult = new BigDecimal("-1");
-        result = Generic_BigDecimal.floorSignificantDigit(x);
+        result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -4811,7 +4810,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("-10008798.00099");
         //expResult = new BigDecimal("-20000000");
         expResult = new BigDecimal("-1E+7");
-        result = Generic_BigDecimal.floorSignificantDigit(x);
+        result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -4822,7 +4821,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("-0.00099");
         expResult = new BigDecimal("-0.0009");
-        result = Generic_BigDecimal.floorSignificantDigit(x);
+        result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -4833,7 +4832,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("-0.99");
         expResult = new BigDecimal("-0.9");
-        result = Generic_BigDecimal.floorSignificantDigit(x);
+        result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -4851,7 +4850,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of ceilingSignificantDigit method, of class Generic_BigDecimal.
+     * Test of ceilingSignificantDigit method, of class Math_BigDecimal.
      */
     public void testCeilingSignificantDigit() {
         System.out.println("testCeilingSignificantDigit");
@@ -4873,7 +4872,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("0.0001");
         expResult = new BigDecimal("0.0002");
-        result = Generic_BigDecimal.ceilingSignificantDigit(x);
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
         printTestCeilingSignificantDigit(
                 x,
                 result);
@@ -4887,7 +4886,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("0.00012");
         expResult = new BigDecimal("0.0002");
-        result = Generic_BigDecimal.ceilingSignificantDigit(x);
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
         printTestCeilingSignificantDigit(
                 x,
                 result);
@@ -4901,7 +4900,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("0.0009");
         expResult = new BigDecimal("0.001");
-        result = Generic_BigDecimal.ceilingSignificantDigit(x);
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
         printTestCeilingSignificantDigit(
                 x,
                 result);
@@ -4915,7 +4914,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("1.00099");
         expResult = new BigDecimal("2");
-        result = Generic_BigDecimal.ceilingSignificantDigit(x);
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
         printTestCeilingSignificantDigit(
                 x,
                 result);
@@ -4930,7 +4929,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("10008798.00099");
         //expResult = new BigDecimal("20000000");
         expResult = new BigDecimal("2E+7");
-        result = Generic_BigDecimal.ceilingSignificantDigit(x);
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
         printTestCeilingSignificantDigit(
                 x,
                 result);
@@ -4944,7 +4943,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("-1.00099");
         expResult = new BigDecimal("-2");
-        result = Generic_BigDecimal.ceilingSignificantDigit(x);
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
         printTestCeilingSignificantDigit(
                 x,
                 result);
@@ -4959,7 +4958,7 @@ public class Generic_BigDecimalTest {
         x = new BigDecimal("-10008798.00099");
         //expResult = new BigDecimal("-10000000");
         expResult = new BigDecimal("-2E+7");
-        result = Generic_BigDecimal.ceilingSignificantDigit(x);
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
         printTestCeilingSignificantDigit(
                 x,
                 result);
@@ -4973,7 +4972,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("-0.00099");
         expResult = new BigDecimal("-0.001");
-        result = Generic_BigDecimal.ceilingSignificantDigit(x);
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
         printTestCeilingSignificantDigit(
                 x,
                 result);
@@ -4987,7 +4986,7 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         x = new BigDecimal("-0.99");
         expResult = new BigDecimal("-1");
-        result = Generic_BigDecimal.ceilingSignificantDigit(x);
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
         printTestCeilingSignificantDigit(
                 x,
                 result);
@@ -5030,14 +5029,14 @@ public class Generic_BigDecimalTest {
         int decimalPrecision = 10;
         expResult = new BigDecimal(BigInteger.TEN);
         expResult = expResult.setScale(decimalPrecision);
-        result = Generic_BigDecimal.rootUnscaled1Precision1(
+        result = Math_BigDecimal.rootUnscaled1Precision1(
                 x, y,
                 decimalPrecision);
         assertEquals(expResult, result);
     }
-    
+
     /**
-     * Test of rootRoundIfNecessary method, of class Generic_BigDecimal.
+     * Test of rootRoundIfNecessary method, of class Math_BigDecimal.
      */
     public void testRoot_4args_1() {
         System.out.println("testRoot_4args_1");
@@ -5065,7 +5064,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 10;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.9675317785");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_1(
                 x,
@@ -5090,7 +5089,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("3");
         expResult = new BigDecimal("3.0000000000");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_1(
                 x,
@@ -5119,7 +5118,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "1.000298152025337254460647917046876546344432360719824792024188"
                 + "0690659179835221951205476639783947640617");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_1(
                 x,
@@ -5145,7 +5144,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999986140340178623210350534074937443141133112706862977788610"
                 + "0664594081621639848435662325435814102018");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_1(
                 x,
@@ -5171,7 +5170,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999999989997297335815964171495970213458904791728888003317236"
                 + "9473900240303824000659869633098129663322");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_1(
                 x,
@@ -5197,10 +5196,10 @@ public class Generic_BigDecimalTest {
 //        expResult = new BigDecimal(
 //                "1.015243902337169733771715514244796218250514955824391661165307"
 //                + "1501461496931644677321800994560628165067");
-         expResult = new BigDecimal(
-                 "1.00011394962121160039192193569934499772696785109598019812727"
-                 + "58749782805563101995300728186461240097898");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        expResult = new BigDecimal(
+                "1.00011394962121160039192193569934499772696785109598019812727"
+                + "58749782805563101995300728186461240097898");
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_1(
                 x,
@@ -5226,7 +5225,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "1.000000029817615604530522955297464844042643450238720000794888"
                 + "829957679681379258243392341722104230672");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_1(
                 x,
@@ -5252,7 +5251,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999999998613705639841015408557905737253169342556579813124573"
                 + "7217463304587103469885523969834565259117");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_1(
                 x,
@@ -5278,7 +5277,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999999999998999499666416967000315767959920576358096366321598"
                 + "7363152842107633912159255642659280381426");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_1(
                 x,
@@ -5312,7 +5311,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of rootRoundIfNecessary method, of class Generic_BigDecimal.
+     * Test of rootRoundIfNecessary method, of class Math_BigDecimal.
      */
     public void testRoot_4args_2() {
         System.out.println("testRoot_4args_2");
@@ -5343,7 +5342,7 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 10;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.9675317785");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5368,7 +5367,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("3.0000000000");
         //expResult = new BigDecimal("3");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5394,7 +5393,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "1.000298152025337254460647917046876546344432360719824792024188"
                 + "0690659179835221951205476639783947640617");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5420,7 +5419,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999986140340178623210350534074937443141133112706862977788610"
                 + "0664594081621639848435662325435814102018");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5446,7 +5445,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.999999989997297335815964171495970213458904791728888003317236"
                 + "9473900240303824000659869633098129663322");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5475,7 +5474,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "1.000113949621211600391921935699344997726967851095980198127275"
                 + "8749782805563101995300728186461240097898");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5502,7 +5501,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "1.000000029817615604530522955297464844042643450238720000794888"
                 + "829957679681379258243392341722104230672");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5534,7 +5533,7 @@ public class Generic_BigDecimalTest {
 //        expResult = new BigDecimal(
 //                "0.999999998613705639841015408557905737253169342556579813124573"
 //                + "7217463304587103469885523969834565259117");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5566,7 +5565,7 @@ public class Generic_BigDecimalTest {
 //        expResult = new BigDecimal(
 //                "0.999999999998999499666416967000315767959920576358096366321598"
 //                + "7363152842107633912159255642659280381426");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5591,7 +5590,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.994");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5616,7 +5615,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.9936");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5642,7 +5641,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.993552936417354226471692858641777111504937855829958649327917"
                 + "9203022268144882986474329796822248724061");
-        result = Generic_BigDecimal.rootRoundIfNecessary(
+        result = Math_BigDecimal.rootRoundIfNecessary(
                 x, root, decimalPlaces, a_RoundingMode);
         printTestRoot_4args_2(
                 x,
@@ -5693,19 +5692,19 @@ public class Generic_BigDecimalTest {
     public void testExp_test1() {
         System.out.println("testExp_test1");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("1");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "2.718281828459045235360287471352662497757247093699959574966967"
                 + "6277240766303535475945713821785251664274");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -5722,13 +5721,13 @@ public class Generic_BigDecimalTest {
     public void testExp_test2() {
         System.out.println("testExp_test2");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("1");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 1000;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
@@ -5749,7 +5748,7 @@ public class Generic_BigDecimalTest {
                 + "304369941849146314093431738143640546253152096183690888707016"
                 + "768396424378140592714563549061303107208510383750510115747704"
                 + "1718986106873969655212671546889570350354");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -5766,13 +5765,13 @@ public class Generic_BigDecimalTest {
     public void testExp_test3() {
         System.out.println("testExp_test3");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("1");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 1001;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
@@ -5793,7 +5792,7 @@ public class Generic_BigDecimalTest {
                 + "304369941849146314093431738143640546253152096183690888707016"
                 + "768396424378140592714563549061303107208510383750510115747704"
                 + "17189861068739696552126715468895703503540");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -5810,13 +5809,13 @@ public class Generic_BigDecimalTest {
     public void testExp_test4() {
         System.out.println("testExp_test4");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("1");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 2000;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
@@ -5854,7 +5853,7 @@ public class Generic_BigDecimalTest {
                 + "031360205724817658511806303644281231496550704751025446501172"
                 + "721155519486685080036853228183152196003735625279449515828418"
                 + "82947876108526398140");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -5871,18 +5870,18 @@ public class Generic_BigDecimalTest {
     public void testExp_test5() {
         System.out.println("testExp_test5");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("2");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 5;
         a_RoundingMode = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("7.38095");
         expResult = new BigDecimal("7.38906");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -5899,13 +5898,13 @@ public class Generic_BigDecimalTest {
     public void testExp_test6() {
         System.out.println("testExp_test6");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("2");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 1001;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
@@ -5926,7 +5925,7 @@ public class Generic_BigDecimalTest {
                 + "363141560471888117657942786348599076704527119372958723995987"
                 + "073310814961253109770593530099050329681075421090877626308572"
                 + "48500382787227614486674505649873858771575");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -5943,17 +5942,17 @@ public class Generic_BigDecimalTest {
     public void testExp_test7() {
         System.out.println("testExp_test7");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("2.1");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 10;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("8.1661699126");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -5970,17 +5969,17 @@ public class Generic_BigDecimalTest {
     public void testExp_test8() {
         System.out.println("testExp_test8");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("2.10111010101010101010101111");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 20;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("8.17524021958327462764");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -5997,17 +5996,17 @@ public class Generic_BigDecimalTest {
     public void testExp_test9() {
         System.out.println("testExp_test9");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("0.5");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 20;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1.64872127070012814685");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6024,19 +6023,19 @@ public class Generic_BigDecimalTest {
     public void testExp_test10() {
         System.out.println("testExp_test10");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("0.0000001");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "1.000000100000005000000166666670833333416666668055555575396825"
                 + "6448412725970017912257498096039783583187");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6053,19 +6052,19 @@ public class Generic_BigDecimalTest {
     public void testExp_test11() {
         System.out.println("testExp_test11");
         BigDecimal y = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         y = new BigDecimal("-0.0000001");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999999900000004999999833333337499999916666668055555535714285"
                 + "9623015845458554067460314955106642650045");
-        result = Generic_BigDecimal.exp(
+        result = Math_BigDecimal.exp(
                 y,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6090,7 +6089,7 @@ public class Generic_BigDecimalTest {
      */
     private void printTestExp(
             BigDecimal y,
-            Generic_BigDecimal a_Generic_BigDecimal,
+            Math_BigDecimal a_Generic_BigDecimal,
             int decimalPlaces,
             RoundingMode a_RoundingMode,
             BigDecimal result) {
@@ -6114,18 +6113,18 @@ public class Generic_BigDecimalTest {
     public void testLn_test1() {
         System.out.println("testLn_test1");
         BigDecimal x = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         x = new BigDecimal("1");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0E-100");
-        result = Generic_BigDecimal.ln(
+        result = Math_BigDecimal.ln(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6142,19 +6141,19 @@ public class Generic_BigDecimalTest {
     public void testLn_test2() {
         System.out.println("testLn_test2");
         BigDecimal x = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
         x = new BigDecimal("2");
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 100;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.693147180559945309417232121458176568075500134360255254120680"
                 + "0094933936219696947156058633269964186875");
-        result = Generic_BigDecimal.ln(
+        result = Math_BigDecimal.ln(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6171,19 +6170,19 @@ public class Generic_BigDecimalTest {
     public void testLn_test3() {
         System.out.println("testLn_test3");
         BigDecimal x = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 100;
         x = new BigDecimal(a_Generic_BigDecimal.getEulerConstantToAMinimumDecimalPlacePrecision(decimalPlaces).toString());
         a_RoundingMode = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal(
                 "1.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
-        result = Generic_BigDecimal.ln(
+        result = Math_BigDecimal.ln(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6200,19 +6199,19 @@ public class Generic_BigDecimalTest {
     public void testLn_test4() {
         System.out.println("testLn_test4");
         BigDecimal x = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 100;
         x = new BigDecimal("3");
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "1.098612288668109691395245236922525704647490557822749451734694"
                 + "3336374942932186089668736157548137320888");
-        result = Generic_BigDecimal.ln(
+        result = Math_BigDecimal.ln(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6229,19 +6228,19 @@ public class Generic_BigDecimalTest {
     public void testLn_test5() {
         System.out.println("testLn_test5");
         BigDecimal x = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 100;
         x = new BigDecimal("3000000000");
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "21.82187812561452084755716832908180357305740395548170623603464"
                 + "54423456477803147812889975906006201167737");
-        result = Generic_BigDecimal.ln(
+        result = Math_BigDecimal.ln(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6258,19 +6257,19 @@ public class Generic_BigDecimalTest {
     public void testLn_test6() {
         System.out.println("testLn_test6");
         BigDecimal x = null;
-        Generic_BigDecimal a_Generic_BigDecimal = null;
+        Math_BigDecimal a_Generic_BigDecimal = null;
         int decimalPlaces = 0;
         RoundingMode a_RoundingMode = null;
         BigDecimal expResult = null;
         BigDecimal result = null;
-        a_Generic_BigDecimal = new Generic_BigDecimal();
+        a_Generic_BigDecimal = new Math_BigDecimal();
         decimalPlaces = 100;
         x = new BigDecimal("0.5");
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "-0.6931471805599453094172321214581765680755001343602552541206"
                 + "800094933936219696947156058633269964186875");
-        result = Generic_BigDecimal.ln(
+        result = Math_BigDecimal.ln(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6291,7 +6290,7 @@ public class Generic_BigDecimalTest {
      */
     private void printTestLn(
             BigDecimal x,
-            Generic_BigDecimal a_Generic_BigDecimal,
+            Math_BigDecimal a_Generic_BigDecimal,
             int decimalPlaces,
             RoundingMode a_RoundingMode,
             BigDecimal result) {
@@ -6304,7 +6303,7 @@ public class Generic_BigDecimalTest {
 
     public void testTan() {
         System.out.println("testTan");
-        Generic_BigDecimal a_Generic_BigDecimal = new Generic_BigDecimal(1000);
+        Math_BigDecimal a_Generic_BigDecimal = new Math_BigDecimal(1000);
         BigDecimal x;
         int decimalPlaces;
         RoundingMode roundingMode;
@@ -6314,14 +6313,14 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 100;
         roundingMode = RoundingMode.HALF_UP;
         // Test PI/4
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000,
                 BigInteger.valueOf(4),
                 decimalPlaces + 2,
                 roundingMode);
         expResult = new BigDecimal("1");
         expResult.setScale(decimalPlaces);
-        result = Generic_BigDecimal.tan(
+        result = Math_BigDecimal.tan(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6333,7 +6332,7 @@ public class Generic_BigDecimalTest {
 
     public void testCos() {
         System.out.println("testCos");
-        Generic_BigDecimal a_Generic_BigDecimal = new Generic_BigDecimal(1000);
+        Math_BigDecimal a_Generic_BigDecimal = new Math_BigDecimal(1000);
         BigDecimal x;
         int decimalPlaces;
         RoundingMode roundingMode;
@@ -6346,7 +6345,7 @@ public class Generic_BigDecimalTest {
         roundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1");
         expResult = expResult.setScale(decimalPlaces);
-        result = Generic_BigDecimal.cos(
+        result = Math_BigDecimal.cos(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6355,152 +6354,152 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 30;
         roundingMode = RoundingMode.HALF_UP;
         // Test PI/4
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000,
                 BigInteger.valueOf(4),
                 decimalPlaces + 2,
                 roundingMode);
         expResult = new BigDecimal("0.707106781186547524400844362105");
-        result = Generic_BigDecimal.cos(
+        result = Math_BigDecimal.cos(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test 87*PI/180
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000.multiply(BigDecimal.valueOf(87)),
                 BigInteger.valueOf(180),
                 decimalPlaces + 10,
                 roundingMode);
-        BigDecimal sqrt30 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt30 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(30), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt10 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt10 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(10), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt6 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt6 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(6), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt5 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt2 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
         // (sqrt(30) + sqrt(10) + sqrt(20 + 4*sqrt(5)) - sqrt(6) - sqrt(2) - sqrt(60 + 12*sqrt(5)))/16
-        BigDecimal splurge1 = Generic_BigDecimal.sqrt(
+        BigDecimal splurge1 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(60).add(BigDecimal.valueOf(12).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
         // (sqrt(30) + sqrt(10) + sqrt(20 + 4*sqrt(5)) - sqrt(6) - sqrt(2) - splurge1)/16
-        BigDecimal splurge2 = Generic_BigDecimal.sqrt(
+        BigDecimal splurge2 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(20).add(BigDecimal.valueOf(4).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
         // (sqrt(30) + sqrt(10) + splurge2 - sqrt(6) - sqrt(2) - splurge1)/16
         BigDecimal splurge = sqrt30.add(sqrt10).add(splurge2).subtract(sqrt6).subtract(sqrt2).subtract(splurge1);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 splurge,
                 BigDecimal.valueOf(16),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.cos(
+        result = Math_BigDecimal.cos(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test 81*PI/180
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000.multiply(BigDecimal.valueOf(81)),
                 BigInteger.valueOf(180),
                 decimalPlaces + 10,
                 roundingMode);
-        BigDecimal sqrt90 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt90 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(90), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt18 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt18 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(18), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt10 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt10 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(10), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt20 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt20 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(20), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt5 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt2 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - sqrt(20 - 4*sqrt(5)) - sqrt(180 - 36*sqrt(5)))/5
-        splurge1 = Generic_BigDecimal.sqrt(
+        splurge1 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(20).subtract(BigDecimal.valueOf(4).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - splurge1 - sqrt(180 - 36*sqrt(5)))/5
-        splurge2 = Generic_BigDecimal.sqrt(
+        splurge2 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(180).subtract(BigDecimal.valueOf(36).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - splurge1 - splurge2)/5
         splurge = sqrt90.add(sqrt18).add(sqrt10).add(sqrt2).subtract(splurge1).subtract(splurge2);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 splurge,
                 BigDecimal.valueOf(32),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.cos(
+        result = Math_BigDecimal.cos(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test 75*PI/180
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000.multiply(BigDecimal.valueOf(75)),
                 BigInteger.valueOf(180),
                 decimalPlaces + 10,
                 roundingMode);
-//        BigDecimal sqrt6 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt6 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(6), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt2 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
         BigDecimal sqrt6subtractsqrt2 = sqrt6.subtract(sqrt2);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 sqrt6subtractsqrt2,
                 BigDecimal.valueOf(4),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.cos(
+        result = Math_BigDecimal.cos(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test 72*PI/180
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000.multiply(BigDecimal.valueOf(72)),
                 BigInteger.valueOf(180),
                 decimalPlaces + 10,
                 roundingMode);
-//        BigDecimal sqrt5 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
         BigDecimal sqrtsubtract1 = sqrt5.subtract(BigDecimal.ONE);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 sqrtsubtract1,
                 BigDecimal.valueOf(4),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.cos(
+        result = Math_BigDecimal.cos(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test 54*PI/180
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000.multiply(BigDecimal.valueOf(54)),
                 BigInteger.valueOf(180),
                 decimalPlaces + 10,
                 roundingMode);
-//        BigDecimal sqrt5 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
         BigDecimal tenSubtractTwoTimesSqrt5 = BigDecimal.valueOf(10).subtract(
                 sqrt5.multiply(BigDecimal.valueOf(2)));
-        expResult = Generic_BigDecimal.sqrt(
+        expResult = Math_BigDecimal.sqrt(
                 tenSubtractTwoTimesSqrt5,
                 decimalPlaces + 5,
                 roundingMode);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 expResult,
                 BigDecimal.valueOf(4),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.cos(
+        result = Math_BigDecimal.cos(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6518,7 +6517,7 @@ public class Generic_BigDecimalTest {
      */
     public void testSin() {
         System.out.println("testSin");
-        Generic_BigDecimal a_Generic_BigDecimal = new Generic_BigDecimal(1000);
+        Math_BigDecimal a_Generic_BigDecimal = new Math_BigDecimal(1000);
         BigDecimal x;
         int decimalPlaces;
         RoundingMode roundingMode;
@@ -6528,152 +6527,152 @@ public class Generic_BigDecimalTest {
         decimalPlaces = 30;
         roundingMode = RoundingMode.HALF_UP;
         // Test PI/4
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000,
                 BigInteger.valueOf(4),
                 decimalPlaces + 2,
                 roundingMode);
         expResult = new BigDecimal("0.707106781186547524400844362105");
-        result = Generic_BigDecimal.sin(
+        result = Math_BigDecimal.sin(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test PI/60
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000,
                 BigInteger.valueOf(60),
                 decimalPlaces + 10,
                 roundingMode);
-        BigDecimal sqrt30 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt30 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(30), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt10 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt10 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(10), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt6 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt6 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(6), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt5 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt2 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
         // (sqrt(30) + sqrt(10) + sqrt(20 + 4*sqrt(5)) - sqrt(6) - sqrt(2) - sqrt(60 + 12*sqrt(5)))/16
-        BigDecimal splurge1 = Generic_BigDecimal.sqrt(
+        BigDecimal splurge1 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(60).add(BigDecimal.valueOf(12).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
         // (sqrt(30) + sqrt(10) + sqrt(20 + 4*sqrt(5)) - sqrt(6) - sqrt(2) - splurge1)/16
-        BigDecimal splurge2 = Generic_BigDecimal.sqrt(
+        BigDecimal splurge2 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(20).add(BigDecimal.valueOf(4).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
         // (sqrt(30) + sqrt(10) + splurge2 - sqrt(6) - sqrt(2) - splurge1)/16
         BigDecimal splurge = sqrt30.add(sqrt10).add(splurge2).subtract(sqrt6).subtract(sqrt2).subtract(splurge1);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 splurge,
                 BigDecimal.valueOf(16),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.sin(
+        result = Math_BigDecimal.sin(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test PI/20
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000,
                 BigInteger.valueOf(20),
                 decimalPlaces + 10,
                 roundingMode);
-        BigDecimal sqrt90 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt90 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(90), decimalPlaces + 10, roundingMode);
-        BigDecimal sqrt18 = Generic_BigDecimal.sqrt(
+        BigDecimal sqrt18 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(18), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt10 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt10 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(10), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt20 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt20 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(20), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt5 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt2 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - sqrt(20 - 4*sqrt(5)) - sqrt(180 - 36*sqrt(5)))/5
-        splurge1 = Generic_BigDecimal.sqrt(
+        splurge1 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(20).subtract(BigDecimal.valueOf(4).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - splurge1 - sqrt(180 - 36*sqrt(5)))/5
-        splurge2 = Generic_BigDecimal.sqrt(
+        splurge2 = Math_BigDecimal.sqrt(
                 BigDecimal.valueOf(180).subtract(BigDecimal.valueOf(36).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - splurge1 - splurge2)/5
         splurge = sqrt90.add(sqrt18).add(sqrt10).add(sqrt2).subtract(splurge1).subtract(splurge2);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 splurge,
                 BigDecimal.valueOf(32),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.sin(
+        result = Math_BigDecimal.sin(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test PI/12
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000,
                 BigInteger.valueOf(12),
                 decimalPlaces + 10,
                 roundingMode);
-//        BigDecimal sqrt6 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt6 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(6), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt2 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
         BigDecimal sqrt6subtractsqrt2 = sqrt6.subtract(sqrt2);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 sqrt6subtractsqrt2,
                 BigDecimal.valueOf(4),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.sin(
+        result = Math_BigDecimal.sin(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test PI/10
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000,
                 BigInteger.valueOf(10),
                 decimalPlaces + 10,
                 roundingMode);
-//        BigDecimal sqrt5 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
         BigDecimal sqrtsubtract1 = sqrt5.subtract(BigDecimal.ONE);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 sqrtsubtract1,
                 BigDecimal.valueOf(4),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.sin(
+        result = Math_BigDecimal.sin(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
                 roundingMode);
         assertEquals(expResult, result);
         // Test PI/5
-        x = Generic_BigDecimal.divideRoundIfNecessary(
+        x = Math_BigDecimal.divideRoundIfNecessary(
                 aPI1000,
                 BigInteger.valueOf(5),
                 decimalPlaces + 10,
                 roundingMode);
-//        BigDecimal sqrt5 = Generic_BigDecimal.sqrt(
+//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
 //                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
         BigDecimal tenSubtractTwoTimesSqrt5 = BigDecimal.valueOf(10).subtract(
                 sqrt5.multiply(BigDecimal.valueOf(2)));
-        expResult = Generic_BigDecimal.sqrt(
+        expResult = Math_BigDecimal.sqrt(
                 tenSubtractTwoTimesSqrt5,
                 decimalPlaces + 5,
                 roundingMode);
-        expResult = Generic_BigDecimal.divideRoundIfNecessary(
+        expResult = Math_BigDecimal.divideRoundIfNecessary(
                 expResult,
                 BigDecimal.valueOf(4),
                 decimalPlaces,
                 roundingMode);
-        result = Generic_BigDecimal.sin(
+        result = Math_BigDecimal.sin(
                 x,
                 a_Generic_BigDecimal,
                 decimalPlaces,
@@ -6682,7 +6681,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of sqrt method, of class Generic_BigDecimal.
+     * Test of sqrt method, of class Math_BigDecimal.
      */
     //@Test
     public void testSqrt() {
@@ -6706,7 +6705,7 @@ public class Generic_BigDecimalTest {
         expResult = expResult.setScale(decimalPlaces);
         //expResult = BigDecimal.TEN;
         //expResult = new BigDecimal("1E+1");
-        result = Generic_BigDecimal.sqrt(
+        result = Math_BigDecimal.sqrt(
                 x,
                 decimalPlaces,
                 a_RoundingMode);
@@ -6723,7 +6722,7 @@ public class Generic_BigDecimalTest {
 //        BigDecimal ten2 = new BigDecimal("10");
 //        BigDecimal ten3 = BigDecimal.TEN;
 //        BigDecimal ten4 = new BigDecimal("5").add(new BigDecimal("5"));
-//        BigDecimal ten5 = Generic_BigDecimal.divide(
+//        BigDecimal ten5 = Math_BigDecimal.divide(
 //                new BigDecimal("100"),
 //                new BigDecimal("10"),
 //                2,
@@ -6731,8 +6730,8 @@ public class Generic_BigDecimalTest {
 //        BigDecimal x = new BigDecimal("100");
 //        int decimalPlaces = 100;
 //        RoundingMode a_RoundingMode = RoundingMode.HALF_UP;
-//        BigDecimal result = Generic_BigDecimal.sqrt(
-//                x, new Generic_BigDecimal(),
+//        BigDecimal result = Math_BigDecimal.sqrt(
+//                x, new Math_BigDecimal(),
 //                decimalPlaces, a_RoundingMode);
 //        System.out.println("result " + result);
 //        System.out.println("result " + result.toPlainString());
@@ -6762,7 +6761,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal("100");
         expResult = expResult.setScale(decimalPlaces);
         //expResult = new BigDecimal("1E+2");
-        result = Generic_BigDecimal.sqrt(
+        result = Math_BigDecimal.sqrt(
                 x,
                 decimalPlaces,
                 a_RoundingMode);
@@ -6788,7 +6787,7 @@ public class Generic_BigDecimalTest {
         expResult = new BigDecimal("0.1");
         expResult = expResult.setScale(decimalPlaces);
         //expResult = new BigDecimal("1E+2");
-        result = Generic_BigDecimal.sqrt(
+        result = Math_BigDecimal.sqrt(
                 x,
                 decimalPlaces,
                 a_RoundingMode);
@@ -6815,7 +6814,7 @@ public class Generic_BigDecimalTest {
                 "0.000031622776601683793319988935444327185337195551393252168268"
                 + "5750485279259443863923822134424810837930");
         //expResult = new BigDecimal("1E+2");
-        result = Generic_BigDecimal.sqrt(
+        result = Math_BigDecimal.sqrt(
                 x,
                 decimalPlaces,
                 a_RoundingMode);
@@ -6849,7 +6848,7 @@ public class Generic_BigDecimalTest {
     }
 
     /**
-     * Test of randomUniformTest method, of class Generic_BigDecimal.
+     * Test of randomUniformTest method, of class Math_BigDecimal.
      */
     public void testRandomUniformTest() {
         System.out.println("testRandomUniformTest");
@@ -6876,7 +6875,7 @@ public class Generic_BigDecimalTest {
 //        boolean alternator = false;
 //        for (long l = 0; l < 10000L; l++) {
 //            a_Random = new Random(l);
-//            result = Generic_BigDecimal.randomUniformTest(a_Random, probability);
+//            result = Math_BigDecimal.randomUniformTest(a_Random, probability);
 //            if (!alternator){
 //              if (result == alternator) {
 //                    System.out.println("result changed to " + result + " on iteration " + l);
@@ -6893,7 +6892,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         probability = new BigDecimal("0.5");
         expResult = true;
-        result = Generic_BigDecimal.randomUniformTest(
+        result = Math_BigDecimal.randomUniformTest(
                 a_Random,
                 probability,
                 decimalPlaces,
@@ -6918,7 +6917,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         probability = new BigDecimal("0.025");
         expResult = false;
-        result = Generic_BigDecimal.randomUniformTest(
+        result = Math_BigDecimal.randomUniformTest(
                 a_Random,
                 probability,
                 decimalPlaces,
@@ -6943,7 +6942,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         probability = new BigDecimal("0.0125");
         expResult = false;
-        result = Generic_BigDecimal.randomUniformTest(
+        result = Math_BigDecimal.randomUniformTest(
                 a_Random,
                 probability,
                 decimalPlaces,
@@ -6968,7 +6967,7 @@ public class Generic_BigDecimalTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         probability = new BigDecimal("0.92");
         expResult = true;
-        result = Generic_BigDecimal.randomUniformTest(
+        result = Math_BigDecimal.randomUniformTest(
                 a_Random,
                 probability,
                 decimalPlaces,
@@ -6999,7 +6998,7 @@ public class Generic_BigDecimalTest {
     }
 
 //    /**
-//     * Test of getRandom method, of class Generic_BigDecimal.
+//     * Test of getRandom method, of class Math_BigDecimal.
 //     */
 //    @Test
 //    public void testGetRandom_4args() {
@@ -7018,14 +7017,14 @@ public class Generic_BigDecimalTest {
 //            decimalPlaces = 10;
 //            lowerLimit = new BigDecimal("0");
 //         upperLimit = new BigDecimal("1");
-//            result = Generic_BigDecimal.getRandom(
+//            result = Math_BigDecimal.getRandom(
 //                    a_Random, decimalPlaces, lowerLimit, upperLimit);
 //            System.out.println("result " + result);
 //
 //        assertEquals(expResult, result);
 //   }
     /**
-     * Test of getRandom method, of class Generic_BigDecimal.
+     * Test of getRandom method, of class Math_BigDecimal.
      */
     public void test_getRandom() {
         System.out.println("test_getRandom");
@@ -7040,14 +7039,12 @@ public class Generic_BigDecimalTest {
         BigDecimal result = null;
         long seed;
         int numberOfRandomInstances;
-        Generic_BigDecimal a_Generic_BigDecimal = new Generic_BigDecimal();
+        Math_BigDecimal bd = new Math_BigDecimal();
         seed = 0L;
         // For multiple uses the initialised Random[]
-        // a_Generic_BigDecimal._RandomArray it is intended to be re-used.
+        // bd._RandomArray it is intended to be re-used.
         numberOfRandomInstances = 1000;
-        a_Generic_BigDecimal.init_RandomArrayMinLength(
-                numberOfRandomInstances,
-                seed);
+        bd.initRandoms(numberOfRandomInstances, seed, 1);
         decimalPlaces = 1000;
         expResult = new BigDecimal(
                 "0.058427164938625116053827514073627362958427064938847316953827"
@@ -7069,16 +7066,14 @@ public class Generic_BigDecimalTest {
                 + "5140736205842716625194731605382738275049");
 //        BigDecimal smallProbability = new BigDecimal("0.0001");
 //        for (int i = 0; i < 10000; i ++) {
-//            result = Generic_BigDecimal.getRandom(
+//            result = Math_BigDecimal.getRandom(
 //                    a_Generic_BigDecimal, decimalPlaces);
 //            if (result.compareTo(smallProbability) == -1){
 //                System.out.println("result " + result.toPlainString());
 //            }
 //        }
-        result = Generic_BigDecimal.getRandom(
-                a_Generic_BigDecimal, decimalPlaces);
-        printTestGetRandom_Random_int(
-                a_Generic_BigDecimal, decimalPlaces, result);
+        result = Math_BigDecimal.getRandom(bd, decimalPlaces);
+        printTestGetRandom_Random_int(bd, decimalPlaces, result);
         assertEquals(expResult, result);
     }
 
@@ -7091,8 +7086,8 @@ public class Generic_BigDecimalTest {
         System.out.println("Test 2");
         BigDecimal lowerBound = BigDecimal.ZERO;
         BigDecimal upperBound = BigDecimal.ONE;
-        Generic_BigInteger a_Generic_BigInteger = new Generic_BigInteger();
-        result = Generic_BigDecimal.getRandom(
+        Math_BigInteger a_Generic_BigInteger = new Math_BigInteger();
+        result = Math_BigDecimal.getRandom(
                 a_Generic_BigInteger,
                 decimalPlaces,
                 lowerBound,
@@ -7111,7 +7106,7 @@ public class Generic_BigDecimalTest {
      * @param result
      */
     private void printTestGetRandom_Random_int(
-            Generic_BigDecimal a_Generic_BigDecimal,
+            Math_BigDecimal a_Generic_BigDecimal,
             int decimalPlaces,
             BigDecimal result) {
         System.out.println("a_Generic_BigDecimal " + a_Generic_BigDecimal);

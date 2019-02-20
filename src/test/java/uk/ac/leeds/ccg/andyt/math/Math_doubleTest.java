@@ -6,6 +6,7 @@
 package uk.ac.leeds.ccg.andyt.math;
 
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,9 +18,9 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Generic_doubleTest {
+public class Math_doubleTest {
 
-    public Generic_doubleTest() {
+    public Math_doubleTest() {
     }
 
     @BeforeClass
@@ -39,29 +40,49 @@ public class Generic_doubleTest {
     }
 
     /**
-     * Test of isDouble method, of class Generic_double.
+     * Test of isDouble method, of class Math_double.
      */
     @Test
-    public void testIsDouble() {
+    public void testIsDouble_String() {
         System.out.println("isDouble");
         String s;
         s = "0.1";
-        assertTrue(Generic_double.isDouble(s));
+        assertTrue(Math_double.isDouble(s));
     }
     
     /**
-     * Test of isDoubleExact method, of class Generic_double.
+     * Test of isDouble method, of class Math_double.
+     */
+    @Test
+    public void testIsDouble_3args() {
+        System.out.println("isDouble(String,int,RoundingMode)");
+        String s;
+        int dp;
+        RoundingMode rm;
+        // Test 1
+        s = "0.1";
+        dp = 3;
+        rm = RoundingMode.HALF_UP;
+        assertTrue(Math_double.isDouble(s,dp, rm));
+        // Test 2
+        s = "0.1";
+        dp = 17;
+        rm = RoundingMode.HALF_UP;
+        assertFalse(Math_double.isDouble(s,dp, rm));
+    }
+    /**
+     * Test of isDoubleExact method, of class Math_double.
      */
     @Test
     public void testIsDoubleExact() {
         System.out.println("isDoubleExact");
         String s;
         s = "0.1";
-        assertFalse(Generic_double.isDoubleExact(s));
+        assertFalse(Math_double.isDoubleExact(s));
     }
 
     /**
-     * Test of toPlainString method, of class Generic_double.
+     * Test of toPlainString method, of class Math_double.
      */
     @Test
     public void testToPlainString() {
@@ -72,19 +93,19 @@ public class Generic_doubleTest {
         // Test 1
         d = 0.0d;
         expResult = "0";
-        result = Generic_double.toPlainString(d);
+        result = Math_double.toPlainString(d);
         //System.out.println(result);
         assertEquals(expResult, result);
         // Test 2
         d = 0.1d;
         expResult = "0.1000000000000000055511151231257827021181583404541015625";
-        result = Generic_double.toPlainString(d);
+        result = Math_double.toPlainString(d);
         System.out.println(result);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of getNumberOfDoublesInRange method, of class Generic_double.
+     * Test of getNumberOfDoublesInRange method, of class Math_double.
      */
     @Test
     public void testGetNumberOfDoublesInRange() {
@@ -106,19 +127,19 @@ public class Generic_doubleTest {
         u = 1.0;
         expResult = new BigInteger("9");
         // 858993460 double values between 1000000.2 and 1000000.3
-        BigInteger result = Generic_double.getNumberOfDoublesInRange(l, u);
+        BigInteger result = Math_double.getNumberOfDoublesInRange(l, u);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of roundUpToNearestInt method, of class Generic_double.
+     * Test of roundUpToNearestInt method, of class Math_double.
      */
     @Test
     public void testRoundUpToNearestInt() {
         System.out.println("roundUpToNearestInt");
         double v = 0.1;
         int expResult = 1;
-        int result = Generic_double.roundUpToNearestInt(v);
+        int result = Math_double.roundUpToNearestInt(v);
         assertEquals(expResult, result);
     }
 

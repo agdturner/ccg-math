@@ -26,9 +26,9 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Generic_longTest {
+public class Math_intTest {
 
-    public Generic_longTest() {
+    public Math_intTest() {
     }
 
     @BeforeClass
@@ -48,174 +48,174 @@ public class Generic_longTest {
     }
 
     /**
-     * Test of isEven method, of class Generic_long.
+     * Test of isEven method, of class Math_int.
      */
     @Test
     public void testIsEven() {
         System.out.println("isEven");
         System.out.println("isEven(x)");
-        long x;
+        int x;
         boolean expResult;
         boolean result;
         // Test 1
         System.out.println("Test 1");
-        x = 1L;
+        x = 1;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 2
         System.out.println("Test 2");
-        x = 2L;
+        x = 2;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 3
         System.out.println("Test 3");
-        x = 3L;
+        x = 3;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 4
         System.out.println("Test 4");
-        x = 4L;
+        x = 4;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 5
         System.out.println("Test 5");
-        x = 5L;
+        x = 5;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 6
         System.out.println("Test 6");
-        x = 6L;
+        x = 6;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 7
         System.out.println("Test 7");
-        x = 7L;
+        x = 7;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 8
         System.out.println("Test 8");
-        x = 8L;
+        x = 8;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 9
         System.out.println("Test 9");
-        x = 9L;
+        x = 9;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 10
         System.out.println("Test 10");
-        x = 0L;
+        x = 0;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 11
         System.out.println("Test 11");
-        x = -1L;
+        x = -1;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 12
         System.out.println("Test 12");
-        x = -2L;
+        x = -2;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 13
         System.out.println("Test 13");
-        x = -3L;
+        x = -3;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 14
         System.out.println("Test 14");
-        x = -4L;
+        x = -4;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 15
         System.out.println("Test 15");
-        x = -5L;
+        x = -5;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 16
         System.out.println("Test 16");
-        x = -6L;
+        x = -6;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 17
         System.out.println("Test 17");
-        x = -7L;
+        x = -7;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 18
         System.out.println("Test 18");
-        x = -8L;
+        x = -8;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 19
         System.out.println("Test 19");
-        x = -9L;
+        x = -9;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 20
         System.out.println("Test 20");
-        x = 123456789L;
+        x = 123456789;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 21
         System.out.println("Test 21");
-        x = 12345678L;
+        x = 12345678;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 22
         System.out.println("Test 22");
-        x = -123456789L;
+        x = -123456789;
         expResult = false;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 23
         System.out.println("Test 23");
-        x = -12345678L;
+        x = -12345678;
         expResult = true;
-        result = Generic_long.isEven(x);
+        result = Math_long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
     }
@@ -226,8 +226,29 @@ public class Generic_longTest {
      * @param x
      * @param result
      */
-    private void printTestIsEven(long x, boolean result) {
+    private void printTestIsEven(int x, boolean result) {
         System.out.println("x " + x);
         System.out.println("result " + result);
     }
+
+    /**
+     * Test of isInt method, of class Math_int.
+     */
+    @Test
+    public void testIsInt() {
+        System.out.println("isInt");
+        // Test 1
+        long l = Math_long.INTEGER_MAX_VALUE + 1;
+        String s = Long.toString(l);
+        boolean r;
+        r = Math_int.isInt(s);
+        assertFalse(r);
+        // Test 2
+        l --;
+        s = Long.toString(l);
+        r = Math_int.isInt(s);
+        assertTrue(r);
+    }
+    
+    
 }

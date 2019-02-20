@@ -31,9 +31,9 @@ import static org.junit.Assert.*;
  *
  * @author Andy
  */
-public class Generic_BigIntegerTest {
+public class Math_BigIntegerTest {
 
-    public Generic_BigIntegerTest() {
+    public Math_BigIntegerTest() {
     }
 
     @BeforeClass
@@ -66,7 +66,7 @@ public class Generic_BigIntegerTest {
     }
 
     /**
-     * Test of ceiling method, of class Generic_BigInteger.
+     * Test of ceiling method, of class Math_BigInteger.
      */
     public void testCeiling() {
         System.out.println("ceiling");
@@ -78,20 +78,20 @@ public class Generic_BigIntegerTest {
         System.out.println("Test 1");
         x = new BigDecimal("1.0000000000000000000000000000000000000000000001");
         expResult = new BigInteger("2");
-        result = Generic_BigInteger.ceiling(x);
+        result = Math_BigInteger.ceiling(x);
         printTestFloor(x, result);
         assertEquals(expResult, result);
         // Test 1
         System.out.println("Test 1");
         x = new BigDecimal("-1.0000000000000000000000000000000000000000000001");
         expResult = new BigInteger("-2");
-        result = Generic_BigInteger.ceiling(x);
+        result = Math_BigInteger.ceiling(x);
         printTestFloor(x, result);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of floor method, of class Generic_BigInteger.
+     * Test of floor method, of class Math_BigInteger.
      */
     public void testFloor() {
         System.out.println("floor");
@@ -102,28 +102,28 @@ public class Generic_BigIntegerTest {
         // Test 1
         System.out.println("Test 1");
         x = new BigDecimal("1");
-        result = Generic_BigInteger.floor(x);
+        result = Math_BigInteger.floor(x);
         expResult = new BigInteger("1");
         printTestFloor(x, result);
         assertEquals(expResult, result);
         // Test 2
         System.out.println("Test 2");
         x = new BigDecimal("-1");
-        result = Generic_BigInteger.floor(x);
+        result = Math_BigInteger.floor(x);
         expResult = new BigInteger("-1");
         printTestFloor(x, result);
         assertEquals(expResult, result);
         // Test 3
         System.out.println("Test 3");
         x = new BigDecimal("1.00000000000000000000000000000000000000000000001");
-        result = Generic_BigInteger.floor(x);
+        result = Math_BigInteger.floor(x);
         expResult = new BigInteger("1");
         printTestFloor(x, result);
         assertEquals(expResult, result);
         // Test 4
         System.out.println("Test 4");
         x = new BigDecimal("-1.0000000000000000000000000000000000000000000001");
-        result = Generic_BigInteger.floor(x);
+        result = Math_BigInteger.floor(x);
         expResult = new BigInteger("-1");
         printTestFloor(x, result);
         assertEquals(expResult, result);
@@ -143,18 +143,18 @@ public class Generic_BigIntegerTest {
     }
 
     /**
-     * Test of factorial method, of class Generic_BigInteger.
+     * Test of factorial method, of class Math_BigInteger.
      */
     public void testFactorial() {
         System.out.println("factorial");
         System.out.println("factorial(x)");
         Integer x = null;
-        Generic_BigInteger a_Generic_BigInteger;
+        Math_BigInteger a_Generic_BigInteger;
         BigInteger expResult = null;
         // Test 1
         System.out.println("Test 1");
         x = 123;
-        a_Generic_BigInteger = new Generic_BigInteger();
+        a_Generic_BigInteger = new Math_BigInteger();
         BigInteger result = a_Generic_BigInteger.factorial(x);
         expResult = new BigInteger(
                 "12146304367025329675766243241881295855454217088483382315328918"
@@ -179,7 +179,7 @@ public class Generic_BigIntegerTest {
     }
 
     /**
-     * Test of power method, of class Generic_BigInteger.
+     * Test of power method, of class Math_BigInteger.
      */
     public void testPower_4args_1() {
         System.out.println("power");
@@ -198,7 +198,7 @@ public class Generic_BigIntegerTest {
         decimalPlaces = 0;
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("10000000000000000000000000000000000000000");
-        result = Generic_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
+        result = Math_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
         printTestPower_4args_1(x, y, decimalPlaces, a_RoundingMode, result);
         comp = expResult.compareTo(result);
         assertEquals(comp, 0);
@@ -210,7 +210,7 @@ public class Generic_BigIntegerTest {
         a_RoundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.0000000000000000000000000000000000000001");
-        result = Generic_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
+        result = Math_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
         printTestPower_4args_1(x, y, decimalPlaces, a_RoundingMode, result);
         comp = expResult.compareTo(result);
         assertEquals(comp, 0);
@@ -279,7 +279,7 @@ public class Generic_BigIntegerTest {
                 + "203174570024409266169108741483850784119298045229818573389776"
                 + "481031260859030013024134671897266732164915111316029207817380"
                 + "33436090243804708340403154190336");
-        result = Generic_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
+        result = Math_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
         printTestPower_4args_2(x, y, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
         // Test 2
@@ -616,7 +616,7 @@ public class Generic_BigIntegerTest {
                 + "155719202373485805211281174586100651525988838431145118948805"
                 + "521291457756991465775300413847171245779650481758563950728953"
                 + "37539755822087777506072339445587895905719156736");
-        result = Generic_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
+        result = Math_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
         printTestPower_4args_2(x, y, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
         // Test 3
@@ -674,7 +674,7 @@ public class Generic_BigIntegerTest {
 //                + "019826211141099186640634821791835097540859958946721504130779"
 //                + "495901833547503340972214189518612052295402875892864309609873"
 //                + "486872633208122351788915693759918212890625E-1234");
-        result = Generic_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
+        result = Math_BigInteger.power(x, y, decimalPlaces, a_RoundingMode);
         printTestPower_4args_2(x, y, decimalPlaces, a_RoundingMode, result);
 //        assertEquals(expResult, result);
     }
@@ -702,7 +702,7 @@ public class Generic_BigIntegerTest {
     }
 
     /**
-     * Test of reciprocal method, of class Generic_BigInteger.
+     * Test of reciprocal method, of class Math_BigInteger.
      */
     public void testReciprocal() {
         System.out.println("reciprocal");
@@ -721,7 +721,7 @@ public class Generic_BigIntegerTest {
                 "8.100000067149000556665214614754629156315875705858609601567873"
                 + "59699767211911070186742771848E-11");
         result
-                = Generic_BigInteger.reciprocal(x, decimalPlaces, a_RoundingMode);
+                = Math_BigInteger.reciprocal(x, decimalPlaces, a_RoundingMode);
         printTestReciprocal(x, decimalPlaces, a_RoundingMode, result);
         assertEquals(expResult, result);
     }
@@ -747,7 +747,7 @@ public class Generic_BigIntegerTest {
     }
 
     /**
-     * Test of getRandom method, of class Generic_BigInteger.
+     * Test of getRandom method, of class Math_BigInteger.
      */
     public void testGetRandom() {
         System.out.println("getRandom");
@@ -755,56 +755,57 @@ public class Generic_BigIntegerTest {
         BigInteger upperLimit = null;
         BigInteger result = null;
         BigInteger expResult = null;
-        Generic_BigInteger a_Generic_BigInteger;
+        Math_BigInteger bi;
         int length;
         long seed;
+        int seedIncrement;
+        seedIncrement = 1;
         // Test 1
         System.out.println("Test 1");
-        a_Generic_BigInteger = new Generic_BigInteger();
+        bi = new Math_BigInteger();
         length = 100;
         seed = 0L;
-        a_Generic_BigInteger.init_RandomArrayMinLength(length, seed);
+        bi.initRandoms(length, seed, seedIncrement);
         upperLimit = new BigInteger("10000");
         expResult = new BigInteger("4402");
-        result = a_Generic_BigInteger.getRandom(
-                upperLimit);
-        printTestGetRandom(a_Generic_BigInteger, upperLimit, result);
+        result = bi.getRandom(                upperLimit);
+        printTestGetRandom(bi, upperLimit, result);
         assertEquals(expResult, result);
         // Test 2
         System.out.println("Test 2");
-        a_Generic_BigInteger = new Generic_BigInteger();
+        bi = new Math_BigInteger();
         length = 100;
         seed = 0L;
-        a_Generic_BigInteger.init_RandomArrayMinLength(length, seed);
+        bi.initRandoms(length, seed, seedIncrement);
         upperLimit = new BigInteger("1000000000000000000000000000000000000000");
         expResult = new BigInteger("588790721835422051177695086341165922385");
-        result = a_Generic_BigInteger.getRandom(
+        result = bi.getRandom(
                 upperLimit);
-        printTestGetRandom(a_Generic_BigInteger, upperLimit, result);
+        printTestGetRandom(bi, upperLimit, result);
         assertEquals(expResult, result);
         // Test 3
         System.out.println("Test 3");
-        a_Generic_BigInteger = new Generic_BigInteger();
+        bi = new Math_BigInteger();
         length = 100;
         seed = 1234567L;
-        a_Generic_BigInteger.init_RandomArrayMinLength(length, seed);
+        bi.initRandoms(length, seed, seedIncrement);
         upperLimit = new BigInteger("10000");
         expResult = new BigInteger("8804");
-        result = a_Generic_BigInteger.getRandom(
+        result = bi.getRandom(
                 upperLimit);
-        printTestGetRandom(a_Generic_BigInteger, upperLimit, result);
+        printTestGetRandom(bi, upperLimit, result);
         assertEquals(expResult, result);
         // Test 4
         System.out.println("Test 4");
-        a_Generic_BigInteger = new Generic_BigInteger();
+        bi = new Math_BigInteger();
         length = 100;
         seed = 1234567L;
-        a_Generic_BigInteger.init_RandomArrayMinLength(length, seed);
+        bi.initRandoms(length, seed, seedIncrement);
         upperLimit = new BigInteger("1000000000000000000000000000000000000000");
         expResult = new BigInteger("313418162951880306579594022452043428003");
-        result = a_Generic_BigInteger.getRandom(
+        result = bi.getRandom(
                 upperLimit);
-        printTestGetRandom(a_Generic_BigInteger, upperLimit, result);
+        printTestGetRandom(bi, upperLimit, result);
         assertEquals(expResult, result);
     }
 
@@ -816,7 +817,7 @@ public class Generic_BigIntegerTest {
      * @param result
      */
     private void printTestGetRandom(
-            Generic_BigInteger a_Generic_BigInteger,
+            Math_BigInteger a_Generic_BigInteger,
             BigInteger upperLimit,
             BigInteger result) {
         System.out.println("a_Generic_BigInteger " + a_Generic_BigInteger);
@@ -836,7 +837,7 @@ public class Generic_BigIntegerTest {
 
     @Test
     public void test_getPowersOfTwoDecomposition_1args_test1() {
-        Generic_BigInteger a_Generic_BigInteger = new Generic_BigInteger();
+        Math_BigInteger a_Generic_BigInteger = new Math_BigInteger();
         BigInteger x;
         TreeMap<Integer, Integer> x_PowersOfTwoDecomposition;
         Integer key;
@@ -855,7 +856,7 @@ public class Generic_BigIntegerTest {
     }
 
     public void test_getPowersOfTwoDecomposition_1args_test2() {
-        Generic_BigInteger a_Generic_BigInteger = new Generic_BigInteger();
+        Math_BigInteger a_Generic_BigInteger = new Math_BigInteger();
         BigInteger x;
         TreeMap<Integer, Integer> x_PowersOfTwoDecomposition;
         Integer key;
@@ -875,7 +876,7 @@ public class Generic_BigIntegerTest {
 
     @Test
     public void test_getPowersOfTwoDecomposition_1args_test3() {
-        Generic_BigInteger a_Generic_BigInteger = new Generic_BigInteger();
+        Math_BigInteger a_Generic_BigInteger = new Math_BigInteger();
         BigInteger x;
         TreeMap<Integer, Integer> x_PowersOfTwoDecomposition;
         Integer key;
