@@ -21,7 +21,13 @@ import java.util.Random;
 public abstract class Math_Number implements Serializable {
 
     //static final long serialVersionUID = 1L;
-
+    
+    
+    /**
+     * A String abbreviation for Not A Number.
+     */
+    public static final String NAN = "NAN";
+    
     /**
      * Random instance.
      */
@@ -103,8 +109,7 @@ public abstract class Math_Number implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * @return {@link #randoms}.
      */
     protected Random[] getRandoms() {
         return randoms;

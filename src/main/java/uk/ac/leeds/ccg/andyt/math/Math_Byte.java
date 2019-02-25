@@ -15,7 +15,7 @@
  */
 package uk.ac.leeds.ccg.andyt.math;
 
-public class Math_byte extends Math_Number {
+public class Math_Byte extends Math_Number {
 
     /**
      * For testing if s can be parsed as a int. If the result is equal to

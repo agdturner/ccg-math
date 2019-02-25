@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_floatTest {
+public class Math_FloatTest {
     
-    public Math_floatTest() {
+    public Math_FloatTest() {
     }
     
     @BeforeClass
@@ -40,47 +40,47 @@ public class Math_floatTest {
     }
 
     /**
-     * Test of isFloat method, of class Math_float.
+     * Test of isFloat method, of class Math_Float.
      */
     @Test
     public void testIsFloat_String() {
         System.out.println("isFloat");
         String s;
         s = "0.1";
-        assertTrue(Math_float.isFloat(s));
+        assertTrue(Math_Float.isFloat(s));
     }
     
     /**
-     * Test of isFloat method, of class Math_float.
+     * Test of isFloat method, of class Math_Float.
      */
     @Test
-    public void testIsFloat_2args() {
+    public void testIsFloat_String_int() {
         System.out.println("isFloat(String,int)");
         String s;
         int dp;
         // Test 1
         s = "0.1";
         dp = 3;
-        assertTrue(Math_float.isFloat(s,dp));
+        assertTrue(Math_Float.isFloat(s,dp));
         // Test 2
         s = "0.1";
         dp = 9;
-        assertFalse(Math_float.isFloat(s,dp));
+        assertFalse(Math_Float.isFloat(s,dp));
     }
     
     /**
-     * Test of isFloatExact method, of class Math_float.
+     * Test of isFloatExact method, of class Math_Float.
      */
     @Test
     public void testIsFloatExact() {
         System.out.println("isFloatExact");
         String s;
         s = "0.1";
-        assertFalse(Math_float.isFloatExact(s));
+        assertFalse(Math_Float.isFloatExact(s));
     }
 
     /**
-     * Test of toPlainString method, of class Math_float.
+     * Test of toPlainString method, of class Math_Float.
      */
     @Test
     public void testToPlainString() {
@@ -91,19 +91,19 @@ public class Math_floatTest {
         // Test 1
         f = 0.0f;
         expResult = "0.0";
-        result = Math_float.toPlainString(f);
+        result = Math_Float.toPlainString(f);
         //System.out.println(result);
         assertEquals(expResult, result);
         // Test 2
         f = 0.1f;
         expResult = "0.1";
-        result = Math_float.toPlainString(f);
+        result = Math_Float.toPlainString(f);
         System.out.println(result);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of getNumberOfFloatsInRange method, of class Math_float.
+     * Test of getNumberOfFloatsInRange method, of class Math_Float.
      */
     @Test
     public void testGetNumberOfFloatsInRange() {
@@ -115,19 +115,46 @@ public class Math_floatTest {
         l = 0.999999f;
         u = 1.0f;
         expResult = new BigInteger("17");
-        BigInteger result = Math_float.getNumberOfFloatsInRange(l, u);
+        BigInteger result = Math_Float.getNumberOfFloatsInRange(l, u);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of roundUpToNearestInt method, of class Math_float.
+     * Test of roundUpToNearestInt method, of class Math_Float.
      */
     @Test
     public void testRoundUpToNearestInt() {
         System.out.println("roundUpToNearestInt");
         float f = 0.1F;
         int expResult = 1;
-        int result = Math_float.roundUpToNearestInt(f);
+        int result = Math_Float.roundUpToNearestInt(f);
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of parseFloat method, of class Math_Float.
+     */
+    @Test
+    public void testParseFloat() {
+        System.out.println("parseFloat");
+        String s;
+        double expResult;
+        double result;
+        // Test 1
+        s = "";
+        expResult = Double.NaN;
+        result = Math_Double.parseDouble(s);
+        assertEquals(expResult, result, 0.0d);
+        // Test 2
+        s = "-Infinity";
+        expResult = Double.NEGATIVE_INFINITY;
+        result = Math_Double.parseDouble(s);
+        assertEquals(expResult, result, 0.0d);
+        // Test 3
+        s = "+Infinity";
+        expResult = Double.POSITIVE_INFINITY;
+        result = Math_Double.parseDouble(s);
+        assertEquals(expResult, result, 0.0d);
+    }
+
 }

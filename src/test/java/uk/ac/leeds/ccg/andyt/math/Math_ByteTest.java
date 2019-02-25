@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_byteTest {
+public class Math_ByteTest {
     
-    public Math_byteTest() {
+    public Math_ByteTest() {
     }
     
     @BeforeClass
@@ -38,7 +38,7 @@ public class Math_byteTest {
     }
 
     /**
-     * Test of isByte method, of class Math_byte.
+     * Test of isByte method, of class Math_Byte.
      */
     @Test
     public void testIsByte() {
@@ -47,11 +47,11 @@ public class Math_byteTest {
         // Test 1
         byte b = Byte.MIN_VALUE;
         s = Byte.toString(b);
-        assertFalse(Math_byte.isByte(s));
+        assertFalse(Math_Byte.isByte(s));
         // Test 2
         b += 1;
         s = Byte.toString(b);
-        assertTrue(Math_byte.isByte(s));
+        assertTrue(Math_Byte.isByte(s));
     }
     
 }

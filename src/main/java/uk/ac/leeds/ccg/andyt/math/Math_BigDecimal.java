@@ -2367,7 +2367,7 @@ public class Math_BigDecimal extends Math_Number {
 //                    div,
 //                    decimalPlaces,
 //                    a_RoundingMode);
-//            if (Math_int.isEven(y)) {
+//            if (Math_Integer.isEven(y)) {
 //                return result.negate();
 //            } else {
 //                return result;
@@ -5811,7 +5811,7 @@ public class Math_BigDecimal extends Math_Number {
     public static boolean isEven(BigDecimal x) {
         String xS = x.toPlainString();
         String xSLastDigit = xS.substring(xS.length() - 1);
-        return Math_int.isEven(Integer.valueOf(xSLastDigit));
+        return Math_Integer.isEven(Integer.valueOf(xSLastDigit));
     }
 
     /**

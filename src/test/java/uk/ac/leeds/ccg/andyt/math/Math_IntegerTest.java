@@ -26,9 +26,9 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_intTest {
+public class Math_IntegerTest {
 
-    public Math_intTest() {
+    public Math_IntegerTest() {
     }
 
     @BeforeClass
@@ -48,7 +48,7 @@ public class Math_intTest {
     }
 
     /**
-     * Test of isEven method, of class Math_int.
+     * Test of isEven method, of class Math_Integer.
      */
     @Test
     public void testIsEven() {
@@ -232,7 +232,7 @@ public class Math_intTest {
     }
 
     /**
-     * Test of isInt method, of class Math_int.
+     * Test of isInt method, of class Math_Integer.
      */
     @Test
     public void testIsInt() {
@@ -241,12 +241,12 @@ public class Math_intTest {
         long l = Math_long.INTEGER_MAX_VALUE + 1;
         String s = Long.toString(l);
         boolean r;
-        r = Math_int.isInt(s);
+        r = Math_Integer.isInt(s);
         assertFalse(r);
         // Test 2
         l --;
         s = Long.toString(l);
-        r = Math_int.isInt(s);
+        r = Math_Integer.isInt(s);
         assertTrue(r);
     }
     

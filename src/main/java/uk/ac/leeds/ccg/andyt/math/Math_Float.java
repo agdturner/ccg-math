@@ -19,7 +19,52 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-public class Math_float extends Math_Number {
+public class Math_Float extends Math_Number {
+
+    public static final String NAN = Float.toString(Float.NaN);
+    public static final String POSITIVE_INFINITY = Float.toString(Float.POSITIVE_INFINITY);
+    public static final String NEGATIVE_INFINITY = Float.toString(Float.NEGATIVE_INFINITY);
+
+    /**
+     * In most instances this behaves like
+     * {@link java.lang.Float#parseFloat(java.lang.String)}, but if a
+     * {@link java.lang.NumberFormatException} is thrown then this method deals
+     * with the following special cases:
+     * <ul>
+     * <li>If {@code s} contains only white space, then a
+     * {@link java.lang.Float#NaN} is returned.</li>
+     * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
+     * {@link java.lang.Float#NaN} is returned.</li>
+     * <li>If {@code s}.equalsIgnoreCase({@link #POSITIVE_INFINITY}), then a
+     * {@link java.lang.Float#POSITIVE_INFINITY} is returned.</li>
+     * <li>If {@code s}.equalsIgnoreCase({@link #NEGATIVE_INFINITY}), then a
+     * {@link java.lang.Float#NEGATIVE_INFINITY} is returned.</li>
+     * </ul>
+     *
+     * @param s
+     * @return
+     * @throws NumberFormatException
+     */
+    public static float parseFloat(String s) throws NumberFormatException {
+        try {
+            return Float.parseFloat(s);
+        } catch (NumberFormatException e) {
+            // Deal with special cases
+            if (s.isBlank()) {
+                return Float.NaN;
+            }
+            if (s.equalsIgnoreCase(NAN)) {
+                return Float.NaN;
+            }
+            if (s.equalsIgnoreCase(POSITIVE_INFINITY)) {
+                return Float.POSITIVE_INFINITY;
+            }
+            if (s.equalsIgnoreCase(NEGATIVE_INFINITY)) {
+                return Float.NEGATIVE_INFINITY;
+            }
+            throw e;
+        }
+    }
 
     /**
      * For testing if s can be parsed as a float.
@@ -33,10 +78,20 @@ public class Math_float extends Math_Number {
             Float.parseFloat(s);
             return true;
         } catch (NumberFormatException e) {
-            return false;
+            // Deal with special cases
+            if (s.isBlank()) {
+                return true;
+            }
+            if (s.equalsIgnoreCase(NAN)) {
+                return true;
+            }
+            if (s.equalsIgnoreCase(POSITIVE_INFINITY)) {
+                return true;
+            }
+            return s.equalsIgnoreCase(NEGATIVE_INFINITY);
         }
     }
-
+    
     /**
      * For testing if s can be parsed as a float and is precise to {@code dp}
      * decimal places.
@@ -56,7 +111,7 @@ public class Math_float extends Math_Number {
             BigDecimal bddr = Math_BigDecimal.roundIfNecessary(bdd,dp,rm);
             return bdsr.compareTo(bddr) == 0;
         } catch (NumberFormatException e) {
-            return false;
+            return isFloat(s);
         }
     }
 
@@ -78,7 +133,7 @@ public class Math_float extends Math_Number {
             BigDecimal bdd = new BigDecimal(x);
             return bds.compareTo(bdd) == 0;
         } catch (NumberFormatException e) {
-            return false;
+            return isFloat(s);
         }
     }
 

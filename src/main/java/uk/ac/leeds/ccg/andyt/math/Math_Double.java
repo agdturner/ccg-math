@@ -19,7 +19,51 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-public class Math_double extends Math_Number {
+public class Math_Double extends Math_Number {
+
+    public static final String POSITIVE_INFINITY = Double.toString(Double.POSITIVE_INFINITY);
+    public static final String NEGATIVE_INFINITY = Double.toString(Double.NEGATIVE_INFINITY);
+
+    /**
+     * In most instances this behaves like
+     * {@link java.lang.Double#parseDouble(java.lang.String)}, but if a
+     * {@link java.lang.NumberFormatException} is thrown then this method deals
+     * with the following special cases:
+     * <ul>
+     * <li>If {@code s} contains only white space, then a
+     * {@link java.lang.Double#NaN} is returned.</li>
+     * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
+     * {@link java.lang.Double#NaN} is returned.</li>
+     * <li>If {@code s}.equalsIgnoreCase({@link #POSITIVE_INFINITY}), then a
+     * {@link java.lang.Double#POSITIVE_INFINITY} is returned.</li>
+     * <li>If {@code s}.equalsIgnoreCase({@link #NEGATIVE_INFINITY}), then a
+     * {@link java.lang.Double#NEGATIVE_INFINITY} is returned.</li>
+     * </ul>
+     *
+     * @param s
+     * @return
+     * @throws NumberFormatException
+     */
+    public static double parseDouble(String s) throws NumberFormatException {
+        try {
+            return Double.parseDouble(s);
+        } catch (NumberFormatException e) {
+            // Deal with special cases
+            if (s.isBlank()) {
+                return Double.NaN;
+            }
+            if (s.equalsIgnoreCase(NAN)) {
+                return Double.NaN;
+            }
+            if (s.equalsIgnoreCase(POSITIVE_INFINITY)) {
+                return Double.POSITIVE_INFINITY;
+            }
+            if (s.equalsIgnoreCase(NEGATIVE_INFINITY)) {
+                return Double.NEGATIVE_INFINITY;
+            }
+            throw e;
+        }
+    }
 
     /**
      * For testing if s can be parsed as a double.
@@ -33,7 +77,17 @@ public class Math_double extends Math_Number {
             Double.parseDouble(s);
             return true;
         } catch (NumberFormatException e) {
-            return false;
+            // Deal with special cases
+            if (s.isBlank()) {
+                return true;
+            }
+            if (s.equalsIgnoreCase(NAN)) {
+                return true;
+            }
+            if (s.equalsIgnoreCase(POSITIVE_INFINITY)) {
+                return true;
+            }
+            return s.equalsIgnoreCase(NEGATIVE_INFINITY);
         }
     }
 
@@ -45,7 +99,6 @@ public class Math_double extends Math_Number {
      * @param s The String to be tested as to whether it can be represented as a
      * double.
      * @param dp The number of decimal places the result must be accurate to.
-     * @param rm The RoundingMode used to round.
      * @return true iff s can be represented as a Double greater than
      * -Double.MAX_VALUE which is reserved for representing noDataValues.
      */
@@ -59,7 +112,7 @@ public class Math_double extends Math_Number {
             BigDecimal bddr = Math_BigDecimal.roundIfNecessary(bdd, dp, rm);
             return bdsr.compareTo(bddr) == 0;
         } catch (NumberFormatException e) {
-            return false;
+            return isDouble(s);
         }
     }
 
@@ -82,7 +135,7 @@ public class Math_double extends Math_Number {
             BigDecimal bdd = new BigDecimal(x);
             return bds.compareTo(bdd) == 0;
         } catch (NumberFormatException e) {
-            return false;
+            return isDouble(s);
         }
     }
 
