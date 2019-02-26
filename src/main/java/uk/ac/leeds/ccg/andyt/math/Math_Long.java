@@ -15,10 +15,41 @@
  */
 package uk.ac.leeds.ccg.andyt.math;
 
-public class Math_long extends Math_Number  {
+public class Math_Long extends Math_Number  {
 
     public static final long INTEGER_MAX_VALUE = Integer.MAX_VALUE;
 
+    /**
+     * In most instances this behaves like
+     * {@link java.lang.Long#parseLong(java.lang.String)}, but if a
+     * {@link java.lang.NumberFormatException} is thrown then this method deals
+     * with the following special cases:
+     * <ul>
+     * <li>If {@code s} contains only white space, then a
+     * {@link java.lang.Long#MIN_VALUE} is returned.</li>
+     * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
+     * {@link java.lang.Long#MIN_VALUE} is returned.</li>
+     * </ul>
+     *
+     * @param s The String to be parsed as a long.
+     * @return The long version of s.
+     * @throws NumberFormatException if s cannot be parsed as a long.
+     */
+    public static long parseLong(String s) throws NumberFormatException {
+        try {
+            return Long.parseLong(s);
+        } catch (NumberFormatException e) {
+            // Deal with special cases
+            if (s.isBlank()) {
+                return Long.MIN_VALUE;
+            }
+            if (s.equalsIgnoreCase(NAN)) {
+                return Long.MIN_VALUE;
+            }
+            throw e;
+        }
+    }
+    
     /**
      * For testing if s can be parsed as a int. If the result is equal to
      * Long.MIN_VALUE then this will return false as Long.MIN_VALUE is

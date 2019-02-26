@@ -278,11 +278,11 @@ public class Math_BigInteger extends Math_Number {
      */
     public static BigDecimal power(BigInteger x, long y, int dp,
             RoundingMode rm) {
-        if (y <= Math_long.INTEGER_MAX_VALUE) {
+        if (y <= Math_Long.INTEGER_MAX_VALUE) {
             return power(x, (int) y, dp, rm);
         }
         BigDecimal r;
-        long y0 = y / Math_long.INTEGER_MAX_VALUE;
+        long y0 = y / Math_Long.INTEGER_MAX_VALUE;
         BigDecimal y0Power = power(x, y0, dp, rm);
         long y1 = y - y0;
         BigDecimal y1Power = power(x, y1, dp, rm);

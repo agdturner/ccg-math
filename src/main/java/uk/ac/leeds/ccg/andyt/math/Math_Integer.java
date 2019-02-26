@@ -27,15 +27,11 @@ public class Math_Integer extends Math_Number {
      * {@link java.lang.Integer#MIN_VALUE} is returned.</li>
      * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
      * {@link java.lang.Integer#MIN_VALUE} is returned.</li>
-     * <li>If {@code s}.equalsIgnoreCase({@link #POSITIVE_INFINITY}), then a
-     * {@link java.lang.Integer#POSITIVE_INFINITY} is returned.</li>
-     * <li>If {@code s}.equalsIgnoreCase({@link #NEGATIVE_INFINITY}), then a
-     * {@link java.lang.Integer#NEGATIVE_INFINITY} is returned.</li>
      * </ul>
      *
-     * @param s
-     * @return
-     * @throws NumberFormatException
+     * @param s The String to be parsed as a int.
+     * @return The int version of s.
+     * @throws NumberFormatException if s cannot be parsed as a int.
      */
     public static int parseInt(String s) throws NumberFormatException {
         try {

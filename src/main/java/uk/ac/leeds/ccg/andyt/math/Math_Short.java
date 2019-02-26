@@ -15,8 +15,39 @@
  */
 package uk.ac.leeds.ccg.andyt.math;
 
-public class Math_short extends Math_Number {
+public class Math_Short extends Math_Number {
 
+    /**
+     * In most instances this behaves like
+     * {@link java.lang.Short#parseShort(java.lang.String)}, but if a
+     * {@link java.lang.NumberFormatException} is thrown then this method deals
+     * with the following special cases:
+     * <ul>
+     * <li>If {@code s} contains only white space, then a
+     * {@link java.lang.Short#MIN_VALUE} is returned.</li>
+     * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
+     * {@link java.lang.Short#MIN_VALUE} is returned.</li>
+     * </ul>
+     *
+     * @param s The String to be parsed as a short.
+     * @return The short version of s.
+     * @throws NumberFormatException if s cannot be parsed as a short.
+     */
+    public static short parseShort(String s) throws NumberFormatException {
+        try {
+            return Short.parseShort(s);
+        } catch (NumberFormatException e) {
+            // Deal with special cases
+            if (s.isBlank()) {
+                return Short.MIN_VALUE;
+            }
+            if (s.equalsIgnoreCase(NAN)) {
+                return Short.MIN_VALUE;
+            }
+            throw e;
+        }
+    }
+    
     /**
      * For testing if s can be parsed as a int. If the result is equal to
      * Short.MIN_VALUE then this will return false as Short.MIN_VALUE is

@@ -61,161 +61,161 @@ public class Math_IntegerTest {
         System.out.println("Test 1");
         x = 1;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 2
         System.out.println("Test 2");
         x = 2;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 3
         System.out.println("Test 3");
         x = 3;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 4
         System.out.println("Test 4");
         x = 4;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 5
         System.out.println("Test 5");
         x = 5;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 6
         System.out.println("Test 6");
         x = 6;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 7
         System.out.println("Test 7");
         x = 7;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 8
         System.out.println("Test 8");
         x = 8;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 9
         System.out.println("Test 9");
         x = 9;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 10
         System.out.println("Test 10");
         x = 0;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 11
         System.out.println("Test 11");
         x = -1;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 12
         System.out.println("Test 12");
         x = -2;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 13
         System.out.println("Test 13");
         x = -3;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 14
         System.out.println("Test 14");
         x = -4;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 15
         System.out.println("Test 15");
         x = -5;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 16
         System.out.println("Test 16");
         x = -6;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 17
         System.out.println("Test 17");
         x = -7;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 18
         System.out.println("Test 18");
         x = -8;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 19
         System.out.println("Test 19");
         x = -9;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 20
         System.out.println("Test 20");
         x = 123456789;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 21
         System.out.println("Test 21");
         x = 12345678;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 22
         System.out.println("Test 22");
         x = -123456789;
         expResult = false;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
         // Test 23
         System.out.println("Test 23");
         x = -12345678;
         expResult = true;
-        result = Math_long.isEven(x);
+        result = Math_Long.isEven(x);
         printTestIsEven(x, result);
         assertEquals(expResult, result);
     }
@@ -238,7 +238,7 @@ public class Math_IntegerTest {
     public void testIsInt() {
         System.out.println("isInt");
         // Test 1
-        long l = Math_long.INTEGER_MAX_VALUE + 1;
+        long l = Math_Long.INTEGER_MAX_VALUE + 1;
         String s = Long.toString(l);
         boolean r;
         r = Math_Integer.isInt(s);

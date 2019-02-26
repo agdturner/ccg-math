@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_shortTest {
+public class Math_ShortTest {
     
-    public Math_shortTest() {
+    public Math_ShortTest() {
     }
     
     @BeforeClass
@@ -38,7 +38,7 @@ public class Math_shortTest {
     }
 
     /**
-     * Test of isByte method, of class Math_short.
+     * Test of isByte method, of class Math_Short.
      */
     @Test
     public void testIsShort() {
@@ -47,11 +47,11 @@ public class Math_shortTest {
         // Test 1
         short sh = Short.MIN_VALUE;
         s = Short.toString(sh);
-        assertFalse(Math_short.isShort(s));
+        assertFalse(Math_Short.isShort(s));
         // Test 2
         sh += 1;
         s = Short.toString(sh);
-        assertTrue(Math_short.isShort(s));
+        assertTrue(Math_Short.isShort(s));
     }
     
 }
