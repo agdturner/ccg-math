@@ -26,7 +26,8 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 import uk.ac.leeds.ccg.andyt.generic.io.Generic_Files;
-import uk.ac.leeds.ccg.andyt.generic.io.Generic_IO;
+import uk.ac.leeds.ccg.andyt.math.core.Math_Environment;
+import uk.ac.leeds.ccg.andyt.math.core.Math_Object;
 
 /**
  * This class finds all prime numbers up to 2147483646 in about 20 seconds. It
@@ -35,14 +36,23 @@ import uk.ac.leeds.ccg.andyt.generic.io.Generic_IO;
  *
  * @author geoagdt
  */
-public class Math_PrimeNumbers {
+public class Math_PrimeNumbers extends Math_Object {
 
+    public Math_PrimeNumbers(Math_Environment e) {
+        super(e);
+    }
+    
     /**
      * @param args
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-
+        Math_PrimeNumbers p = new Math_PrimeNumbers(new Math_Environment());
+        p.run();
+    }
+    
+    public void run() {
+        
         /**
          * Prime numbers are incredibly useful for IDs when you want to be able
          * to trace something when IDs are combined. So for example for
@@ -151,9 +161,9 @@ public class Math_PrimeNumbers {
                     }
                 }
             }
-            Generic_IO.writeObject(PrimeList, fPrimeList);
-            Generic_IO.writeObject(PrimeIndexMap, fPrimeIndexMap);
-            Generic_IO.writeObject(numbList, fBitSet);
+            env.io.writeObject(PrimeList, fPrimeList);
+            env.io.writeObject(PrimeIndexMap, fPrimeIndexMap);
+            env.io.writeObject(numbList, fBitSet);
 
             System.out.format("array size         : %,11d%n", maxNumber);
             //      System.out.format("prime count        : %,11d%n", primeCount);
@@ -165,10 +175,10 @@ public class Math_PrimeNumbers {
             System.out.println("That took " + (stopTime - startTime)
                     / 1000.0 + " seconds");
         } else {
-            PrimeList = (ArrayList<Integer>) Generic_IO.readObject(fPrimeList);
-            PrimeIndexMap = (HashMap<Integer, Integer>) Generic_IO.readObject(
+            PrimeList = (ArrayList<Integer>) env.io.readObject(fPrimeList);
+            PrimeIndexMap = (HashMap<Integer, Integer>) env.io.readObject(
                     fPrimeIndexMap);
-            numbList = (BitSet) Generic_IO.readObject(fBitSet);
+            numbList = (BitSet) env.io.readObject(fBitSet);
             maxPrime = PrimeList.get(PrimeList.size() - 1);
         }
         while (getQuit().compareTo("-1") != 0) {
