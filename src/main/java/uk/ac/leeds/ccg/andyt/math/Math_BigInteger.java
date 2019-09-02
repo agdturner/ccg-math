@@ -54,7 +54,7 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Initialises factorials
+     * Initialises {@link factorials}.
      */
     protected void initFactorials() {
         factorials = new TreeMap<>();
@@ -63,7 +63,7 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Initialises powersOfTwo
+     * Initialises {@link #powersOfTwo}.
      */
     protected void initPowersOfTwo() {
         powersOfTwo = new TreeMap<>();
@@ -73,7 +73,8 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * @param x
+     * Calculates and returns the next integer 
+     * @param x 
      * @return If x is an integer then return a BigInteger value of x. Otherwise
      * return the next integer further away from zero;
      */
@@ -176,7 +177,11 @@ public class Math_BigInteger extends Math_Number {
         return powerOfTwo;
     }
 
-    public TreeMap<Integer, BigInteger> get_PowersOfTwo_TreeMap() {
+    /**
+     * If {@link #powersOfTwo} is null then it is initialised.
+     * @return {@link #powersOfTwo}.
+     */
+    public TreeMap<Integer, BigInteger> getPowersOfTwo() {
         if (this.powersOfTwo == null) {
             initPowersOfTwo();
         }
@@ -185,7 +190,7 @@ public class Math_BigInteger extends Math_Number {
 
     /**
      * @param x
-     * @return all the powers of two less than or equal to x
+     * @return All the powers of two less than or equal to x
      */
     public TreeMap<Integer, BigInteger> getPowersOfTwo(BigInteger x) {
         // Special Cases
@@ -198,7 +203,7 @@ public class Math_BigInteger extends Math_Number {
 //        if (x.compareTo(TWO) == 0) {
 //            return null;
 //        }
-        while (get_PowersOfTwo_TreeMap().lastEntry().getValue().compareTo(x) != 1) {
+        while (getPowersOfTwo().lastEntry().getValue().compareTo(x) != 1) {
             addPowerOfTwo();
         }
         TreeMap<Integer, BigInteger> result = new TreeMap<>();
@@ -229,7 +234,7 @@ public class Math_BigInteger extends Math_Number {
             r.put(0, 1);
             return r;
         }
-        TreeMap<Integer, BigInteger> xPowersOfTwo = getPowersOfTwo(x);
+        TreeMap<Integer, BigInteger> xPowersOfTwo = Math_BigInteger.this.getPowersOfTwo(x);
         Integer n;
         BigInteger powerofTwo;
         BigInteger remainder = new BigInteger(x.toString());
@@ -385,7 +390,7 @@ public class Math_BigInteger extends Math_Number {
     private BigInteger getRandomFromPowerOf2(BigInteger powerOf2) {
         Random[] random = getRandoms(1);
         BigInteger theRandom = BigInteger.ZERO;
-        TreeMap<Integer, BigInteger> powersOfTwo = getPowersOfTwo(powerOf2);
+        TreeMap<Integer, BigInteger> powersOfTwo = Math_BigInteger.this.getPowersOfTwo(powerOf2);
         BigInteger powerOfTwo;
         for (int i = powersOfTwo.lastKey() - 1; i >= 0; i--) {
             if (random[0].nextBoolean()) {

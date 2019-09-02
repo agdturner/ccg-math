@@ -21,13 +21,11 @@ import java.util.Random;
 public abstract class Math_Number implements Serializable {
 
     //static final long serialVersionUID = 1L;
-    
-    
     /**
      * A String abbreviation for Not A Number.
      */
     public static final String NAN = "NAN";
-    
+
     /**
      * Random instance.
      */
@@ -54,12 +52,15 @@ public abstract class Math_Number implements Serializable {
      *
      * @param length The size to initialise {@link #randoms}. This should be
      * greater than or equal to 1 and less than or equal to
-     * {@link java.lang.Integer.MAX_VALUE}.
+     * {@link java.lang.Integer#MAX_VALUE}. Although for practical purposes, the
+     * larger it is, the more memory is required, so it is best to keep it as
+     * small as necessary.
      * @param initialSeed The seed for the first random.
      * @param seedIncrement The difference between the last seed and the next
      * (the last seed being the initialSeed to begin with).
      */
     protected void initRandoms(int length, long initialSeed, long seedIncrement) {
+        //Integer max = Integer.MAX_VALUE;
         this.initialSeed = initialSeed;
         nextSeed = initialSeed;
         this.seedIncrement = seedIncrement;
@@ -72,14 +73,29 @@ public abstract class Math_Number implements Serializable {
 
     /**
      *
-     * Initialises or reinitialise {@link #randoms}.If {@link #randoms} is
-     * already initialised using the same initialSeed and seedIncrement with at
-     * least the size of length, then it is returned, otherwise it is
-     * reinitialised.
+     * Initialises or reinitialise {@link #randoms}. If {{@link #randoms} is
+     * {@code null}, then it is initialised using
+     * {@link #initRandoms(int, long, long)}. If {@link #randoms} is already
+     * initialised, {@link #initialSeed} is the same as {@code initialSeed},
+     * {@link #seedIncrement} is the same as {@code seedIncrement}, and
+     * {@link #randoms}{@code .length} is less than or equal to {@code length},
+     * then {@link #randoms} is returned. If {@link #randoms} is already
+     * initialised, {@link #initialSeed} is the same as {@code initialSeed},
+     * {@link #seedIncrement} is the same as {@code seedIncrement}, and
+     * {@link #randoms}{@code .length} is greater than {@code length}, then
+     * {@link #randoms} is effectively extended with the existing {@link Random}
+     * instances copied into the start of the replacement array with length
+     * {@code length} and the additional instances initialised using
+     * {@link #nextSeed} incremented with {@code seedIncrement} for each new
+     * instance added until the array is filled. In all other case
+     * {{@link #randoms} is reinitialised using
+     * {@link #initRandoms(int, long, long)}.
      *
      * @param length The size to initialise {@link #randoms}. This should be
      * greater than or equal to 1 and less than or equal to
-     * {@link java.lang.Integer.MAX_VALUE}.
+     * {@link java.lang.Integer#MAX_VALUE}. Although for practical purposes, the
+     * larger it is, the more memory is required, so it is best to keep it as
+     * small as necessary.
      * @param initialSeed The seed for the first random.
      * @param seedIncrement The difference between the last seed and the next
      * (the last seed being the initialSeed to begin with).
@@ -94,13 +110,13 @@ public abstract class Math_Number implements Serializable {
         if (this.initialSeed == initialSeed && this.seedIncrement
                 == seedIncrement) {
             if (randoms.length < length) {
-                Random[] newRandomArray = new Random[length];
-                System.arraycopy(randoms, 0, newRandomArray, 0, randoms.length);
+                Random[] r = new Random[length];
+                System.arraycopy(randoms, 0, r, 0, randoms.length);
                 for (int i = randoms.length; i < length; i++) {
-                    newRandomArray[i] = new Random(nextSeed);
+                    r[i] = new Random(nextSeed);
                     nextSeed += seedIncrement;
                 }
-                randoms = newRandomArray;
+                randoms = r;
             }
         } else {
             initRandoms(length, initialSeed, seedIncrement);
@@ -116,15 +132,17 @@ public abstract class Math_Number implements Serializable {
     }
 
     /**
+     * {@link #getRandomsMinLength(int, long, long)} where first parameter is
+     * {@code i}, the second element is 0L, and the third parameter is 1L.
      *
-     * @param i
-     * @return
+     * @param i The length of the array to be returned.
+     * @return An array of {@link java.util.Random}.
      */
     protected Random[] getRandoms(int i) {
         if (i < 0) {
             throw new IllegalArgumentException(
                     "i < 0 in " + this.getClass().getName()
-                    + ".get_RandomArray(int)");
+                    + ".getRandoms(int)");
         }
         return getRandomsMinLength(i, 0L, 1L);
     }
