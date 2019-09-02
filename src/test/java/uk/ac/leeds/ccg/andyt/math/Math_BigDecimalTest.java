@@ -48,7 +48,7 @@ public class Math_BigDecimalTest {
     public void tearDown() {
     }
 
-    //@Test // Uncomment to run tests
+    @Test // Uncomment to run tests
     public void testAll() {
         testRoundToAndSetDecimalPlaces_3args(); // Test passes
         testMultiply(); // Test passes
@@ -63,7 +63,8 @@ public class Math_BigDecimalTest {
         testExp(); // Test passes
         testLn(); // Test passes
         testLog(); // Test passes
-        test_getRandom(); // Test passes
+        test_getRandom_2args(); // Test passes
+        test_getRandom_4args(); // Test passes
         testSqrt();  // Test passes
         testRoot(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
         testPower(); //@TODO Not all tests completing in a satisfactory time. Some may be getting stuck in infinite loops.
@@ -72,484 +73,248 @@ public class Math_BigDecimalTest {
         testTan(); // Test passes
     }
 
-    public void testPowerUnscaled1Precision1_2args() {
-        System.out.println("testPowerUnscaled1Precision1_2args");
-        testPowerUnscaled1Precision1_2args_test1();
-        testPowerUnscaled1Precision1_2args_test2();
-        testPowerUnscaled1Precision1_2args_test3();
-        testPowerUnscaled1Precision1_2args_test4();
-        testPowerUnscaled1Precision1_2args_test5();
-    }
-
-    public void testPowerUnscaled1Precision1_2args_test1() {
-        System.out.println("testPowerUnscaled1Precision1_2args_test1");
-        BigDecimal x = new BigDecimal("10");
-        int y = 2;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPowerUnscaled1Precision1() {
+        String funcName = "powerUnscaled1Precision";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        int y;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        x = new BigDecimal("10");
+        y = 2;
         expResult = new BigDecimal("100");
         result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerUnscaled1Precision1_2args_test2() {
-        System.out.println("testPowerUnscaled1Precision1_2args_test2");
-        BigDecimal x = new BigDecimal("0.1");
-        int y = 2;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
+        x = new BigDecimal("0.1");
+        y = 2;
         expResult = new BigDecimal("0.01");
         result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerUnscaled1Precision1_2args_test3() {
-        System.out.println("testPowerUnscaled1Precision1_2args_test3");
-        BigDecimal x = new BigDecimal("100");
-        int y = 3;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
+        x = new BigDecimal("100");
+        y = 3;
         expResult = new BigDecimal("1000000");
         result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerUnscaled1Precision1_2args_test4() {
-        System.out.println("testPowerUnscaled1Precision1_2args_test4");
-        BigDecimal x = new BigDecimal("0.01");
-        int y = 3;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
+        x = new BigDecimal("0.01");
+        y = 3;
         expResult = new BigDecimal("0.000001");
         result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerUnscaled1Precision1_2args_test5() {
-        System.out.println("testPowerUnscaled1Precision1_2args_test5");
-        BigDecimal x = new BigDecimal("0.0001");
-        int y = 20;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
+        x = new BigDecimal("0.0001");
+        y = 20;
         expResult = new BigDecimal("1e-80");
         result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
     }
 
+    //@Test
     public void testMultiply() {
         testMultiplyRoundIfNecessary_5args_1();
         testMultiplyRoundIfNecessary_4args_1();
         testMultiplyRoundIfNecessary_4args_2();
     }
 
+    //@Test
     public void testMultiplyRoundIfNecessary_5args_1() {
-        System.out.println("testMultiplyRoundIfNecessary_5args_1");
-        testMultiplyRoundIfNecessary_5args_1_test1();
-        testMultiplyRoundIfNecessary_5args_1_test2();
-    }
-
-    public void testMultiplyRoundIfNecessary_5args_1_test1() {
-        System.out.println("testMultiplyRoundIfNecessary_5args_1_test1");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        MathContext a_MathContext = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "multiplyRoundIfNecessary_5args_1";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        MathContext mc;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("1.1");
         y = new BigDecimal("1.1");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        a_MathContext = new MathContext(3, a_RoundingMode);
-        decimalPlaces = 2;
+        rm = RoundingMode.HALF_UP;
+        mc = new MathContext(3, rm);
+        dp = 2;
         expResult = new BigDecimal("1.21");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x,
-                y,
-                a_MathContext,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestMultiply_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, mc, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testMultiplyRoundIfNecessary_5args_1_test2() {
-        System.out.println("testMultiplyRoundIfNecessary_5args_1_test2");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        MathContext a_MathContext = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("1.123456789");
         y = new BigDecimal("1234.1234");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        a_MathContext = new MathContext(14, a_RoundingMode);
-        decimalPlaces = 10;
+        rm = RoundingMode.HALF_UP;
+        mc = new MathContext(14, rm);
+        dp = 10;
         expResult = new BigDecimal("1386.4843121938");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x,
-                y,
-                a_MathContext,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestMultiply_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, mc, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
+    //@Test
     public void testMultiplyRoundIfNecessary_4args_1() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_1");
-        testMultiplyRoundIfNecessary_4args_1_test1();
-        testMultiplyRoundIfNecessary_4args_1_test2();
-        testMultiplyRoundIfNecessary_4args_1_test3();
-        testMultiplyRoundIfNecessary_4args_1_test4();
-        testMultiplyRoundIfNecessary_4args_1_test5();
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_1_test1() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_1_test1");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "multiplyRoundIfNecessary_4args_1";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("10.123456789");
         y = new BigDecimal("1");
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("10.123456789");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_1_test2() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_1_test2");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("10.123456789");
         y = new BigDecimal("1.0000001");
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         // The exact answer if precision were unlimited is 10.1234578013456789
         expResult = new BigDecimal("10.1234578013");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_1_test3() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_1_test3");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal(
                 "104364183462747328754328957134895713471589717049613406.1234567"
                 + "8910111213141516171819919676766754");
         y = new BigDecimal(
                 "14632748325142541.00005054133454515451454515144545135451545415"
                 + "457485917594001");
-        decimalPlaces = 1000;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 1000;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "15271348307693848498083695561135354493017650234872663109391721"
                 + "32466014.413624453917232477798220907377131857747836727698261"
                 + "8524788288629667703506739052902096156722546642754");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_1_test4() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_1_test4");
-        BigDecimal x;
-        BigDecimal y;
-        int decimalPlaces;
-        RoundingMode a_RoundingMode;
-        BigDecimal expResult;
-        BigDecimal result;
+        // Test 4
+        test++;
         x = new BigDecimal(
                 "-104364183462747328754328957134895713471589717049613406.123456"
                 + "78910111213141516171819919676766754");
         y = new BigDecimal(
                 "-14632748325142541.0000505413345451545145451514454513545154541"
                 + "5457485917594001");
-        decimalPlaces = 1000;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 1000;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1527134830769384849808369556113535449301765"
                 + "023487266310939172132466014.41362445391723247779822090737713"
                 + "185774783672769826185247882886296677035067390529020961567225"
                 + "46642754");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_1_test5() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_1_test5");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal(
                 "-104364183462747328754328957134895713471589717049613406.123456"
                 + "78910111213141516171819919676766754");
         y = new BigDecimal("14632748325142541.000050541334545154514545151445451"
                 + "35451545415457485917594001");
-        decimalPlaces = 1000;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 1000;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "-1527134830769384849808369556113535449301765023487266310939172"
                 + "132466014.41362445391723247779822090737713185774783672769826"
                 + "18524788288629667703506739052902096156722546642754");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testMultiply_4args_1()
-     *
-     * @param x
-     * @param y
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestMultiply_4args_1(
-            BigDecimal x,
-            BigDecimal y,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of multiply method, of class Math_BigDecimal.
-     */
+    //@Test
     public void testMultiplyRoundIfNecessary_4args_2() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_2");
-        testMultiplyRoundIfNecessary_4args_2_test1();
-        testMultiplyRoundIfNecessary_4args_2_test2();
-        testMultiplyRoundIfNecessary_4args_2_test3();
-        testMultiplyRoundIfNecessary_4args_2_test4();
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_2_test1() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_2_test1");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal(
-                "1.005");
-        y = new BigInteger(
-                "2");
-        decimalPlaces = 3;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = new BigDecimal(
-                "2.010");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_2(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        String funcName = "multiplyRoundIfNecessary_4args_2";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigInteger y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        x = new BigDecimal("1.005");
+        y = new BigInteger("2");
+        dp = 3;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("2.010");
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_2_test2() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_2_test2");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal(
-                "1.006");
-        y = new BigInteger(
-                "3");
-        decimalPlaces = 3;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = new BigDecimal(
-                "3.018");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_2(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        // Test 2
+        test++;
+        x = new BigDecimal("1.006");
+        y = new BigInteger("3");
+        dp = 3;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("3.018");
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_2_test3() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_2_test3");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal(
-                "1.006");
-        y = new BigInteger(
-                "3");
-        decimalPlaces = 2;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = new BigDecimal(
-                "3.02");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_2(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        // Test 3
+        test++;
+        x = new BigDecimal("1.006");
+        y = new BigInteger("3");
+        dp = 2;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("3.02");
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_2_test4() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_2_test4");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal(
-                "1.123456789123456");
-        y = new BigInteger(
-                "12356789");
-        decimalPlaces = 2;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 4
+        test++;
+        x = new BigDecimal("1.123456789123456");
+        y = new BigInteger("12356789");
+        dp = 2;
+        rm = RoundingMode.HALF_UP;
         // Accurate result 13882318.493816040742784
-        expResult = new BigDecimal(
-                "13882318.49");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_2(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("13882318.49");
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testMultiplyRoundIfNecessary_4args_2_test10() {
-        System.out.println("testMultiplyRoundIfNecessary_4args_2_test10");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal(
                 "1234567891011121314151617181991967676675410.123456789");
         y = new BigInteger(
                 "14632748325142541437589475834957438967342068989089035451545415"
                 + "457485917594001");
-        decimalPlaces = 1000;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 1000;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "18065121239467745048010407669300110379939339155567645320133264"
                 + "901389499811971334588569293633668157618732327166017614283.96"
                 + "9122789");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(
-                x, y, decimalPlaces, a_RoundingMode);
-        printTestMultiply_4args_2(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testMultiply_4args_2()
-     *
-     * @param x
-     * @param y
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestMultiply_4args_2(
-            BigDecimal x,
-            BigInteger y,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
     }
 
     public void testDivide() {
@@ -559,596 +324,236 @@ public class Math_BigDecimalTest {
         testDivideRoundIfNecessary_4args_4();
     }
 
+    //@Test
     public void testDivideRoundIfNecessary_4args_1() {
-        System.out.println("testDivideRoundIfNecessary_4args_1");
-        testDivideRoundIfNecessary_4args_1_test1();
-        testDivideRoundIfNecessary_4args_1_test2();
-        testDivideRoundIfNecessary_4args_1_test3();
-        testDivideRoundIfNecessary_4args_1_test4();
-        testDivideRoundIfNecessary_4args_1_test5();
-        testDivideRoundIfNecessary_4args_1_test6();
-        testDivideRoundIfNecessary_4args_1_test7();
-    }
-
-    public void testDivideRoundIfNecessary_4args_1_test1() {
-        System.out.println("testDivideRoundIfNecessary_4args_1_test1");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "divideRoundIfNecessary_4args_1";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("30.121");
         y = new BigDecimal("0.0121");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 6;
+        rm = RoundingMode.HALF_UP;
+        dp = 6;
         expResult = new BigDecimal("2489.338843");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testDivideRoundIfNecessary_4args_1_test2() {
-        System.out.println("testDivideRoundIfNecessary_4args_1_test2");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("30.121");
         y = new BigDecimal("0.0121");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 28;
+        rm = RoundingMode.HALF_UP;
+        dp = 28;
         expResult = new BigDecimal("2489.3388429752066115702479338843");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testDivideRoundIfNecessary_4args_1_test3() {
-        System.out.println("testDivideRoundIfNecessary_4args_1_test3");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("0.030121");
         y = new BigDecimal("0.0000121");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 4;
+        rm = RoundingMode.HALF_UP;
+        dp = 4;
         expResult = new BigDecimal("2489.3388");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testDivideRoundIfNecessary_4args_1_test4() {
-        System.out.println("testDivideRoundIfNecessary_4args_1_test4");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("0.030121");
         y = new BigDecimal("0.0000121");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 6;
+        rm = RoundingMode.HALF_UP;
+        dp = 6;
         expResult = new BigDecimal("2489.338843");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testDivideRoundIfNecessary_4args_1_test5() {
-        System.out.println("testDivideRoundIfNecessary_4args_1_test5");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal("30.121");
         y = new BigDecimal("30.1215415431245365365754725456435315432513245135");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 6;
+        rm = RoundingMode.HALF_UP;
+        dp = 6;
         expResult = new BigDecimal("0.999982");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testDivideRoundIfNecessary_4args_1_test6() {
-        System.out.println("testDivideRoundIfNecessary_4args_1_test6");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 6
+        test++;
         x = new BigDecimal("30.121");
         y = new BigDecimal("30.1215415431245365365754725456435315432513245135");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 30;
+        rm = RoundingMode.HALF_UP;
+        dp = 30;
         expResult = new BigDecimal("0.999982021400738696662826767313");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testDivideRoundIfNecessary_4args_1_test7() {
-        System.out.println("testDivideRoundIfNecessary_4args_1_test7");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 7
+        test++;
         x = new BigDecimal("30.121");
         y = new BigDecimal("30.1215415431245365365754725456435315432513245135");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 25;
+        rm = RoundingMode.HALF_UP;
+        dp = 25;
         expResult = new BigDecimal("0.9999820214007386966628268");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_1(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testDivide_4args_1()
-     *
-     * @param x
-     * @param y
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestDivideRoundIfNecessary_4args_1(
-            BigDecimal x,
-            BigDecimal y,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of divide method, of class Math_BigDecimal.
-     */
+    //@Test
     public void testDivideRoundIfNecessary_4args_2() {
-        System.out.println("testDivideRoundIfNecessary_4args_2");
-        testDivideRoundIfNecessary_4args_2_test1();
-    }
-
-    public void testDivideRoundIfNecessary_4args_2_test1() {
-        System.out.println("testDivideRoundIfNecessary_4args_2_test1");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "divideRoundIfNecessary_4args_2";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigInteger y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("30.121");
         y = new BigInteger("1234567777777777543567543564353642432656543254626");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 136;
+        rm = RoundingMode.HALF_UP;
+        dp = 136;
         expResult = new BigDecimal(
                 "0.000000000000000000000000000000000000000000000024398012439801"
                 + "248608678869240874632067769163126799290634383673965707848596"
                 + "2697307032484628");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_2(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
+        // Test 2
+        test++;
     }
 
-    /**
-     * For printing out individual tests of testDivide_4args_2()
-     *
-     * @param x
-     * @param y
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestDivideRoundIfNecessary_4args_2(
-            BigDecimal x,
-            BigInteger y,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of divide method, of class Math_BigDecimal.
-     */
+    //@Test
     public void testDivideRoundIfNecessary_4args_3() {
-        System.out.println("testDivide_4args_3");
-        testDivideRoundIfNecessary_4args_3_test1();
-    }
-
-    public void testDivideRoundIfNecessary_4args_3_test1() {
-        System.out.println("testDivideRoundIfNecessary_4args_3_test1");
-        BigInteger x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "divideRoundIfNecessary_4args_3";
+        System.out.println("Test " + funcName);
+        BigInteger x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigInteger("10030");
         y = new BigDecimal("0.0121");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         expResult = new BigDecimal(
                 "828925.6198347107438016528925619834710743801652892561983471074"
                 + "380165289256198347107438016528925619834710744");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_3(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
+        // Test 2
+        test++;
     }
 
-    /**
-     * For printing out individual tests of testDivide_4args_3()
-     *
-     * @param x
-     * @param y
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestDivideRoundIfNecessary_4args_3(
-            BigInteger x,
-            BigDecimal y,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
+    //@Test
     public void testDivideRoundIfNecessary_4args_4() {
-        System.out.println("testDivideRoundIfNecessary_4args_4");
-        testDivideRoundIfNecessary_4args_4_test1();
-    }
-
-    public void testDivideRoundIfNecessary_4args_4_test1() {
-        System.out.println("testDivideRoundIfNecessary_4args_4_test1");
-        BigInteger x = null;
-        BigInteger y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "divideRoundIfNecessary_4args_4";
+        System.out.println("Test " + funcName);
+        BigInteger x;
+        BigInteger y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigInteger("10030");
         y = new BigInteger("23456789");
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         expResult = new BigDecimal(
                 "0.000427594757321643640141879606795286430721613260877266705174"
                 + "3527215084724511952595046150604841950021");
-        result = Math_BigDecimal.divideRoundIfNecessary(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestDivideRoundIfNecessary_4args_4(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
+        // Test 2
+        test++;
     }
 
-    /**
-     * For printing out individual tests of testDivide_4args_4()
-     *
-     * @param x
-     * @param y
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestDivideRoundIfNecessary_4args_4(
-            BigInteger x,
-            BigInteger y,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of powerTestAbove method, of class Math_BigDecimal.
-     */
+    //@Test
     public void testPowerTestAbove_6args_1() {
-        System.out.println("testPowerTestAbove_6args_1");
-        testPowerTestAbove_6args_1_test1();
-    }
-
-    public void testPowerTestAbove_6args_1_test1() {
-        System.out.println("testPowerTestAbove_6args_1_test1");
-        BigDecimal compare = null;
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        boolean expResult = false;
+        String funcName = "powerTestAbove_6args_1";
+        System.out.println("Test " + funcName);
+        BigDecimal compare;
+        BigDecimal x;
+        BigInteger y;
+        int div;
+        int dp;
+        RoundingMode rm;
+        boolean expResult;
         boolean result;
+        // Test 1
+        int test = 1;
+        div = 0;
         compare = new BigDecimal("100");
         x = new BigDecimal("10.00000000000000000000000000001");
         y = new BigInteger("10");
-        decimalPlaces = 19;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 19;
+        rm = RoundingMode.HALF_UP;
         expResult = true;
-        result = Math_BigDecimal.powerTestAbove(
-                compare, x, y, div, decimalPlaces, a_RoundingMode);
-        printPowerTestAbove_6args_1(
-                compare,
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.powerTestAbove(compare, x, y, div, dp, rm);
+        printFunctionTest(funcName, test, compare, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
+        // Test 2
+        test++;
     }
 
-    /**
-     * For printing out individual tests of testPowerTestAbove_6args_1()
-     *
-     * @param compare
-     * @param x
-     * @param y
-     * @param div
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printPowerTestAbove_6args_1(
-            BigDecimal compare,
-            BigDecimal x,
-            BigInteger y,
-            int div,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            boolean result) {
-        System.out.println("compare " + compare);
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("div " + div);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of powerTestBelow method, of class Math_BigDecimal.
-     */
+    //@Test
     public void testPowerTestBelow_6args_1() {
-        System.out.println("testPowerTestBelow_6args_1");
-        testPowerTestBelow_6args_1_test1();
-        testPowerTestBelow_6args_1_test2();
-    }
-
-    public void testPowerTestBelow_6args_1_test1() {
-        System.out.println("testPowerTestBelow_6args_1_test1");
-        BigDecimal compare = null;
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
+        String funcName = "powerTestBelow_6args_1";
+        System.out.println("Test " + funcName);
+        BigDecimal compare;
+        BigDecimal x;
+        BigInteger y;
+        int div;
+        int dp;
+        RoundingMode rm;
         boolean expResult;
         boolean result;
+        // Test 1
+        int test = 1;
         compare = new BigDecimal("100");
         x = new BigDecimal("9.99999999999999999999999999999999999999999999999");
         y = new BigInteger("2");
         div = 64;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = true;
-        result = Math_BigDecimal.powerTestBelow(
-                compare, x, y, div, decimalPlaces, a_RoundingMode);
-        printPowerTestBelow_6args_1(
-                compare,
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.powerTestBelow(compare, x, y, div, dp, rm);
+        printFunctionTest(funcName, test, compare, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerTestBelow_6args_1_test2() {
-        System.out.println("testPowerTestBelow_6args_1_test2");
-        BigDecimal compare = null;
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        boolean expResult;
-        boolean result;
+        // Test 2
+        test++;
         compare = new BigDecimal("100");
         x = new BigDecimal("10.0000000000000000000000000000000000000000000001");
         y = new BigInteger("2");
         div = 64;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = false;
-        result = Math_BigDecimal.powerTestBelow(
-                compare, x, y, div, decimalPlaces, a_RoundingMode);
-        printPowerTestBelow_6args_1(
-                compare,
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.powerTestBelow(compare, x, y, div, dp, rm);
+        printFunctionTest(funcName, test, compare, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testPowerTestBelow_6args_1()
-     *
-     * @param compare
-     * @param x
-     * @param y
-     * @param div
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printPowerTestBelow_6args_1(
-            BigDecimal compare,
-            BigDecimal x,
-            BigInteger y,
-            int div,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            boolean result) {
-        System.out.println("compare " + compare);
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("div " + div);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * For printing out individual tests of testPowerTestAbove_6args_2()
-     *
-     * @param compare
-     * @param x
-     * @param y
-     * @param div
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printPowerTestAbove_6args_2(
-            BigDecimal compare,
-            BigDecimal x,
-            int y,
-            int div,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            boolean result) {
-        System.out.println("compare " + compare);
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("div " + div);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
     }
 
     public void testPower() {
         testPowerNoRounding_3args(); // Test passes
-        testPowerUnscaled1Precision1_2args(); // Test passes
+        testPowerUnscaled1Precision1(); // Test passes
         testPowerTestAbove_6args_1(); // Test passes
         testPower_5args_1(); // Test passes
         testPower_5args_2(); // Test passes
@@ -1157,44 +562,27 @@ public class Math_BigDecimalTest {
         testPowerLessThanOne_4args(); // Test passes
     }
 
+    //@Test
     public void testPowerNoRounding_3args() {
-        System.out.println("testPowerNoRounding_3args()");
-        testPowerNoRounding_3args_test1();
-        testPowerNoRounding_3args_test2();
-        testPowerNoRounding_3args_test3();
-        testPowerNoRounding_3args_test4();
-    }
-
-    public void testPowerNoRounding_3args_test1() {
-        System.out.println("testPowerNoRounding_3args_test1()");
-        BigDecimal x = null;
-        BigInteger y = null;
+        String funcName = "testPowerNoRounding_3args";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigInteger y;
         int div;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("5.1");
         y = new BigInteger("20");
         div = 2;
         expResult = new BigDecimal("141710986707530.43575626125424226001");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y,
-                div);
-        printPowerNoRounding_3args(
-                x,
-                y,
-                div,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y, div);
+        printFunctionTest(funcName, test, x, y, div, result);
+        printPowerNoRounding_3args(funcName, test, x, y, div, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_3args_test2() {
-        System.out.println("testPowerNoRounding_3args_test2()");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("5.10000000000000000000000000000000000000000000001");
         y = new BigInteger("20");
         div = 2;
@@ -1215,25 +603,12 @@ public class Math_BigDecimalTest {
                 + "000000000000000000000000000151222140000000000000000000000000"
                 + "000000000000000049419000000000000000000000000000000000000000"
                 + "000010200000000000000000000000000000000000000000000001");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y,
-                div);
-        printPowerNoRounding_3args(
-                x,
-                y,
-                div,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y, div);
+        printFunctionTest(funcName, test, x, y, div, result);
+        printPowerNoRounding_3args(funcName, test, x, y, div, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_3args_test3() {
-        System.out.println("testPowerNoRounding_3args_test3()");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("5.10000000000000000000000000000000000000000000001");
         y = new BigInteger("20");
         div = 4;
@@ -1254,25 +629,11 @@ public class Math_BigDecimalTest {
                 + "000000000000000000000000000151222140000000000000000000000000"
                 + "000000000000000049419000000000000000000000000000000000000000"
                 + "000010200000000000000000000000000000000000000000000001");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y,
-                div);
-        printPowerNoRounding_3args(
-                x,
-                y,
-                div,
-                result);
+        printFunctionTest(funcName, test, x, y, div, result);
+        printPowerNoRounding_3args(funcName, test, x, y, div, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_3args_test4() {
-        System.out.println("testPowerNoRounding_3args_test4()");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("5.10000000000000000000000000000000000000000000001");
         y = new BigInteger("200");
         div = 4;
@@ -1437,15 +798,8 @@ public class Math_BigDecimalTest {
                 + "000000000000000000000517599000000000000000000000000000000000"
                 + "000000000010200000000000000000000000000000000000000000000000"
                 + "1");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y,
-                div);
-        printPowerNoRounding_3args(
-                x,
-                y,
-                div,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y, div);
+        printPowerNoRounding_3args(funcName, test, x, y, div, result);
         assertEquals(expResult, result);
     }
 
@@ -1457,96 +811,48 @@ public class Math_BigDecimalTest {
      * @param y
      * @param result
      */
-    private void printPowerNoRounding_3args(
-            BigDecimal x,
-            BigInteger y,
-            int div,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("result " + result);
+    private void printPowerNoRounding_3args(String funcName, int test,
+            BigDecimal x, BigInteger y, int div, BigDecimal result) {
+        printTestAndXAndY(test, x, y);
+        System.out.println("div " + div);
+        System.out.println(funcName + "(x,y,div) " + result);
     }
 
+    //@Test
     public void testPowerNoRounding_2args() {
-        System.out.println("testPowerNoRounding_2args()");
-        testPowerNoRounding_2args_test1();
-        testPowerNoRounding_2args_test2();
-        testPowerNoRounding_2args_test3();
-        testPowerNoRounding_2args_test4();
-        testPowerNoRounding_2args_test5();
-        testPowerNoRounding_2args_test6();
-        testPowerNoRounding_2args_test7();
-        testPowerNoRounding_2args_test8();
-        testPowerNoRounding_2args_test9();
-        testPowerNoRounding_2args_test10();
-        testPowerNoRounding_2args_test11();
-        testPowerNoRounding_2args_test12();
-    }
-
-    public void testPowerNoRounding_2args_test1() {
-        System.out.println("testPowerNoRounding_2args_test1()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "powerNoRounding_2args";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        int y;
+        BigDecimal expResult;
+        BigDecimal result;
         x = new BigDecimal("5.1");
         y = 2;
+        // Test 1
+        int test = 1;
         expResult = new BigDecimal("26.01");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test2() {
-        System.out.println("testPowerNoRounding_2args_test2()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("5.1");
         y = 20;
         expResult = new BigDecimal("141710986707530.43575626125424226001");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test3() {
-        System.out.println("testPowerNoRounding_2args_test3()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("5.10");
         y = 20;
         expResult = new BigDecimal(
                 "141710986707530.4357562612542422600100000000000000000000");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test4() {
-        System.out.println("testPowerNoRounding_2args_test4()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("5.10000000000000000000000000000000000000000000001");
         y = 20;
         expResult = new BigDecimal(
@@ -1566,459 +872,274 @@ public class Math_BigDecimalTest {
                 + "000000000000000000000000000151222140000000000000000000000000"
                 + "000000000000000049419000000000000000000000000000000000000000"
                 + "000010200000000000000000000000000000000000000000000001");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test5() {
-        System.out.println("testPowerNoRounding_2args_test5()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal("5.2");
         y = 2;
         expResult = new BigDecimal("27.04");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test6() {
-        System.out.println("testPowerNoRounding_2args_test6()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 6
+        test++;
         x = new BigDecimal("5.3");
         y = 2;
         expResult = new BigDecimal("28.09");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test7() {
-        System.out.println("testPowerNoRounding_2args_test7()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 7
+        test++;
         x = new BigDecimal("5.4");
         y = 2;
         expResult = new BigDecimal("29.16");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test8() {
-        System.out.println("testPowerNoRounding_2args_test8()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 8
+        test++;
         x = new BigDecimal("5.5");
         y = 2;
         expResult = new BigDecimal("30.25");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test9() {
-        System.out.println("testPowerNoRounding_2args_test9()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 9
+        test++;
         x = new BigDecimal("5.6");
         y = 2;
         expResult = new BigDecimal("31.36");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test10() {
-        System.out.println("testPowerNoRounding_2args_test10()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 12
+        test++;
         x = new BigDecimal("5.7");
         y = 2;
         expResult = new BigDecimal("32.49");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test11() {
-        System.out.println("testPowerNoRounding_2args_test11()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 11
+        test++;
         x = new BigDecimal("5.8");
         y = 2;
         expResult = new BigDecimal("33.64");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPowerNoRounding_2args_test12() {
-        System.out.println("testPowerNoRounding_2args_test12()");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 12
+        test++;
         x = new BigDecimal("5.9");
         y = 2;
         expResult = new BigDecimal("34.81");
-        result = Math_BigDecimal.powerNoRounding(
-                x,
-                y);
-        printPowerNoRounding_2args(
-                x,
-                y,
-                result);
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        printFunctionTest(funcName, test, x, y, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testPowerNoRounding_2args()
-     *
-     * @param compare
-     * @param x
-     * @param y
-     * @param result
-     */
-    private void printPowerNoRounding_2args(
-            BigDecimal x,
-            int y,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("result " + result);
+    //@Test
+    public void testPower_6args() {
+        /**
+         * @TODO Not all tests completing in a satisfactory time so these are
+         * commented out until this issue is resolved satisfactorally...
+         */
+        System.out.println("testPower_6args()");
+        testPower_6args_test1(); // Test passes
+//        testPower_6args_test2(); // Test either stuck or not completing in satisfactory time
+//        testPower_6args_test3(); // Test either stuck or not completing in satisfactory time
+//        testPower_6args_test4(); // Test either stuck or not completing in satisfactory time
+//        testPower_6args_test5(); // Test either stuck or not completing in satisfactory time
+        testPower_6args_test6(); // Test passes
+//        testPower_6args_test7(); // Test either stuck or not completing in satisfactory time
+        testPower_6args_test8(); // Test passes
+//        testPower_6args_test9(); // Test either stuck or not completing in satisfactory time
+//        testPower_6args_test10(); // Test either stuck or not completing in satisfactory time
+//        testPower_6args_test11(); // Test either stuck or not completing in satisfactory time
+        testPower_6args_test12(); // Test passes
     }
 
     /**
      * Test of power method, of class Math_BigDecimal.
      */
     //@Test
-    public void testPower_6args() {
-        //@TODO Not all tests completing in a satisfactory time so these are commented out until this issue is resolved satisfactorally...
-        System.out.println("testPower_6args()");
-        testPower_6args_test1(); // Test passes
-        testPower_6args_test2(); // Test passes
-        testPower_6args_test3(); // Test passes
-        testPower_6args_test4(); // Test passes
-//        testPower_6args_test5(); // Test either stuck or not completing in satisfactory time
-//        testPower_6args_test6(); // Test either stuck or not completing in satisfactory time
-//        testPower_6args_test7(); // Test either stuck or not completing in satisfactory time
-//        testPower_6args_test8(); // Test either stuck or not completing in satisfactory time
-        testPower_6args_test9(); // Test passes
-        testPower_6args_test10(); // Test passes
-        testPower_6args_test11(); // Test passes
-//        testPower_6args_test12(); // Test either stuck or not completing in satisfactory time
-        testPower_6args_test13(); // Test passes
-        testPower_6args_test14(); // Test passes
-        testPower_6args_test15(); // Test passes
-        testPower_6args_test16(); // Test passes
-        testPower_6args_test17(); // Test passes
-//        testPower_6args_test18(); // Test either stuck or not completing in satisfactory time
-//        testPower_6args_test19(); // Test either stuck or not completing in satisfactory time
-//        testPower_6args_test20(); // Test either stuck or not completing in satisfactory time
-        testPower_6args_test21(); // Test passes
-        testPower_6args_test22(); // Test passes
-        testPower_6args_test23(); // Test passes
-        testPower_6args_test24(); // Test passes
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
     public void testPower_6args_test1() {
-        System.out.println("testPower_6args_test1");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "power_6args_test1";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("5.1");
         y = new BigDecimal("0.0122");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal(
 //                "1.020075592235233496296126665026067483207748617172583488021310"
 //                + "8734138226078100585587805435645098947069");
         expResult = new BigDecimal(
                 "1.020075592235233496296126665026067483207748617172583488021310"
                 + "8734138226078100585587805435645098947068");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test2() {
-        System.out.println("testPower_6args_test2");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("5.1");
         y = new BigDecimal("0.000122");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "1.000198787101384878642452720694744868971170929418775037222019"
                 + "2032254156701221277775377001688988217835");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test3() {
-        System.out.println("testPower_6args_test3");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("5.1");
         y = new BigDecimal("-0.000122");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999801252407073026532411361647635459308346680589674812109435"
                 + "6355033399665871513258400090997521879138");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of power method, of class Generic_BigDecimal. This has been known to
-     * take about 48 seconds to complete.
-     */
-    public void testPower_6args_test4() {
-        System.out.println("testPower_6args_test4");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("5.1");
         y = new BigDecimal("-0.000122");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999801252407073026532411361647635459308346680589674812109435"
                 + "6355033399665871513258400090997521879138");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal. This has been known to
-     * take about 48 seconds to complete.
+     * Currently this seems to be getting stuck or at least it is taking a long
+     * time to compute. Previously a result was generated. It may have been that
+     * previously the algorithm was slightly different or that in fact the
+     * result was incorrect or not calculated and accurate to the specified
+     * number of decimal places!
      */
-    public void testPower_6args_test5() {
-        System.out.println("testPower_6args_test5");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test2() {
+        String funcName = "power_6args_test2";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("5.1");
         y = new BigDecimal("-0.000000002");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999999996741518925848289291581390088493740454739378865003717"
                 + "6765269179691805288720372301300181098212");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of power method, of class Generic_BigDecimal. This has been known to
-     * take about 48 seconds to complete.
+     * Currently this seems to be getting stuck or at least it is taking a long
+     * time to compute. Previously a result was generated. It may have been that
+     * previously the algorithm was slightly different or that in fact the
+     * result was incorrect or not calculated and accurate to the specified
+     * number of decimal places!
      */
-    public void testPower_6args_test6() {
-        System.out.println("testPower_6args_test6");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test3() {
+        String funcName = "power_6args_test3";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("5.1");
         y = new BigDecimal("-0.000000000002");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999999999996741518920544748674219018662252981309537110886643"
                 + "3325558136648752946348246771904715458001");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of power method, of class Math_BigDecimal.
+     * Currently this seems to be getting stuck or at least it is taking a long
+     * time to compute. Previously a result was generated. It may have been that
+     * previously the algorithm was slightly different or that in fact the
+     * result was incorrect or not calculated and accurate to the specified
+     * number of decimal places!
      */
-    public void testPower_6args_test7() {
-        System.out.println("testPower_6args_test7");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test4() {
+        String funcName = "power_6args_test4";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("5.1");
         y = new BigDecimal("-0.000000000002");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999999999996741518920544748674219018662252981309537110886643"
                 + "3325558136648752946348246771904715458001");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of power method, of class Math_BigDecimal.
+     * Currently this seems to be getting stuck or at least it is taking a long
+     * time to compute. Previously a result was generated. It may have been that
+     * previously the algorithm was slightly different or that in fact the
+     * result was incorrect or not calculated and accurate to the specified
+     * number of decimal places!
      */
-    public void testPower_6args_test8() {
-        System.out.println("testPower_6args_test8");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test5() {
+        String funcName = "power_6args_test5";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal(
                 "2.718281828459045235360287471352662497757247093699959574966967"
                 + "627724076630353547594571382178525166427427466391932003059921"
@@ -2038,1372 +1159,643 @@ public class Math_BigDecimalTest {
                 + "768396424378140592714563549061303107208510383750510115747704"
                 + "1718986106873969655212671546889570350354");
         y = x.negate();
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.065988035845312537076790187596846424938577048252796436402473"
                 + "5415723927466340880862459929685632483709");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test9() {
-        System.out.println("testPower_6args_test9");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test6() {
+        String funcName = "power_6args_test6";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("0.9");
         y = new BigDecimal("200");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.000000000705507910865533257124642715759347962165079496127873"
                 + "1576287122320926208555158293415657929853");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test10() {
-        System.out.println("testPower_6args_test10");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("1.1");
         y = new BigDecimal("200");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal(
 //                "189905276.4604618242121820463954116340585832240009877848127251"
 //                + "456103762646167989140750662066593328455813588159");
         expResult = new BigDecimal(
                 "189905276.4604618242121820463954116340585832240009877848127251"
                 + "456103762646167989140750662066593328455813588181");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test11() {
-        System.out.println("testPower_6args_test11");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("1.0000000000000000000000000000000001");
         y = new BigDecimal("20000");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal(
 //                "1.000000000000000000000000000002000000000000000000000000000001"
 //                + "9999000000000000000000000000013331331204");
         expResult = new BigDecimal(
                 "1.000000000000000000000000000002000000000000000000000000000001"
                 + "9999000000000000000000000000013331333400");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
     /**
      * Test of power method, of class Math_BigDecimal.
      */
-    public void testPower_6args_test12() {
-        System.out.println("testPower_6args_test12");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    public void testPower_6args_test7() {
+        String funcName = "power_6args_test7";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("1.000000000000000001234567");
         y = new BigDecimal("2000078764654345654");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "11.80925729618850935047900283877251871123117528236149368178447"
                 + "43606317427155216550611985572658924014225");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test13() {
-        System.out.println("testPower_6args_test13");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test8() {
+        String funcName = "power_6args_test8";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("0.9");
         y = new BigDecimal("0.9");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.909532576082962189535366090754262974443473210154553394006625"
                 + "8156584379857622915775444454069734604216");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test14() {
-        System.out.println("testPower_6args_test14");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("0.1");
         y = new BigDecimal("0.9");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.125892541179416721042395410639580060609361740946693106910792"
                 + "301952664761578250202412105096627594617");
-        expResult = expResult.setScale(decimalPlaces);
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = expResult.setScale(dp);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test15() {
-        System.out.println("testPower_6args_test15");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("0.9");
         y = new BigDecimal("0.1");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.989519258206214392646230170419804832155538415337091539600605"
                 + "544414212962464564723600065458219541611");
-        expResult = expResult.setScale(decimalPlaces);
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = expResult.setScale(dp);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test16() {
-        System.out.println("testPower_6args_test16");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("0.9");
         y = new BigDecimal("0.12");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.987436328376606708739063494229909542239622211966688276138278"
                 + "1495703008692225765762583023898416587461");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test17() {
-        System.out.println("testPower_6args_test17");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal("0.09");
         y = new BigDecimal("0.12");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.749047055475647117310421468815370379819904146132649930111430"
                 + "8616900168333963941855154477042245424988");
 //        expResult = new BigDecimal(
 //                "0.749047055475647117310421468815370379819904146132649930111430"
 //                + "8616900168333963941855154477042245371721");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test18() {
-        System.out.println("testPower_6args_test18");
-        //assertNull(1);
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test9() {
+        String funcName = "power_6args_test9";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("0.1");
         y = new BigDecimal("0.999991");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.100002072348056530317390970017713311383030160316867649898675"
                 + "1042536233958380984224300502095831919852");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test19() {
-        System.out.println("testPower_6args_test19");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test10() {
+        String funcName = "power_6args_test10";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("0.1");
         y = new BigDecimal("0.9999999991");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 //0.10000000020723265858419098518432
                 "0.100000000207232449276900938780572607600670362630328624897040"
                 + "9053787443199517073876579178209190227768");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    public void testPower_6args_test20() {
-        System.out.println("testPower_6args_test20");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test11() {
+        String funcName = "power_6args_test11";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("0.92");
         y = new BigDecimal(
                 "0.0040983606557377051313184601610828394768759608268737792968");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999658330476842250517859191452511308247518473356535240882710"
                 + "507544024872721215314306435063439340094");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
     /**
      * Test of power method, of class Math_BigDecimal.
      */
-    public void testPower_6args_test21() {
-        System.out.println("testPower_6args_test21");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testPower_6args_test12() {
+        String funcName = "power_6args_test12";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("-32");
         y = new BigDecimal("0.2");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("-2");
-        expResult = expResult.setScale(decimalPlaces);
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = expResult.setScale(dp);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_6args_test22() {
-        System.out.println("testPower_6args_test22");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("5");
         y = new BigDecimal("5");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("3125");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_6args_test23() {
-        System.out.println("testPower_6args_test23");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("5.1");
         y = new BigDecimal("5");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("3450.25251");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_6args_test24() {
-        System.out.println("testPower_6args_test24");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("5");
         y = new BigDecimal("5.1");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "3670.684197150059393482698955287184067730384433616795842754956"
                 + "9355366665963868814955884483346517180703125");
-        expResult = expResult.setScale(decimalPlaces);
-//        decimalPlaces = 28;
-//        a_RoundingMode = RoundingMode.HALF_UP;
+        expResult = expResult.setScale(dp);
+//        dp = 28;
+//        rm = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal(
 //                "3670.6841971500593934826989552872");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
-        printPower_6args(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testPower_6args()
-     *
-     * @param compare
-     * @param x
-     * @param y
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printPower_6args(
-            BigDecimal x,
-            BigDecimal y,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
     }
 
     /**
      * Test of power method, of class Math_BigDecimal.
      */
+    //@Test
     public void testPowerLessThanOne_4args() {
-        System.out.println("powerLessThanOne");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "powerLessThanOne_4args";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
         // Test 1
+        int test = 1;
         x = new BigDecimal("5.1");
         y = new BigDecimal("0.011");
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1.0180832024");
-        result = Math_BigDecimal.power(
-                x,
-                y,
-                decimalPlaces,
-                a_RoundingMode);
+        result = Math_BigDecimal.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
+    //@Test
     public void testPower_5args_1() {
-        System.out.println("testPower_5args_1");
-        testPower_5args_1_test1();
-        testPower_5args_1_test2();
-        testPower_5args_1_test3();
-        testPower_5args_1_test4();
-        testPower_5args_1_test5();
-        testPower_5args_1_test6();
-        testPower_5args_1_test7();
-        testPower_5args_1_test8();
-        testPower_5args_1_test9();
-        testPower_5args_1_test10();
-        testPower_5args_1_test11();
-    }
-
-    public void testPower_5args_1_test1() {
-        System.out.println("testPower_5args_1_test1");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 10;
+        String funcName = "power_5args_1";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        int y;
+        int div;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        rm = RoundingMode.HALF_UP;
+        dp = 10;
         x = new BigDecimal("5.1");
         y = 13;
         div = 8;
         expResult = new BigDecimal("1579109656.3156692196");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test2() {
-        System.out.println("testPower_5args_1_test2");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 10;
+        // Test 2
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 10;
         x = new BigDecimal("5.1");
         y = 13;
         div = 12;
         expResult = new BigDecimal("1579109656.3156692196");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test3() {
-        System.out.println("testPower_5args_1_test3");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 10;
+        // Test 3
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 10;
         x = new BigDecimal("5.1");
         y = 117;
         div = 8;
         expResult = new BigDecimal(
                 "61053505308866480538551405717028781301447815633741042337063285"
                 + "637565296816330773386.1309180477");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test4() {
-        System.out.println("testPower_5args_1_test4");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 10;
+        // Test 4
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 10;
         x = new BigDecimal("3.14159265");
         y = 10;
         div = 3;
-        expResult = new BigDecimal(
-                "93648.0464059980");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("93648.0464059980");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test5() {
-        System.out.println("testPower_5args_1_test5");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 20;
+        // Test 5
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 20;
         x = new BigDecimal("3.14159265");
         y = 10;
         div = 3;
-        expResult = new BigDecimal(
-                "93648.04640599799415742896");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("93648.04640599799415742896");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test6() {
-        System.out.println("testPower_5args_1_test6");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 30;
+        // Test 6
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 30;
         x = new BigDecimal("3.14159265");
         y = 10;
         div = 3;
-        expResult = new BigDecimal(
-                "93648.046405997994157428955669854799");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("93648.046405997994157428955669854799");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test7() {
-        System.out.println("testPower_5args_1_test7");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 30;
+        // Test 7
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 30;
         x = new BigDecimal("3");
         y = -10;
         div = 3;
-        expResult = new BigDecimal(
-                "0.000016935087808430286711036597");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("0.000016935087808430286711036597");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test8() {
-        System.out.println("testPower_5args_1_test8");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 40;
+        // Test 8
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 40;
         x = new BigDecimal("3");
         y = -10;
         div = 3;
         expResult = new BigDecimal(
                 "0.0000169350878084302867110365967247540178");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test9() {
-        System.out.println("testPower_5args_1_test9");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 40;
+        // Test 9
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 40;
         x = new BigDecimal("3.00001");
         y = -10;
         div = 3;
-        expResult = new BigDecimal(
-                "0.0000169345233158524213740774680469856220");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("0.0000169345233158524213740774680469856220");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test10() {
-        System.out.println("testPower_5args_1_test10");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 130;
+        // Test 10
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 130;
         x = new BigDecimal("3.00001");
         y = -178;
         div = 3;
-        expResult = new BigDecimal(
-                "1.180752785902410385735038642706422321146970536E-85");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("1.180752785902410385735038642706422321146970536E-85");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test11() {
-        System.out.println("testPower_5args_1_test11");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 30;
+        // Test 11
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 30;
         x = new BigDecimal("0.1");
         y = -10;
         div = 3;
-        expResult = new BigDecimal(
-                "10000000000.000000000000000000000000000000");
-//        expResult = new BigDecimal(
-//                "1E+10");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("10000000000.000000000000000000000000000000");
+//        expResult = new BigDecimal("1E+10");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_1_test12() {
-        System.out.println("testPower_5args_1_test12");
-        BigDecimal x = null;
-        int y = 0;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 3000;
-        x = new BigDecimal("0.11111111111111178978978921212121");
+        // Test 12
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
+        x = new BigDecimal("0.99999999999999998");
         y = -678;
         div = 3;
-        expResult = new BigDecimal(
-                "93648.046405997994157428955669854799");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_1(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("1.00000000000001356000000000009207240000000"
+                + "04173948800000014212295664000038771142571392088268967920869");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testPower_5args_1()
-     *
-     * @param x
-     * @param y
-     * @param div
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestPower_5args_1(
-            BigDecimal x,
-            int y,
-            int div,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("div " + div);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
+    //@Test
     public void testPower_5args_2() {
-        System.out.println("testPower_5args_2");
-        testPower_5args_2_test1();
-        testPower_5args_2_test2();
-        testPower_5args_2_test3();
-        testPower_5args_2_test4();
-        testPower_5args_2_test5();
-        testPower_5args_2_test6();
-        testPower_5args_2_test7();
-        testPower_5args_2_test8();
-        testPower_5args_2_test9();
-        testPower_5args_2_test10();
-        testPower_5args_2_test11();
-        testPower_5args_2_test12();
-        testPower_5args_2_test13();
-        testPower_5args_2_test14();
-        testPower_5args_2_test15();
-        testPower_5args_2_test16();
-        testPower_5args_2_test17();
-        testPower_5args_2_test18();
-        testPower_5args_2_test19();
-        testPower_5args_2_test20();
-    }
-
-    public void testPower_5args_2_test1() {
-        System.out.println("testPower_5args_2_test1");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        String funcName = "power_5args_2";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigInteger y;
+        int div;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("1");
         y = new BigInteger("2");
         div = 2;
-        expResult = new BigDecimal(
-                "1");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("1");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test2() {
-        System.out.println("testPower_5args_2_test2");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 2
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("2");
         div = 2;
-        expResult = new BigDecimal(
-                "4");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("4");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test3() {
-        System.out.println("testPower_5args_2_test3");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 3
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("2");
         div = 8;
-        expResult = new BigDecimal(
-                "4");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("4");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test4() {
-        System.out.println("testPower_5args_2_test4");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 4
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("3");
         div = 2;
-        expResult = new BigDecimal(
-                "8");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("8");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test5() {
-        System.out.println("testPower_5args_2_test5");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 5
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("3");
         div = 8;
-        expResult = new BigDecimal(
-                "8");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("8");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test6() {
-        System.out.println("testPower_5args_2_test6");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 6
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("4");
         div = 4;
-        expResult = new BigDecimal(
-                "16");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("16");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test7() {
-        System.out.println("testPower_5args_2_test7");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 7
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("4");
         div = 2;
-        expResult = new BigDecimal(
-                "16");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("16");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test8() {
-        System.out.println("testPower_5args_2_test8");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 8
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("4");
         div = 3;
-        expResult = new BigDecimal(
-                "16");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("16");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test9() {
-        System.out.println("testPower_5args_2_test9");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 9
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("8");
         div = 8;
-        expResult = new BigDecimal(
-                "256");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("256");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test10() {
-        System.out.println("testPower_5args_2_test10");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 10
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("10");
         div = 64;
-        expResult = new BigDecimal(
-                "1024");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("1024");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test11() {
-        System.out.println("testPower_5args_2_test11");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 11
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("11");
         div = 64;
-        expResult = new BigDecimal(
-                "2048");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("2048");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test12() {
-        System.out.println("testPower_5args_2_test12");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 12
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("65");
         div = 32;
-        expResult = new BigDecimal(
-                "36893488147419103232");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("36893488147419103232");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test13() {
-        System.out.println("testPower_5args_2_test13");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 13
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("2");
         y = new BigInteger("65");
         div = 17;
-        expResult = new BigDecimal(
-                "36893488147419103232");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("36893488147419103232");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test14() {
-        System.out.println("testPower_5args_2_test14");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 14
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("5.1");
         y = new BigInteger("117");
         div = 8;
@@ -3412,85 +1804,35 @@ public class Math_BigDecimalTest {
                 + "637565092974889024013.95170173462077405598021935614839617008"
                 + "687986713833910778545970838802156925519570602363713165609193"
                 + "54");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test15() {
-        System.out.println("testPower_5args_2_test15");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 15
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("0.1122");
         y = new BigInteger("10");
         div = 8;
-        expResult = new BigDecimal(
-                "3.161757585765373988090713703424E-10");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("3.161757585765373988090713703424E-10");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test16() {
-        System.out.println("testPower_5args_2_test16");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 16
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("0.001122");
         y = new BigInteger("1034");
         div = 8;
-        expResult = new BigDecimal(
-                "0");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        expResult = new BigDecimal("0");
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test17() {
-        System.out.println("testPower_5args_2_test17");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 10000;
+        // Test 17
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 10000;
         x = new BigDecimal("0.001122");
         y = new BigInteger("1034");
         div = 8;
@@ -3548,29 +1890,13 @@ public class Math_BigDecimalTest {
                 + "811711817735060315993183660630801180299388370977016001053753"
                 + "213675590341472292056479804429326923743981250071473193821515"
                 + "915066035479225636617768291794944E-3051");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test18() {
-        System.out.println("testPower_5args_2_test18");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 10000;
+        // Test 18
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 10000;
         x = new BigDecimal("0.0012345678991622");
         y = new BigInteger("1234");
         div = 8;
@@ -3682,29 +2008,13 @@ public class Math_BigDecimalTest {
                 + "703087457290093111633254634388438823165743886696298824349345"
                 + "656496377276196412103923039892904397552591077832462093232455"
                 + "91101586589950430363520701982464337600308855098521E-3590");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test19() {
-        System.out.println("testPower_5args_2_test19");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 1000;
+        // Test 19
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 1000;
         x = new BigDecimal("-0.0012345678991622");
         y = new BigInteger("12");
         div = 8;
@@ -3712,29 +2022,13 @@ public class Math_BigDecimalTest {
                 "-1.25365998693568959676678134576311434191784180749571395739232"
                 + "878897951918031315109522890632250338730775085419737311675655"
                 + "57247684654582741706554500513064226816E-35");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPower_5args_2_test20() {
-        System.out.println("testPower_5args_2_test20");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 500;
+        // Test 20
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 500;
         x = new BigDecimal("-0.0012345678991622");
         y = new BigInteger("43");
         div = 8;
@@ -3766,269 +2060,175 @@ public class Math_BigDecimalTest {
 //                + "161134455819574164533018002589203787042509960656909323878421"
 //                + "932179493755007178830228770626643007805900714109670294445996"
 //                + "80564930616575338758E-126");
-        result = Math_BigDecimal.power(
-                x, y, div, decimalPlaces, a_RoundingMode);
-        printTestPower_5args_2(
-                x,
-                y,
-                div,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.power(x, y, div, dp, rm);
+        printFunctionTest(funcName, test, x, y, div, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testPower_5args_2()
-     *
-     * @param x
-     * @param y
-     * @param div
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestPower_5args_2(
-            BigDecimal x,
-            BigInteger y,
-            int div,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("y " + y);
-        System.out.println("div " + div);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
+    //@Test
     public void testGetDecimalPlacePrecision() {
-        BigDecimal value;
-        int significantDigits;
+        String funcName = "getDecimalPlacePrecision";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        int sd; // significantDigits
         int result;
         int expResult;
-        value = new BigDecimal("0.001234567891011");
-        significantDigits = 3;
-        result = Math_BigDecimal.getDecimalPlacePrecision(
-                value,
-                significantDigits);
+        // Test 1
+        int test = 1;
+        x = new BigDecimal("0.001234567891011");
+        sd = 3;
+        result = Math_BigDecimal.getDecimalPlacePrecision(x, sd);
         expResult = 5;
+        printFunctionTest(funcName, test, x, sd, result);
         assertEquals(expResult, result);
-        value = new BigDecimal("0.00100234567891011");
-        significantDigits = 3;
-        result = Math_BigDecimal.getDecimalPlacePrecision(
-                value,
-                significantDigits);
+        // Test 2
+        test++;
+        x = new BigDecimal("0.00100234567891011");
+        sd = 3;
+        result = Math_BigDecimal.getDecimalPlacePrecision(x, sd);
         expResult = 5;
+        printFunctionTest(funcName, test, x, sd, result);
         assertEquals(expResult, result);
-        value = new BigDecimal("100.001234567891011");
-        significantDigits = 3;
-        result = Math_BigDecimal.getDecimalPlacePrecision(
-                value,
-                significantDigits);
+        // Test 3
+        test++;
+        x = new BigDecimal("100.001234567891011");
+        sd = 3;
+        result = Math_BigDecimal.getDecimalPlacePrecision(x, sd);
         expResult = 1;
+        printFunctionTest(funcName, test, x, sd, result);
         assertEquals(expResult, result);
-        value = new BigDecimal("1.001234567891011");
-        significantDigits = 3;
-        result = Math_BigDecimal.getDecimalPlacePrecision(
-                value,
-                significantDigits);
+        // Test 4
+        test++;
+        x = new BigDecimal("1.001234567891011");
+        sd = 3;
+        result = Math_BigDecimal.getDecimalPlacePrecision(x, sd);
         expResult = 2;
+        printFunctionTest(funcName, test, x, sd, result);
         assertEquals(expResult, result);
-        value = new BigDecimal("10.001234567891011");
-        significantDigits = 3;
-        result = Math_BigDecimal.getDecimalPlacePrecision(
-                value,
-                significantDigits);
+        // Test 5
+        test++;
+        x = new BigDecimal("10.001234567891011");
+        sd = 3;
+        result = Math_BigDecimal.getDecimalPlacePrecision(x, sd);
         expResult = 1;
+        printFunctionTest(funcName, test, x, sd, result);
         assertEquals(expResult, result);
-        value = new BigDecimal("0.001234567891011");
-        significantDigits = 5;
-        result = Math_BigDecimal.getDecimalPlacePrecision(
-                value,
-                significantDigits);
+        // Test 6
+        test++;
+        x = new BigDecimal("0.001234567891011");
+        sd = 5;
+        result = Math_BigDecimal.getDecimalPlacePrecision(x, sd);
         expResult = 7;
+        printFunctionTest(funcName, test, x, sd, result);
         assertEquals(expResult, result);
-        value = new BigDecimal("23.001234567891011");
-        significantDigits = 3;
-        result = Math_BigDecimal.getDecimalPlacePrecision(
-                value,
-                significantDigits);
+        // Test 7
+        test++;
+        x = new BigDecimal("23.001234567891011");
+        sd = 3;
+        result = Math_BigDecimal.getDecimalPlacePrecision(x, sd);
         expResult = 1;
+        printFunctionTest(funcName, test, x, sd, result);
         assertEquals(expResult, result);
-
     }
 
     /**
      * Test of reciprocal method, of class Math_BigDecimal.
      */
+    //@Test
     public void testReciprocal() {
-        testReciprocal_test1();
-        testReciprocal_test2();
-        testReciprocal_test3();
-        testReciprocal_test4();
-    }
-
-    public void testReciprocal_test1() {
-        System.out.println("testReciprocal_test1");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 10;
+        String funcName = "reciprocal";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        rm = RoundingMode.HALF_UP;
+        dp = 10;
         x = new BigDecimal("1");
         expResult = new BigDecimal("1.0000000000");
         //expResult = new BigDecimal("1");
-        result = Math_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
-        printTestReciprocal(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.reciprocal(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testReciprocal_test2() {
-        System.out.println("testReciprocal_test2");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 10;
+        // Test 2
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 10;
         x = new BigDecimal("0.1");
-        // "1E+1" is equivallent to "10" in numerical value, but they are not 
-        // equal Strings and assertEquals fails if "10" is used to construct 
-        // expResult.
+        /**
+         * "1E+1" is equivalent to "10" in numerical value, but they are not
+         * equal Strings and assertEquals fails if "10" is used to construct
+         * expResult.
+         */
         //expResult = new BigDecimal("1E+1");
         //expResult = new BigDecimal("10");
         expResult = new BigDecimal("10.0000000000");
-        result = Math_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
-        printTestReciprocal(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.reciprocal(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testReciprocal_test3() {
-        System.out.println("testReciprocal_test3");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 10;
+        // Test 3
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 10;
         x = new BigDecimal("0.00000000000000000000001");
-        // "1E+23" is equivallent to "100000000000000000000000" in numerical 
-        // value, but they are not equal Strings and assertEquals fails if 
-        // "100000000000000000000000" is used to construct expResult.
+        /**
+         * "1E+23" is equivalent to "100000000000000000000000" in numerical
+         * value, but they are not equal Strings and assertEquals fails if
+         * "100000000000000000000000" is used to construct expResult.
+         */
         //expResult = new BigDecimal("100000000000000000000000");
         //expResult = new BigDecimal("1E+23");
         expResult = new BigDecimal("100000000000000000000000.0000000000");
-        result = Math_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
-        printTestReciprocal(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.reciprocal(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testReciprocal_test4() {
-        System.out.println("testReciprocal_test4");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        decimalPlaces = 100;
+        // Test 4
+        test++;
+        rm = RoundingMode.HALF_UP;
+        dp = 100;
         x = new BigDecimal("1000000000000000000000000.00000000000000000000001");
-//        expResult = new BigDecimal(
-//                "0.000000000000000000000000999999999999999999999999999999999999"
-//                + "99999999999");
+        //expResult = new BigDecimal(
+        //        "0.000000000000000000000000999999999999999999999999999999999999"
+        //        + "99999999999");
         expResult = new BigDecimal(
                 "9.999999999999999999999999999999999999999999999900000000000000"
                 + "000000000000000E-25");
-        result = Math_BigDecimal.reciprocal(x, decimalPlaces, a_RoundingMode);
-        printTestReciprocal(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.reciprocal(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testReciprocal()
-     *
-     * @param x
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestReciprocal(
-            BigDecimal x,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of reciprocalWillBeIntegerReturnBigInteger method, of class
- Math_BigDecimal.
-     */
+    //@Test
     public void testReciprocalWillBeInteger() {
-        System.out.println("reciprocalWillBeInteger");
-        testReciprocalWillBeInteger_test1();
-        testReciprocalWillBeInteger_test2();
-        testReciprocalWillBeInteger_test3();
-    }
-
-    public void testReciprocalWillBeInteger_test1() {
-        System.out.println("testReciprocalWillBeInteger_test1");
-        BigDecimal x = null;
-        BigInteger expResult = null;
-        BigInteger result = null;
+        String funcName = "reciprocalWillBeInteger";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigInteger expResult;
+        BigInteger result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("1");
         expResult = new BigInteger("1");
         result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
-        printTestReciprocalWillBeInteger(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testReciprocalWillBeInteger_test2() {
-        System.out.println("testReciprocalWillBeInteger_test2");
-        BigDecimal x = null;
-        BigInteger expResult = null;
-        BigInteger result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("0.1");
         expResult = new BigInteger("10");
         result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
-        printTestReciprocalWillBeInteger(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testReciprocalWillBeInteger_test3() {
-        System.out.println("testReciprocalWillBeInteger_test3");
-        BigDecimal x = null;
-        BigInteger expResult = null;
-        BigInteger result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("0.00000000000000000000001");
         expResult = new BigInteger("100000000000000000000000");
         result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
-        printTestReciprocalWillBeInteger(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testReciprocalWillBeInteger()
-     *
-     * @param x
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestReciprocalWillBeInteger(
-            BigDecimal x,
-            BigInteger result) {
-        System.out.println("x " + x);
-        System.out.println("result " + result);
     }
 
     /**
@@ -4039,355 +2239,207 @@ public class Math_BigDecimalTest {
         testLog_4args_2();
     }
 
-    /**
-     * Test of log method, of class Math_BigDecimal.
-     */
+    //@Test
     public void testLog_4args_1() {
-        System.out.println("testLog_4args_1");
-        testLog_4args_1_test1();
-        testLog_4args_1_test2();
-        testLog_4args_1_test3();
-    }
-
-    public void testLog_4args_1_test1() {
-        System.out.println("testLog_4args_1_test1");
-        int base_int = 0;
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        base_int = 10;
+        String funcName = "log_4args_1";
+        System.out.println("Test " + funcName);
+        int base;
+        BigDecimal x;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        base = 10;
         x = new BigDecimal("10");
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1");
-        result = Math_BigDecimal.log(
-                base_int,
-                x,
-                decimalPlaces,
-                a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLog_4args_1_test2() {
-        System.out.println("testLog_4args_1_test2");
-        int base_int = 0;
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        base_int = 10;
+        // Test 2
+        test++;
+        base = 10;
         x = new BigDecimal("100");
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("2.0000000000");
-        result = Math_BigDecimal.log(
-                base_int,
-                x,
-                decimalPlaces,
-                a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLog_4args_1_test3() {
-        System.out.println("testLog_4args_1_test3");
-        int base_int = 0;
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        base_int = 10;
+        // Test 3
+        test++;
+        base = 10;
         x = new BigDecimal("100100.1");
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("5.0004345113");
-        result = Math_BigDecimal.log(
-                base_int,
-                x,
-                decimalPlaces,
-                a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
+    //@Test
     public void testLog_4args_2() {
-        System.out.println("testLog_4args_2");
-        testLog_4args_2_test1();
-    }
-
-    public void testLog_4args_2_test1() {
-        System.out.println("testLog_4args_2_test1");
-        BigDecimal base = null;
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        String funcName = "log_4args_2";
+        System.out.println("Test " + funcName);
+        BigDecimal base;
+        BigDecimal x;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         base = new BigDecimal("10");
         x = new BigDecimal("10");
         expResult = new BigDecimal("1");
-        result = Math_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLog_4args_2_test2() {
-        System.out.println("testLog_4args_2_test2");
-        BigDecimal base = null;
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 2
+        test++;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         base = new BigDecimal("10");
         x = new BigDecimal("1");
         expResult = new BigDecimal("0");
-        result = Math_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLog_4args_2_test3() {
-        System.out.println("testLog_4args_2_test3");
-        BigDecimal base = null;
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 3
+        test++;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         base = new BigDecimal("11");
         x = new BigDecimal("10");
         expResult = new BigDecimal("0.9602525678");
-        result = Math_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLog_4args_2_test4() {
-        System.out.println("testLog_4args_2_test4");
-        BigDecimal base = null;
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 4
+        test++;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         base = new BigDecimal("10.5");
         x = new BigDecimal("10");
         expResult = new BigDecimal("0.9792503710");
-        result = Math_BigDecimal.log(base, x, decimalPlaces, a_RoundingMode);
+        result = Math_BigDecimal.log(base, x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
+    //@Test
     public void testRoundToAndSetDecimalPlaces_3args() {
-        testRoundToAndSetDecimalPlaces_3args_test1();
-        testRoundToAndSetDecimalPlaces_3args_test2();
-        testRoundToAndSetDecimalPlaces_3args_test3();
-        testRoundToAndSetDecimalPlaces_3args_test4();
-        testRoundToAndSetDecimalPlaces_3args_test5();
-        testRoundToAndSetDecimalPlaces_3args_test6();
-        testRoundToAndSetDecimalPlaces_3args_test7();
-        testRoundToAndSetDecimalPlaces_3args_test8();
-        testRoundToAndSetDecimalPlaces_3args_test9();
-    }
-
-    public void testRoundToAndSetDecimalPlaces_3args_test1() {
-        System.out.println("testRoundToAndSetDecimalPlaces_3args_test1");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "roundToAndSetDecimalPlaces_3args";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("1");
-        decimalPlaces = 2;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 2;
+        rm = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal("1.00");
-        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
-                x, decimalPlaces, a_RoundingMode);
-        printTestRound(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoundToAndSetDecimalPlaces_3args_test2() {
-        System.out.println("testRoundToAndSetDecimalPlaces_3args_test2");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("1.015");
-        decimalPlaces = 2;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 2;
+        rm = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal("1.02");
-        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
-                x, decimalPlaces, a_RoundingMode);
-        printTestRound(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoundToAndSetDecimalPlaces_3args_test3() {
-        System.out.println("testRoundToAndSetDecimalPlaces_3args_test3");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("1543543.005");
-        decimalPlaces = 5;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 5;
+        rm = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal("1543543.00500");
-        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
-                x, decimalPlaces, a_RoundingMode);
-        printTestRound(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoundToAndSetDecimalPlaces_3args_test4() {
-        System.out.println("testRoundToAndSetDecimalPlaces_3args_test4");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("1.0001");
-        decimalPlaces = 2;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 2;
+        rm = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal("1.00");
-        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
-                x, decimalPlaces, a_RoundingMode);
-        printTestRound(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoundToAndSetDecimalPlaces_3args_test5() {
-        System.out.println("testRoundToAndSetDecimalPlaces_3args_test5");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal("1.005");
-        decimalPlaces = 2;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 2;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1.01");
-        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
-                x, decimalPlaces, a_RoundingMode);
-        printTestRound(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoundToAndSetDecimalPlaces_3args_test6() {
-        System.out.println("testRoundToAndSetDecimalPlaces_3args_test6");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 6
+        test++;
         x = new BigDecimal("0.0001");
-        decimalPlaces = 2;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 2;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.00");
-        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
-                x, decimalPlaces, a_RoundingMode);
-        printTestRound(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoundToAndSetDecimalPlaces_3args_test7() {
-        System.out.println("testRoundToAndSetDecimalPlaces_3args_test7");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 7
+        test++;
         x = new BigDecimal("0.005");
-        decimalPlaces = 2;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 2;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.01");
-        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
-                x, decimalPlaces, a_RoundingMode);
-        printTestRound(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoundToAndSetDecimalPlaces_3args_test8() {
-        System.out.println("testRoundToAndSetDecimalPlaces_3args_test8");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 8
+        test++;
         x = new BigDecimal("0.00123456789");
-        decimalPlaces = 6;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 6;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.001235");
-        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
-                x, decimalPlaces, a_RoundingMode);
-        printTestRound(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoundToAndSetDecimalPlaces_3args_test9() {
-        System.out.println("testRoundToAndSetDecimalPlaces_3args_test9");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 9
+        test++;
         x = new BigDecimal("0.00123456789");
-        decimalPlaces = 7;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 7;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.0012346");
-        result = Math_BigDecimal.roundToAndSetDecimalPlaces(
-                x, decimalPlaces, a_RoundingMode);
-        printTestRound(x, decimalPlaces, a_RoundingMode, result);
+        result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testRound()
-     *
-     * @param x
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestRound(
-            BigDecimal x,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of getEMinDecimalPlaces method, of class Math_BigDecimal.
-     */
+    //@Test
     public void testGetEulerConstantToAMinimumDecimalPlacePrecision() {
-        System.out.println("testGetEulerConstantToAMinimumDecimalPlacePrecision");
-        testGetEulerConstantToAMinimumDecimalPlacePrecision_test1();
-    }
-
-    public void testGetEulerConstantToAMinimumDecimalPlacePrecision_test1() {
-        System.out.println("testGetEulerConstantToAMinimumDecimalPlacePrecision_test1");
-        int decimalPlaces = 0;
+        String funcName = "getEulerConstantToAMinimumDecimalPlacePrecision";
+        System.out.println("Test " + funcName);
+        int dp;
         Math_BigDecimal instance = new Math_BigDecimal();
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        decimalPlaces = 1000;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        dp = 1000;
         expResult = new BigDecimal(
                 "2.718281828459045235360287471352662497757247093699959574966967"
                 + "627724076630353547594571382178525166427427466391932003059921"
@@ -4406,25 +2458,9 @@ public class Math_BigDecimalTest {
                 + "304369941849146314093431738143640546253152096183690888707016"
                 + "768396424378140592714563549061303107208510383750510115747704"
                 + "1718986106873969655212671546889570350354");
-        result = instance.getEulerConstantToAMinimumDecimalPlacePrecision(
-                decimalPlaces);
-        printTestGetEulerConstantToAMinimumDecimalPlacePrecision(
-                decimalPlaces, result);
+        result = instance.getEulerConstantToAMinimumDecimalPlacePrecision(dp);
+        printFunctionTest(funcName, test, dp, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testGetEMinDecimalPlaces()
-     *
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestGetEulerConstantToAMinimumDecimalPlacePrecision(
-            int decimalPlaces,
-            BigDecimal result) {
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("result " + result);
     }
 
     public void testGetEulerConstant() {
@@ -4432,42 +2468,30 @@ public class Math_BigDecimalTest {
         testGetEulerConstantToAMinimumDecimalPlacePrecision();
     }
 
+    //@Test
     public void testGetEulerConstantToAFixedDecimalPlacePrecision() {
-        System.out.println("testGetEulerConstantToAFixedDecimalPlacePrecision");
-        testGetEulerConstantToAFixedDecimalPlacePrecision_test1();
-        testGetEulerConstantToAFixedDecimalPlacePrecision_test2();
-    }
-
-    public void testGetEulerConstantToAFixedDecimalPlacePrecision_test1() {
-        System.out.println("testGetEulerConstantToAFixedDecimalPlacePrecision_test1");
+        String funcName = "getEulerConstantToAFixedDecimalPlacePrecision";
+        System.out.println("Test " + funcName);
         Math_BigDecimal instance;
-        int decimalPlaces;
-        RoundingMode a_RoundingMode;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
         instance = new Math_BigDecimal();
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 1
+        int test = 1;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "2.718281828459045235360287471352662497757247093699959574966967"
                 + "6277240766303535475945713821785251664274");
-        result = instance.getEulerConstantToAFixedDecimalPlacePrecision(
-                decimalPlaces, a_RoundingMode);
-        printTestGetEulerConstantToAFixedDecimalPlacePrecision(
-                decimalPlaces, a_RoundingMode, result);
+        result = instance.getEulerConstantToAFixedDecimalPlacePrecision(dp, rm);
+        printFunctionTest(funcName, test, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testGetEulerConstantToAFixedDecimalPlacePrecision_test2() {
-        System.out.println("testGetEulerConstantToAFixedDecimalPlacePrecision_test2");
-        Math_BigDecimal instance;
-        int decimalPlaces;
-        RoundingMode a_RoundingMode;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        instance = new Math_BigDecimal();
-        decimalPlaces = 1000;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 2
+        test++;
+        dp = 1000;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "2.718281828459045235360287471352662497757247093699959574966967"
                 + "627724076630353547594571382178525166427427466391932003059921"
@@ -4486,525 +2510,364 @@ public class Math_BigDecimalTest {
                 + "304369941849146314093431738143640546253152096183690888707016"
                 + "768396424378140592714563549061303107208510383750510115747704"
                 + "1718986106873969655212671546889570350354");
-        result = instance.getEulerConstantToAFixedDecimalPlacePrecision(
-                decimalPlaces, a_RoundingMode);
-        printTestGetEulerConstantToAFixedDecimalPlacePrecision(decimalPlaces, a_RoundingMode, result);
+        result = instance.getEulerConstantToAFixedDecimalPlacePrecision(dp, rm);
+        printFunctionTest(funcName, test, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testGetE()
-     *
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestGetEulerConstantToAFixedDecimalPlacePrecision(
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-//    /**
-//     * Test of exp method, of class Math_BigDecimal.
-//     */
-//    @Test
-//    public void testExp() {
-//        System.out.println("exp");
-//        BigDecimal x = null;
-//        Math_BigDecimal a_Generic_BigDecimal = null;
-//        int decimalPlaces = 0;
-//        RoundingMode a_RoundingMode = null;
-//        BigDecimal expResult = null;
-//        BigDecimal result = null;
-//        // Test 1
-//        System.out.println("Test 1");
-//        x = new BigDecimal("2");
-//        decimalPlaces = 10;
-//        a_RoundingMode = RoundingMode.HALF_UP;
-//        expResult = new BigDecimal("7.3890545668");
-//        result = Math_BigDecimal.exp(
-//                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
-//        assertEquals(expResult, result);
-//        // Test 2
-//        System.out.println("Test 2");
-//        x = new BigDecimal("0.02");
-//        decimalPlaces = 10;
-//        a_RoundingMode = RoundingMode.HALF_UP;
-//        expResult = new BigDecimal("0.0000240835");
-//        result = Math_BigDecimal.exp(
-//                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
-//        assertEquals(expResult, result);
-//        // Test 3
-//        System.out.println("Test 3");
-//        x = new BigDecimal("0.000000012");
-//        decimalPlaces = 10;
-//        a_RoundingMode = RoundingMode.HALF_UP;
-//        expResult = new BigDecimal("0.0000000000");
-//        result = Math_BigDecimal.exp(
-//                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
-//        assertEquals(expResult, result);
-//        // Test 4
-//        System.out.println("Test 4");
-//        x = new BigDecimal("0.000000012");
-//        decimalPlaces = 100;
-//        a_RoundingMode = RoundingMode.HALF_UP;
-//        expResult = new BigDecimal(
-//                "0.000000000000000000000294430173036448917951275819843218363632"
-//                + "0493797907240661183598466156605197338635");
-//        result = Math_BigDecimal.exp(
-//                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
-//        assertEquals(expResult, result);
-//        // Test 5
-//        System.out.println("Test 5");
-//        x = new BigDecimal("12345678");
-//        decimalPlaces = 100;
-//        a_RoundingMode = RoundingMode.HALF_UP;
-//        expResult = new BigDecimal(
-//                "22469987448871299679547963367551101970728469329227896523830704"
-//                + "212846507527510201039606390983108596821296225851730388291621"
-//                + "272917661346368888415646572300956841739166190426540883627613"
-//                + "348893590470374000362490449021446785496741635356940111945686"
-//                + "043140310007547314300518322792319063942712106014037660400230"
-//                + "919068637137868831868396197015034391985215607858957818538709"
-//                + "568080692348556936455075086327755092097759426247312136394078"
-//                + "821328086903190588371416349228004475077599700795549144690602"
-//                + "812073237117996499428152920084501432775597288687705787036941"
-//                + "05868688623026692684.163632156232358690924047183584316158333"
-//                + "675721857593135877969643591237953992931456902718860364075323"
-//                + "7");
-//        result = Math_BigDecimal.exp(
-//                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
-//        assertEquals(expResult, result);
-//        // Test 6
-//        System.out.println("Test 6");
-//        x = new BigDecimal("12345678.123");
-//        decimalPlaces = 100;
-//        a_RoundingMode = RoundingMode.HALF_UP;
-//        expResult = new BigDecimal(
-//                "22470010283468276518762514010953191215303006538532034030126326"
-//                + "620962331189895056345375543147172117369967073803251319001037"
-//                + "999345297397157238784684181524853564474178872550431567586472"
-//                + "414884052274145227899161017052949184849733116040215401862870"
-//                + "570329567454894710992095140122009037170837676003807366037808"
-//                + "764439244685114826069263513915784079341369099585929816346707"
-//                + "050688538189251614194691098696814575956887401354704941859947"
-//                + "700532834819152111890953576912100514177537005772539122006868"
-//                + "358101311353118135581111789951492983239533032293197596392044"
-//                + "10899554214585338563.173832288281282191708046629849175523366"
-//                + "725273703318641625995899652501875438449418493817553176244532"
-//                + "");
-//        result = Math_BigDecimal.exp(
-//                x, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
-//        assertEquals(expResult, result);
-//    }
     /**
      * Test of positionSignificantDigit method, of class Math_BigDecimal.
      */
+    //@Test
     public void testPositionSignificantDigit() {
-        System.out.println("testPositionSignificantDigit");
-        testPositionSignificantDigit_test1();
-        testPositionSignificantDigit_test2();
-        testPositionSignificantDigit_test3();
-        testPositionSignificantDigit_test4();
-        testPositionSignificantDigit_test5();
-        testPositionSignificantDigit_test6();
-        testPositionSignificantDigit_test7();
-        testPositionSignificantDigit_test8();
-    }
-
-    public void testPositionSignificantDigit_test1() {
-        System.out.println("testPositionSignificantDigit_test1");
-        BigDecimal x = null;
-        int expResult = 0;
+        String funcName = "positionSignificantDigit";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        int expResult;
         int result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("100000");
         expResult = 6;
         result = Math_BigDecimal.positionSignificantDigit(x);
-        printTestPositionSignificantDigit(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPositionSignificantDigit_test2() {
-        System.out.println("testPositionSignificantDigit_test2");
-        BigDecimal x = null;
-        int expResult = 0;
-        int result;
+        // Test 2
+        test++;
         x = new BigDecimal("1000000000000000000000000000000000000000000000000");
         expResult = 49;
         result = Math_BigDecimal.positionSignificantDigit(x);
-        printTestPositionSignificantDigit(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPositionSignificantDigit_test3() {
-        System.out.println("testPositionSignificantDigit_test3");
-        BigDecimal x = null;
-        int expResult = 0;
-        int result;
+        // Test 3
+        test++;
         x = new BigDecimal("0.1234");
         expResult = -1;
         result = Math_BigDecimal.positionSignificantDigit(x);
-        printTestPositionSignificantDigit(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPositionSignificantDigit_test4() {
-        System.out.println("testPositionSignificantDigit_test4");
-        BigDecimal x = null;
-        int expResult = 0;
-        int result;
+        // Test 4
+        test++;
         x = new BigDecimal("0.00000000000000000000000000000000001234567891011");
         expResult = -35;
         result = Math_BigDecimal.positionSignificantDigit(x);
-        printTestPositionSignificantDigit(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPositionSignificantDigit_test5() {
-        System.out.println("testPositionSignificantDigit_test5");
-        BigDecimal x = null;
-        int expResult = 0;
-        int result;
+        // Test 5
+        test++;
         x = new BigDecimal("-100000");
         expResult = 6;
         result = Math_BigDecimal.positionSignificantDigit(x);
-        printTestPositionSignificantDigit(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPositionSignificantDigit_test6() {
-        System.out.println("testPositionSignificantDigit_test6");
-        BigDecimal x = null;
-        int expResult = 0;
-        int result;
+        // Test 6
+        test++;
         x = new BigDecimal(
                 "-1000000000000000000000000000000000000000000000000");
         expResult = 49;
         result = Math_BigDecimal.positionSignificantDigit(x);
-        printTestPositionSignificantDigit(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPositionSignificantDigit_test7() {
-        System.out.println("testPositionSignificantDigit_test7");
-        BigDecimal x = null;
-        int expResult = 0;
-        int result;
+        // Test 7
+        test++;
         x = new BigDecimal("-0.1234");
         expResult = -1;
         result = Math_BigDecimal.positionSignificantDigit(x);
-        printTestPositionSignificantDigit(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testPositionSignificantDigit_test8() {
-        System.out.println("testPositionSignificantDigit_test8");
-        BigDecimal x = null;
-        int expResult = 0;
-        int result;
+        // Test 8
+        test++;
         x = new BigDecimal(
                 "-0.00000000000000000000000000000000001234567891011");
         expResult = -35;
         result = Math_BigDecimal.positionSignificantDigit(x);
-        printTestPositionSignificantDigit(x, result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testPositionSignificantDigit()
-     *
-     * @param x
-     * @param result
-     */
-    private void printTestPositionSignificantDigit(
-            BigDecimal x,
-            int result) {
-        System.out.println("x " + x);
-        System.out.println("result " + result);
     }
 
     /**
      * Test of floorSignificantDigit method, of class Math_BigDecimal.
      */
+    //@Test
     public void testFloorSignificantDigit() {
-        System.out.println("testFloorSignificantDigit");
-        testFloorSignificantDigit_test1();
-    }
-
-    public void testFloorSignificantDigit_test1() {
-        System.out.println("testFloorSignificantDigit_test1");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "floorSignificantDigit";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal expResult;
+        BigDecimal result;
+        int test = 1;
+        // Test 1
         x = new BigDecimal("0.0001");
         expResult = new BigDecimal("0.0001");
         result = Math_BigDecimal.floorSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testFloorSignificantDigit_test2() {
-        System.out.println("testFloorSignificantDigit_test2");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("0.00012");
         expResult = new BigDecimal("0.0001");
         result = Math_BigDecimal.floorSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testFloorSignificantDigit_test3() {
-        System.out.println("testFloorSignificantDigit_test3");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("0.0009");
         expResult = new BigDecimal("0.0009");
         result = Math_BigDecimal.floorSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testFloorSignificantDigit_test4() {
-        System.out.println("testFloorSignificantDigit_test4");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("1.00099");
         expResult = new BigDecimal("1");
         result = Math_BigDecimal.floorSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testFloorSignificantDigit_test5() {
-        System.out.println("testFloorSignificantDigit_test5");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal("10008798.00099");
         //expResult = new BigDecimal("10000000");
         expResult = new BigDecimal("1E+7");
         result = Math_BigDecimal.floorSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testFloorSignificantDigit_test6() {
-        System.out.println("testFloorSignificantDigit_test6");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 6
+        test++;
         x = new BigDecimal("-1.00099");
+        //expResult = new BigDecimal("-1");
+        expResult = new BigDecimal("-2");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
+        assertEquals(expResult, result);
+        // Test 7
+        test++;
+        x = new BigDecimal("-10008798.00099");
+        //expResult = new BigDecimal("-1E+7");
+        //expResult = new BigDecimal("-20000000");
+        expResult = new BigDecimal("-2E+7");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
+        assertEquals(expResult, result);
+        // Test 8
+        test++;
+        x = new BigDecimal("-0.00099");
+        //expResult = new BigDecimal("-0.0009");
+        expResult = new BigDecimal("-0.001");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
+        assertEquals(expResult, result);
+        // Test 9
+        test++;
+        x = new BigDecimal("-0.99");
+        //expResult = new BigDecimal("-0.9");
         expResult = new BigDecimal("-1");
         result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
-    public void testFloorSignificantDigit_test7() {
-        System.out.println("testFloorSignificantDigit_test7");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("-10008798.00099");
-        //expResult = new BigDecimal("-20000000");
-        expResult = new BigDecimal("-1E+7");
-        result = Math_BigDecimal.floorSignificantDigit(x);
-        assertEquals(expResult, result);
+    private void printTest(int test) {
+        System.out.println("Test " + test);
     }
 
-    public void testFloorSignificantDigit_test8() {
-        System.out.println("testFloorSignificantDigit_test8");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("-0.00099");
-        expResult = new BigDecimal("-0.0009");
-        result = Math_BigDecimal.floorSignificantDigit(x);
-        assertEquals(expResult, result);
-    }
-
-    public void testFloorSignificantDigit_test9() {
-        System.out.println("testFloorSignificantDigit_test9");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("-0.99");
-        expResult = new BigDecimal("-0.9");
-        result = Math_BigDecimal.floorSignificantDigit(x);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of printTestFloorSignificantDigit()
-     *
-     * @param x
-     * @param result
-     */
-    private void printTestFloorSignificantDigit(
-            BigDecimal x,
-            int result) {
+    private void printX(Number x) {
         System.out.println("x " + x);
-        System.out.println("result " + result);
+    }
+
+    private void printY(Number y) {
+        System.out.println("y " + y);
+    }
+
+    private void printTestAndX(int test, Number x) {
+        printTest(test);
+        printX(x);
+    }
+
+    private void printTestAndXAndY(int test, Number x, Number y) {
+        printTestAndX(test, x);
+        printY(y);
+    }
+
+    private void printFunctionTest(String funcName, int test, Number x,
+            Number result) {
+        printTestAndX(test, x);
+        System.out.println(funcName + "(x) " + result);
+    }
+
+    private void printFunctionTest(String funcName, int test, Number x,
+            Number y, Number result) {
+        printTestAndXAndY(test, x, y);
+        System.out.println(funcName + "(x,y) " + result);
+    }
+
+    private void printRoundingMode(RoundingMode rm) {
+        System.out.println("RoundingMode (rm) " + rm);
+    }
+
+    private void printDecimalPlaces(int dp) {
+        System.out.println("decimal places (dp) " + dp);
+    }
+
+    private void printFunctionTest(String funcName, int test, BigDecimal x,
+            int dp, RoundingMode rm, BigDecimal result) {
+        printTestAndX(test, x);
+        printDecimalPlaces(dp);
+        printRoundingMode(rm);
+        System.out.println(funcName + "(x,dp,rm) " + result);
+    }
+
+    private void printFunctionTest(String funcName, int test, Number x,
+            Number y, int dp, BigDecimal result) {
+        printFunctionTest(funcName, test, x, y, dp, null, result);
+    }
+
+    private void printFunctionTest(String funcName, int test, Number x,
+            Number y, int dp, RoundingMode rm, BigDecimal result) {
+        printTestAndXAndY(test, x, y);
+        printDecimalPlaces(dp);
+        if (rm != null) {
+            printRoundingMode(rm);
+            System.out.println(funcName + "(x,y,dp) " + result);
+        } else {
+            System.out.println(funcName + "(x,y,dp,rm) " + result);
+        }
+    }
+
+    private void printDiv(int div) {
+        System.out.println("div " + div);
+    }
+
+    private void printCompare(Number c) {
+        System.out.println("compare (c)" + c);
+    }
+
+    private void printFunctionTest(String funcName, int test, Number c,
+            Number x, Number y, int div, int dp, RoundingMode rm,
+            boolean result) {
+        printTest(test);
+        printCompare(c);
+        printX(x);
+        printY(y);
+        printDiv(div);
+        printDecimalPlaces(dp);
+        printRoundingMode(rm);
+        System.out.println(funcName + "(c,x,y,div,dp,rm) " + result);
+    }
+
+    private void printFunctionTest(String funcName, int test, Number x,
+            Number y, int div, int dp, RoundingMode rm, Number result) {
+        printTestAndXAndY(test, x, y);
+        printDiv(div);
+        printDecimalPlaces(dp);
+        printRoundingMode(rm);
+        System.out.println(funcName + "(x,y,div,dp,rm) " + result);
+    }
+
+    private void printFunctionTest(String funcName, int test, int dp,
+            RoundingMode rm, Number result) {
+        printTest(test);
+        printDecimalPlaces(dp);
+        printRoundingMode(rm);
+        System.out.println(funcName + "(x,dp,rm,y) " + result);
+    }
+
+    private void printFunctionTest(String funcName, int test, BigDecimal x,
+            long seed, int dp, RoundingMode rm, boolean result) {
+        printTestAndX(test, x);
+        System.out.println("seed " + seed);
+        printDecimalPlaces(dp);
+        printRoundingMode(rm);
+        System.out.println(funcName + "(x,seed,dp,rm) " + result);
+    }
+
+    private void printFunctionTest(String funcName, int test,
+            Math_BigInteger bi, Number x, Number y, Number z, Number result) {
+        printTest(test);
+        System.out.println("bi " + bi);
+        printX(x);
+        printY(y);
+        System.out.println("z " + z);
+        System.out.println(funcName + "(bi,x,y,z) " + result);
     }
 
     /**
      * Test of ceilingSignificantDigit method, of class Math_BigDecimal.
      */
+    //@Test
     public void testCeilingSignificantDigit() {
-        System.out.println("testCeilingSignificantDigit");
-        testCeilingSignificantDigit_test1();
-        testCeilingSignificantDigit_test2();
-        testCeilingSignificantDigit_test3();
-        testCeilingSignificantDigit_test4();
-        testCeilingSignificantDigit_test5();
-        testCeilingSignificantDigit_test6();
-        testCeilingSignificantDigit_test7();
-        testCeilingSignificantDigit_test8();
-        testCeilingSignificantDigit_test9();
-    }
-
-    public void testCeilingSignificantDigit_test1() {
-        System.out.println("testCeilingSignificantDigit_test1");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "ceilingSignificantDigit";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigDecimal expResult;
+        BigDecimal result;
+        int test = 1;
+        // Test 1
         x = new BigDecimal("0.0001");
         expResult = new BigDecimal("0.0002");
         result = Math_BigDecimal.ceilingSignificantDigit(x);
-        printTestCeilingSignificantDigit(
-                x,
-                result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testCeilingSignificantDigit_test2() {
-        System.out.println("testCeilingSignificantDigit_test2");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("0.00012");
         expResult = new BigDecimal("0.0002");
         result = Math_BigDecimal.ceilingSignificantDigit(x);
-        printTestCeilingSignificantDigit(
-                x,
-                result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testCeilingSignificantDigit_test3() {
-        System.out.println("testCeilingSignificantDigit_test3");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("0.0009");
         expResult = new BigDecimal("0.001");
         result = Math_BigDecimal.ceilingSignificantDigit(x);
-        printTestCeilingSignificantDigit(
-                x,
-                result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testCeilingSignificantDigit_test4() {
-        System.out.println("testCeilingSignificantDigit_test4");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("1.00099");
         expResult = new BigDecimal("2");
         result = Math_BigDecimal.ceilingSignificantDigit(x);
-        printTestCeilingSignificantDigit(
-                x,
-                result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testCeilingSignificantDigit_test5() {
-        System.out.println("testCeilingSignificantDigit_test5");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal("10008798.00099");
         //expResult = new BigDecimal("20000000");
         expResult = new BigDecimal("2E+7");
         result = Math_BigDecimal.ceilingSignificantDigit(x);
-        printTestCeilingSignificantDigit(
-                x,
-                result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    public void testCeilingSignificantDigit_test6() {
-        System.out.println("testCeilingSignificantDigit_test6");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 6
+        test++;
         x = new BigDecimal("-1.00099");
-        expResult = new BigDecimal("-2");
-        result = Math_BigDecimal.ceilingSignificantDigit(x);
-        printTestCeilingSignificantDigit(
-                x,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    public void testCeilingSignificantDigit_test7() {
-        System.out.println("testCeilingSignificantDigit_test7");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("-10008798.00099");
-        //expResult = new BigDecimal("-10000000");
-        expResult = new BigDecimal("-2E+7");
-        result = Math_BigDecimal.ceilingSignificantDigit(x);
-        printTestCeilingSignificantDigit(
-                x,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    public void testCeilingSignificantDigit_test8() {
-        System.out.println("testCeilingSignificantDigit_test8");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("-0.00099");
-        expResult = new BigDecimal("-0.001");
-        result = Math_BigDecimal.ceilingSignificantDigit(x);
-        printTestCeilingSignificantDigit(
-                x,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    public void testCeilingSignificantDigit_test9() {
-        System.out.println("testCeilingSignificantDigit_test9");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("-0.99");
         expResult = new BigDecimal("-1");
+        //expResult = new BigDecimal("-2");
         result = Math_BigDecimal.ceilingSignificantDigit(x);
-        printTestCeilingSignificantDigit(
-                x,
-                result);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testCeilingSignificantDigit()
-     *
-     * @param testNumber
-     * @param x
-     * @param result
-     */
-    private void printTestCeilingSignificantDigit(
-            BigDecimal x,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("result " + result);
+        // Test 7
+        test++;
+        x = new BigDecimal("-10008798.00099");
+        //expResult = new BigDecimal("-2E+7");
+        //expResult = new BigDecimal("-10000000");
+        expResult = new BigDecimal("-1E+7");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
+        assertEquals(expResult, result);
+        // Test 8
+        test++;
+        x = new BigDecimal("-0.00099");
+        //expResult = new BigDecimal("-0.001");
+        expResult = new BigDecimal("-0.0009");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
+        assertEquals(expResult, result);
+        // Test 9
+        test++;
+        x = new BigDecimal("-0.99");
+        //expResult = new BigDecimal("-1");
+        expResult = new BigDecimal("-0.9");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        printFunctionTest(funcName, test, x, result);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -5012,302 +2875,155 @@ public class Math_BigDecimalTest {
      */
     public void testRoot() {
         testRootUnscaled1Precision1_2args(); // Test passes
-        testRoot_4args_1(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
+        testRoundIfNecessary_4args_1(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
         testRoot_4args_2(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
     }
 
+    //@Test
     public void testRootUnscaled1Precision1_2args() {
-        System.out.println("testPowerPrecision1_2args");
-        testRootUnscaled1Precision1_2args_test1();
-    }
-
-    public void testRootUnscaled1Precision1_2args_test1() {
-        BigDecimal x = new BigDecimal("100");
-        int y = 2;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        int decimalPrecision = 10;
+        String funcName = "rootUnscaled1Precision1";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        int y;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        x = new BigDecimal("100");
+        y = 2;
+        int dp;
+        dp = 10;
         expResult = new BigDecimal(BigInteger.TEN);
-        expResult = expResult.setScale(decimalPrecision);
-        result = Math_BigDecimal.rootUnscaled1Precision1(
-                x, y,
-                decimalPrecision);
+        expResult = expResult.setScale(dp);
+        result = Math_BigDecimal.rootUnscaled1Precision1(x, y, dp);
+        printFunctionTest(funcName, test, x, y, dp, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of rootRoundIfNecessary method, of class Math_BigDecimal.
-     */
-    public void testRoot_4args_1() {
-        System.out.println("testRoot_4args_1");
-        testRoot_4args_1_test1(); // Test passes
-        testRoot_4args_1_test2(); // Test passes
-        testRoot_4args_1_test3(); // Test passes
-        testRoot_4args_1_test4(); // Test passes
-        testRoot_4args_1_test5(); // Test passes
-        testRoot_4args_1_test6(); // Test passes
-        //testRoot_4args_1_test7(); // Tests does not complete in a reasonable time frame
-        //testRoot_4args_1_test8(); // Tests does not complete in a reasonable time frame
-        //testRoot_4args_1_test9(); // Tests does not complete in a reasonable time frame
-    }
-
-    public void testRoot_4args_1_test1() {
-        System.out.println("testRoot_4args_1_test1");
-        BigDecimal x = null;
-        BigInteger root = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void testRoundIfNecessary_4args_1() {
+        String funcName = "rootRoundIfNecessary_4args_1";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        BigInteger root;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("0.25");
         root = new BigInteger("42");
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.9675317785");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_1(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, root, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_1_test2() {
-        System.out.println("testRoot_4args_1_test2");
-        BigDecimal x = null;
-        BigInteger root = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("27");
         root = new BigInteger("3");
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("3");
         expResult = new BigDecimal("3.0000000000");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_1(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, root, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_1_test3() {
-        System.out.println("testRoot_4args_1_test3");
-        BigDecimal x = null;
-        BigInteger root = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("8904831940328.25");
         root = new BigInteger("100023");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal(
 //                "1.000298152025337254460647917046876546344432360719824792024188"
 //                + "0690659179835221951205476639783947640616");
         expResult = new BigDecimal(
                 "1.000298152025337254460647917046876546344432360719824792024188"
                 + "0690659179835221951205476639783947640617");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_1(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, root, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_1_test4() {
-        System.out.println("testRoot_4args_1_test4");
-        BigDecimal x = null;
-        BigInteger root = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("0.25");
         root = new BigInteger("100023");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999986140340178623210350534074937443141133112706862977788610"
                 + "0664594081621639848435662325435814102018");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_1(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, root, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_1_test5() {
-        System.out.println("testRoot_4args_1_test5");
-        BigDecimal x = null;
-        BigInteger root = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal("0.999");
         root = new BigInteger("100023");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999999989997297335815964171495970213458904791728888003317236"
                 + "9473900240303824000659869633098129663322");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_1(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, root, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_1_test6() {
-        System.out.println("testRoot_4args_1_test6");
-        BigDecimal x = null;
-        BigInteger root = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 6
+        test++;
         x = new BigDecimal("89048.25");
         root = new BigInteger("100023");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal(
+                "1.000113949621211600391921935699344997726967851095980198127275"
+                + "8749782805563101995300728186461240097898");
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, root, dp, rm, result);
+        assertEquals(expResult, result);
+//This test currently seems to get stuck. At least it does not return an answer 
+//in a reasonable time frame.
+//        // Test 7
+//        test++;
+//        x = new BigDecimal("8904831940328.25");
+//        root = new BigInteger("1000000000");
+//        dp = 100;
+//        rm = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal(
-//                "1.015243902337169733771715514244796218250514955824391661165307"
-//                + "1501461496931644677321800994560628165067");
-        expResult = new BigDecimal(
-                "1.00011394962121160039192193569934499772696785109598019812727"
-                + "58749782805563101995300728186461240097898");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_1(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_1_test7() {
-        System.out.println("testRoot_4args_1_test7");
-        BigDecimal x = null;
-        BigInteger root = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("8904831940328.25");
-        root = new BigInteger("1000000000");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = new BigDecimal(
-                "1.000000029817615604530522955297464844042643450238720000794888"
-                + "829957679681379258243392341722104230672");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_1(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_1_test8() {
-        System.out.println("testRoot_4args_1_test8");
-        BigDecimal x = null;
-        BigInteger root = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("0.25");
-        root = new BigInteger("1000000000");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = new BigDecimal(
-                "0.999999998613705639841015408557905737253169342556579813124573"
-                + "7217463304587103469885523969834565259117");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_1(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_1_test9() {
-        System.out.println("testRoot_4args_1_test9");
-        BigDecimal x = null;
-        BigInteger root = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        x = new BigDecimal("0.999");
-        root = new BigInteger("1000000000");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = new BigDecimal(
-                "0.999999999998999499666416967000315767959920576358096366321598"
-                + "7363152842107633912159255642659280381426");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_1(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testRoot_4args_1()
-     *
-     * @param x
-     * @param root
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    public void printTestRoot_4args_1(
-            BigDecimal x,
-            BigInteger root,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("root " + root);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
+//                "1.000000029817615604530522955297464844042643450238720000794888"
+//                + "829957679681379258243392341722104230672");
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+//        printFunctionTest(funcName, test, x, root, dp, rm, result);
+//        assertEquals(expResult, result);
+//This test currently seems to get stuck. At least it does not return an answer 
+//in a reasonable time frame.
+//        // Test 8
+//        test++;
+//        x = new BigDecimal("0.25");
+//        root = new BigInteger("1000000000");
+//        dp = 100;
+//        rm = RoundingMode.HALF_UP;
+//        expResult = new BigDecimal(
+//                "0.999999998613705639841015408557905737253169342556579813124573"
+//                + "7217463304587103469885523969834565259117");
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+//        printFunctionTest(funcName, test, x, root, dp, rm, result);
+//        assertEquals(expResult, result);
+//This test currently seems to get stuck. At least it does not return an answer 
+//in a reasonable time frame.
+//        // Test 9
+//        test++;
+//        x = new BigDecimal("0.999");
+//        root = new BigInteger("1000000000");
+//        dp = 100;
+//        rm = RoundingMode.HALF_UP;
+//        expResult = new BigDecimal(
+//                "0.999999999998999499666416967000315767959920576358096366321598"
+//                + "7363152842107633912159255642659280381426");
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+//        printFunctionTest(funcName, test, x, root, dp, rm, result);
+//        assertEquals(expResult, result);
     }
 
     /**
@@ -5316,420 +3032,280 @@ public class Math_BigDecimalTest {
     public void testRoot_4args_2() {
         System.out.println("testRoot_4args_2");
         testRoot_4args_2_test1(); // Test passes
-        testRoot_4args_2_test2(); // Test passes
-        testRoot_4args_2_test3(); // Test passes
-        testRoot_4args_2_test4(); // Test passes
-        testRoot_4args_2_test5(); // Test passes
-        testRoot_4args_2_test6(); // Test passes
-        //testRoot_4args_2_test7(); //@TODO This test either gets stuck or would take an age to complete.
-        //testRoot_4args_2_test8(); //@TODO This test either gets stuck or would take an age to complete.
-        //testRoot_4args_2_test9(); //@TODO This test either gets stuck or would take an age to complete.
-        testRoot_4args_2_test10(); // Test passes
-        testRoot_4args_2_test11(); // Test passes
-        testRoot_4args_2_test12(); // Test passes
+        //testRoot_4args_2_test2(); //@TODO This test either gets stuck or would take an age to complete.
     }
 
+    //@Test
     public void testRoot_4args_2_test1() {
-        System.out.println("testRoot_4args_2_test1");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "rootRoundIfNecessary_4args_2";
+        System.out.println("Test " + funcName + " test 1");
+        BigDecimal x;
+        int root;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("0.25");
         root = 42;
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.9675317785");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test2() {
-        System.out.println("testRoot_4args_2_test2");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("27");
         root = 3;
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("3.0000000000");
         //expResult = new BigDecimal("3");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test3() {
-        System.out.println("testRoot_4args_2_test3");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("8904831940328.25");
         root = 100023;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "1.000298152025337254460647917046876546344432360719824792024188"
                 + "0690659179835221951205476639783947640617");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test4() {
-        System.out.println("testRoot_4args_2_test4");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("0.25");
         root = 100023;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999986140340178623210350534074937443141133112706862977788610"
                 + "0664594081621639848435662325435814102018");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test5() {
-        System.out.println("testRoot_4args_2_test5");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal("0.999");
         root = 100023;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999999989997297335815964171495970213458904791728888003317236"
                 + "9473900240303824000659869633098129663322");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test6() {
-        System.out.println("testRoot_4args_2_test6");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 6
+        test++;
         x = new BigDecimal("89048.25");
         root = 100023;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
 //        expResult = new BigDecimal(
 //                "1.015243902337169733771715514244796218250514955824391661165307"
 //                + "1501461496931644677321800994560628165067");
         expResult = new BigDecimal(
                 "1.000113949621211600391921935699344997726967851095980198127275"
                 + "8749782805563101995300728186461240097898");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    public void testRoot_4args_2_test7() {
-        System.out.println("testRoot_4args_2_test7");
-        //@TODO This test either gets stuck or would take an age to complete.
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    public void testRoot_4args_2_test2() {
+        String funcName = "rootRoundIfNecessary_4args_2";
+        System.out.println("Test " + funcName + " test 2");
+        BigDecimal x;
+        int root;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("8904831940328.25");
         root = 1000000000;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "1.000000029817615604530522955297464844042643450238720000794888"
                 + "829957679681379258243392341722104230672");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test8() {
-        //@TODO This test either gets stuck or would take an age to complete.
-        System.out.println("testRoot_4args_2_test8");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("0.25");
         root = 1000000000;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999999998613705638454721047973532813135945294316465347162595"
                 + "0794816212223235738396849891311358363145");
-//        // Expected result before rounding implemented. Is this a result of 
-//        // error?
-//        expResult = new BigDecimal(
-//                "0.999999998613705639841015408557905737253169342556579813124573"
-//                + "7217463304587103469885523969834565259117");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test9() {
-        //@TODO This test either gets stuck or would take an age to complete.
-        System.out.println("testRoot_4args_2_test9");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("0.999");
         root = 1000000000;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999999999998999499665416466665732735126112562031740141406732"
                 + "3221950570597106160577635181243915018588");
-//        // Expected result before rounding implemented. Is this a result of 
-//        // error?
-//        expResult = new BigDecimal(
-//                "0.999999999998999499666416967000315767959920576358096366321598"
-//                + "7363152842107633912159255642659280381426");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test10() {
-        System.out.println("testRoot_4args_2_test10");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("0.1");
         root = 356;
-        decimalPlaces = 3;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = new BigDecimal(
-                "0.994");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        dp = 3;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("0.994");
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test11() {
-        System.out.println("testRoot_4args_2_test11");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 5
+        test++;
         x = new BigDecimal("0.1");
         root = 356;
-        decimalPlaces = 4;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = new BigDecimal(
-                "0.9936");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        dp = 4;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("0.9936");
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testRoot_4args_2_test12() {
-        System.out.println("testRoot_4args_2_test12");
-        BigDecimal x = null;
-        int root = 0;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 6
+        test++;
         x = new BigDecimal("0.1");
         root = 356;
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.993552936417354226471692858641777111504937855829958649327917"
                 + "9203022268144882986474329796822248724061");
-        result = Math_BigDecimal.rootRoundIfNecessary(
-                x, root, decimalPlaces, a_RoundingMode);
-        printTestRoot_4args_2(
-                x,
-                root,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testRoot_4args_2()
-     *
-     * @param x
-     * @param root
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    public void printTestRoot_4args_2(
-            BigDecimal x,
-            int root,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("root " + root);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
+    //@Test
     public void testExp() {
-        System.out.println("testExp");
-        testExp_test1();
-        testExp_test2();
-        testExp_test3();
-        testExp_test4();
-        testExp_test5();
-        testExp_test6();
-        testExp_test7();
-        testExp_test8();
-        testExp_test9();
-        testExp_test10();
-        testExp_test11();
-    }
-
-    public void testExp_test1() {
-        System.out.println("testExp_test1");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("1");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        String funcName = "exp";
+        System.out.println("Test " + funcName);
+        Math_BigDecimal bd = new Math_BigDecimal();
+        BigDecimal x;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
+        x = new BigDecimal("2");
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("7.3890560989");
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
+        assertEquals(expResult, result);
+        // Test 2
+        test++;
+        x = new BigDecimal("0.02");
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("1.0202013400");
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
+        assertEquals(expResult, result);
+        // Test 3
+        test++;
+        x = new BigDecimal("0.000000012");
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("1.000000012");
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
+        assertEquals(expResult, result);
+        // Test 4
+        test++;
+        x = new BigDecimal("0.000000012");
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal(
+                "1.000000012000000072000000288000000864000002073600004147200007"
+                + "1094857249499428713618285884913371614711");
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
+        assertEquals(expResult, result);
+        // Test 5
+        test++;
+        x = new BigDecimal("1234");
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal(
+                "83059759373617942182585212913113567351910010438992024991210999"
+                + "5454923315008203249228622332287168900783807203236941"
+                + "4902057190611503380339135282346122079463872568744812"
+                + "9160282114608484850219955438665976430056110355929008"
+                + "1568915299754172470903436740058467313053059744618822"
+                + "7760213564550738008482852338833888837967092607345470"
+                + "7870887762743415777162495569954964980646026647274941"
+                + "9574313243340244466395229965260298922134183326397331"
+                + "1296815702676888489308238510796136610049551587722092"
+                + "6062479018036337690481712828521819397655551425938830"
+                + "264837.973417052783657749759051806294126581414124375"
+                + "6552569443184292961499614756472883606953172641990622"
+                + "460");
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
+        assertEquals(expResult, result);
+        // Test 6
+        test++;
+        x = new BigDecimal("1234.5678");
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal(
+                "14654907293095947998348213850397980421762219967522365396627015"
+                + "7446954995433819741094410764947112047906012815540251"
+                + "0099496044260696725324177360570330992742045983853145"
+                + "9484650997562904686479876588810478907498492770961626"
+                + "1452461385220475510438783429614855364551372899974754"
+                + "9385827529882582456544414514903991140262837264067071"
+                + "5856383062081491926713908229300604276719403032558655"
+                + "8598102530989548975007326686244681359829698224824777"
+                + "2230516585207831661198442009726028544382751383530565"
+                + "3512991383291690403456444424125771608013650132825780"
+                + "7115515.06895420242229125976133533005718191453230212"
+                + "0267300236914758300188509653349524745461710911967049"
+                + "3253");
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
+        assertEquals(expResult, result);
+        // Test 7
+        test++;
+        x = new BigDecimal("1");
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "2.718281828459045235360287471352662497757247093699959574966967"
                 + "6277240766303535475945713821785251664274");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test2() {
-        System.out.println("testExp_test2");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("1");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 1000;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 8
+        test++;
+        x = new BigDecimal("1");
+        dp = 1000;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "2.718281828459045235360287471352662497757247093699959574966967"
                 + "627724076630353547594571382178525166427427466391932003059921"
@@ -5748,32 +3324,14 @@ public class Math_BigDecimalTest {
                 + "304369941849146314093431738143640546253152096183690888707016"
                 + "768396424378140592714563549061303107208510383750510115747704"
                 + "1718986106873969655212671546889570350354");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test3() {
-        System.out.println("testExp_test3");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("1");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 1001;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 9
+        test++;
+        x = new BigDecimal("1");
+        dp = 1001;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "2.718281828459045235360287471352662497757247093699959574966967"
                 + "627724076630353547594571382178525166427427466391932003059921"
@@ -5792,32 +3350,14 @@ public class Math_BigDecimalTest {
                 + "304369941849146314093431738143640546253152096183690888707016"
                 + "768396424378140592714563549061303107208510383750510115747704"
                 + "17189861068739696552126715468895703503540");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test4() {
-        System.out.println("testExp_test4");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("1");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 2000;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 10
+        test++;
+        x = new BigDecimal("1");
+        dp = 2000;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "2.718281828459045235360287471352662497757247093699959574966967"
                 + "627724076630353547594571382178525166427427466391932003059921"
@@ -5853,60 +3393,24 @@ public class Math_BigDecimalTest {
                 + "031360205724817658511806303644281231496550704751025446501172"
                 + "721155519486685080036853228183152196003735625279449515828418"
                 + "82947876108526398140");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test5() {
-        System.out.println("testExp_test5");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("2");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 5;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 11
+        test++;
+        x = new BigDecimal("2");
+        dp = 5;
+        rm = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("7.38095");
         expResult = new BigDecimal("7.38906");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test6() {
-        System.out.println("testExp_test6");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("2");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 1001;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 12
+        test++;
+        x = new BigDecimal("2");
+        dp = 1001;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "7.389056098930650227230427460575007813180315570551847324087127"
                 + "822522573796079057763384312485079121794773753161265478866123"
@@ -5925,758 +3429,381 @@ public class Math_BigDecimalTest {
                 + "363141560471888117657942786348599076704527119372958723995987"
                 + "073310814961253109770593530099050329681075421090877626308572"
                 + "48500382787227614486674505649873858771575");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test7() {
-        System.out.println("testExp_test7");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("2.1");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 10;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 13
+        test++;
+        x = new BigDecimal("2.1");
+        dp = 10;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("8.1661699126");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test8() {
-        System.out.println("testExp_test8");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("2.10111010101010101010101111");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 20;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 14
+        test++;
+        x = new BigDecimal("2.10111010101010101010101111");
+        dp = 20;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("8.17524021958327462764");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test9() {
-        System.out.println("testExp_test9");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("0.5");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 20;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 15
+        test++;
+        x = new BigDecimal("0.5");
+        dp = 20;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1.64872127070012814685");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test10() {
-        System.out.println("testExp_test10");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("0.0000001");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 16
+        test++;
+        x = new BigDecimal("0.0000001");
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "1.000000100000005000000166666670833333416666668055555575396825"
                 + "6448412725970017912257498096039783583187");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testExp_test11() {
-        System.out.println("testExp_test11");
-        BigDecimal y = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        y = new BigDecimal("-0.0000001");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 17
+        test++;
+        x = new BigDecimal("-0.0000001");
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.999999900000004999999833333337499999916666668055555535714285"
                 + "9623015845458554067460314955106642650045");
-        result = Math_BigDecimal.exp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestExp(
-                y,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.exp(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * For printing out individual tests of testExp()
-     *
-     * @param y
-     * @param a_Generic_BigDecimal
-     * @param decimalPlaces
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestExp(
-            BigDecimal y,
-            Math_BigDecimal a_Generic_BigDecimal,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("y " + y);
-        System.out.println("a_Generic_BigDecimal" + a_Generic_BigDecimal);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
+    //@Test
     public void testLn() {
-        System.out.println("testLn");
-        testLn_test1();
-        testLn_test2();
-        testLn_test3();
-        testLn_test4();
-        testLn_test5();
-        testLn_test6();
-    }
-
-    public void testLn_test1() {
-        System.out.println("testLn_test1");
-        BigDecimal x = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "ln";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        Math_BigDecimal bd = new Math_BigDecimal();
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("1");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        expResult = new BigDecimal(
-                "0E-100");
-        result = Math_BigDecimal.ln(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestLn(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("0E-100");
+        result = Math_BigDecimal.ln(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLn_test2() {
-        System.out.println("testLn_test2");
-        BigDecimal x = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("2");
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.693147180559945309417232121458176568075500134360255254120680"
                 + "0094933936219696947156058633269964186875");
-        result = Math_BigDecimal.ln(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestLn(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.ln(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLn_test3() {
-        System.out.println("testLn_test3");
-        BigDecimal x = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 100;
-        x = new BigDecimal(a_Generic_BigDecimal.getEulerConstantToAMinimumDecimalPlacePrecision(decimalPlaces).toString());
-        a_RoundingMode = RoundingMode.HALF_UP;
+        // Test 3
+        test++;
+        dp = 100;
+        x = new BigDecimal(bd.getEulerConstantToAMinimumDecimalPlacePrecision(dp).toString());
+        rm = RoundingMode.HALF_UP;
         //expResult = new BigDecimal("1");
         expResult = new BigDecimal(
                 "1.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
-        result = Math_BigDecimal.ln(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestLn(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.ln(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLn_test4() {
-        System.out.println("testLn_test4");
-        BigDecimal x = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 100;
+        // Test 4
+        test++;
+        dp = 100;
         x = new BigDecimal("3");
-        a_RoundingMode = RoundingMode.HALF_UP;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "1.098612288668109691395245236922525704647490557822749451734694"
                 + "3336374942932186089668736157548137320888");
-        result = Math_BigDecimal.ln(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestLn(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.ln(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLn_test5() {
-        System.out.println("testLn_test5");
-        BigDecimal x = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 100;
+        // Test 5
+        test++;
+        dp = 100;
         x = new BigDecimal("3000000000");
-        a_RoundingMode = RoundingMode.HALF_UP;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "21.82187812561452084755716832908180357305740395548170623603464"
                 + "54423456477803147812889975906006201167737");
-        result = Math_BigDecimal.ln(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestLn(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.ln(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testLn_test6() {
-        System.out.println("testLn_test6");
-        BigDecimal x = null;
-        Math_BigDecimal a_Generic_BigDecimal = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        a_Generic_BigDecimal = new Math_BigDecimal();
-        decimalPlaces = 100;
+        // Test 2
+        test++;
+        dp = 100;
         x = new BigDecimal("0.5");
-        a_RoundingMode = RoundingMode.HALF_UP;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "-0.6931471805599453094172321214581765680755001343602552541206"
                 + "800094933936219696947156058633269964186875");
-        result = Math_BigDecimal.ln(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestLn(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        result = Math_BigDecimal.ln(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    /*
-     * For printing out individual tests of testLn() @param x @param
-     * a_Generic_BigDecimal @param decimalPlaces @param a_RoundingMode @param
-     * result
-     */
-    private void printTestLn(
-            BigDecimal x,
-            Math_BigDecimal a_Generic_BigDecimal,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("a_Generic_BigDecimal" + a_Generic_BigDecimal);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
+    //@Test
     public void testTan() {
-        System.out.println("testTan");
-        Math_BigDecimal a_Generic_BigDecimal = new Math_BigDecimal(1000);
+        String funcName = "tan";
+        System.out.println("Test " + funcName);
+        Math_BigDecimal bd = new Math_BigDecimal(1000);
+        BigDecimal pi = bd.getPi();
         BigDecimal x;
-        int decimalPlaces;
-        RoundingMode roundingMode;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        BigDecimal aPI1000 = a_Generic_BigDecimal.get_PI();
-        decimalPlaces = 100;
-        roundingMode = RoundingMode.HALF_UP;
-        // Test PI/4
-        x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000,
-                BigInteger.valueOf(4),
-                decimalPlaces + 2,
-                roundingMode);
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
+        // Test 1: x = PI/4
+        int test = 1;
+        x = Math_BigDecimal.divideRoundIfNecessary(pi,
+                BigInteger.valueOf(4), dp + 2, rm);
         expResult = new BigDecimal("1");
-        expResult.setScale(decimalPlaces);
-        result = Math_BigDecimal.tan(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult.setScale(dp);
+        result = Math_BigDecimal.tan(x, bd, dp, rm);
         result = result.stripTrailingZeros();
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        roundingMode = RoundingMode.HALF_UP;
     }
 
+    //@Test
     public void testCos() {
-        System.out.println("testCos");
-        Math_BigDecimal a_Generic_BigDecimal = new Math_BigDecimal(1000);
+        String funcName = "cos";
+        System.out.println("Test " + funcName);
+        Math_BigDecimal bd = new Math_BigDecimal(1000);
+        BigDecimal pi = bd.getPi();
         BigDecimal x;
-        int decimalPlaces;
-        RoundingMode roundingMode;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        BigDecimal aPI1000 = a_Generic_BigDecimal.get_PI();
-        // Test 0
+        int dp;
+        RoundingMode rm;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("0");
-        decimalPlaces = 100;
-        roundingMode = RoundingMode.HALF_UP;
         expResult = new BigDecimal("1");
-        expResult = expResult.setScale(decimalPlaces);
-        result = Math_BigDecimal.cos(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = expResult.setScale(dp);
+        result = Math_BigDecimal.cos(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        decimalPlaces = 30;
-        roundingMode = RoundingMode.HALF_UP;
-        // Test PI/4
-        x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000,
-                BigInteger.valueOf(4),
-                decimalPlaces + 2,
-                roundingMode);
+        dp = 30;
+        // Test 2: x = PI/4
+        test++;
+        x = Math_BigDecimal.divideRoundIfNecessary(pi, BigInteger.valueOf(4),
+                dp + 2, rm);
         expResult = new BigDecimal("0.707106781186547524400844362105");
-        result = Math_BigDecimal.cos(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        result = Math_BigDecimal.cos(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test 87*PI/180
+        // Test 3: 87*PI/180
+        test++;
         x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000.multiply(BigDecimal.valueOf(87)),
-                BigInteger.valueOf(180),
-                decimalPlaces + 10,
-                roundingMode);
+                pi.multiply(BigDecimal.valueOf(87)),
+                BigInteger.valueOf(180), dp + 10, rm);
         BigDecimal sqrt30 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(30), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(30), dp + 10, rm);
         BigDecimal sqrt10 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(10), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(10), dp + 10, rm);
         BigDecimal sqrt6 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(6), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(6), dp + 10, rm);
         BigDecimal sqrt5 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(5), dp + 10, rm);
         BigDecimal sqrt2 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(2), dp + 10, rm);
         // (sqrt(30) + sqrt(10) + sqrt(20 + 4*sqrt(5)) - sqrt(6) - sqrt(2) - sqrt(60 + 12*sqrt(5)))/16
         BigDecimal splurge1 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(60).add(BigDecimal.valueOf(12).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(60).add(BigDecimal.valueOf(12).multiply(sqrt5)), dp + 10, rm);
         // (sqrt(30) + sqrt(10) + sqrt(20 + 4*sqrt(5)) - sqrt(6) - sqrt(2) - splurge1)/16
         BigDecimal splurge2 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(20).add(BigDecimal.valueOf(4).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(20).add(BigDecimal.valueOf(4).multiply(sqrt5)), dp + 10, rm);
         // (sqrt(30) + sqrt(10) + splurge2 - sqrt(6) - sqrt(2) - splurge1)/16
         BigDecimal splurge = sqrt30.add(sqrt10).add(splurge2).subtract(sqrt6).subtract(sqrt2).subtract(splurge1);
-        expResult = Math_BigDecimal.divideRoundIfNecessary(
-                splurge,
-                BigDecimal.valueOf(16),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.cos(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = Math_BigDecimal.divideRoundIfNecessary(splurge,
+                BigDecimal.valueOf(16), dp, rm);
+        result = Math_BigDecimal.cos(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test 81*PI/180
+        // Test 4: 81*PI/180
+        test++;
         x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000.multiply(BigDecimal.valueOf(81)),
-                BigInteger.valueOf(180),
-                decimalPlaces + 10,
-                roundingMode);
+                pi.multiply(BigDecimal.valueOf(81)),
+                BigInteger.valueOf(180), dp + 10, rm);
         BigDecimal sqrt90 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(90), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(90), dp + 10, rm);
         BigDecimal sqrt18 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(18), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt10 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(10), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt20 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(20), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(18), dp + 10, rm);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - sqrt(20 - 4*sqrt(5)) - sqrt(180 - 36*sqrt(5)))/5
         splurge1 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(20).subtract(BigDecimal.valueOf(4).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(20).subtract(BigDecimal.valueOf(4).multiply(sqrt5)), dp + 10, rm);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - splurge1 - sqrt(180 - 36*sqrt(5)))/5
         splurge2 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(180).subtract(BigDecimal.valueOf(36).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(180).subtract(BigDecimal.valueOf(36).multiply(sqrt5)), dp + 10, rm);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - splurge1 - splurge2)/5
         splurge = sqrt90.add(sqrt18).add(sqrt10).add(sqrt2).subtract(splurge1).subtract(splurge2);
-        expResult = Math_BigDecimal.divideRoundIfNecessary(
-                splurge,
-                BigDecimal.valueOf(32),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.cos(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = Math_BigDecimal.divideRoundIfNecessary(splurge,
+                BigDecimal.valueOf(32), dp, rm);
+        result = Math_BigDecimal.cos(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test 75*PI/180
+        // Test 5: 75*PI/180
+        test++;
         x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000.multiply(BigDecimal.valueOf(75)),
-                BigInteger.valueOf(180),
-                decimalPlaces + 10,
-                roundingMode);
-//        BigDecimal sqrt6 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(6), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
+                pi.multiply(BigDecimal.valueOf(75)),
+                BigInteger.valueOf(180), dp + 10, rm);
         BigDecimal sqrt6subtractsqrt2 = sqrt6.subtract(sqrt2);
         expResult = Math_BigDecimal.divideRoundIfNecessary(
-                sqrt6subtractsqrt2,
-                BigDecimal.valueOf(4),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.cos(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+                sqrt6subtractsqrt2, BigDecimal.valueOf(4), dp, rm);
+        result = Math_BigDecimal.cos(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test 72*PI/180
+        // Test 6: 72*PI/180
+        test++;
         x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000.multiply(BigDecimal.valueOf(72)),
-                BigInteger.valueOf(180),
-                decimalPlaces + 10,
-                roundingMode);
-//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
+                pi.multiply(BigDecimal.valueOf(72)), BigInteger.valueOf(180),
+                dp + 10, rm);
         BigDecimal sqrtsubtract1 = sqrt5.subtract(BigDecimal.ONE);
-        expResult = Math_BigDecimal.divideRoundIfNecessary(
-                sqrtsubtract1,
-                BigDecimal.valueOf(4),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.cos(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = Math_BigDecimal.divideRoundIfNecessary(sqrtsubtract1,
+                BigDecimal.valueOf(4), dp, rm);
+        result = Math_BigDecimal.cos(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test 54*PI/180
+        // Test 7: 54*PI/180
+        test++;
         x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000.multiply(BigDecimal.valueOf(54)),
-                BigInteger.valueOf(180),
-                decimalPlaces + 10,
-                roundingMode);
-//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
+                pi.multiply(BigDecimal.valueOf(54)),
+                BigInteger.valueOf(180), dp + 10, rm);
         BigDecimal tenSubtractTwoTimesSqrt5 = BigDecimal.valueOf(10).subtract(
                 sqrt5.multiply(BigDecimal.valueOf(2)));
-        expResult = Math_BigDecimal.sqrt(
-                tenSubtractTwoTimesSqrt5,
-                decimalPlaces + 5,
-                roundingMode);
-        expResult = Math_BigDecimal.divideRoundIfNecessary(
-                expResult,
-                BigDecimal.valueOf(4),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.cos(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = Math_BigDecimal.sqrt(tenSubtractTwoTimesSqrt5, dp + 5, rm);
+        expResult = Math_BigDecimal.divideRoundIfNecessary(expResult,
+                BigDecimal.valueOf(4), dp, rm);
+        result = Math_BigDecimal.cos(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
     /**
-     * sin(x) = cos((PI/2)-x) 2PI = 360 PI = 180 3PI/4 = 135 PI/3 = 120 PI/2 =
-     * 90 PI/3 = 60 PI/4 = 45 PI/5 = 36 sqrt(10 - 2*sqrt(5))/4 PI/10 = 18
-     * (sqrt(5) - 1)/4 PI/12 = 15 (sqrt(6) - sqrt(2))/4 PI/20 = 9 (sqrt(90) +
-     * sqrt(18) + sqrt(10) + sqrt(2) - sqrt(20 - 4*sqrt(5)) - sqrt(180 -
-     * 36*sqrt(5)))/32 PI/60 = 3 (sqrt(30) + sqrt(10) + sqrt(20 + 4*sqrt(5)) -
-     * sqrt(6) - sqrt(2) - sqrt(60 + 12*sqrt(5))/16
+     * sin(x) = cos((PI/2)-x)
      */
+    //@Test
     public void testSin() {
-        System.out.println("testSin");
-        Math_BigDecimal a_Generic_BigDecimal = new Math_BigDecimal(1000);
+        String funcName = "sin";
+        System.out.println("Test " + funcName);
+        Math_BigDecimal bd = new Math_BigDecimal(1000);
+        BigDecimal pi = bd.getPi();
         BigDecimal x;
-        int decimalPlaces;
-        RoundingMode roundingMode;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        BigDecimal aPI1000 = a_Generic_BigDecimal.get_PI();
-        decimalPlaces = 30;
-        roundingMode = RoundingMode.HALF_UP;
-        // Test PI/4
-        x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000,
-                BigInteger.valueOf(4),
-                decimalPlaces + 2,
-                roundingMode);
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        dp = 30;
+        rm = RoundingMode.HALF_UP;
+        // Test 1: Test PI/4
+        int test = 1;
+        x = Math_BigDecimal.divideRoundIfNecessary(pi, BigInteger.valueOf(4),
+                dp + 2, rm);
         expResult = new BigDecimal("0.707106781186547524400844362105");
-        result = Math_BigDecimal.sin(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        result = Math_BigDecimal.sin(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test PI/60
-        x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000,
-                BigInteger.valueOf(60),
-                decimalPlaces + 10,
-                roundingMode);
+        // Test 2: PI/60
+        test++;
+        x = Math_BigDecimal.divideRoundIfNecessary(pi, BigInteger.valueOf(60),
+                dp + 10, rm);
         BigDecimal sqrt30 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(30), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(30), dp + 10, rm);
         BigDecimal sqrt10 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(10), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(10), dp + 10, rm);
         BigDecimal sqrt6 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(6), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(6), dp + 10, rm);
         BigDecimal sqrt5 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(5), dp + 10, rm);
         BigDecimal sqrt2 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(2), dp + 10, rm);
         // (sqrt(30) + sqrt(10) + sqrt(20 + 4*sqrt(5)) - sqrt(6) - sqrt(2) - sqrt(60 + 12*sqrt(5)))/16
         BigDecimal splurge1 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(60).add(BigDecimal.valueOf(12).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(60).add(BigDecimal.valueOf(12).multiply(sqrt5)), dp + 10, rm);
         // (sqrt(30) + sqrt(10) + sqrt(20 + 4*sqrt(5)) - sqrt(6) - sqrt(2) - splurge1)/16
         BigDecimal splurge2 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(20).add(BigDecimal.valueOf(4).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(20).add(BigDecimal.valueOf(4).multiply(sqrt5)), dp + 10, rm);
         // (sqrt(30) + sqrt(10) + splurge2 - sqrt(6) - sqrt(2) - splurge1)/16
         BigDecimal splurge = sqrt30.add(sqrt10).add(splurge2).subtract(sqrt6).subtract(sqrt2).subtract(splurge1);
-        expResult = Math_BigDecimal.divideRoundIfNecessary(
-                splurge,
-                BigDecimal.valueOf(16),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.sin(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = Math_BigDecimal.divideRoundIfNecessary(splurge,
+                BigDecimal.valueOf(16), dp, rm);
+        result = Math_BigDecimal.sin(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test PI/20
-        x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000,
-                BigInteger.valueOf(20),
-                decimalPlaces + 10,
-                roundingMode);
+        // Test 3: PI/20
+        test++;
+        x = Math_BigDecimal.divideRoundIfNecessary(pi, BigInteger.valueOf(20),
+                dp + 10, rm);
         BigDecimal sqrt90 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(90), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(90), dp + 10, rm);
         BigDecimal sqrt18 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(18), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt10 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(10), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt20 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(20), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(18), dp + 10, rm);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - sqrt(20 - 4*sqrt(5)) - sqrt(180 - 36*sqrt(5)))/5
         splurge1 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(20).subtract(BigDecimal.valueOf(4).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(20).subtract(BigDecimal.valueOf(4).multiply(sqrt5)), dp + 10, rm);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - splurge1 - sqrt(180 - 36*sqrt(5)))/5
         splurge2 = Math_BigDecimal.sqrt(
-                BigDecimal.valueOf(180).subtract(BigDecimal.valueOf(36).multiply(sqrt5)), decimalPlaces + 10, roundingMode);
+                BigDecimal.valueOf(180).subtract(BigDecimal.valueOf(36).multiply(sqrt5)), dp + 10, rm);
         // (sqrt(90) + sqrt(18) + sqrt(10) + sqrt(2) - splurge1 - splurge2)/5
         splurge = sqrt90.add(sqrt18).add(sqrt10).add(sqrt2).subtract(splurge1).subtract(splurge2);
-        expResult = Math_BigDecimal.divideRoundIfNecessary(
-                splurge,
-                BigDecimal.valueOf(32),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.sin(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = Math_BigDecimal.divideRoundIfNecessary(splurge,
+                BigDecimal.valueOf(32), dp, rm);
+        result = Math_BigDecimal.sin(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test PI/12
-        x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000,
-                BigInteger.valueOf(12),
-                decimalPlaces + 10,
-                roundingMode);
-//        BigDecimal sqrt6 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(6), decimalPlaces + 10, roundingMode);
-//        BigDecimal sqrt2 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(2), decimalPlaces + 10, roundingMode);
+        // Test 4: PI/12
+        test++;
+        x = Math_BigDecimal.divideRoundIfNecessary(pi, BigInteger.valueOf(12),
+                dp + 10, rm);
         BigDecimal sqrt6subtractsqrt2 = sqrt6.subtract(sqrt2);
-        expResult = Math_BigDecimal.divideRoundIfNecessary(
-                sqrt6subtractsqrt2,
-                BigDecimal.valueOf(4),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.sin(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = Math_BigDecimal.divideRoundIfNecessary(sqrt6subtractsqrt2,
+                BigDecimal.valueOf(4), dp, rm);
+        result = Math_BigDecimal.sin(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test PI/10
-        x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000,
-                BigInteger.valueOf(10),
-                decimalPlaces + 10,
-                roundingMode);
-//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
+        // Test 5: PI/10
+        test++;
+        x = Math_BigDecimal.divideRoundIfNecessary(pi, BigInteger.valueOf(10),
+                dp + 10, rm);
         BigDecimal sqrtsubtract1 = sqrt5.subtract(BigDecimal.ONE);
-        expResult = Math_BigDecimal.divideRoundIfNecessary(
-                sqrtsubtract1,
-                BigDecimal.valueOf(4),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.sin(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = Math_BigDecimal.divideRoundIfNecessary(sqrtsubtract1,
+                BigDecimal.valueOf(4), dp, rm);
+        result = Math_BigDecimal.sin(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-        // Test PI/5
-        x = Math_BigDecimal.divideRoundIfNecessary(
-                aPI1000,
-                BigInteger.valueOf(5),
-                decimalPlaces + 10,
-                roundingMode);
-//        BigDecimal sqrt5 = Math_BigDecimal.sqrt(
-//                BigDecimal.valueOf(5), decimalPlaces + 10, roundingMode);
+        // Test 6: PI/5
+        test++;
+        x = Math_BigDecimal.divideRoundIfNecessary(pi, BigInteger.valueOf(5),
+                dp + 10, rm);
         BigDecimal tenSubtractTwoTimesSqrt5 = BigDecimal.valueOf(10).subtract(
                 sqrt5.multiply(BigDecimal.valueOf(2)));
-        expResult = Math_BigDecimal.sqrt(
-                tenSubtractTwoTimesSqrt5,
-                decimalPlaces + 5,
-                roundingMode);
-        expResult = Math_BigDecimal.divideRoundIfNecessary(
-                expResult,
-                BigDecimal.valueOf(4),
-                decimalPlaces,
-                roundingMode);
-        result = Math_BigDecimal.sin(
-                x,
-                a_Generic_BigDecimal,
-                decimalPlaces,
-                roundingMode);
+        expResult = Math_BigDecimal.sqrt(tenSubtractTwoTimesSqrt5, dp + 5, rm);
+        expResult = Math_BigDecimal.divideRoundIfNecessary(expResult,
+                BigDecimal.valueOf(4), dp, rm);
+        result = Math_BigDecimal.sin(x, bd, dp, rm);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
@@ -6685,33 +3812,26 @@ public class Math_BigDecimalTest {
      */
     //@Test
     public void testSqrt() {
-        testSqrt_test1();
-        testSqrt_test2();
-        testSqrt_test3();
-        testSqrt_test4();
-    }
-
-    public void testSqrt_test1() {
-        System.out.println("testSqrt_test1");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        String funcName = "sqrt";
+        System.out.println("Test " + funcName);
+        BigDecimal x;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        int test = 1;
         x = new BigDecimal("100");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("10");
-        expResult = expResult.setScale(decimalPlaces);
+        expResult = expResult.setScale(dp);
         //expResult = BigDecimal.TEN;
         //expResult = new BigDecimal("1E+1");
-        result = Math_BigDecimal.sqrt(
-                x,
-                decimalPlaces,
-                a_RoundingMode);
+        result = Math_BigDecimal.sqrt(x, dp, rm);
         // For some reason 1E+1 does not equate to 10 except logically!
         // This is probably a BigDecimal property/feature rather than a bug.
-        // In BigDEcimal the value is stored as a String and although
+        // In BigDecimal the value is stored as a String and although
         // numerically equivallent the String representations are different 
         // It is probably safer to use compareTo and test if result == 0.
         // Another way is to write out the BigDecimal forcing a default String
@@ -6722,17 +3842,12 @@ public class Math_BigDecimalTest {
 //        BigDecimal ten2 = new BigDecimal("10");
 //        BigDecimal ten3 = BigDecimal.TEN;
 //        BigDecimal ten4 = new BigDecimal("5").add(new BigDecimal("5"));
-//        BigDecimal ten5 = Math_BigDecimal.divide(
-//                new BigDecimal("100"),
-//                new BigDecimal("10"),
-//                2,
-//                RoundingMode.HALF_UP);
+//        BigDecimal ten5 = Math_BigDecimal.divide(new BigDecimal("100"),
+//                new BigDecimal("10"), 2, RoundingMode.HALF_UP);
 //        BigDecimal x = new BigDecimal("100");
-//        int decimalPlaces = 100;
-//        RoundingMode a_RoundingMode = RoundingMode.HALF_UP;
-//        BigDecimal result = Math_BigDecimal.sqrt(
-//                x, new Math_BigDecimal(),
-//                decimalPlaces, a_RoundingMode);
+//        int dp = 100;
+//        RoundingMode rm = RoundingMode.HALF_UP;
+//        BigDecimal result = Math_BigDecimal.sqrt(x, new Math_BigDecimal(), dp, rm);
 //        System.out.println("result " + result);
 //        System.out.println("result " + result.toPlainString());
 //        System.out.println("ten1 " + ten1.toPlainString());
@@ -6740,142 +3855,71 @@ public class Math_BigDecimalTest {
 //        System.out.println("ten3 " + ten3.toPlainString());
 //        System.out.println("ten4 " + ten4.toPlainString());
 //        System.out.println("ten5 " + ten5.toPlainString());
-        printTestSqrt(
-                x,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testSqrt_test2() {
-        System.out.println("testSqrt_test2");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 2
+        test++;
         x = new BigDecimal("10000");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("100");
-        expResult = expResult.setScale(decimalPlaces);
+        expResult = expResult.setScale(dp);
         //expResult = new BigDecimal("1E+2");
-        result = Math_BigDecimal.sqrt(
-                x,
-                decimalPlaces,
-                a_RoundingMode);
+        result = Math_BigDecimal.sqrt(x, dp, rm);
         result = new BigDecimal(result.toPlainString());
-        printTestSqrt(
-                x,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testSqrt_test3() {
-        System.out.println("testSqrt_test3");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 3
+        test++;
         x = new BigDecimal("0.01");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("0.1");
-        expResult = expResult.setScale(decimalPlaces);
+        expResult = expResult.setScale(dp);
         //expResult = new BigDecimal("1E+2");
-        result = Math_BigDecimal.sqrt(
-                x,
-                decimalPlaces,
-                a_RoundingMode);
+        result = Math_BigDecimal.sqrt(x, dp, rm);
         result = new BigDecimal(result.toPlainString());
-        printTestSqrt(
-                x,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    public void testSqrt_test4() {
-        System.out.println("testSqrt_test4");
-        BigDecimal x = null;
-        int decimalPlaces = 0;
-        RoundingMode a_RoundingMode = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        // Test 4
+        test++;
         x = new BigDecimal("0.000000001");
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "0.000031622776601683793319988935444327185337195551393252168268"
                 + "5750485279259443863923822134424810837930");
         //expResult = new BigDecimal("1E+2");
-        result = Math_BigDecimal.sqrt(
-                x,
-                decimalPlaces,
-                a_RoundingMode);
+        result = Math_BigDecimal.sqrt(x, dp, rm);
         result = new BigDecimal(result.toPlainString());
-        printTestSqrt(
-                x,
-                decimalPlaces,
-                a_RoundingMode,
-                result);
+        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testSqrt()
-     *
-     * @param x
-     * @param decimalPlaces
-     * @param a_Generic_BigDecimal
-     * @param a_RoundingMode
-     * @param result
-     */
-    private void printTestSqrt(
-            BigDecimal x,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            BigDecimal result) {
-        System.out.println("x " + x);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
     }
 
     /**
      * Test of randomUniformTest method, of class Math_BigDecimal.
      */
+    //@Test
     public void testRandomUniformTest() {
-        System.out.println("testRandomUniformTest");
-        testRandomUniformTest_test1();
-        testRandomUniformTest_test2();
-        testRandomUniformTest_test3();
-        testRandomUniformTest_test4();
-    }
-
-    public void testRandomUniformTest_test1() {
-        System.out.println("testRandomUniformTest_test1");
-        Random a_Random = null;
-        BigDecimal probability = null;
-        int decimalPlaces;
-        RoundingMode a_RoundingMode;
-        boolean expResult = false;
+        String funcName = "randomUniformTest";
+        System.out.println("Test " + funcName);
+        Random rand;
+        BigDecimal probability;
+        int dp;
+        RoundingMode rm;
         boolean result;
         long seed;
+        // Test 1
+        int test = 1;
         seed = 0L;
-        a_Random = new Random(seed);
-//        // The following commented code reveals that the first 4096 consecutive
-//        // tests for probability 0.5 return true!
+        rand = new Random(seed);
+//        // The following (commented) code reveals that the first 4096 consecutive
+//        // tests for probability 0.5 return true!!!
 //        probability = new BigDecimal("0.5");
 //        boolean alternator = false;
 //        for (long l = 0; l < 10000L; l++) {
-//            a_Random = new Random(l);
-//            result = Math_BigDecimal.randomUniformTest(a_Random, probability);
+//            rand = new Random(l);
+//            result = Math_BigDecimal.randomUniformTest(rand, probability);
 //            if (!alternator){
 //              if (result == alternator) {
 //                    System.out.println("result changed to " + result + " on iteration " + l);
@@ -6888,164 +3932,53 @@ public class Math_BigDecimalTest {
 //                }
 //            }
 //        }
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         probability = new BigDecimal("0.5");
-        expResult = true;
-        result = Math_BigDecimal.randomUniformTest(
-                a_Random,
-                probability,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestRandomUniformTest(
-                a_Random, probability, decimalPlaces, a_RoundingMode, result);
-        assertEquals(expResult, result);
-    }
-
-    public void testRandomUniformTest_test2() {
-        System.out.println("testRandomUniformTest_test2");
-        Random a_Random = null;
-        BigDecimal probability = null;
-        int decimalPlaces;
-        RoundingMode a_RoundingMode;
-        boolean expResult = false;
-        boolean result;
-        long seed;
+        result = Math_BigDecimal.randomUniformTest(rand, probability, dp, rm);
+        printFunctionTest(funcName, test, probability, seed, dp, rm, result);
+        assertTrue(result);
+        // Test 2
+        test++;
         seed = 0L;
-        a_Random = new Random(seed);
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        rand = new Random(seed);
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         probability = new BigDecimal("0.025");
-        expResult = false;
-        result = Math_BigDecimal.randomUniformTest(
-                a_Random,
-                probability,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestRandomUniformTest(
-                a_Random, probability, decimalPlaces, a_RoundingMode, result);
-        assertEquals(expResult, result);
-    }
-
-    public void testRandomUniformTest_test3() {
-        System.out.println("testRandomUniformTest_test3");
-        Random a_Random = null;
-        BigDecimal probability = null;
-        int decimalPlaces;
-        RoundingMode a_RoundingMode;
-        boolean expResult = false;
-        boolean result;
-        long seed;
+        result = Math_BigDecimal.randomUniformTest(rand, probability, dp, rm);
+        printFunctionTest(funcName, test, probability, seed, dp, rm, result);
+        assertFalse(result);
+        // Test 3
+        test++;
         seed = 0L;
-        a_Random = new Random(seed);
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
+        rand = new Random(seed);
+        dp = 100;
+        rm = RoundingMode.HALF_UP;
         probability = new BigDecimal("0.0125");
-        expResult = false;
-        result = Math_BigDecimal.randomUniformTest(
-                a_Random,
-                probability,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestRandomUniformTest(
-                a_Random, probability, decimalPlaces, a_RoundingMode, result);
-        assertEquals(expResult, result);
+        result = Math_BigDecimal.randomUniformTest(rand, probability, dp, rm);
+        printFunctionTest(funcName, test, probability, seed, dp, rm, result);
+        assertFalse(result);
     }
 
-    public void testRandomUniformTest_test4() {
-        System.out.println("testRandomUniformTest_test4");
-        Random a_Random = null;
-        BigDecimal probability = null;
-        int decimalPlaces;
-        RoundingMode a_RoundingMode;
-        boolean expResult = false;
-        boolean result;
-        long seed;
-        seed = 1234567L;
-        a_Random = new Random(seed);
-        decimalPlaces = 100;
-        a_RoundingMode = RoundingMode.HALF_UP;
-        probability = new BigDecimal("0.92");
-        expResult = true;
-        result = Math_BigDecimal.randomUniformTest(
-                a_Random,
-                probability,
-                decimalPlaces,
-                a_RoundingMode);
-        printTestRandomUniformTest(
-                a_Random, probability, decimalPlaces, a_RoundingMode, result);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testRandomUniformTest()
-     *
-     * @param a_Random
-     * @param probability
-     * @param result
-     */
-    private void printTestRandomUniformTest(
-            Random a_Random,
-            BigDecimal probability,
-            int decimalPlaces,
-            RoundingMode a_RoundingMode,
-            boolean result) {
-        System.out.println("a_Random " + a_Random);
-        System.out.println("probability " + probability);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("a_RoundingMode " + a_RoundingMode);
-        System.out.println("result " + result);
-    }
-
-//    /**
-//     * Test of getRandom method, of class Math_BigDecimal.
-//     */
-//    @Test
-//    public void testGetRandom_4args() {
-//        System.out.println("getRandom");
-//        Random a_Random = null;
-//        int decimalPlaces = 0;
-//        BigDecimal lowerLimit = null;
-//        BigDecimal upperLimit = null;
-//        BigDecimal expResult = null;
-//        BigDecimal result = null;
-//        long seed;
-//        // Test 1
-//        System.out.println("Test 1");
-//            seed = 0L;
-//            a_Random = new Random(seed);
-//            decimalPlaces = 10;
-//            lowerLimit = new BigDecimal("0");
-//         upperLimit = new BigDecimal("1");
-//            result = Math_BigDecimal.getRandom(
-//                    a_Random, decimalPlaces, lowerLimit, upperLimit);
-//            System.out.println("result " + result);
-//
-//        assertEquals(expResult, result);
-//   }
     /**
      * Test of getRandom method, of class Math_BigDecimal.
      */
-    public void test_getRandom() {
-        System.out.println("test_getRandom");
-        test_getRandom_test1();
-        test_getRandom_test2();
-    }
-
-    public void test_getRandom_test1() {
-        System.out.println("test_getRandom_test1");
-        int decimalPlaces = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+    //@Test
+    public void test_getRandom_2args() {
+        String funcName = "getRandom_2args";
+        System.out.println("Test " + funcName);
+        int dp;
+        BigDecimal expResult;
+        BigDecimal result;
         long seed;
         int numberOfRandomInstances;
         Math_BigDecimal bd = new Math_BigDecimal();
+        // Test 1
+        int test = 1;
         seed = 0L;
-        // For multiple uses the initialised Random[]
-        // bd._RandomArray it is intended to be re-used.
         numberOfRandomInstances = 1000;
         bd.initRandoms(numberOfRandomInstances, seed, 1);
-        decimalPlaces = 1000;
+        dp = 1000;
         expResult = new BigDecimal(
                 "0.058427164938625116053827514073627362958427064938847316953827"
                 + "504950497261958417066150847306953817281750397261948349286150"
@@ -7066,69 +3999,36 @@ public class Math_BigDecimalTest {
                 + "5140736205842716625194731605382738275049");
 //        BigDecimal smallProbability = new BigDecimal("0.0001");
 //        for (int i = 0; i < 10000; i ++) {
-//            result = Math_BigDecimal.getRandom(
-//                    a_Generic_BigDecimal, decimalPlaces);
+//            result = Math_BigDecimal.getRandom(bd, dp);
 //            if (result.compareTo(smallProbability) == -1){
 //                System.out.println("result " + result.toPlainString());
 //            }
 //        }
-        result = Math_BigDecimal.getRandom(bd, decimalPlaces);
-        printTestGetRandom_Random_int(bd, decimalPlaces, result);
+        result = Math_BigDecimal.getRandom(bd, dp);
+        printFunctionTest(funcName, test, dp, result);
         assertEquals(expResult, result);
     }
 
-    public void test_getRandom_test2() {
-        System.out.println("test_getRandom_test2");
-        int decimalPlaces = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
-        decimalPlaces = 10;
+    /**
+     * Test of getRandom method, of class Math_BigDecimal.
+     */
+    //@Test
+    public void test_getRandom_4args() {
+        String funcName = "getRandom_4args";
+        System.out.println("Test " + funcName);
+        int dp;
+        BigDecimal expResult;
+        BigDecimal result;
+        Math_BigDecimal bd = new Math_BigDecimal();
+        // Test 1
+        int test = 1;
+        dp = 10;
         System.out.println("Test 2");
         BigDecimal lowerBound = BigDecimal.ZERO;
         BigDecimal upperBound = BigDecimal.ONE;
-        Math_BigInteger a_Generic_BigInteger = new Math_BigInteger();
-        result = Math_BigDecimal.getRandom(
-                a_Generic_BigInteger,
-                decimalPlaces,
-                lowerBound,
-                upperBound);
-        printTestGetRandom_4args(
-                decimalPlaces, lowerBound, upperBound, result);
         expResult = new BigDecimal("0.4932604312");
+        result = Math_BigDecimal.getRandom(bd.bi, dp, lowerBound, upperBound);
+        printFunctionTest(funcName, test, bd.bi, dp, lowerBound, upperBound, result);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * For printing out individual tests of testGetRandom_4args()
-     *
-     * @param a_Random
-     * @param probability
-     * @param result
-     */
-    private void printTestGetRandom_Random_int(
-            Math_BigDecimal a_Generic_BigDecimal,
-            int decimalPlaces,
-            BigDecimal result) {
-        System.out.println("a_Generic_BigDecimal " + a_Generic_BigDecimal);
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * For printing out individual tests of testGetRandom_4args()
-     *
-     * @param a_Random
-     * @param probability
-     * @param result
-     */
-    private void printTestGetRandom_4args(
-            int decimalPlaces,
-            BigDecimal lowerLimit,
-            BigDecimal upperLimit,
-            BigDecimal result) {
-        System.out.println("decimalPlaces " + decimalPlaces);
-        System.out.println("lowerLimit " + lowerLimit);
-        System.out.println("upperLimit " + upperLimit);
-        System.out.println("result " + result);
     }
 }
