@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_IntegerTest {
+public class Math_IntegerTest extends Math_Test {
 
     public Math_IntegerTest() {
     }
@@ -47,208 +47,194 @@ public class Math_IntegerTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of isEven method, of class Math_Integer.
-     */
+    @Test
+    public void testIsInt() {
+        String funcName = "isInt";
+        System.out.println("Test " + funcName);
+        // Test 1
+        int test = 1;
+        long x = Math_Long.INTEGER_MAX_VALUE + 1;
+        String s = Long.toString(x);
+        boolean result;
+        result = Math_Integer.isInt(s);
+        printFunctionTest(funcName, test, x, result);
+        assertFalse(result);
+        // Test 2
+        test ++;
+        x--;
+        s = Long.toString(x);
+        result = Math_Integer.isInt(s);
+        printFunctionTest(funcName, test, x, result);
+        assertTrue(result);
+    }
+
     @Test
     public void testIsEven() {
-        System.out.println("isEven");
-        System.out.println("isEven(x)");
+        String funcName = "isEven";
+        System.out.println("Test " + funcName);
         int x;
         boolean expResult;
         boolean result;
         // Test 1
-        System.out.println("Test 1");
+        int test = 1;
         x = 1;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 2
-        System.out.println("Test 2");
+        test++;
         x = 2;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 3
-        System.out.println("Test 3");
+        test++;
         x = 3;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 4
-        System.out.println("Test 4");
+        test++;
         x = 4;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 5
-        System.out.println("Test 5");
+        test++;
         x = 5;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 6
-        System.out.println("Test 6");
+        test++;
         x = 6;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 7
-        System.out.println("Test 7");
+        test++;
         x = 7;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 8
-        System.out.println("Test 8");
+        test++;
         x = 8;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 9
-        System.out.println("Test 9");
+        test++;
         x = 9;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 10
-        System.out.println("Test 10");
+        test++;
         x = 0;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 11
-        System.out.println("Test 11");
+        test++;
         x = -1;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 12
-        System.out.println("Test 12");
+        test++;
         x = -2;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 13
-        System.out.println("Test 13");
+        test++;
         x = -3;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 14
-        System.out.println("Test 14");
+        test++;
         x = -4;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 15
-        System.out.println("Test 15");
+        test++;
         x = -5;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 16
-        System.out.println("Test 16");
+        test++;
         x = -6;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 17
-        System.out.println("Test 17");
+        test++;
         x = -7;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 18
-        System.out.println("Test 18");
+        test++;
         x = -8;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 19
-        System.out.println("Test 19");
+        test++;
         x = -9;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 20
-        System.out.println("Test 20");
+        test++;
         x = 123456789;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 21
-        System.out.println("Test 21");
+        test++;
         x = 12345678;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 22
-        System.out.println("Test 22");
+        test++;
         x = -123456789;
         expResult = false;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 23
-        System.out.println("Test 23");
+        test++;
         x = -12345678;
         expResult = true;
-        result = Math_Long.isEven(x);
-        printTestIsEven(x, result);
+        result = Math_Integer.isEven(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
     }
-
-    /**
-     * For printing details of testIsEven() tests
-     *
-     * @param x
-     * @param result
-     */
-    private void printTestIsEven(int x, boolean result) {
-        System.out.println("x " + x);
-        System.out.println("result " + result);
-    }
-
-    /**
-     * Test of isInt method, of class Math_Integer.
-     */
-    @Test
-    public void testIsInt() {
-        System.out.println("isInt");
-        // Test 1
-        long l = Math_Long.INTEGER_MAX_VALUE + 1;
-        String s = Long.toString(l);
-        boolean r;
-        r = Math_Integer.isInt(s);
-        assertFalse(r);
-        // Test 2
-        l --;
-        s = Long.toString(l);
-        r = Math_Integer.isInt(s);
-        assertTrue(r);
-    }
-    
-    
 }

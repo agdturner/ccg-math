@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_ByteTest {
+public class Math_ByteTest extends Math_Test {
     
     public Math_ByteTest() {
     }
@@ -37,21 +37,26 @@ public class Math_ByteTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of isByte method, of class Math_Byte.
-     */
     @Test
     public void testIsByte() {
-        System.out.println("isByte");
-        String s;
+        String funcName = "isByte";
+        System.out.println("Test " + funcName);
+        boolean result;
         // Test 1
-        byte b = Byte.MIN_VALUE;
-        s = Byte.toString(b);
-        assertFalse(Math_Byte.isByte(s));
+        int test = 1;
+        String s;
+        byte x = Byte.MIN_VALUE;
+        s = Byte.toString(x);
+        result = Math_Byte.isByte(s);
+        printFunctionTest(funcName, test, x, result);
+        assertFalse(result);
         // Test 2
-        b += 1;
-        s = Byte.toString(b);
-        assertTrue(Math_Byte.isByte(s));
+        test ++;
+        x += 1;
+        s = Byte.toString(x);
+        result = Math_Byte.isByte(s);
+        printFunctionTest(funcName, test, x, result);
+        assertTrue(result);
     }
     
 }

@@ -6,7 +6,6 @@
 package uk.ac.leeds.ccg.andyt.math;
 
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,7 +17,7 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_FloatTest {
+public class Math_FloatTest  extends Math_Test {
     
     public Math_FloatTest() {
     }
@@ -39,66 +38,77 @@ public class Math_FloatTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of isFloat method, of class Math_Float.
-     */
     @Test
     public void testIsFloat_String() {
-        System.out.println("isFloat");
+        String funcName = "isFloat";
+        System.out.println("Test " + funcName);
         String s;
+        boolean result;
+        // Test 1
+        int test = 1;
         s = "0.1";
-        assertTrue(Math_Float.isFloat(s));
+        result = Math_Float.isFloat(s);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
     }
     
-    /**
-     * Test of isFloat method, of class Math_Float.
-     */
     @Test
     public void testIsFloat_String_int() {
-        System.out.println("isFloat(String,int)");
+        String funcName = "IsFloat_String_int";
+        System.out.println("Test " + funcName);
         String s;
         int dp;
+        boolean result;
         // Test 1
+        int test = 1;
         s = "0.1";
         dp = 3;
-        assertTrue(Math_Float.isFloat(s,dp));
+        result = Math_Float.isFloat(s,dp);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
         // Test 2
+        test ++;
         s = "0.1";
         dp = 9;
-        assertFalse(Math_Float.isFloat(s,dp));
+        result = Math_Float.isFloat(s,dp);
+        printFunctionTest(funcName, test, s, result);
+        assertFalse(result);
     }
     
-    /**
-     * Test of isFloatExact method, of class Math_Float.
-     */
     @Test
     public void testIsFloatExact() {
-        System.out.println("isFloatExact");
+        String funcName = "isFloatExact";
+        System.out.println("Test " + funcName);
         String s;
+         boolean result;
+        // Test 1
+        int test = 1;
         s = "0.1";
-        assertFalse(Math_Float.isFloatExact(s));
+        result = Math_Float.isFloatExact(s);
+        printFunctionTest(funcName, test, s, result);
+        assertFalse(result);
     }
 
-    /**
-     * Test of toPlainString method, of class Math_Float.
-     */
     @Test
     public void testToPlainString() {
-        System.out.println("toPlainString");
+        String funcName = "toPlainString";
+        System.out.println("Test " + funcName);
         float f;
         String expResult;
         String result;
         // Test 1
+        int test = 1;
         f = 0.0f;
         expResult = "0.0";
         result = Math_Float.toPlainString(f);
-        //System.out.println(result);
+        printFunctionTest(funcName, test, result, true);
         assertEquals(expResult, result);
         // Test 2
+        test ++;
         f = 0.1f;
         expResult = "0.1";
         result = Math_Float.toPlainString(f);
-        System.out.println(result);
+        printFunctionTest(funcName, test, result, true);
         assertEquals(expResult, result);
     }
 
@@ -107,15 +117,18 @@ public class Math_FloatTest {
      */
     @Test
     public void testGetNumberOfFloatsInRange() {
-        System.out.println("getNumberOfFloatsInRange");
+        String funcName = "getNumberOfFloatsInRange";
+        System.out.println("Test " + funcName);
         float l;
         float u;
         BigInteger expResult;
-        // 17 float values between 0.999999f and 1.0f
+        // Test 1: 17 float values between 0.999999f and 1.0f
+        int test = 1;
         l = 0.999999f;
         u = 1.0f;
         expResult = new BigInteger("17");
         BigInteger result = Math_Float.getNumberOfFloatsInRange(l, u);
+        printFunctionTest(funcName, test, l, u, result);
         assertEquals(expResult, result);
     }
 
@@ -124,10 +137,17 @@ public class Math_FloatTest {
      */
     @Test
     public void testRoundUpToNearestInt() {
-        System.out.println("roundUpToNearestInt");
-        float f = 0.1F;
-        int expResult = 1;
-        int result = Math_Float.roundUpToNearestInt(f);
+        String funcName = "roundUpToNearestInt";
+        System.out.println("Test " + funcName);
+        float f;
+        int expResult;
+        int result;
+        // Test 1
+        int test = 1;
+        f = 0.1F;
+        expResult = 1;
+        result = Math_Float.roundUpToNearestInt(f);
+        printFunctionTest(funcName, test, f, result);
         assertEquals(expResult, result);
     }
 
@@ -135,25 +155,32 @@ public class Math_FloatTest {
      * Test of parseFloat method, of class Math_Float.
      */
     @Test
-    public void testParseFloat() {
-        System.out.println("parseFloat");
+    public void testParseDouble() {
+        String funcName = "parseDouble";
+        System.out.println("Test " + funcName);
         String s;
         double expResult;
         double result;
         // Test 1
+        int test = 1;
         s = "";
         expResult = Double.NaN;
         result = Math_Double.parseDouble(s);
+        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
         // Test 2
+        test ++;
         s = "-Infinity";
         expResult = Double.NEGATIVE_INFINITY;
         result = Math_Double.parseDouble(s);
+        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
         // Test 3
+        test ++;
         s = "+Infinity";
         expResult = Double.POSITIVE_INFINITY;
         result = Math_Double.parseDouble(s);
+        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
     }
 

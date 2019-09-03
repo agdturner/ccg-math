@@ -27,7 +27,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class Math_BigDecimalTest {
+public class Math_BigDecimalTest extends Math_Test {
 
     public Math_BigDecimalTest() {
     }
@@ -48,7 +48,7 @@ public class Math_BigDecimalTest {
     public void tearDown() {
     }
 
-    @Test // Uncomment to run tests
+    //@Test // Uncomment to run tests
     public void testAll() {
         testRoundToAndSetDecimalPlaces_3args(); // Test passes
         testMultiply(); // Test passes
@@ -2663,130 +2663,6 @@ public class Math_BigDecimalTest {
         expResult = new BigDecimal("-1");
         result = Math_BigDecimal.floorSignificantDigit(x);
         assertEquals(expResult, result);
-    }
-
-    private void printTest(int test) {
-        System.out.println("Test " + test);
-    }
-
-    private void printX(Number x) {
-        System.out.println("x " + x);
-    }
-
-    private void printY(Number y) {
-        System.out.println("y " + y);
-    }
-
-    private void printTestAndX(int test, Number x) {
-        printTest(test);
-        printX(x);
-    }
-
-    private void printTestAndXAndY(int test, Number x, Number y) {
-        printTestAndX(test, x);
-        printY(y);
-    }
-
-    private void printFunctionTest(String funcName, int test, Number x,
-            Number result) {
-        printTestAndX(test, x);
-        System.out.println(funcName + "(x) " + result);
-    }
-
-    private void printFunctionTest(String funcName, int test, Number x,
-            Number y, Number result) {
-        printTestAndXAndY(test, x, y);
-        System.out.println(funcName + "(x,y) " + result);
-    }
-
-    private void printRoundingMode(RoundingMode rm) {
-        System.out.println("RoundingMode (rm) " + rm);
-    }
-
-    private void printDecimalPlaces(int dp) {
-        System.out.println("decimal places (dp) " + dp);
-    }
-
-    private void printFunctionTest(String funcName, int test, BigDecimal x,
-            int dp, RoundingMode rm, BigDecimal result) {
-        printTestAndX(test, x);
-        printDecimalPlaces(dp);
-        printRoundingMode(rm);
-        System.out.println(funcName + "(x,dp,rm) " + result);
-    }
-
-    private void printFunctionTest(String funcName, int test, Number x,
-            Number y, int dp, BigDecimal result) {
-        printFunctionTest(funcName, test, x, y, dp, null, result);
-    }
-
-    private void printFunctionTest(String funcName, int test, Number x,
-            Number y, int dp, RoundingMode rm, BigDecimal result) {
-        printTestAndXAndY(test, x, y);
-        printDecimalPlaces(dp);
-        if (rm != null) {
-            printRoundingMode(rm);
-            System.out.println(funcName + "(x,y,dp) " + result);
-        } else {
-            System.out.println(funcName + "(x,y,dp,rm) " + result);
-        }
-    }
-
-    private void printDiv(int div) {
-        System.out.println("div " + div);
-    }
-
-    private void printCompare(Number c) {
-        System.out.println("compare (c)" + c);
-    }
-
-    private void printFunctionTest(String funcName, int test, Number c,
-            Number x, Number y, int div, int dp, RoundingMode rm,
-            boolean result) {
-        printTest(test);
-        printCompare(c);
-        printX(x);
-        printY(y);
-        printDiv(div);
-        printDecimalPlaces(dp);
-        printRoundingMode(rm);
-        System.out.println(funcName + "(c,x,y,div,dp,rm) " + result);
-    }
-
-    private void printFunctionTest(String funcName, int test, Number x,
-            Number y, int div, int dp, RoundingMode rm, Number result) {
-        printTestAndXAndY(test, x, y);
-        printDiv(div);
-        printDecimalPlaces(dp);
-        printRoundingMode(rm);
-        System.out.println(funcName + "(x,y,div,dp,rm) " + result);
-    }
-
-    private void printFunctionTest(String funcName, int test, int dp,
-            RoundingMode rm, Number result) {
-        printTest(test);
-        printDecimalPlaces(dp);
-        printRoundingMode(rm);
-        System.out.println(funcName + "(x,dp,rm,y) " + result);
-    }
-
-    private void printFunctionTest(String funcName, int test, BigDecimal x,
-            long seed, int dp, RoundingMode rm, boolean result) {
-        printTestAndX(test, x);
-        System.out.println("seed " + seed);
-        printDecimalPlaces(dp);
-        printRoundingMode(rm);
-        System.out.println(funcName + "(x,seed,dp,rm) " + result);
-    }
-
-    private void printFunctionTest(String funcName, int test,
-            Math_BigInteger bi, Number x, Number y, Number z, Number result) {
-        printTest(test);
-        System.out.println("bi " + bi);
-        printX(x);
-        printY(y);
-        System.out.println("z " + z);
-        System.out.println(funcName + "(bi,x,y,z) " + result);
     }
 
     /**

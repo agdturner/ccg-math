@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_Complex_doubleTest {
+public class Math_Complex_doubleTest extends Math_Test {
 
     public Math_Complex_doubleTest() {
     }
@@ -50,45 +50,64 @@ public class Math_Complex_doubleTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of add method, of class Math_Complex_double.
-     */
+    public void printTestAndC0(int test, Math_Complex_double c0) {
+        printTest(test);
+        System.out.println("c0 " + c0);
+    }
+
+    public void printFunctionTest(String funcName, int test,
+            Math_Complex_double c0, double result) {
+        printTestAndC0(test, c0);
+        System.out.println(funcName + "(c0) " + result);
+    }
+
+    public void printFunctionTest(String funcName, int test,
+            Math_Complex_double c0, Math_Complex_double result) {
+        printTestAndC0(test, c0);
+        System.out.println(funcName + "(c0,c1) " + result);
+    }
+
+    public void printFunctionTest(String funcName, int test,
+            Math_Complex_double c0, Math_Complex_double c1,
+            Math_Complex_double result) {
+        printTestAndC0(test, c0);
+        System.out.println("c1 " + c1);
+        System.out.println(funcName + "(c0,c1) " + result);
+    }
+
     @Test
     public void testAdd() {
-        System.out.println("add");
+        String funcName = "add";
+        System.out.println("Test " + funcName);
         Math_Complex_double expResult;
         Math_Complex_double result;
         Math_Complex_double c0;
         Math_Complex_double c1;
         // Test 1
+        int test = 1;
         c0 = new Math_Complex_double(2.0, 3.0);
-        System.out.println("c0 " + c0);
         c1 = new Math_Complex_double(-3.0, 2.0);
-        System.out.println("c1 " + c1);
         result = c0.add(c1);
-        System.out.println("c1 add c2 = " + result);
         expResult = new Math_Complex_double(-1, 5);
+        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of subtract method, of class Math_Complex_double.
-     */
     @Test
     public void testSubtract() {
-        System.out.println("subtract");
+        String funcName = "subtract";
+        System.out.println("Test " + funcName);
         Math_Complex_double expResult;
         Math_Complex_double result;
         Math_Complex_double c0;
         Math_Complex_double c1;
         // Test 1
+        int test = 1;
         c0 = new Math_Complex_double(2.0, 3.0);
-        System.out.println("c0 " + c0);
         c1 = new Math_Complex_double(-3.0, 2.0);
-        System.out.println("c1 " + c1);
         result = c0.subtract(c1);
-        System.out.println("c1 subtract c2 = " + result);
         expResult = new Math_Complex_double(5, 1);
+        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expResult, result);
     }
 
@@ -97,7 +116,8 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testMultiply() {
-        System.out.println("multiply");
+        String funcName = "multiply";
+        System.out.println("Test " + funcName);
         Math_Complex_double expResult;
         Math_Complex_double result;
         Math_Complex_double c0;
@@ -106,17 +126,15 @@ public class Math_Complex_doubleTest {
         double expImaginary;
         double delta;
         // Test 1
+        int test = 1;
         delta = 0.0000001d;
         c0 = new Math_Complex_double(2.0, 3.0);
-        System.out.println("c0 " + c0);
         c1 = new Math_Complex_double(-3.0, 2.0);
-        System.out.println("c1 " + c1);
         result = c0.multiply(c1);
-        System.out.println("c0 multiply c1 = " + result);
         expResult = new Math_Complex_double(-12, -5);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-//        assertEquals(expResult, result);
+        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
     }
@@ -126,16 +144,17 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testMagnitude() {
-        System.out.println("magnitude");
+        String funcName = "magnitude";
+        System.out.println("Test " + funcName);
         Math_Complex_double c0;
         double expResult;
         double result;
         // Test 1
+        int test = 1;
         c0 = new Math_Complex_double(2, 5);
-        System.out.println("c0 " + c0);
         expResult = Math.sqrt(29.0d);
         result = c0.magnitude();
-        System.out.println("magnitude " + result);
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
     }
 
@@ -144,37 +163,38 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testPhase() {
-        System.out.println("phase");
+        String funcName = "phase";
+        System.out.println("Test " + funcName);
         Math_Complex_double c0;
         double expResult;
         double result;
         // Test 1
+        int test = 1;
         c0 = new Math_Complex_double(1, 1);
-        System.out.println("c0 " + c0);
         expResult = Math.PI / 4.0d;
         result = c0.phase();
-        System.out.println("phase " + result);
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
         // Test 2
+        test++;
         c0 = new Math_Complex_double(1, -1);
-        System.out.println("c0 " + c0);
         expResult = -Math.PI / 4.0d;
         result = c0.phase();
-        System.out.println("phase " + result);
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
         // Test 3
+        test++;
         c0 = new Math_Complex_double(1, 0);
-        System.out.println("c0 " + c0);
         expResult = 0.0d;
         result = c0.phase();
-        System.out.println("phase " + result);
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
-        // Test 3
+        // Test 4
+        test++;
         c0 = new Math_Complex_double(0, 1);
-        System.out.println("c0 " + c0);
         expResult = Math.PI / 2.0d;
         result = c0.phase();
-        System.out.println("phase " + result);
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
     }
 
@@ -183,7 +203,8 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testDivide() {
-        System.out.println("divide");
+        String funcName = "divide";
+        System.out.println("Test " + funcName);
         Math_Complex_double c0;
         Math_Complex_double c1;
         Math_Complex_double expResult;
@@ -192,55 +213,51 @@ public class Math_Complex_doubleTest {
         double expImaginary;
         double delta;
         // Test 1
+        int test = 1;
         c0 = new Math_Complex_double(1, 1);
-        System.out.println("c0 " + c0);
         c1 = new Math_Complex_double(1, 0);
-        System.out.println("c1 " + c1);
         result = c0.divide(c1);
-        System.out.println("c0.divide(c1) = " + result);
         expResult = new Math_Complex_double(1, 1);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
         delta = 0.0000001d;
+        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 2
+        test++;
         c0 = new Math_Complex_double(3, 2);
-        System.out.println("c0 " + c0);
         c1 = new Math_Complex_double(4, -3);
-        System.out.println("c1 " + c1);
         result = c0.divide(c1);
-        System.out.println("c0.divide(c1) = " + result);
-        expResult = new Math_Complex_double(6.0d/25.0d, 17.0d/25.0d);
+        expResult = new Math_Complex_double(6.0d / 25.0d, 17.0d / 25.0d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
         delta = 0.0000001d;
+        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 3
+        test++;
         c0 = new Math_Complex_double(4, 5);
-        System.out.println("c0 " + c0);
         c1 = new Math_Complex_double(2, 6);
-        System.out.println("c1 " + c1);
         result = c0.divide(c1);
-        System.out.println("c0.divide(c1) = " + result);
-        expResult = new Math_Complex_double(19.0d/20.0d, -7.0d/20.0d);
+        expResult = new Math_Complex_double(19.0d / 20.0d, -7.0d / 20.0d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
         delta = 0.0000001d;
+        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 4
+        test++;
         c0 = new Math_Complex_double(2, -1);
-        System.out.println("c0 " + c0);
         c1 = new Math_Complex_double(-3, 6);
-        System.out.println("c1 " + c1);
         result = c0.divide(c1);
-        System.out.println("c0.divide(c1) = " + result);
-        expResult = new Math_Complex_double(-4.0d/15.0d, -1.0d/5.0d);
+        expResult = new Math_Complex_double(-4.0d / 15.0d, -1.0d / 5.0d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
         delta = 0.0000001d;
+        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
     }
@@ -250,25 +267,24 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testConjugate() {
-        System.out.println("conjugate");
+        String funcName = "conjugate";
+        System.out.println("Test " + funcName);
         Math_Complex_double c0;
         Math_Complex_double expResult;
         Math_Complex_double result;
         // Test 1
+        int test = 1;
         c0 = new Math_Complex_double(1, 1);
-        System.out.println("c0 " + c0);
         result = c0.conjugate();
-        System.out.println("c0.conjugate() " + result);
+        printFunctionTest(funcName, test, c0, result);
         expResult = new Math_Complex_double(1, -1);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of reciprocal method, of class Math_Complex_double.
-     */
     @Test
     public void testReciprocal() {
-        System.out.println("reciprocal");
+        String funcName = "reciprocal";
+        System.out.println("Test " + funcName);
         Math_Complex_double c0;
         Math_Complex_double expResult;
         Math_Complex_double result;
@@ -277,83 +293,83 @@ public class Math_Complex_doubleTest {
         double delta;
         delta = 0.000001d;
         // Test 1
+        int test = 1;
         c0 = new Math_Complex_double(1d, 1d);
-        System.out.println("c0 " + c0);
         result = c0.reciprocal();
-        System.out.println("c0.reciprocal() " + result);
-        expResult = new Math_Complex_double(0.5d , -0.5d);
+        expResult = new Math_Complex_double(0.5d, -0.5d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 2
+        test++;
         c0 = new Math_Complex_double(-1d, -1d);
-        System.out.println("c0 " + c0);
         result = c0.reciprocal();
-        System.out.println("c0.reciprocal() " + result);
         expResult = new Math_Complex_double(-0.5d, 0.5d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 3
+        test++;
         c0 = new Math_Complex_double(1d, -1d);
-        System.out.println("c0 " + c0);
         result = c0.reciprocal();
-        System.out.println("c0.reciprocal() " + result);
         expResult = new Math_Complex_double(0.5d, 0.5d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 4
+        test++;
         c0 = new Math_Complex_double(-1d, 1d);
-        System.out.println("c0 " + c0);
         result = c0.reciprocal();
-        System.out.println("c0.reciprocal() " + result);
         expResult = new Math_Complex_double(-0.5d, -0.5d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 5
+        test++;
         c0 = new Math_Complex_double(0.5d, 0.5d);
-        System.out.println("c0 " + c0);
         result = c0.reciprocal();
-        System.out.println("c0.reciprocal() " + result);
         expResult = new Math_Complex_double(1.0d, -1.0d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 6
+        test++;
         c0 = new Math_Complex_double(-0.5, -0.5);
-        System.out.println("c0 " + c0);
         result = c0.reciprocal();
-        System.out.println("c0.reciprocal() " + result);
         expResult = new Math_Complex_double(-1, 1);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 7
+        test++;
         c0 = new Math_Complex_double(0.5, -0.5);
-        System.out.println("c0 " + c0);
         result = c0.reciprocal();
-        System.out.println("c0.reciprocal() " + result);
         expResult = new Math_Complex_double(1, 1);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 8
+        test++;
         c0 = new Math_Complex_double(-0.5, 0.5);
-        System.out.println("c0 " + c0);
         result = c0.reciprocal();
-        System.out.println("c0.reciprocal() " + result);
         expResult = new Math_Complex_double(-1, -1);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
     }
@@ -363,7 +379,8 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testExp() {
-        System.out.println("exp");
+        String funcName = "exp";
+        System.out.println("Test " + funcName);
         Math_Complex_double c0;
         Math_Complex_double result;
         Math_Complex_double expResult;
@@ -371,14 +388,14 @@ public class Math_Complex_doubleTest {
         double expImaginary;
         double delta;
         // Test 1
+        int test = 1;
         delta = 0.0000001d;
         c0 = new Math_Complex_double(0.0d, Math.PI);
-        System.out.println("c0 " + c0);
         result = c0.exp();
-        System.out.println("c0.exp() " + result);
         expResult = new Math_Complex_double(-1.0d, 0.0d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
     }
@@ -388,16 +405,17 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testSin() {
-        System.out.println("sin");
+        String funcName = "sin";
+        System.out.println("Test " + funcName);
         Math_Complex_double c;
         Math_Complex_double result;
         Math_Complex_double expResult;
         // Test 1
+        int test = 1;
         c = new Math_Complex_double(1, 1);
-        System.out.println("c " + c);
         result = c.sin();
-        System.out.println("sine c = " + result);
         expResult = new Math_Complex_double(1.2984575814159773, 0.6349639147847361);
+        printFunctionTest(funcName, test, c, result);
         assertEquals(expResult, result);
     }
 
@@ -406,16 +424,17 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testCos() {
-        System.out.println("cos");
+        String funcName = "cos";
+        System.out.println("Test " + funcName);
         Math_Complex_double c;
         Math_Complex_double result;
         Math_Complex_double expResult;
         // Test 1
+        int test = 1;
         c = new Math_Complex_double(1, 1);
-        System.out.println("c " + c);
         result = c.sin();
-        System.out.println("cosine c = " + result);
         expResult = new Math_Complex_double(1.2984575814159773, 0.6349639147847361);
+        printFunctionTest(funcName, test, c, result);
         assertEquals(expResult, result);
     }
 
@@ -424,16 +443,17 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testTan() {
-        System.out.println("tan");
+        String funcName = "tan";
+        System.out.println("Test " + funcName);
         Math_Complex_double c;
         Math_Complex_double result;
         Math_Complex_double expResult;
         // Test 1
+        int test = 1;
         c = new Math_Complex_double(1, 1);
-        System.out.println("c " + c);
         result = c.sin();
-        System.out.println("tangent c = " + result);
         expResult = new Math_Complex_double(1.2984575814159773, 0.6349639147847361);
+        printFunctionTest(funcName, test, c, result);
         assertEquals(expResult, result);
     }
 
@@ -442,18 +462,19 @@ public class Math_Complex_doubleTest {
      */
     @Test
     public void testScale() {
-        System.out.println("scale");
+        String funcName = "scale";
+        System.out.println("Test " + funcName);
         double alpha;
         Math_Complex_double c0;
         Math_Complex_double expResult;
         Math_Complex_double result;
         // Test 1;
+        int test = 1;
         alpha = 2.0;
         c0 = new Math_Complex_double(3, 5);
-        System.out.println("c0 " + c0);
         result = c0.rescale(alpha);
-        System.out.println("c0.scale(" + alpha + ") " + result);
         expResult = new Math_Complex_double(6, 10);
+        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result);
     }
 }

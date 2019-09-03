@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_ShortTest {
+public class Math_ShortTest  extends Math_Test {
     
     public Math_ShortTest() {
     }
@@ -37,20 +37,26 @@ public class Math_ShortTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of isByte method, of class Math_Short.
-     */
     @Test
     public void testIsShort() {
-        System.out.println("isShort");
+        String funcName = "isShort";
+        System.out.println("Test " + funcName);
+        short x;
         String s;
+        boolean result;
         // Test 1
-        short sh = Short.MIN_VALUE;
-        s = Short.toString(sh);
-        assertFalse(Math_Short.isShort(s));
+        int test = 1;
+        x = Short.MIN_VALUE;
+        s = Short.toString(x);
+        result = Math_Short.isShort(s);
+        printFunctionTest(funcName, test, x, result);
+        assertFalse(result);
         // Test 2
-        sh += 1;
-        s = Short.toString(sh);
+        test ++;
+        x += 1;
+        s = Short.toString(x);
+        result = Math_Short.isShort(s);
+        printFunctionTest(funcName, test, x, result);
         assertTrue(Math_Short.isShort(s));
     }
     

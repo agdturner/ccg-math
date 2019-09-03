@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_DoubleTest {
+public class Math_DoubleTest extends Math_Test {
 
     public Math_DoubleTest() {
     }
@@ -38,105 +38,157 @@ public class Math_DoubleTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of isDouble method, of class Math_Double.
-     */
     @Test
     public void testIsDouble_String() {
-        System.out.println("isDouble");
+        String funcName = "isDouble";
+        System.out.println("Test " + funcName);
         String s;
+        boolean result;
+        // Test 1
+        int test = 1;
         s = "0.1";
-        assertTrue(Math_Double.isDouble(s));
+        result = Math_Double.isDouble(s);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
+        // Test 2
+        test++;
         s = "";
-        assertTrue(Math_Double.isDouble(s));
+        result = Math_Double.isDouble(s);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
+        // Test 3
+        test++;
         s = "NaN";
-        assertTrue(Math_Double.isDouble(s));
+        result = Math_Double.isDouble(s);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
+        // Test 4
+        test++;
         s = "+Infinity";
-        assertTrue(Math_Double.isDouble(s));
+        result = Math_Double.isDouble(s);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
+        // Test 5
+        test++;
         s = "+Inf";
-        assertFalse(Math_Double.isDouble(s));
+        result = Math_Double.isDouble(s);
+        printFunctionTest(funcName, test, s, result);
+        assertFalse(result);
+        // Test 6
+        test++;
         s = "-Infinity";
-        assertTrue(Math_Double.isDouble(s));
+        result = Math_Double.isDouble(s);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
+        // Test 7
+        test++;
         s = "-Inf";
-        assertFalse(Math_Double.isDouble(s));
-    }
-    
-    /**
-     * Test of isDouble method, of class Math_Double.
-     */
-    @Test
-    public void testIsDouble_String_int() {
-        System.out.println("isDouble(String,int)");
-        String s;
-        int dp;
-        // Test 1
-        s = "0.1";
-        dp = 3;
-        assertTrue(Math_Double.isDouble(s,dp));
-        // Test 2
-        s = "0.1";
-        dp = 17;
-        assertFalse(Math_Double.isDouble(s,dp));
-        // Test 3
-        s = "NAN";
-        assertTrue(Math_Double.isDouble(s,dp));
-        // Test 3
-        s = "+Infinity";
-        assertTrue(Math_Double.isDouble(s,dp));
-        // Test 4
-        s = "-Infinity";
-        assertTrue(Math_Double.isDouble(s,dp));
-    }
-    /**
-     * Test of isDoubleExact method, of class Math_Double.
-     */
-    @Test
-    public void testIsDoubleExact() {
-        System.out.println("isDoubleExact");
-        String s;
-        // Test 1
-        s = "0.1";
-        assertFalse(Math_Double.isDoubleExact(s));
-        // Test 2
-        s = "NAN";
-        assertTrue(Math_Double.isDoubleExact(s));
-        // Test 3
-        s = "+Infinity";
-        assertTrue(Math_Double.isDoubleExact(s));
-        // Test 4
-        s = "-Infinity";
-        assertTrue(Math_Double.isDoubleExact(s));
+        result = Math_Double.isDouble(s);
+        printFunctionTest(funcName, test, s, result);
+        assertFalse(result);
+
     }
 
-    /**
-     * Test of toPlainString method, of class Math_Double.
-     */
+    @Test
+    public void testIsDouble_String_int() {
+        String funcName = "isDouble(String,int)";
+        System.out.println("Test " + funcName);
+        String s;
+        int dp;
+        boolean result;
+        // Test 1
+        int test = 1;
+        s = "0.1";
+        dp = 3;
+        result = Math_Double.isDouble(s, dp);
+        printFunctionTest(funcName, test, s, dp, result);
+        assertTrue(result);
+        // Test 2
+        test++;
+        s = "0.1";
+        dp = 17;
+        result = Math_Double.isDouble(s, dp);
+        printFunctionTest(funcName, test, s, dp, result);
+        assertFalse(result);
+        // Test 3
+        test++;
+        s = "NAN";
+        result = Math_Double.isDouble(s, dp);
+        printFunctionTest(funcName, test, s, dp, result);
+        assertTrue(result);
+        // Test 4
+        test++;
+        s = "+Infinity";
+        result = Math_Double.isDouble(s, dp);
+        printFunctionTest(funcName, test, s, dp, result);
+        assertTrue(result);
+        // Test 5
+        test++;
+        s = "-Infinity";
+        result = Math_Double.isDouble(s, dp);
+        printFunctionTest(funcName, test, s, dp, result);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testIsDoubleExact() {
+        String funcName = "isDoubleExact";
+        System.out.println("Test " + funcName);
+        String s;
+        boolean result;
+        // Test 1
+        int test = 1;
+        s = "0.1";
+        result = Math_Double.isDoubleExact(s);
+        printFunctionTest(funcName, test, s, result);
+        assertFalse(result);
+        // Test 2
+        test++;
+        s = "NAN";
+        result = Math_Double.isDoubleExact(s);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
+        // Test 3
+        test++;
+        s = "+Infinity";
+        result = Math_Double.isDoubleExact(s);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
+        // Test 4
+        test++;
+        s = "-Infinity";
+        result = Math_Double.isDoubleExact(s);
+        printFunctionTest(funcName, test, s, result);
+        assertTrue(result);
+    }
+
     @Test
     public void testToPlainString() {
-        System.out.println("toPlainString");
+        String funcName = "toPlainString";
+        System.out.println("Test " + funcName);
         double d;
         String expResult;
         String result;
         // Test 1
+        int test = 1;
         d = 0.0d;
         expResult = "0";
         result = Math_Double.toPlainString(d);
-        //System.out.println(result);
+        printFunctionTest(funcName, test, d, result);
         assertEquals(expResult, result);
         // Test 2
+        test++;
         d = 0.1d;
         expResult = "0.1000000000000000055511151231257827021181583404541015625";
         result = Math_Double.toPlainString(d);
-        System.out.println(result);
+        printFunctionTest(funcName, test, d, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getNumberOfDoublesInRange method, of class Math_Double.
-     */
     @Test
     public void testGetNumberOfDoublesInRange() {
-        System.out.println("getNumberOfDoublesInRange");
+        String funcName = "getNumberOfDoublesInRange";
+        System.out.println("Test " + funcName);
         double l;
         double u;
         BigInteger expResult;
@@ -150,49 +202,60 @@ public class Math_DoubleTest {
         // 900719926 double values between 0.9999998 and 0.9999999
         // 900719925 double values between 0.9999999 and 1.0
         // 9 double values between 0.999999999999999 and 1.0
+        // Test 1
+        int test = 1;
         l = 0.999999999999999;
         u = 1.0;
         expResult = new BigInteger("9");
         // 858993460 double values between 1000000.2 and 1000000.3
         BigInteger result = Math_Double.getNumberOfDoublesInRange(l, u);
+        printFunctionTest(funcName, test, l, u, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of roundUpToNearestInt method, of class Math_Double.
-     */
     @Test
     public void testRoundUpToNearestInt() {
-        System.out.println("roundUpToNearestInt");
-        double v = 0.1;
-        int expResult = 1;
-        int result = Math_Double.roundUpToNearestInt(v);
+        String funcName = "roundUpToNearestInt";
+        System.out.println("Test " + funcName);
+        double x;
+        int expResult;
+        int result;
+        // Test 1
+        int test = 1;
+        x = 0.1;
+        expResult = 1;
+        result = Math_Double.roundUpToNearestInt(x);
+        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of parseDouble method, of class Math_Double.
-     */
     @Test
     public void testParseDouble() {
-        System.out.println("parseDouble");
+        String funcName = "parseDouble";
+        System.out.println("Test " + funcName);
         String s;
         double expResult;
         double result;
         // Test 1
+        int test = 1;
         s = "";
         expResult = Double.NaN;
         result = Math_Double.parseDouble(s);
+        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
         // Test 2
+        test++;
         s = "-Infinity";
         expResult = Double.NEGATIVE_INFINITY;
         result = Math_Double.parseDouble(s);
+        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
         // Test 3
+        test++;
         s = "+Infinity";
         expResult = Double.POSITIVE_INFINITY;
         result = Math_Double.parseDouble(s);
+        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
     }
 
