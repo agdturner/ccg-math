@@ -51,7 +51,7 @@ public class Math_Long extends Math_Number  {
     }
     
     /**
-     * For testing if s can be parsed as a int. If the result is equal to
+     * For testing if s can be parsed as a long. If the result is equal to
      * Long.MIN_VALUE then this will return false as Long.MIN_VALUE is
      * reserved for representing noDataValues.
      *

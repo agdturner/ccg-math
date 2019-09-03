@@ -18,7 +18,9 @@ package uk.ac.leeds.ccg.andyt.math;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.TreeMap;
@@ -33,8 +35,8 @@ public class Math_BigInteger extends Math_Number {
     public static final BigInteger INTEGER_MAX_VALUE = BigInteger.valueOf(Integer.MAX_VALUE);
     public static final BigInteger LONG_MIN_VALUE = BigInteger.valueOf(Long.MIN_VALUE);
     public static final BigInteger LONG_MAX_VALUE = BigInteger.valueOf(Long.MAX_VALUE);
-    public transient TreeMap<Integer, BigInteger> factorials;
-    public transient TreeMap<Integer, BigInteger> powersOfTwo;
+    protected transient List<BigInteger> factorials;
+    protected transient List<BigInteger> powersOfTwo;
 
     /**
      * Creates a new instance.
@@ -57,31 +59,37 @@ public class Math_BigInteger extends Math_Number {
      * Initialises {@link factorials}.
      */
     protected void initFactorials() {
-        factorials = new TreeMap<>();
-        factorials.put(0, BigInteger.ONE);
-        factorials.put(1, BigInteger.ONE);
+        factorials = new ArrayList<>();
+        factorials.add(BigInteger.ONE); // 0! = 1
+        factorials.add(BigInteger.ONE); // 1! = 1
+        factorials.add(BigInteger.TWO); // 2! = 2
     }
 
     /**
      * Initialises {@link #powersOfTwo}.
      */
     protected void initPowersOfTwo() {
-        powersOfTwo = new TreeMap<>();
-        powersOfTwo.put(0, BigInteger.ONE);
-        powersOfTwo.put(1, TWO);
-        powersOfTwo.put(2, TWO.multiply(TWO));
+        powersOfTwo = new ArrayList<>();
+        powersOfTwo.add(BigInteger.ONE);
+        powersOfTwo.add(TWO);
+        powersOfTwo.add(TWO.multiply(TWO));
     }
 
     /**
-     * Calculates and returns the next integer 
-     * @param x 
+     * Calculates and returns the next integer closer to positive infinity
+     * unless x is an integer - in which case a {@link BigInteger} version of it
+     * is returned.
+     *
+     * @param x The number for which the ceiling is returned.
      * @return If x is an integer then return a BigInteger value of x. Otherwise
-     * return the next integer further away from zero;
+     * return the next integer closer to positive infinity.
+     * @see {@link java.lang.Math#ceil(double)}
      */
     public static BigInteger ceiling(BigDecimal x) {
         if (x.compareTo(BigDecimal.ZERO) == -1) {
-            BigInteger ceiling = ceiling(x.negate());
-            return ceiling.negate();
+            //BigInteger ceiling = ceiling(x.negate());
+            BigInteger r = floor(x.negate()).negate();
+            return r;
         }
         BigInteger xBI = x.toBigInteger();
         BigDecimal xBD = new BigDecimal(xBI);
@@ -94,67 +102,72 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * @param x
+     * Calculates and returns the next integer closer to negative infinity
+     * unless x is an integer - in which case a {@link BigInteger} version of it
+     * is returned.
+     *
+     * @param x The number for which the floor is returned.
      * @return If x is an integer then return a BigInteger value of x. Otherwise
-     * return the next integer closer to zero;
+     * return the next integer closer to minus infinity.
+     * @see {@link java.lang.Math#floor(double)}
      */
     public static BigInteger floor(BigDecimal x) {
         if (x.compareTo(BigDecimal.ZERO) == -1) {
-            BigInteger floor = floor(x.negate());
-            return floor.negate();
+            BigInteger r = ceiling(x.negate()).negate();
+            return r;
         }
         return x.toBigInteger();
     }
 
     /**
-     * Adds values to factorials if they do not already exist.
+     * Adds values to {@link #factorials} if they do not already exist and
+     * returns x factorial (x!) = x*(x-1)*(x-2)*(x-3)*...*(x-(x-1)).
      *
-     * @param x
+     * @param x The number for which the factorial is returned.
      * @return x! as a BigInteger
      */
-    public BigInteger factorial(Integer x) {
+    public BigInteger factorial(int x) {
+        if (x < 0) {
+            throw new ArithmeticException("x < 0 in Math_BigInteger.factorial(x)");
+        }
         if (factorials == null) {
             initFactorials();
         }
-        if (factorials.containsKey(x)) {
+        int size = factorials.size();
+        if (x <= size) {
             return factorials.get(x);
         }
-        Integer lastKey = factorials.lastKey();
-        BigInteger lastFactorial = factorials.get(lastKey);
+        BigInteger lastFactorial = factorials.get(size - 1);
         BigInteger factorial = null;
-        BigInteger value;
-        Integer y;
-        int key = lastKey + 1;
-        for (int keys = key; keys <= x; keys++) {
-            y = keys;
-            value = new BigInteger("" + keys);
+        for (int keys = size; keys <= x; keys++) {
+            BigInteger value = new BigInteger("" + keys);
             factorial = lastFactorial.multiply(value);
-            factorials.put(y, factorial);
+            factorials.add(factorial);
             lastFactorial = factorial;
         }
         return factorial;
     }
 
     /**
-     * Adds values to powersOfTwo if they do not already exist.
+     * Adds values to {@link #powersOfTwo} if they do not already exist and
+     * returns 2 to the power of x (2^x).
      *
-     * @param x
-     * @return 2^^x as a BigInteger
+     * @param x The number for which 2^x is returned.
+     * @return 2^x as a BigInteger
      */
-    public BigInteger powerOfTwo(Integer x) {
+    public BigInteger powerOfTwo(int x) {
         if (powersOfTwo == null) {
             initPowersOfTwo();
         }
-        if (powersOfTwo.containsKey(x)) {
+        int size = powersOfTwo.size();
+        if (size > x) {
             return powersOfTwo.get(x);
         }
-        Integer lastKey = powersOfTwo.lastKey();
-        BigInteger lastPowerOfTwo = factorials.get(lastKey);
+        BigInteger lastPowerOfTwo = powersOfTwo.get(size - 1);
         BigInteger powerOfTwo = null;
-        int key = lastKey + 1;
-        for (int keys = key; keys <= x; keys++) {
+        for (int keys = size; keys <= x; keys++) {
             powerOfTwo = TWO.multiply(lastPowerOfTwo);
-            powersOfTwo.put(key, powerOfTwo);
+            powersOfTwo.add(powerOfTwo);
             lastPowerOfTwo = powerOfTwo;
         }
         return powerOfTwo;
@@ -169,19 +182,19 @@ public class Math_BigInteger extends Math_Number {
         if (powersOfTwo == null) {
             initPowersOfTwo();
         }
-        Integer lastKey = powersOfTwo.lastKey();
-        BigInteger lastPowerOfTwo = powersOfTwo.get(lastKey);
+        int size = powersOfTwo.size();
+        BigInteger lastPowerOfTwo = powersOfTwo.get(size - 1);
         BigInteger powerOfTwo = TWO.multiply(lastPowerOfTwo);
-        int key = lastKey + 1;
-        powersOfTwo.put(key, powerOfTwo);
+        powersOfTwo.add(powerOfTwo);
         return powerOfTwo;
     }
 
     /**
      * If {@link #powersOfTwo} is null then it is initialised.
+     *
      * @return {@link #powersOfTwo}.
      */
-    public TreeMap<Integer, BigInteger> getPowersOfTwo() {
+    protected List<BigInteger> getPowersOfTwo() {
         if (this.powersOfTwo == null) {
             initPowersOfTwo();
         }
@@ -189,33 +202,42 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * @param x
-     * @return All the powers of two less than or equal to x
+     * If {@link #powersOfTwo} is null then it is initialised. This returns a
+     * subList of powersOfTwo where the fist power of two in the subList is
+     * {@code 1} and the last power of two in the subList is the last power of
+     * two less than x. (All other powers of 2 are included in the subList
+     * returned.)
+     *
+     * @param x A number for which a subList of {@link #powersOfTwo} is returned
+     * such that the list returned has all powers of two less than or equal to
+     * x.
+     * @return {@link #powersOfTwo}.
      */
-    public TreeMap<Integer, BigInteger> getPowersOfTwo(BigInteger x) {
-        // Special Cases
-        if (x.compareTo(BigInteger.ZERO) == 0) {
-            return null;
+    protected List<BigInteger> getPowersOfTwo(BigInteger x) {
+        if (powersOfTwo == null) {
+            initPowersOfTwo();
         }
-//        if (x.compareTo(BigInteger.ONE) == 0) {
-//            return null;
-//        }
-//        if (x.compareTo(TWO) == 0) {
-//            return null;
-//        }
-        while (getPowersOfTwo().lastEntry().getValue().compareTo(x) != 1) {
-            addPowerOfTwo();
-        }
-        TreeMap<Integer, BigInteger> result = new TreeMap<>();
-        for (Entry<Integer, BigInteger> entry : powersOfTwo.entrySet()) {
-            Integer value = entry.getKey();
-            BigInteger powerOfTwo = entry.getValue();
-            if (powerOfTwo.compareTo(x) == 1) {
-                break;
+        int size = powersOfTwo.size();
+        BigInteger lastPowerOfTwo = powersOfTwo.get(size - 1);
+        if (x.compareTo(lastPowerOfTwo) != -1) {
+            while (x.compareTo(lastPowerOfTwo) == 1) {
+                lastPowerOfTwo = lastPowerOfTwo.multiply(TWO);
+                powersOfTwo.add(lastPowerOfTwo);
             }
-            result.put(value, powerOfTwo);
+            return powersOfTwo.subList(0, powersOfTwo.size() - 1);
+        } else {
+            List<BigInteger> r = new ArrayList<>();
+            Iterator<BigInteger> ite = powersOfTwo.iterator();
+            while (ite.hasNext()) {
+                BigInteger powerOfTwo = ite.next();
+                if (x.compareTo(powerOfTwo) != 1) {
+                    return r;
+                } else {
+                    r.add(powerOfTwo);
+                }
+            }
+            return r;
         }
-        return result;
     }
 
     /**
@@ -234,24 +256,25 @@ public class Math_BigInteger extends Math_Number {
             r.put(0, 1);
             return r;
         }
-        TreeMap<Integer, BigInteger> xPowersOfTwo = Math_BigInteger.this.getPowersOfTwo(x);
-        Integer n;
+        List<BigInteger> xPowersOfTwo = getPowersOfTwo(x);
+        int i = xPowersOfTwo.size() - 1;
         BigInteger powerofTwo;
         BigInteger remainder = new BigInteger(x.toString());
-        Iterator<Integer> ite = xPowersOfTwo.descendingKeySet().iterator();
-        while (ite.hasNext()) {
+        for (int index = i; index >= 0; index--) {
+            powerofTwo = xPowersOfTwo.get(index);
             if (remainder.compareTo(BigInteger.ZERO) == 1) {
-                n = ite.next();
-                powerofTwo = xPowersOfTwo.get(n);
-                if (powerofTwo.compareTo(remainder) != 1) {
+                int count = 0;
+                while (powerofTwo.compareTo(remainder) != 1) {
                     remainder = remainder.subtract(powerofTwo);
-                    Generic_Collections.addToTreeMapValueInteger(r, n, 1);
+                    count++;
+                }
+                if (count > 0) {
+                    Generic_Collections.addToTreeMapValueInteger(r, index, count);
                 }
             } else {
                 break;
             }
         }
-        //System.out.println("remainder " + remainder);
         if (remainder.compareTo(BigInteger.ZERO) == 1) {
             Generic_Collections.addToTreeMapIntegerInteger(r,
                     getPowersOfTwoDecomposition(remainder));
@@ -384,24 +407,49 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * @param powerOf2 this must be 2 to the power of n for some n.
-     * @return returns a random number in the range 0 to powerOf2
+     * Calculates and returns a pseudorandom number in the range 0 to 2^n. If
+     * necessary, this expands {@link #powerOfTwo(int)} until it contains
+     * {@code powerOf2}. The it uses {@link #randoms} to determine whether to
+     * add each power of two from {@code 1} (inclusive) up to {@code powersof2}
+     * (exclusive). It then randomly adds {@code 1} or {@code 0}.
+     *
+     * @param powerOf2 This must be 2 to the power of n (2^n) for some n.
+     * @return returns a pseudorandom number in the range 0 to 2^n.
      */
     private BigInteger getRandomFromPowerOf2(BigInteger powerOf2) {
         Random[] random = getRandoms(1);
-        BigInteger theRandom = BigInteger.ZERO;
-        TreeMap<Integer, BigInteger> powersOfTwo = Math_BigInteger.this.getPowersOfTwo(powerOf2);
-        BigInteger powerOfTwo;
-        for (int i = powersOfTwo.lastKey() - 1; i >= 0; i--) {
-            if (random[0].nextBoolean()) {
-                powerOfTwo = powerOfTwo(i);
-                theRandom = theRandom.add(powerOfTwo);
+        if (!powersOfTwo.contains(powerOf2)) {
+            int size = powersOfTwo.size();
+            BigInteger lastPower = powersOfTwo.get(size - 1);
+            BigInteger power = lastPower.multiply(TWO);
+            powersOfTwo.add(power);
+            while (power.compareTo(powerOf2) == -1) {
+                power = lastPower.multiply(TWO);
+                powersOfTwo.add(power);
             }
         }
-        if (random[0].nextBoolean()) {
-            theRandom = theRandom.add(BigInteger.ONE);
+        int i0 = powersOfTwo.indexOf(powerOf2);
+        BigInteger r = BigInteger.ZERO;
+        int randomLength = random.length;
+        int i;
+        for (i = 0; i < i0; i++) {
+            int ri = i;
+            while (ri >= randomLength) {
+                ri -= randomLength;
+            }
+            if (random[ri].nextBoolean()) {
+                BigInteger powerOfTwo = powerOfTwo(i);
+                r = r.add(powerOfTwo);
+            }
         }
-        return theRandom;
+        int ri = i;
+        while (ri >= randomLength) {
+            ri -= randomLength;
+        }
+        if (random[ri].nextBoolean()) {
+            r = r.add(BigInteger.ONE);
+        }
+        return r;
     }
 
 //    /**
@@ -414,7 +462,7 @@ public class Math_BigInteger extends Math_Number {
 //     * this distribution is different.
 //     * There is a constructor method for BigDecimal that supports this, but only
 //     * for uniform distributions over a binary power range.
-//     * @param a_Random
+//     * @param a_Generic_Number
 //     * @param upperLimit
 //     * @return a random integer as a BigInteger between 0 and upperLimit
 //     * inclusive
@@ -490,28 +538,6 @@ public class Math_BigInteger extends Math_Number {
         return x.remainder(new BigInteger("2")).compareTo(BigInteger.ZERO) == 0;
     }
 
-    /**
-     *
-     * @param n
-     * @return
-     */
-    public BigInteger getFactorial(int n) {
-        Integer nInteger = Integer.valueOf(n);
-        if (factorials.containsKey(n)) {
-            return factorials.get(nInteger);
-        }
-        Entry<Integer, BigInteger> lastEntry = factorials.lastEntry();
-        int n0 = lastEntry.getKey();
-        n0++;
-        BigInteger nFactorial = lastEntry.getValue();
-        for (int i = n0; i <= n; i++) {
-            BigInteger iBigInteger = BigInteger.valueOf(i);
-            nFactorial = nFactorial.multiply(iBigInteger);
-            factorials.put(i, nFactorial);
-        }
-        return nFactorial;
-    }
-    
     /**
      * For testing if s can be parsed as a BigInteger.
      *
