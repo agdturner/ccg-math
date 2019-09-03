@@ -4667,79 +4667,23 @@ public class Math_BigDecimal extends Math_Number {
         }
     }
 
-//    /**
-//     * Effectively this is the same as generating a random number between 0 and
-//     * 1 and comparing it with probability and if it were higher then return
-//     * false and otherwise return true
-//     * @param a_Random
-//     * @param probability
-//     * @return true or false based on a random uniform test of probability
-//     */
-//    public static boolean randomUniformTest(
-//            Random a_Random,
-//            BigDecimal probability) {
-//        BigDecimal testValue0 = new BigDecimal("0.5");
-//        BigDecimal testValue1;
-//        BigDecimal two_BigDecimal = new BigDecimal("2.0");
-//        boolean test;
-//        do {
-//            test = a_Random.nextBoolean();
-//            if (test) {
-//                if (probability.compareTo(testValue0) != -1) {
-//                    return false;
-//                } else {
-//                    testValue1 = testValue0.divide(two_BigDecimal);
-//                    if (probability.compareTo(testValue1) == 1) {
-//                        return true;
-//                    }
-//                    testValue0 = testValue1;
-//                }
-//            } else {
-//                return false;
-//            }
-//        } while (true);
-//    }
     /**
-     * Randomly returns a number in the range with the required number of
-     * decimal places.
-     *
+     * Returns a pseudorandom number in the range [l, u].
      * @param bi this contains the random and the powers of two and is passed in
      * for efficiency.
-     * @param dp The number of decimal places.
-     * @param lowerLimit The smallest value to return.
-     * @param upperLimit The largest value to return.
-     * @return a pseudo randomly constructed BigDecimal in the range from
-     * lowerLimit to upperLimit inclusive and that has up to dp decimal places.
-     */
-    public static BigDecimal getRandom(Math_BigInteger bi, int dp,
-            BigDecimal lowerLimit, BigDecimal upperLimit) {
-        //BigDecimal resolution = new BigDecimal(BigInteger.ONE,decimalPlaces);
-        BigDecimal range = upperLimit.subtract(lowerLimit);
-        BigInteger rescaledRange = range.scaleByPowerOfTen(dp).toBigInteger();
-        BigInteger random_BigInteger = bi.getRandom(rescaledRange);
-        BigDecimal random_BigDecimal = new BigDecimal(random_BigInteger, dp);
-        BigDecimal result = random_BigDecimal.add(lowerLimit);
-        return result;
-    }
-
-    /**
-     * Returns a psuedorandom number in the range [l, u].
-     * @param bi this contains the random and the powers of two and is passed in
-     * for efficiency.
-     * @param random The {@link Random} to be used.
      * @param dp The number of decimal places.
      * @param l The smallest value to return.
      * @param u The largest value to return.
-     * @return A psuedorandom number in the range [l, u]
+     * @return A pseudorandom number in the range [l, u]
      */
-    public static BigDecimal getRandom(Math_BigInteger bi, Random random,
-            int dp, BigDecimal l, BigDecimal u) {
+    public static BigDecimal getRandom(Math_BigInteger bi, int dp, BigDecimal l,
+            BigDecimal u) {
         //BigDecimal resolution = new BigDecimal(BigInteger.ONE,decimalPlaces);
         BigDecimal range = u.subtract(l);
         BigInteger rescaledRange = range.scaleByPowerOfTen(dp).toBigInteger();
-        BigInteger random_BigInteger = bi.getRandom(random, rescaledRange);
-        BigDecimal random_BigDecimal = new BigDecimal(random_BigInteger, dp);
-        BigDecimal result = random_BigDecimal.add(l);
+        BigInteger rbi = bi.getRandom(rescaledRange);
+        BigDecimal rbd = new BigDecimal(rbi, dp);
+        BigDecimal result = rbd.add(l);
         return result;
     }
 
