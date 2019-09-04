@@ -45,8 +45,8 @@ public class Math_BigDecimal extends Math_Number {
      */
     public Math_BigInteger bi;
     /**
-     * For storing the Euler constant correct to a fixed decimal
-     * place precision. ~2.71828182845904523536028747135266249775724709369995
+     * For storing the Euler constant correct to a fixed decimal place
+     * precision. ~2.71828182845904523536028747135266249775724709369995
      */
     private BigDecimal e;
     /**
@@ -867,7 +867,8 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Calculates and returns x raised to the power of y (x^y).
-     * 
+     * https://en.wikipedia.org/wiki/Exponentiation
+     *
      * The following formulae are used:
      * <ul>
      * <li>x^y = e^(y * ln(x))</li>
@@ -1448,6 +1449,8 @@ public class Math_BigDecimal extends Math_Number {
      * <li>{@code x^y = e^(y * ln(x))}</li>
      * <li>{@code x^(a+b) = (x^a)*(x^b)}</li>
      * </ul>
+     * For some x and y this is not well behaved! To understand why please see:
+     * https://en.wikipedia.org/wiki/Exponentiation
      *
      * @param x The base of the exponent.
      * @param y The exponent.
@@ -1541,6 +1544,8 @@ public class Math_BigDecimal extends Math_Number {
      * <li>{@code x^y = e^(y * ln(x))}</li>
      * <li>{@code x^(a+b) = (x^a)*(x^b)}</li>
      * </ul>
+     * For some x and y this is not well behaved! To understand why please see:
+     * https://en.wikipedia.org/wiki/Exponentiation
      *
      * @param x The base of the exponent.
      * @param y The exponent.
@@ -1591,13 +1596,12 @@ public class Math_BigDecimal extends Math_Number {
                 return r;
             } else {
                 // x > 2 && y > 1
-                BigInteger y_BigInteger = y.toBigInteger();
-                BigDecimal integerPartResult = powerNoRounding(x,
-                        y_BigInteger, 256);
-                BigDecimal fractionalPartResult = powerNoRounding(x,
-                        y.subtract(new BigDecimal(y_BigInteger)));
-                BigDecimal r = integerPartResult.multiply(
-                        fractionalPartResult);
+                BigInteger ybi = y.toBigInteger();
+                // Integer part result ipr
+                BigDecimal ipr = powerNoRounding(x, ybi, 256);
+                // Fractional part result fpr
+                BigDecimal fpr = powerNoRounding(x, y.subtract(new BigDecimal(ybi)));
+                BigDecimal r = ipr.multiply(fpr);
                 return r;
             }
         }
@@ -1623,12 +1627,7 @@ public class Math_BigDecimal extends Math_Number {
         // for BigDecimal x and int n is
         // -999999999 < n < 999999999
 //        if (Math.abs(y) < 999999999) {
-//            return power(
-//                    x,
-//                    (int) y,
-//                    256,
-//                    decimalPlaces,
-//                    a_RoundingMode);
+//            return power(x, (int) y, 256, dp, rm);
 //        } else {
         return power(x, BigInteger.valueOf(y), dp, 256, rm);
 //        }
@@ -3723,8 +3722,9 @@ public class Math_BigDecimal extends Math_Number {
 //    }
     /**
      * Calculates and returns the root-th root of x.
-     * 
-     * @param x The number to root. Expected to be greater than or equal to {@code 0}.
+     *
+     * @param x The number to root. Expected to be greater than or equal to
+     * {@code 0}.
      * @param root The root to calculate.
      * @param dp The number of decimal places the result has to be correct to.
      * @param rm The {@link RoundingMode} used to round intermediate results and
@@ -4669,6 +4669,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Returns a pseudorandom number in the range [l, u].
+     *
      * @param bi this contains the random and the powers of two and is passed in
      * for efficiency.
      * @param dp The number of decimal places.
@@ -4722,7 +4723,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * For assessing if x is even or odd.
-     * 
+     *
      * @param x The number to test whether or not it is even.
      * @return true iff last digit of x is even
      */
