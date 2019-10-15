@@ -90,8 +90,7 @@ public class Math_PrimeNumbers extends Math_Object {
          * common different factor are can be summarised and analysed.
          *
          */
-        File dir;
-        dir = Generic_Files.getDefaultDataDir();
+        File dir = Generic_Files.getDefaultDir();
         dir.mkdirs();
 
         int maxSize;
