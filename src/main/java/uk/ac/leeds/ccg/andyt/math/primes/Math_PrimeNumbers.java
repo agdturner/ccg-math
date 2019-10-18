@@ -25,7 +25,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
-import uk.ac.leeds.ccg.andyt.generic.io.Generic_Files;
+import uk.ac.leeds.ccg.andyt.generic.core.Generic_Environment;
+import uk.ac.leeds.ccg.andyt.generic.io.Generic_Defaults;
 import uk.ac.leeds.ccg.andyt.math.core.Math_Environment;
 import uk.ac.leeds.ccg.andyt.math.core.Math_Object;
 
@@ -44,11 +45,15 @@ public class Math_PrimeNumbers extends Math_Object {
     
     /**
      * @param args
-     * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
-        Math_PrimeNumbers p = new Math_PrimeNumbers(new Math_Environment());
-        p.run();
+    public static void main(String[] args) {
+        try {
+            Math_PrimeNumbers p = new Math_PrimeNumbers(new Math_Environment(
+                    new Generic_Environment()));
+            p.run();
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
     }
     
     public void run() {
@@ -90,7 +95,7 @@ public class Math_PrimeNumbers extends Math_Object {
          * common different factor are can be summarised and analysed.
          *
          */
-        File dir = Generic_Files.getDefaultDir();
+        File dir = Generic_Defaults.getDefaultDir();
         dir.mkdirs();
 
         int maxSize;
@@ -160,9 +165,9 @@ public class Math_PrimeNumbers extends Math_Object {
                     }
                 }
             }
-            env.io.writeObject(PrimeList, fPrimeList);
-            env.io.writeObject(PrimeIndexMap, fPrimeIndexMap);
-            env.io.writeObject(numbList, fBitSet);
+            env.env.io.writeObject(PrimeList, fPrimeList);
+            env.env.io.writeObject(PrimeIndexMap, fPrimeIndexMap);
+            env.env.io.writeObject(numbList, fBitSet);
 
             System.out.format("array size         : %,11d%n", maxNumber);
             //      System.out.format("prime count        : %,11d%n", primeCount);
@@ -174,10 +179,10 @@ public class Math_PrimeNumbers extends Math_Object {
             System.out.println("That took " + (stopTime - startTime)
                     / 1000.0 + " seconds");
         } else {
-            PrimeList = (ArrayList<Integer>) env.io.readObject(fPrimeList);
-            PrimeIndexMap = (HashMap<Integer, Integer>) env.io.readObject(
+            PrimeList = (ArrayList<Integer>) env.env.io.readObject(fPrimeList);
+            PrimeIndexMap = (HashMap<Integer, Integer>) env.env.io.readObject(
                     fPrimeIndexMap);
-            numbList = (BitSet) env.io.readObject(fBitSet);
+            numbList = (BitSet) env.env.io.readObject(fBitSet);
             maxPrime = PrimeList.get(PrimeList.size() - 1);
         }
         while (getQuit().compareTo("-1") != 0) {

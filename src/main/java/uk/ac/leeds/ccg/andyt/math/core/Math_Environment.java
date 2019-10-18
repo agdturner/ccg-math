@@ -21,9 +21,14 @@ import uk.ac.leeds.ccg.andyt.generic.core.Generic_Environment;
  *
  * @author geoagdt
  */
-public class Math_Environment extends Generic_Environment {
+public class Math_Environment  {
     
-    public Math_Environment(){
-        super();
+    /**
+     * For storing an instance of Generic_Environment.
+     */
+    public transient final Generic_Environment env;
+
+    public Math_Environment(Generic_Environment e) {
+        this.env = e;
     }
 }

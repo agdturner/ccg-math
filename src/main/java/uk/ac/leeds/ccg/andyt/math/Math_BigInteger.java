@@ -244,9 +244,9 @@ public class Math_BigInteger extends Math_Number {
      * Calculates and returns what basically amount to a binary encoding for x
      * based on the fact that all integers can be represented in the form:
      * <ul>
-     * <li>x = m0*(2^y0) + m1*(2^y1) + m2*(2^y2) +... (where mi and yi are
+     * <li>{@code x = m0*(2^y0) + m1*(2^y1) + m2*(2^y2) +... (where mi and yi are
      * integers, and the yi are decreasing from y0 being the smallest integer
-     * such that 2^y0 >= x)</li>
+     * such that 2^y0 >= x)}</li>
      * </ul>
      * The keys are the number 2 is raised to in each part (yi) and the values
      * are the multiples (mi).
