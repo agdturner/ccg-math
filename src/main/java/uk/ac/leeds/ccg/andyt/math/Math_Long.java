@@ -31,8 +31,8 @@ public class Math_Long extends Math_Number  {
      * {@link java.lang.Long#MIN_VALUE} is returned.</li>
      * </ul>
      *
-     * @param s The String to be parsed as a long.
-     * @return The long version of s.
+     * @param s The String to attempt to parse as a long. 
+     * @return {@code s} parsed as a long. 
      * @throws NumberFormatException if s cannot be parsed as a long.
      */
     public static long parseLong(String s) throws NumberFormatException {

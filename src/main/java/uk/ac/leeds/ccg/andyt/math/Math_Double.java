@@ -40,9 +40,9 @@ public class Math_Double extends Math_Number {
      * {@link java.lang.Double#NEGATIVE_INFINITY} is returned.</li>
      * </ul>
      *
-     * @param s
-     * @return
-     * @throws NumberFormatException
+     * @param s The String to attempt to parse as a double. 
+     * @return {@code s} parsed as a double. 
+     * @throws NumberFormatException If s cannot be parse as a double.
      */
     public static double parseDouble(String s) throws NumberFormatException {
         try {

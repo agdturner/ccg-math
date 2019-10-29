@@ -44,7 +44,7 @@ public class Math_PrimeNumbers extends Math_Object {
     }
     
     /**
-     * @param args
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         try {

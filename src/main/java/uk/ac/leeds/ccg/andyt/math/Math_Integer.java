@@ -29,9 +29,9 @@ public class Math_Integer extends Math_Number {
      * {@link java.lang.Integer#MIN_VALUE} is returned.</li>
      * </ul>
      *
-     * @param s The String to be parsed as a int.
-     * @return The int version of s.
-     * @throws NumberFormatException if s cannot be parsed as a int.
+     * @param s The String to attempt to parse as a int. 
+     * @return {@code s} parsed as a int. 
+     * @throws NumberFormatException If s cannot be parse as a int.
      */
     public static int parseInt(String s) throws NumberFormatException {
         try {

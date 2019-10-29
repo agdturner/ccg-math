@@ -41,9 +41,9 @@ public class Math_Float extends Math_Number {
      * {@link java.lang.Float#NEGATIVE_INFINITY} is returned.</li>
      * </ul>
      *
-     * @param s
-     * @return
-     * @throws NumberFormatException
+     * @param s The String to attempt to parse as a float. 
+     * @return {@code s} parsed as a float. 
+     * @throws NumberFormatException If s cannot be parse as a float.
      */
     public static float parseFloat(String s) throws NumberFormatException {
         try {
