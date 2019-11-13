@@ -26,9 +26,10 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 import uk.ac.leeds.ccg.andyt.generic.core.Generic_Environment;
-import uk.ac.leeds.ccg.andyt.generic.io.Generic_Defaults;
+import uk.ac.leeds.ccg.andyt.generic.core.Generic_Strings;
 import uk.ac.leeds.ccg.andyt.math.core.Math_Environment;
 import uk.ac.leeds.ccg.andyt.math.core.Math_Object;
+import uk.ac.leeds.ccg.andyt.math.io.Math_Files;
 
 /**
  * This class finds all prime numbers up to 2147483646 in about 20 seconds. It
@@ -56,7 +57,7 @@ public class Math_PrimeNumbers extends Math_Object {
         }
     }
     
-    public void run() {
+    public void run() throws IOException {
         
         /**
          * Prime numbers are incredibly useful for IDs when you want to be able
@@ -95,7 +96,8 @@ public class Math_PrimeNumbers extends Math_Object {
          * common different factor are can be summarised and analysed.
          *
          */
-        File dir = Generic_Defaults.getDefaultDir();
+        Math_Files files = new Math_Files(Math_Files.getDefaultDir());
+        File dir = files.getGeneratedDir();
         dir.mkdirs();
 
         int maxSize;
