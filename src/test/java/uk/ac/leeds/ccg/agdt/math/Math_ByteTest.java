@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uk.ac.leeds.ccg.andyt.math;
+package uk.ac.leeds.ccg.agdt.math;
 
+import uk.ac.leeds.ccg.agdt.math.Math_Byte;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

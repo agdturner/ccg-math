@@ -16,8 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package uk.ac.leeds.ccg.andyt.math;
+package uk.ac.leeds.ccg.agdt.math;
 
+import uk.ac.leeds.ccg.agdt.math.Math_Complex_double;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

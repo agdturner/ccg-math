@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uk.ac.leeds.ccg.andyt.math;
+package uk.ac.leeds.ccg.agdt.math;
 
+import uk.ac.leeds.ccg.agdt.math.Math_Double;
+import uk.ac.leeds.ccg.agdt.math.Math_Float;
 import java.math.BigInteger;
 import org.junit.After;
 import org.junit.AfterClass;
