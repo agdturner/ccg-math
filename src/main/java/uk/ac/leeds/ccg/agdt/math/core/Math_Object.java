@@ -13,19 +13,22 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.andyt.math.core;
-
-import uk.ac.leeds.ccg.andyt.generic.core.Generic_Environment;
+package uk.ac.leeds.ccg.agdt.math.core;
 
 /**
- *
- * @author geoagdt
+ * Math Object.
+ * 
+ * @author Andy Turner
+ * @version 1.0.0
  */
-public class Math_Environment  {
+public class Math_Object {
     
-    public transient final Generic_Environment env;
-
-    public Math_Environment(Generic_Environment e) {
-        this.env = e;
+    public Math_Environment env;
+    
+    private Math_Object(){}
+    
+    public Math_Object(Math_Environment e) {
+        env = e;
     }
+    
 }

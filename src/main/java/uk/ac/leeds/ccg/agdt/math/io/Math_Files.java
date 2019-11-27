@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.andyt.math.io;
+package uk.ac.leeds.ccg.agdt.math.io;
 
 import java.io.File;
 import java.io.IOException;
-import uk.ac.leeds.ccg.andyt.generic.io.Generic_Files;
-import uk.ac.leeds.ccg.andyt.math.core.Math_Strings;
+import uk.ac.leeds.ccg.agdt.generic.io.Generic_Files;
+import uk.ac.leeds.ccg.agdt.math.core.Math_Strings;
 
 /**
- *
- * @author geoagdt
+ * Math Files.
+ * 
+ * @author Andy Turner
+ * @version 1.0.0
  */
 public class Math_Files extends Generic_Files {
     

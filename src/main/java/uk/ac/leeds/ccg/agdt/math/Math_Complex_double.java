@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.andyt.math;
+package uk.ac.leeds.ccg.agdt.math;
 
 /**
  * https://en.wikipedia.org/wiki/Complex_number

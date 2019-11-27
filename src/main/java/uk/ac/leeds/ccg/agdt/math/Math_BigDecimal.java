@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.andyt.math;
+package uk.ac.leeds.ccg.agdt.math;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -36,6 +36,9 @@ import java.util.Random;
  *
  * The aim is for accuracy within a fixed number of decimal places. All methods
  * need to be fully tested to ensure compliance...
+ * 
+ * @author Andy Turner
+ * @version 1.0.0
  */
 public class Math_BigDecimal extends Math_Number {
 

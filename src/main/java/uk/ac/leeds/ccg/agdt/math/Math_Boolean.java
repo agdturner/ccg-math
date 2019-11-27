@@ -13,9 +13,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.andyt.math;
+package uk.ac.leeds.ccg.agdt.math;
 
-import uk.ac.leeds.ccg.andyt.generic.core.Generic_Strings;
+import uk.ac.leeds.ccg.agdt.generic.core.Generic_Strings;
 
 public class Math_Boolean extends Math_Number {
 

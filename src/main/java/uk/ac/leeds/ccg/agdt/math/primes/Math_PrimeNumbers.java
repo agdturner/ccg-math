@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-package uk.ac.leeds.ccg.andyt.math.primes;
+package uk.ac.leeds.ccg.agdt.math.primes;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,18 +25,19 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
-import uk.ac.leeds.ccg.andyt.generic.core.Generic_Environment;
-import uk.ac.leeds.ccg.andyt.generic.core.Generic_Strings;
-import uk.ac.leeds.ccg.andyt.math.core.Math_Environment;
-import uk.ac.leeds.ccg.andyt.math.core.Math_Object;
-import uk.ac.leeds.ccg.andyt.math.io.Math_Files;
+import uk.ac.leeds.ccg.agdt.generic.core.Generic_Environment;
+import uk.ac.leeds.ccg.agdt.generic.core.Generic_Strings;
+import uk.ac.leeds.ccg.agdt.math.core.Math_Environment;
+import uk.ac.leeds.ccg.agdt.math.core.Math_Object;
+import uk.ac.leeds.ccg.agdt.math.io.Math_Files;
 
 /**
  * This class finds all prime numbers up to 2147483646 in about 20 seconds. It
  * is based on code posted on stackexchange:
  * https://codereview.stackexchange.com/questions/10823/yet-another-prime-number-generator/54942#54942
  *
- * @author geoagdt
+ * @author Andy Turner
+ * @version 1.0.0
  */
 public class Math_PrimeNumbers extends Math_Object {
 
