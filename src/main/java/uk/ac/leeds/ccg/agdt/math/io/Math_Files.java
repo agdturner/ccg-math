@@ -17,6 +17,7 @@ package uk.ac.leeds.ccg.agdt.math.io;
 
 import java.io.File;
 import java.io.IOException;
+import uk.ac.leeds.ccg.agdt.generic.io.Generic_Defaults;
 import uk.ac.leeds.ccg.agdt.generic.io.Generic_Files;
 import uk.ac.leeds.ccg.agdt.math.core.Math_Strings;
 
@@ -29,17 +30,10 @@ import uk.ac.leeds.ccg.agdt.math.core.Math_Strings;
 public class Math_Files extends Generic_Files {
     
     /**
-     * @param dir The directory.
-     * @throws java.io.IOException If an IOException is encountered.
+     * @param d The Generic_Defaults.
+     * @throws java.io.IOException If encountered.
      */
-    public Math_Files(File dir) throws IOException {
-        super(dir);
-    }
-    
-    /**
-     * @return {@code new File(getDefaultGenericDir(), Vector_Strings.s_Math)}.
-     */
-    public static File getDefaultDir() {
-        return new File(getDefaultGenericDir(), Math_Strings.s_math);
+    public Math_Files(Generic_Defaults d) throws IOException {
+        super(d);
     }
 }

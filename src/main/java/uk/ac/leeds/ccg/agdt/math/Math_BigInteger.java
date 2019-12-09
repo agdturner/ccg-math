@@ -278,14 +278,14 @@ public class Math_BigInteger extends Math_Number {
                     c++;
                 }
                 if (c > 0) {
-                    Generic_Collections.addToTreeMapValueInteger(r, index, c);
+                    Generic_Collections.addToMapInteger(r, index, c);
                 }
             } else {
                 break;
             }
         }
         if (remainder.compareTo(BigInteger.ZERO) == 1) {
-            Generic_Collections.addToTreeMapIntegerInteger(r,
+            Generic_Collections.addToMapInteger(r,
                     getPowersOfTwoDecomposition(remainder));
         }
         return r;
