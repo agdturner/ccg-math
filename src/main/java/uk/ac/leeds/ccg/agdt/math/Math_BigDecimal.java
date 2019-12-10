@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2010 Andy Turner, The University of Leeds, UK
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -36,7 +36,7 @@ import java.util.Random;
  *
  * The aim is for accuracy within a fixed number of decimal places. All methods
  * need to be fully tested to ensure compliance...
- * 
+ *
  * @author Andy Turner
  * @version 1.0.0
  */
@@ -2808,24 +2808,25 @@ public class Math_BigDecimal extends Math_Number {
         }
         int dpd = dp + 3;
         r = BigDecimal.ONE.add(x);
-//        if (a_Generic_BigDecimal.bi == null) {
-//            a_Generic_BigDecimal.init_Factorial_Generic_BigInteger(maxite);
+//        if (bd.bi == null) {
+//            bd.init_Factorial_Generic_BigInteger(maxite);
 //        } else {
-//            a_Generic_BigDecimal.bi.factorial(maxite);
+//            bd.bi.factorial(maxite);
 //        }
         BigDecimal dpxff;
-        BigDecimal tollerance = new BigDecimal(
-                BigInteger.ONE, dp + 1);
+        BigDecimal tollerance = new BigDecimal(BigInteger.ONE, dp + 1);
         // Use Taylor Series
-        BigInteger i_BigInteger = BigInteger.ONE;
+        BigInteger bi = BigInteger.ONE;
         Integer f = 1;
         while (true) {
-            i_BigInteger = i_BigInteger.add(BigInteger.ONE);
+            bi = bi.add(BigInteger.ONE);
             f = f + 1;
             BigDecimal ff = new BigDecimal(bd.bi.factorial(f));
-            BigDecimal px = power(x, i_BigInteger, 64,
-                    dp, // Maybe there is need for more even though the bottom of the Taylor series grows fast
-                    rm);
+            /**
+             * May need dp to be higher (even though the bottom of the Taylor
+             * series grows fast).
+             */
+            BigDecimal px = power(x, bi, 64, dp, rm);
             dpxff = divideRoundIfNecessary(px, ff, dpd, rm);
             r = r.add(dpxff);
             if (dpxff.compareTo(tollerance) == -1) {
