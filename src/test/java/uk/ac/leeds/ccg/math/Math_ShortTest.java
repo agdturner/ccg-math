@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.agdt.math;
+package uk.ac.leeds.ccg.math;
 
-import uk.ac.leeds.ccg.agdt.math.Math_Byte;
+import uk.ac.leeds.ccg.math.Math_Short;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,9 +27,9 @@ import static org.junit.Assert.*;
  *
  * @author geoagdt
  */
-public class Math_ByteTest extends Math_Test {
+public class Math_ShortTest  extends Math_Test {
     
-    public Math_ByteTest() {
+    public Math_ShortTest() {
     }
     
     @BeforeClass
@@ -49,25 +49,26 @@ public class Math_ByteTest extends Math_Test {
     }
 
     @Test
-    public void testIsByte() {
-        String funcName = "isByte";
+    public void testIsShort() {
+        String funcName = "isShort";
         System.out.println("Test " + funcName);
+        short x;
+        String s;
         boolean result;
         // Test 1
         int test = 1;
-        String s;
-        byte x = Byte.MIN_VALUE;
-        s = Byte.toString(x);
-        result = Math_Byte.isByte(s);
+        x = Short.MIN_VALUE;
+        s = Short.toString(x);
+        result = Math_Short.isShort(s);
         printFunctionTest(funcName, test, x, result);
         assertFalse(result);
         // Test 2
         test ++;
         x += 1;
-        s = Byte.toString(x);
-        result = Math_Byte.isByte(s);
+        s = Short.toString(x);
+        result = Math_Short.isShort(s);
         printFunctionTest(funcName, test, x, result);
-        assertTrue(result);
+        assertTrue(Math_Short.isShort(s));
     }
     
 }

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.agdt.math;
+package uk.ac.leeds.ccg.math;
 
-import uk.ac.leeds.ccg.agdt.math.Math_Complex_double;
+import uk.ac.leeds.ccg.math.Math_Complex_double;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
