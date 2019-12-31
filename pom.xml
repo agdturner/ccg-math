@@ -5,7 +5,7 @@
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-generic-math</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <name>agdt-java-generic-math</name>
@@ -42,7 +42,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.5.2</junit.version>
-        <agdt-java-generic.version>1.0.2</agdt-java-generic.version>
+        <agdt-java-generic.version>1.1.0</agdt-java-generic.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.version>3.0.1</maven.version>
