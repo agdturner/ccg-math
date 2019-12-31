@@ -13,69 +13,68 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.agdt.math;
+package uk.ac.leeds.ccg.math;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-public class Math_Float extends Math_Number {
+public class Math_Double extends Math_Number {
 
-    public static final String NAN = Float.toString(Float.NaN);
-    public static final String POSITIVE_INFINITY = Float.toString(Float.POSITIVE_INFINITY);
-    public static final String NEGATIVE_INFINITY = Float.toString(Float.NEGATIVE_INFINITY);
+    public static final String POSITIVE_INFINITY = Double.toString(Double.POSITIVE_INFINITY);
+    public static final String NEGATIVE_INFINITY = Double.toString(Double.NEGATIVE_INFINITY);
 
     /**
      * In most instances this behaves like
-     * {@link java.lang.Float#parseFloat(java.lang.String)}, but if a
+     * {@link java.lang.Double#parseDouble(java.lang.String)}, but if a
      * {@link java.lang.NumberFormatException} is thrown then this method deals
      * with the following special cases:
      * <ul>
      * <li>If {@code s} contains only white space, then a
-     * {@link java.lang.Float#NaN} is returned.</li>
+     * {@link java.lang.Double#NaN} is returned.</li>
      * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
-     * {@link java.lang.Float#NaN} is returned.</li>
+     * {@link java.lang.Double#NaN} is returned.</li>
      * <li>If {@code s}.equalsIgnoreCase({@link #POSITIVE_INFINITY}), then a
-     * {@link java.lang.Float#POSITIVE_INFINITY} is returned.</li>
+     * {@link java.lang.Double#POSITIVE_INFINITY} is returned.</li>
      * <li>If {@code s}.equalsIgnoreCase({@link #NEGATIVE_INFINITY}), then a
-     * {@link java.lang.Float#NEGATIVE_INFINITY} is returned.</li>
+     * {@link java.lang.Double#NEGATIVE_INFINITY} is returned.</li>
      * </ul>
      *
-     * @param s The String to attempt to parse as a float. 
-     * @return {@code s} parsed as a float. 
-     * @throws NumberFormatException If s cannot be parse as a float.
+     * @param s The String to attempt to parse as a double. 
+     * @return {@code s} parsed as a double. 
+     * @throws NumberFormatException If s cannot be parse as a double.
      */
-    public static float parseFloat(String s) throws NumberFormatException {
+    public static double parseDouble(String s) throws NumberFormatException {
         try {
-            return Float.parseFloat(s);
+            return Double.parseDouble(s);
         } catch (NumberFormatException e) {
             // Deal with special cases
             if (s.isBlank()) {
-                return Float.NaN;
+                return Double.NaN;
             }
             if (s.equalsIgnoreCase(NAN)) {
-                return Float.NaN;
+                return Double.NaN;
             }
             if (s.equalsIgnoreCase(POSITIVE_INFINITY)) {
-                return Float.POSITIVE_INFINITY;
+                return Double.POSITIVE_INFINITY;
             }
             if (s.equalsIgnoreCase(NEGATIVE_INFINITY)) {
-                return Float.NEGATIVE_INFINITY;
+                return Double.NEGATIVE_INFINITY;
             }
             throw e;
         }
     }
 
     /**
-     * For testing if s can be parsed as a float.
+     * For testing if s can be parsed as a double.
      *
      * @param s The String to be tested as to whether it can be represented as a
-     * float.
-     * @return true iff s can be represented as a float.
+     * double.
+     * @return true iff s can be represented as a double.
      */
-    public static boolean isFloat(String s) {
+    public static boolean isDouble(String s) {
         try {
-            Float.parseFloat(s);
+            Double.parseDouble(s);
             return true;
         } catch (NumberFormatException e) {
             // Deal with special cases
@@ -91,73 +90,65 @@ public class Math_Float extends Math_Number {
             return s.equalsIgnoreCase(NEGATIVE_INFINITY);
         }
     }
-    
+
     /**
-     * For testing if s can be parsed as a float and is precise to {@code dp}
-     * decimal places.
+     * For testing if s can be parsed as a double and is precise to {@code dp}
+     * decimal places using {@code rm} RoundingMode if necessary to round the
+     * parsed value.
      *
      * @param s The String to be tested as to whether it can be represented as a
-     * float.
+     * double.
      * @param dp The number of decimal places the result must be accurate to.
-     * @return true iff s can be represented as a float.
+     * @return true iff s can be represented as a Double greater than
+     * -Double.MAX_VALUE which is reserved for representing noDataValues.
      */
-    public static boolean isFloat(String s, int dp) {
+    public static boolean isDouble(String s, int dp) {
         try {
-            float x = Float.parseFloat(s);
+            double x = Double.parseDouble(s);
             BigDecimal bds = new BigDecimal(s);
             BigDecimal bdd = new BigDecimal(x);
             RoundingMode rm = RoundingMode.HALF_UP;
-            BigDecimal bdsr = Math_BigDecimal.roundIfNecessary(bds,dp,rm);
-            BigDecimal bddr = Math_BigDecimal.roundIfNecessary(bdd,dp,rm);
+            BigDecimal bdsr = Math_BigDecimal.roundIfNecessary(bds, dp, rm);
+            BigDecimal bddr = Math_BigDecimal.roundIfNecessary(bdd, dp, rm);
             return bdsr.compareTo(bddr) == 0;
         } catch (NumberFormatException e) {
-            return isFloat(s);
+            return isDouble(s);
         }
     }
 
     /**
-     * For testing if s can be parsed as a float exactly. This allows no rounding to the
-     * nearest float. e.g. 0.1 cannot for instance be represented as a float as
-     * the nearest float greater than or equal to 0.1 is
-     * 0.100000001490116119384765625 and the nearest float less than or equal to
-     * 0.1 is 0.0999999940395355224609375
+     * For testing if s can be parsed as a double exactly. This allows no
+     * rounding to the nearest double. e.g. 0.1 cannot for instance be
+     * represented as a double as the nearest double greater than or equal to
+     * 0.1 is 0.10000000000000001942890293094023945741355419158935546875 and the
+     * nearest double less than or equal to 0.1 is
+     * 0.09999999999999999167332731531132594682276248931884765625
      *
      * @param s The String to be tested as to whether it can be represented as a
-     * float.
-     * @return true iff s can be represented as a float.
+     * double.
+     * @return true iff s can be represented as a double.
      */
-    public static boolean isFloatExact(String s) {
+    public static boolean isDoubleExact(String s) {
         try {
-            float x = Float.parseFloat(s);
+            double x = Double.parseDouble(s);
             BigDecimal bds = new BigDecimal(s);
             BigDecimal bdd = new BigDecimal(x);
             return bds.compareTo(bdd) == 0;
         } catch (NumberFormatException e) {
-            return isFloat(s);
+            return isDouble(s);
         }
-    }
-
-    /**
-     *
-     * @param x Number to be rounded up to the nearest int.
-     * @return f rounded up to the nearest int
-     */
-    public static int roundUpToNearestInt(float x) {
-        int r = Math_BigDecimal.roundStrippingTrailingZeros(
-                new BigDecimal(x), 0, RoundingMode.UP).intValue();
-        return r;
     }
 
     /**
      * @param l The lower value in the range.
      * @param u The upper value in the range.
-     * @return The total number of floats represented in the range (l, u)
+     * @return The total number of doubles represented in the range (l, u)
      */
-    public static BigInteger getNumberOfFloatsInRange(float l, float u) {
+    public static BigInteger getNumberOfDoublesInRange(double l, double u) {
         BigInteger r = BigInteger.ZERO;
-//        int i = 10000;
+//        int i = 100000000;
 //        BigInteger divisor = new BigInteger(Integer.toString(i));
-        float x = l;
+        double x = l;
         while (x < u) {
             x = Math.nextUp(x);
             r = r.add(BigInteger.ONE);
@@ -172,11 +163,22 @@ public class Math_Float extends Math_Number {
 
     /**
      *
-     * @param x The float value to return as a plain number String.
-     * @return A plain number String representation of x. A plain number String
+     * @param x Number to be rounded up to the nearest int.
+     * @return d rounded up to the nearest int
+     */
+    public static int roundUpToNearestInt(double x) {
+        int r = Math_BigDecimal.roundStrippingTrailingZeros(
+                new BigDecimal(x), 0, RoundingMode.UP).intValue();
+        return r;
+    }
+
+    /**
+     *
+     * @param d The double value to return as a plain number String.
+     * @return A plain number String representation of d. A plain number String
      * is not written in scientific notation, but as a plain decimal.
      */
-    public static String toPlainString(float x) {
-        return new BigDecimal(Float.toString(x)).toPlainString();
+    public static String toPlainString(double d) {
+        return new BigDecimal(d).toPlainString();
     }
 }

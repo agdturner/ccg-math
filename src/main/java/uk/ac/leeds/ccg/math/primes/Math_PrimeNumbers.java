@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.agdt.math.primes;
+package uk.ac.leeds.ccg.math.primes;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,9 +30,9 @@ import uk.ac.leeds.ccg.generic.io.Generic_Defaults;
 import uk.ac.leeds.ccg.generic.io.Generic_Files;
 import uk.ac.leeds.ccg.generic.io.Generic_IO;
 import uk.ac.leeds.ccg.generic.io.Generic_Path;
-import uk.ac.leeds.ccg.agdt.math.core.Math_Environment;
-import uk.ac.leeds.ccg.agdt.math.core.Math_Object;
-import uk.ac.leeds.ccg.agdt.math.io.Math_Files;
+import uk.ac.leeds.ccg.math.core.Math_Environment;
+import uk.ac.leeds.ccg.math.core.Math_Object;
+import uk.ac.leeds.ccg.math.io.Math_Files;
 
 /**
  * This class finds all prime numbers up to 2147483646 in about 20 seconds. It

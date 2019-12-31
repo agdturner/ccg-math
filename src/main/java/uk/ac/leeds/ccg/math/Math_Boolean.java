@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.agdt.math;
+package uk.ac.leeds.ccg.math;
 
 import uk.ac.leeds.ccg.generic.core.Generic_Strings;
 

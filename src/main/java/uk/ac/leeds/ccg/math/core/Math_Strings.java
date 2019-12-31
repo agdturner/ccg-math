@@ -13,26 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.agdt.math.io;
+package uk.ac.leeds.ccg.math.core;
 
-import java.io.IOException;
-import uk.ac.leeds.ccg.generic.io.Generic_Defaults;
-import uk.ac.leeds.ccg.generic.io.Generic_Files;
-import uk.ac.leeds.ccg.agdt.math.core.Math_Strings;
+import uk.ac.leeds.ccg.generic.core.Generic_Strings;
 
 /**
- * Math Files.
+ * Math String.
  * 
  * @author Andy Turner
  * @version 1.0.0
  */
-public class Math_Files extends Generic_Files {
+public class Math_Strings extends Generic_Strings {
     
-    /**
-     * @param d The Generic_Defaults.
-     * @throws java.io.IOException If encountered.
-     */
-    public Math_Files(Generic_Defaults d) throws IOException {
-        super(d);
+    public static final String s_math = "math";
+    public static final String s_Math = "Math";
+    
+    public Math_Strings() {
+        super();
     }
+    
 }
