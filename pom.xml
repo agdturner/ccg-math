@@ -4,17 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.agdturner</groupId>
-    <artifactId>agdt-java-generic-math</artifactId>
+    <artifactId>agdt-java-math</artifactId>
     <version>1.1.0</version>
     <packaging>jar</packaging>
 
-    <name>agdt-java-generic-math</name>
-    <url>https://github.com/agdturner/agdt-java-generic-math</url>
+    <name>agdt-java-math</name>
+    <url>https://github.com/agdturner/agdt-java-math</url>
     <description>A Java Library for arithmetic and summary statistics.</description>
     <scm>
-        <url>git@github.com:agdturner/agdt-java-generic-math.git</url>
-        <connection>scm:git:git@github.com:agdturner/agdt-java-generic-math.git</connection>
-        <developerConnection>scm:git:git@github.com:agdturner/agdt-java-generic-math</developerConnection>
+        <url>git@github.com:agdturner/agdt-java-math.git</url>
+        <connection>scm:git:git@github.com:agdturner/agdt-java-math.git</connection>
+        <developerConnection>scm:git:git@github.com:agdturner/agdt-java-math</developerConnection>
     </scm>
     <licenses>
         <license>
@@ -202,9 +202,11 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <!--
         <repository>
             <id>internal</id>
             <url>file://${project.build.directory}/mvn-repo</url>
         </repository>
+        -->
     </distributionManagement>
 </project>
