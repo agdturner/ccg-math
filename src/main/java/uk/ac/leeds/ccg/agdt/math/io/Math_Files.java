@@ -15,10 +15,9 @@
  */
 package uk.ac.leeds.ccg.agdt.math.io;
 
-import java.io.File;
 import java.io.IOException;
-import uk.ac.leeds.ccg.agdt.generic.io.Generic_Defaults;
-import uk.ac.leeds.ccg.agdt.generic.io.Generic_Files;
+import uk.ac.leeds.ccg.generic.io.Generic_Defaults;
+import uk.ac.leeds.ccg.generic.io.Generic_Files;
 import uk.ac.leeds.ccg.agdt.math.core.Math_Strings;
 
 /**

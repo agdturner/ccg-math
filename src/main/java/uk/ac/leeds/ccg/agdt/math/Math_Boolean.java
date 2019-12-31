@@ -15,7 +15,7 @@
  */
 package uk.ac.leeds.ccg.agdt.math;
 
-import uk.ac.leeds.ccg.agdt.generic.core.Generic_Strings;
+import uk.ac.leeds.ccg.generic.core.Generic_Strings;
 
 public class Math_Boolean extends Math_Number {
 

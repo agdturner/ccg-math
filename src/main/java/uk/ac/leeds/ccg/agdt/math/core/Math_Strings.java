@@ -15,7 +15,7 @@
  */
 package uk.ac.leeds.ccg.agdt.math.core;
 
-import uk.ac.leeds.ccg.agdt.generic.core.Generic_Strings;
+import uk.ac.leeds.ccg.generic.core.Generic_Strings;
 
 /**
  * Math String.

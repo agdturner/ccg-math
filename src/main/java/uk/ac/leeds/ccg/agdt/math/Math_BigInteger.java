@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.TreeMap;
-import uk.ac.leeds.ccg.agdt.generic.util.Generic_Collections;
+import uk.ac.leeds.ccg.generic.util.Generic_Collections;
 
 public class Math_BigInteger extends Math_Number {
 

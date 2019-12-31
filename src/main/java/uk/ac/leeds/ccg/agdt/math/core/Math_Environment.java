@@ -15,7 +15,7 @@
  */
 package uk.ac.leeds.ccg.agdt.math.core;
 
-import uk.ac.leeds.ccg.agdt.generic.core.Generic_Environment;
+import uk.ac.leeds.ccg.generic.core.Generic_Environment;
 
 /**
  * Math Environment.
