@@ -15,12 +15,11 @@
  */
 package uk.ac.leeds.ccg.math;
 
-import uk.ac.leeds.ccg.math.Math_BigInteger;
 import java.math.RoundingMode;
 
 /**
- *
- * @author geoagdt
+ * @author Andy Turner
+ * @version 1.0.0
  */
 public class Math_Test {
     public void printTest(int test) {
