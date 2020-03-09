@@ -20,6 +20,8 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Random;
+import org.hamcrest.Matchers;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,27 +56,27 @@ public class Math_BigDecimalTest extends Math_Test {
 
     @Test // Uncomment to run tests
     public void testAll() {
-        testRoundToAndSetDecimalPlaces_3args(); // Test passes
-        testMultiply(); // Test passes
-        testDivide(); // Test passes
-        testReciprocal(); // Test passes
-        testReciprocalWillBeInteger(); // Test passes
-        testGetEulerConstant(); // Test passes
-        testPositionSignificantDigit(); // Test passes
-        testFloorSignificantDigit(); // Test passes
-        testCeilingSignificantDigit(); // Test passes
-        testRandomUniformTest(); // Test passes
-        testExp(); // Not all tests work...
-        testLn(); // Test passes
-        testLog(); // Test passes
-        test_getRandom_2args(); // Test passes
-        test_getRandom_4args(); // Test passes
+//        testRoundToAndSetDecimalPlaces_3args(); // Test passes
+//        testMultiply(); // Test passes
+//        testDivide(); // Test passes
+//        testReciprocal(); // Test passes
+//        testReciprocalWillBeInteger(); // Test passes
+//        testGetEulerConstant(); // Test passes
+//        testPositionSignificantDigit(); // Test passes
+//        testFloorSignificantDigit(); // Test passes
+//        testCeilingSignificantDigit(); // Test passes
+//        testRandomUniformTest(); // Test passes
+//        testExp(); // Not all tests work...
+//        testLn(); // Test passes
+//        testLog(); // Test passes
+//        test_getRandom_2args(); // Test passes
+//        test_getRandom_4args(); // Test passes
         testSqrt();  // Test passes
-        testRoot(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
-        testPower(); //@TODO Not all tests completing in a satisfactory time. Some may be getting stuck in infinite loops.
-        testCos(); // Test passes
-        testSin(); // Test passes
-        testTan(); // Test passes
+//        testRoot(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
+//        testPower(); //@TODO Not all tests completing in a satisfactory time. Some may be getting stuck in infinite loops.
+//        testCos(); // Test passes
+//        testSin(); // Test passes
+//        testTan(); // Test passes
     }
 
     //@Test
@@ -3701,7 +3703,14 @@ public class Math_BigDecimalTest extends Math_Test {
         BigDecimal expResult;
         BigDecimal result;
         // Test 1
-        int test = 1;
+        x = new BigDecimal("25");
+        dp = 0;
+        rm = RoundingMode.HALF_UP;
+        expResult = BigDecimal.valueOf(5);
+        result = Math_BigDecimal.sqrt(x, dp, rm);
+        assertThat(expResult, Matchers.comparesEqualTo(result));
+        
+        // Test 1
         x = new BigDecimal("100");
         dp = 100;
         rm = RoundingMode.HALF_UP;
@@ -3736,10 +3745,10 @@ public class Math_BigDecimalTest extends Math_Test {
 //        System.out.println("ten3 " + ten3.toPlainString());
 //        System.out.println("ten4 " + ten4.toPlainString());
 //        System.out.println("ten5 " + ten5.toPlainString());
-        printFunctionTest(funcName, test, x, dp, rm, result);
+        //printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
         // Test 2
-        test++;
+        //test++;
         x = new BigDecimal("10000");
         dp = 100;
         rm = RoundingMode.HALF_UP;
@@ -3748,10 +3757,10 @@ public class Math_BigDecimalTest extends Math_Test {
         //expResult = new BigDecimal("1E+2");
         result = Math_BigDecimal.sqrt(x, dp, rm);
         result = new BigDecimal(result.toPlainString());
-        printFunctionTest(funcName, test, x, dp, rm, result);
+        //printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
         // Test 3
-        test++;
+        //test++;
         x = new BigDecimal("0.01");
         dp = 100;
         rm = RoundingMode.HALF_UP;
@@ -3760,10 +3769,10 @@ public class Math_BigDecimalTest extends Math_Test {
         //expResult = new BigDecimal("1E+2");
         result = Math_BigDecimal.sqrt(x, dp, rm);
         result = new BigDecimal(result.toPlainString());
-        printFunctionTest(funcName, test, x, dp, rm, result);
+        //printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
         // Test 4
-        test++;
+        //test++;
         x = new BigDecimal("0.000000001");
         dp = 100;
         rm = RoundingMode.HALF_UP;
@@ -3773,7 +3782,7 @@ public class Math_BigDecimalTest extends Math_Test {
         //expResult = new BigDecimal("1E+2");
         result = Math_BigDecimal.sqrt(x, dp, rm);
         result = new BigDecimal(result.toPlainString());
-        printFunctionTest(funcName, test, x, dp, rm, result);
+        //printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 

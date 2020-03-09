@@ -15,6 +15,7 @@
  */
 package uk.ac.leeds.ccg.math;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -47,31 +48,38 @@ public class Math_BigDecimal extends Math_Number {
      * calculations).
      */
     public Math_BigInteger bi;
+
     /**
      * For storing the Euler constant correct to a fixed decimal place
      * precision. ~2.71828182845904523536028747135266249775724709369995
      */
     private BigDecimal e;
+
     /**
      * For storing the PI constant correct to a fixed decimal place precision.
      */
     private BigDecimal pi;
+
     /**
      * The {@link RoundingMode} used in calculations.
      */
     private RoundingMode rm;
+
     /**
      * Default RoundingMode
      */
     private static RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_UP;
+
     /**
      * The number 2 is often used so is made available as a constant.
      */
     public static final BigDecimal TWO = BigDecimal.valueOf(2);
+
     /**
      * The number 0.5 is often used so is made available as a constant.
      */
     public static final BigDecimal HALF = new BigDecimal("0.5");
+
     /**
      * The number 11 is often used so is made available as a constant.
      */
@@ -4949,6 +4957,53 @@ public class Math_BigDecimal extends Math_Number {
             return null;
         }
         return divideRoundIfNecessary(sinx, cosx, dpp, rm);
+    }
+
+    /**
+     * Calculates the atan of {@code x].
+     * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     *
+     * @param x the value
+     * @param scale scale
+     * @param rm RoundingMode
+     */
+    public static BigDecimal atan(BigDecimal x, int scale, RoundingMode rm) {
+        int scale2 = scale + 8; // Is 8 sufficient?
+        BigDecimal xdivsqrt1px2 = divideRoundIfNecessary(x,
+                sqrt(BigDecimal.ONE.add(x.multiply(x)), scale2, rm),
+                scale, rm);
+        return asin(xdivsqrt1px2, scale, rm);
+    }
+
+    /**
+     * Calculates the acos of {@code x}.
+     * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     *
+     * @param x the value
+     * @param scale scale
+     * @param rm RoundingMode
+     */
+    public static BigDecimal acos(BigDecimal x, BigDecimal pi, int scale, RoundingMode rm) {
+        BigDecimal r = divideRoundIfNecessary(pi, TWO, scale + 1, rm)
+                .subtract(asin(x, scale + 1, rm));
+        return roundIfNecessary(r, scale, rm);
+    }
+
+    /**
+     * Calculates the asin of {@code BigDecimal x}.https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     *
+     * @param x the value
+     * @param scale scale
+     * @param rm RoundingMode
+     * @return asin(x)
+     */
+    public static BigDecimal asin(BigDecimal x, int scale, RoundingMode rm) {
+        //if (x.compareTo(BigDecimal.ZERO) == -1) {
+        //    return asin(x.negate(), scale, rm).negate();
+        //}
+        // As values should be between -1 and 1 the precision is scale + 1;
+        MathContext mc = new MathContext(scale + 1, rm);
+        return BigDecimalMath.asin(x, mc);
     }
 
     /**
