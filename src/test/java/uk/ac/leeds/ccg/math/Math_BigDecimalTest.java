@@ -56,27 +56,27 @@ public class Math_BigDecimalTest extends Math_Test {
 
     @Test // Uncomment to run tests
     public void testAll() {
-//        testRoundToAndSetDecimalPlaces_3args(); // Test passes
-//        testMultiply(); // Test passes
-//        testDivide(); // Test passes
-//        testReciprocal(); // Test passes
-//        testReciprocalWillBeInteger(); // Test passes
-//        testGetEulerConstant(); // Test passes
-//        testPositionSignificantDigit(); // Test passes
-//        testFloorSignificantDigit(); // Test passes
-//        testCeilingSignificantDigit(); // Test passes
-//        testRandomUniformTest(); // Test passes
-//        testExp(); // Not all tests work...
-//        testLn(); // Test passes
-//        testLog(); // Test passes
-//        test_getRandom_2args(); // Test passes
-//        test_getRandom_4args(); // Test passes
+        testRoundToAndSetDecimalPlaces_3args(); // Test passes
+        testMultiply(); // Test passes
+        testDivide(); // Test passes
+        testReciprocal(); // Test passes
+        testReciprocalWillBeInteger(); // Test passes
+        testGetEulerConstant(); // Test passes
+        testPositionSignificantDigit(); // Test passes
+        testFloorSignificantDigit(); // Test passes
+        testCeilingSignificantDigit(); // Test passes
+        testRandomUniformTest(); // Test passes
+        testExp(); // Not all tests work...
+        testLn(); // Test passes
+        testLog(); // Test passes
+        test_getRandom_2args(); // Test passes
+        test_getRandom_4args(); // Test passes
         testSqrt();  // Test passes
-//        testRoot(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
-//        testPower(); //@TODO Not all tests completing in a satisfactory time. Some may be getting stuck in infinite loops.
-//        testCos(); // Test passes
-//        testSin(); // Test passes
-//        testTan(); // Test passes
+        testRoot(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
+        testPower(); //@TODO Not all tests completing in a satisfactory time. Some may be getting stuck in infinite loops.
+        testCos(); // Test passes
+        testSin(); // Test passes
+        testTan(); // Test passes
     }
 
     //@Test
