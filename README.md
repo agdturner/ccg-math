@@ -35,7 +35,7 @@ https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.1.0/agdt-jav
 
 ## Development Roadmap
 ### Version 1.3
-Compare and contract with https://github.com/eobermuhlner/big-math
+Compare and contract with https://github.com/eobermuhlner/big-math and https://github.com/kiprobinson/BigFraction
 A SNAPSOT version of this will be made available in due course...
 
 ## Dependencies
