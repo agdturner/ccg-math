@@ -907,14 +907,15 @@ public class Math_BigDecimal extends Math_Number {
         BigInteger elementOneReciprocal;
         BigDecimal root;
         BigDecimal rootMultiple;
-        int maxite = y0.precision();
+        //int maxite = y0.precision();
+        int maxite = Math.max(y0.precision(), 100); // 100?
         r = BigDecimal.ONE;
         for (int i = 0; i < maxite; i++) {
             element = floorSignificantDigit(y0);
             elementUnscaled = element.unscaledValue();
             //System.out.println("element " + element + " elementUnscaled " + elementUnscaled);
             if (elementUnscaled.compareTo(BigInteger.ZERO) == 1) {
-                elementOne = divideRoundIfNecessary(element, elementUnscaled, dp, rm);
+                elementOne = divideRoundIfNecessary(element, elementUnscaled, dp + 2, rm); // +2 sufficient?
                 if (elementOne.compareTo(BigDecimal.ZERO) == 0) {
                     break;
                 }

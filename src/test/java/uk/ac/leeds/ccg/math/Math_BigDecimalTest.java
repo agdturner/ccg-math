@@ -3707,10 +3707,10 @@ public class Math_BigDecimalTest extends Math_Test {
         dp = 0;
         rm = RoundingMode.HALF_UP;
         expResult = BigDecimal.valueOf(5);
+        //BigDecimal pow = Math_BigDecimal.power(x, new BigDecimal("0.5"), dp, rm);
         result = Math_BigDecimal.sqrt(x, dp, rm);
         assertThat(expResult, Matchers.comparesEqualTo(result));
-        
-        // Test 1
+        // Test 2
         x = new BigDecimal("100");
         dp = 100;
         rm = RoundingMode.HALF_UP;
