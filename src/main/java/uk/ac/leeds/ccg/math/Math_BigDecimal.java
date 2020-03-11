@@ -43,6 +43,8 @@ import java.util.Random;
  */
 public class Math_BigDecimal extends Math_Number {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * A {@link Math_BigInteger} is often wanted (such as in Taylor Series
      * calculations).
@@ -4978,11 +4980,13 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Calculates the acos of {@code x}.
-     * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     * <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">https://en.wikipedia.org/wiki/Inverse_trigonometric_functions</a>
      *
      * @param x the value
+     * @param pi A value of Pi
      * @param scale scale
      * @param rm RoundingMode
+     * @return acos(x)
      */
     public static BigDecimal acos(BigDecimal x, BigDecimal pi, int scale, RoundingMode rm) {
         BigDecimal r = divideRoundIfNecessary(pi, TWO, scale + 1, rm)
@@ -4991,7 +4995,8 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Calculates the asin of {@code BigDecimal x}.https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     * Calculates the asin of {@code BigDecimal x}.
+     * <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">https://en.wikipedia.org/wiki/Inverse_trigonometric_functions</a>
      *
      * @param x the value
      * @param scale scale
