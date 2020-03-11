@@ -2780,6 +2780,16 @@ public class Math_BigDecimalTest extends Math_Test {
         result = Math_BigDecimal.rootUnscaled1Precision1(x, y, dp);
         printFunctionTest(funcName, test, x, y, dp, result);
         assertEquals(expResult, result);
+        // Test 2
+        test ++;
+        x = new BigDecimal("125");
+        y = 3;
+        dp = 1;
+        expResult = new BigDecimal(BigInteger.valueOf(5));
+        expResult = expResult.setScale(dp);
+        result = Math_BigDecimal.rootUnscaled1Precision1(x, y, dp);
+        printFunctionTest(funcName, test, x, y, dp, result);
+        assertEquals(expResult, result);
     }
 
     //@Test
