@@ -6,6 +6,9 @@
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-math</artifactId>
     <version>1.4-SNAPSHOT</version>
+    <!--
+    <version>1.3</version>
+    -->
     <packaging>jar</packaging>
 
     <name>agdt-java-math</name>
@@ -51,11 +54,13 @@
     </properties>
     
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/io.github.agdturner/agdt-java-generic -->
         <dependency>
             <groupId>io.github.agdturner</groupId>
             <artifactId>agdt-java-generic</artifactId>
             <version>${agdt-java-generic.version}</version>
         </dependency>
+        <!-- https://search.maven.org/artifact/ch.obermuhlner/big-math -->
         <dependency>
             <groupId>ch.obermuhlner</groupId>
             <artifactId>big-math</artifactId>
