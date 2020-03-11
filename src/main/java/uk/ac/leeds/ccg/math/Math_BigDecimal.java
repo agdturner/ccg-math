@@ -4963,12 +4963,12 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Calculates the atan of {@code x].
-     * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     * Calculates the atan of {@code x}.https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
      *
      * @param x the value
      * @param scale scale
      * @param rm RoundingMode
+     * @return atan(x)
      */
     public static BigDecimal atan(BigDecimal x, int scale, RoundingMode rm) {
         int scale2 = scale + 8; // Is 8 sufficient?
