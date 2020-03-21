@@ -2806,69 +2806,69 @@ public class Math_BigDecimalTest extends Math_Test {
         BigDecimal result;
         // Main switches for test
         boolean do1to6 = false;
-//        do1to3 = true;
+        do1to6 = true;
         int test = 1;
-if (do1to6) {
-        // Test 1
-        x = new BigDecimal("0.25");
-        root = new BigInteger("42");
-        dp = 10;
-        rm = RoundingMode.HALF_UP;
-        //expResult = new BigDecimal("0.9675317785");
-        mc = new MathContext(dp, rm);
-        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
-        printFunctionTest(funcName, test, x, root, dp, rm, result);
-        assertEquals(expResult, result);
-        // Test 2
-        test++;
-        x = new BigDecimal("27");
-        root = new BigInteger("3");
-        dp = 10;
-        rm = RoundingMode.HALF_UP;
-        //expResult = new BigDecimal("3");
-        expResult = new BigDecimal("3.0000000000");
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
-        printFunctionTest(funcName, test, x, root, dp, rm, result);
-        assertEquals(expResult, result);
-        // Test 3
-        test++;
-        x = new BigDecimal("8904831940328.25");
-        root = new BigInteger("10");
-        dp = 100;
-        rm = RoundingMode.HALF_UP;
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
-        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-        printFunctionTest(funcName, test, x, root, dp, rm, result);
-        assertEquals(expResult, result);
-        // Test 4
-        test++;
-        x = new BigDecimal("8904831940328.25");
-        root = new BigInteger("100");
-        dp = 100;
-        rm = RoundingMode.HALF_UP;
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
-        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-        printFunctionTest(funcName, test, x, root, dp, rm, result);
-        assertEquals(expResult, result);
-        // Test 5
-        test++;
-        x = new BigDecimal("8904831940328.25");
-        root = new BigInteger("500");
-        dp = 100;
-        rm = RoundingMode.HALF_UP;
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
-        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-        printFunctionTest(funcName, test, x, root, dp, rm, result);
-        assertEquals(expResult, result);
-}
+        if (do1to6) {
+            // Test 1
+            x = new BigDecimal("0.25");
+            root = new BigInteger("42");
+            dp = 10;
+            rm = RoundingMode.HALF_UP;
+            //expResult = new BigDecimal("0.9675317785");
+            mc = new MathContext(dp, rm);
+            expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
+            expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
+            result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+            printFunctionTest(funcName, test, x, root, dp, rm, result);
+            assertEquals(expResult, result);
+            // Test 2
+            test++;
+            x = new BigDecimal("27");
+            root = new BigInteger("3");
+            dp = 10;
+            rm = RoundingMode.HALF_UP;
+            //expResult = new BigDecimal("3");
+            expResult = new BigDecimal("3.0000000000");
+            result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+            printFunctionTest(funcName, test, x, root, dp, rm, result);
+            assertEquals(expResult, result);
+            // Test 3
+            test++;
+            x = new BigDecimal("8904831940328.25");
+            root = new BigInteger("10");
+            dp = 100;
+            rm = RoundingMode.HALF_UP;
+            result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+            mc = new MathContext(dp + result.precision() - result.scale(), rm);
+            expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
+            expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
+            printFunctionTest(funcName, test, x, root, dp, rm, result);
+            assertEquals(expResult, result);
+            // Test 4
+            test++;
+            x = new BigDecimal("8904831940328.25");
+            root = new BigInteger("100");
+            dp = 100;
+            rm = RoundingMode.HALF_UP;
+            result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+            mc = new MathContext(dp + result.precision() - result.scale(), rm);
+            expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
+            expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
+            printFunctionTest(funcName, test, x, root, dp, rm, result);
+            assertEquals(expResult, result);
+            // Test 5
+            test++;
+            x = new BigDecimal("8904831940328.25");
+            root = new BigInteger("500");
+            dp = 100;
+            rm = RoundingMode.HALF_UP;
+            result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+            mc = new MathContext(dp + result.precision() - result.scale(), rm);
+            expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
+            expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
+            printFunctionTest(funcName, test, x, root, dp, rm, result);
+            assertEquals(expResult, result);
+        }
         // Test 6
         test++;
         x = new BigDecimal("8904831940328.25");
@@ -2881,18 +2881,18 @@ if (do1to6) {
         expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
         printFunctionTest(funcName, test, x, root, dp, rm, result);
         assertEquals(expResult, result);
-        // Test 7
-        test++;
-        x = new BigDecimal("8904831940328.25");
-        root = new BigInteger("5000");
-        dp = 100;
-        rm = RoundingMode.HALF_UP;
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
-        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-        printFunctionTest(funcName, test, x, root, dp, rm, result);
-        assertEquals(expResult, result);
+//        // Test 7 BigDecimalMath not returning a result in a reasonable time frame!
+//        test++;
+//        x = new BigDecimal("8904831940328.25");
+//        root = new BigInteger("5000");
+//        dp = 100;
+//        rm = RoundingMode.HALF_UP;
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+//        mc = new MathContext(dp + result.precision() - result.scale(), rm);
+//        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
+//        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
+//        printFunctionTest(funcName, test, x, root, dp, rm, result);
+//        assertEquals(expResult, result);
         // Test 8
         test++;
         x = new BigDecimal("8904831940328.25");
