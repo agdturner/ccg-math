@@ -63,6 +63,30 @@ public class Math_BigDecimal extends Math_Number {
     private BigDecimal pi;
 
     /**
+     * For storing the PI constant divided by two correct to a fixed decimal 
+     * place precision.
+     */
+    private BigDecimal piBy2;
+    
+    /**
+     * For storing the number of decimal places that {@link #piBy2} is accurate 
+     * to.
+     */
+    private int piBy2DP;
+
+    /**
+     * For storing the PI constant multiplied by two correct to a fixed decimal 
+     * place precision.
+     */
+    private BigDecimal pi2;
+
+    /**
+     * For storing the number of decimal places that {@link #pi2} is accurate 
+     * to.
+     */
+    private int pi2DP;
+
+    /**
      * The {@link RoundingMode} used in calculations.
      */
     private RoundingMode rm;
@@ -93,18 +117,6 @@ public class Math_BigDecimal extends Math_Number {
      */
     public Math_BigDecimal() {
         this(1000);
-    }
-
-    /**
-     * Creates a new instance based on {@code bd}.
-     *
-     * @param bd The Generic_BigDecimal used to initialise this.
-     */
-    public Math_BigDecimal(Math_BigDecimal bd) {
-        this.e = new BigDecimal(bd.e.toString());
-        this.bi = new Math_BigInteger(bd.bi);
-        this.pi = new BigDecimal(bd.pi.toString());
-        this.rm = bd.rm;
     }
 
     /**
@@ -2268,7 +2280,7 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(BigDecimal.ONE) == 0) {
             return BigDecimal.ZERO;
         }
-        if (new BigDecimal("" + b).compareTo(x) == 0) {
+        if (BigDecimal.valueOf(b).compareTo(x) == 0) {
             return BigDecimal.ONE;
         }
         if (x.compareTo(BigDecimal.ONE) == -1) {
@@ -2441,7 +2453,7 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * This is not necessarily an immutable operation as x may be returned!
+     * This may return {@code x}.
      *
      * @param x The number to be rounded.
      * @param dp The number of decimal places the result has to be correct to.
@@ -2494,12 +2506,9 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Initialises {@link #pi} with first 10,000 digits. The data were obtained
-     * from the website with the following URL on 2011-01-14:
-     * <ul>
-     * <li>http://www.eveandersson.com/pi/digits/</li>
-     * </ul>
-     * From the website site data on the first million digits of PI was also
-     * available...
+     * from
+     * <a href="http://www.eveandersson.com/pi/digits/">http://www.eveandersson.com/pi/digits/</a>
+     * on 2011-01-14, where the first million digits of PI was also available...
      */
     private void initPi() {
         pi = new BigDecimal(
@@ -2707,14 +2716,72 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
+     * @param dp If greater than 10000, then a {@link #java.lang.RuntimeException} is
+     * thrown.
+     * @param rm The RoundingMode.
      * @return {@link #pi} unless it is {@code null} in which case it is
      * initialised with 10000 decimal places.
      */
-    public BigDecimal getPi() {
+    public BigDecimal getPi(int dp, RoundingMode rm) {
+        if (dp > 10000) {
+            throw new RuntimeException("dp > 10000");
+        }
         if (pi == null) {
             initPi();
         }
-        return pi;
+        return Math_BigDecimal.roundToAndSetDecimalPlaces(pi, dp, rm);
+    }
+
+    /**
+     * Initialises {@link #piBy2}.
+     * @param dp DecimalPlaces
+     * @param rm RoundingMode
+     */
+    private void initPiBy2(int dp, RoundingMode rm) {
+        piBy2 = Math_BigDecimal.divideRoundIfNecessary(getPi(dp + 1, rm),
+                BigDecimal.valueOf(2), dp, rm);
+        piBy2DP = dp;
+    }
+    
+    /**
+     * @param dp The decimal place precision.
+     * @param rm The RoundingMode.
+     * @return {@link #pi} divided by 2.
+     */
+    public BigDecimal getPiBy2(int dp, RoundingMode rm) {
+        if (piBy2 == null) {
+            initPiBy2(dp, rm);
+        }
+        if (piBy2DP < dp) {
+            initPiBy2(dp, rm);
+        }
+        return Math_BigDecimal.roundToAndSetDecimalPlaces(piBy2, dp, rm);
+    }
+
+    /**
+     * Initialises {@link #pi2}.
+     * @param dp DecimalPlaces
+     * @param rm RoundingMode
+     */
+    private void initPi2(int dp, RoundingMode rm) {
+        pi2 = Math_BigDecimal.divideRoundIfNecessary(getPi(dp + 1, rm),
+                BigDecimal.valueOf(2), dp, rm);
+        pi2DP = dp;
+    }
+    
+    /**
+     * @param dp The decimal place precision.
+     * @param rm The RoundingMode.
+     * @return {@link #pi} divided by 2.
+     */
+    public BigDecimal getPi2(int dp, RoundingMode rm) {
+        if (pi2 == null) {
+            initPi2(dp, rm);
+        }
+        if (pi2DP < dp) {
+            initPi2(dp, rm);
+        }
+        return Math_BigDecimal.roundToAndSetDecimalPlaces(pi2, dp, rm);
     }
 
     /**
@@ -2803,22 +2870,29 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ONE;
         }
-        // Check a_Generic_BigDecimal
+        // Check bd
         if (bd == null) {
             bd = new Math_BigDecimal();
         }
         if (x.compareTo(BigDecimal.ONE) == 0) {
             return bd.getEulerConstantToAFixedDecimalPlacePrecision(dp, rm);
         }
+        BigInteger xBi = x.toBigInteger();
+        BigDecimal xBiBd = new BigDecimal(xBi, 0);
+        if(xBiBd.compareTo(x) == 0) {
+            return Math_BigInteger.exp(xBi, bd, dp, rm);
+        }
+        BigDecimal fract = x.subtract(xBiBd);
         int safeDecimalPlaces;
-        if (x.compareTo(BigDecimal.ZERO) == -1) {
-            safeDecimalPlaces = x.scale() + dp;
-            BigDecimal exp = exp(x.negate(), bd, safeDecimalPlaces, rm);
+        if (fract.compareTo(BigDecimal.ZERO) == -1) {
+            safeDecimalPlaces = fract.scale() + dp;
+            BigDecimal exp = exp(fract.negate(), bd, safeDecimalPlaces, rm);
             r = reciprocal(exp, dp, rm);
-            return r;
+            r = Math_BigInteger.exp(xBi, bd, dp + 2, rm).multiply(r);
+            return Math_BigDecimal.roundIfNecessary(r, dp, rm);
         }
         int dpd = dp + 3;
-        r = BigDecimal.ONE.add(x);
+        r = BigDecimal.ONE.add(fract);
 //        if (bd.bi == null) {
 //            bd.init_Factorial_Generic_BigInteger(maxite);
 //        } else {
@@ -2837,13 +2911,14 @@ public class Math_BigDecimal extends Math_Number {
              * May need dp to be higher (even though the bottom of the Taylor
              * series grows fast).
              */
-            BigDecimal px = power(x, bi, 64, dp, rm);
+            BigDecimal px = power(fract, bi, 64, dpd, rm);
             dpxff = divideRoundIfNecessary(px, ff, dpd, rm);
             r = r.add(dpxff);
             if (dpxff.compareTo(tollerance) == -1) {
                 break;
             }
         }
+        r = Math_BigInteger.exp(xBi, bd, dp + 2, rm).multiply(r);
         return roundIfNecessary(r, dp, rm);
     }
 
@@ -4761,10 +4836,9 @@ public class Math_BigDecimal extends Math_Number {
      */
     public static BigDecimal cos(BigDecimal x, Math_BigDecimal bd, int dp,
             RoundingMode rm) {
-        BigDecimal aPI = bd.getPi();
-        BigDecimal aPIBy2 = Math_BigDecimal.divideRoundIfNecessary(aPI,
-                BigInteger.valueOf(2), dp + 2, rm);
-        return sin(x.add(aPIBy2), bd, dp, rm);
+        BigDecimal aPIBy2 = bd.getPiBy2(dp + 2, rm);
+        BigDecimal r = sin(x.add(aPIBy2), bd, dp + 1, rm);
+        return Math_BigDecimal.roundToAndSetDecimalPlaces(r, dp, rm);
 //        Math_BigInteger aGeneric_BigInteger = a_Generic_BigDecimal.bi;
 //        BigDecimal aPI1000 = a_Generic_BigDecimal.get_PI();
 //        // cosx = 1-(x^2)/(2!)+(x^4)/(4!)-(x^6)/(6!)+...
@@ -4814,27 +4888,26 @@ public class Math_BigDecimal extends Math_Number {
      * @return The sine of x.
      */
     public static BigDecimal sin(BigDecimal x, Math_BigDecimal bd, int dp, RoundingMode rm) {
-        BigDecimal aPI = bd.getPi();
-        BigDecimal twoPI = BigDecimal.valueOf(2).multiply(aPI);
+        BigDecimal aPi = bd.getPi(dp + 1, rm);
+        BigDecimal aPi2 = bd.getPi2(dp + 1, rm);
         while (x.compareTo(BigDecimal.ZERO) == -1) {
-            x = x.add(twoPI);
+            x = x.add(aPi2);
         }
-        while (x.compareTo(twoPI) == 1) {
-            x = x.subtract(twoPI);
+        while (x.compareTo(aPi2) == 1) {
+            x = x.subtract(aPi2);
         }
         // SpecialCases
         if (x.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
         }
-        if (x.compareTo(aPI) == 0) {
+        if (x.compareTo(aPi) == 0) {
             return BigDecimal.ZERO;
         }
-        if (x.compareTo(twoPI) == 0) {
+        if (x.compareTo(aPi2) == 0) {
             return BigDecimal.ZERO;
         }
-        BigDecimal aPIBy2 = Math_BigDecimal.divideRoundIfNecessary(aPI,
-                BigInteger.valueOf(2), dp + 2, rm);
-        return sinNoCaseCheck(x, aPI, twoPI, aPIBy2, bd, dp, rm);
+        BigDecimal aPIBy2 = bd.getPiBy2(dp + 2, rm);
+        return sinNoCaseCheck(x, aPi, aPi2, aPIBy2, bd, dp, rm);
     }
 
     /**
@@ -4944,26 +5017,27 @@ public class Math_BigDecimal extends Math_Number {
      *
      * @param bd An instance of Math_BigDecimal.
      * @param x The value to calculate the tangent of.
-     * @param dpp Decimal Place Precision
-     * @param rm The {@link RoundingMode} used to round intermediate results and
+     * @param dp Decimal Place Precision
+     * @param rm The {@link RoundingMode} used to round intermediate dp and
      * the final result.
      * @return tan(x)
      */
-    public static BigDecimal tan(BigDecimal x, Math_BigDecimal bd, int dpp,
+    public static BigDecimal tan(BigDecimal x, Math_BigDecimal bd, int dp,
             RoundingMode rm) {
-        BigDecimal sinx = sin(x, bd, dpp + 10, rm);
+        BigDecimal sinx = sin(x, bd, dp + 10, rm);
         RoundingMode rmd = RoundingMode.DOWN;
-        sinx = roundIfNecessary(sinx, dpp + 8, rmd);
-        BigDecimal cosx = cos(x, bd, dpp + 10, rm);
-        cosx = roundIfNecessary(cosx, dpp + 8, rmd);
+        sinx = roundIfNecessary(sinx, dp + 8, rmd);
+        BigDecimal cosx = cos(x, bd, dp + 10, rm);
+        cosx = roundIfNecessary(cosx, dp + 8, rmd);
         if (cosx.compareTo(BigDecimal.ZERO) == 0) {
             return null;
         }
-        return divideRoundIfNecessary(sinx, cosx, dpp, rm);
+        return divideRoundIfNecessary(sinx, cosx, dp, rm);
     }
 
     /**
-     * Calculates the atan of {@code x}.https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     * Calculates the atan of
+     * {@code x}.https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
      *
      * @param x the value
      * @param scale scale

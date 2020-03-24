@@ -25,6 +25,7 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.TreeMap;
 import uk.ac.leeds.ccg.generic.util.Generic_Collections;
+import static uk.ac.leeds.ccg.math.Math_BigDecimal.exp;
 
 public class Math_BigInteger extends Math_Number {
 
@@ -373,7 +374,98 @@ public class Math_BigInteger extends Math_Number {
         if (x.compareTo(BigInteger.ZERO) == 0) {
             return BigDecimal.ONE;
         }
-        return Math_BigDecimal.exp(new BigDecimal(x), bd, dp, rm);
+        if (x.compareTo(BigInteger.ZERO) == -1) {
+            return Math_BigDecimal.reciprocal(exp(x.negate(), bd, dp, rm), dp, rm);
+        }
+        BigDecimal r = BigDecimal.ZERO;
+        if (x.compareTo(BigInteger.valueOf(999999999)) != 1
+                && x.compareTo(BigInteger.ZERO) != -1) {
+            r = bd.getEulerConstantToAMinimumDecimalPlacePrecision(
+                    dp + Math_BigInteger.log10(x)).pow(x.intValueExact());
+        } else {
+            ArrayList<BigDecimal> rp = new ArrayList<>();
+            BigDecimal rpp = bd.getEulerConstantToAMinimumDecimalPlacePrecision(
+                    dp + Math_BigInteger.log10(x));
+            BigInteger c = BigInteger.valueOf(2);
+            BigInteger cl = BigInteger.ZERO;
+            while (c.compareTo(x) != 1) {
+                BigDecimal m = rpp.multiply(rpp);
+                rp.add(m);
+                r = m;
+                cl = c;
+                c = c.multiply(c);
+            }
+            if (cl.compareTo(x) != 0) {
+                for (int i = rp.size() - 1; i == 0; i--) {
+                    BigInteger pow = BigInteger.valueOf(2).pow(i);
+                    if (cl.compareTo(pow) == 1) {
+                        cl = cl.subtract(pow);
+                        r = r.multiply(rp.get(i));
+                    }
+                    if (cl.compareTo(BigInteger.ZERO) != 0) {
+                        break;
+                    }
+                }
+
+            }
+        }
+        return Math_BigDecimal.roundToAndSetDecimalPlaces(r, dp, rm);
+    }
+
+    /**
+     * Optimised for huge numbers. See:
+     * <a href="https://stackoverflow.com/a/18860385/1998054">https://stackoverflow.com/a/18860385/1998054</a>
+     * <a href="http://en.wikipedia.org/wiki/Logarithm#Change_of_base">http://en.wikipedia.org/wiki/Logarithm#Change_of_base</a>
+     *
+     * States that log[b](x) = log[k](x)/log[k](b)
+     *
+     * We can get log[2](x) as the bitCount of the number so what we need is
+     * essentially bitCount/log[2](10).Sadly that will lead to inaccuracies so
+     * here I will attempt an iterative process that should achieve accuracy.
+     *
+     * log[2](10) = 3.32192809488736234787 so if I divide by 10^(bitCount/4) we
+     * should not go too far. In fact repeating that process while adding
+     * (bitCount/4) to the running count of the digits will end up with an
+     * accurate figure given some twiddling at the end.
+     *
+     * So here's the scheme:
+     *
+     * While there are more than 4 bits in the number Divide by 10^(bits/4)
+     * Increase digit count by (bits/4)
+     *
+     * Fiddle around to accommodate the remaining digit - if there is one.
+     *
+     * Essentially - each time around the loop we remove a number of decimal
+     * digits (by dividing by 10^n) keeping a count of how many we've removed.
+     *
+     * The number of digits we remove is estimated from the number of bits in
+     * the number (i.e. log[2](x) / 4). The perfect figure for the reduction
+     * would be log[2](x) / 3.3219... so dividing by 4 is a good under-estimate.
+     * We don't go too far but it does mean we have to repeat it just a few
+     * times.
+     *
+     * @param x
+     * @return The number of digits in x.
+     */
+    public static int log10(BigInteger x) {
+        int digits = 0;
+        int bits = x.bitLength();
+        // Serious reductions.
+        while (bits > 4) {
+            // 4 > log[2](10) so we should not reduce it too far.
+            int reduce = bits / 4;
+            // Divide by 10^reduce
+            x = x.divide(BigInteger.TEN.pow(reduce));
+            // Removed that many decimal digits.
+            digits += reduce;
+            // Recalculate bitLength
+            bits = x.bitLength();
+        }
+        // Now 4 bits or less - add 1 if necessary.
+        if (x.intValue() > 9) {
+            digits += 1;
+        }
+        return digits;
     }
 
     /**
