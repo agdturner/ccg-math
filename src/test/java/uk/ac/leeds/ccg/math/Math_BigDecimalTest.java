@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.0
  */
 public class Math_BigDecimalTest extends Math_Test {
 
@@ -55,7 +55,7 @@ public class Math_BigDecimalTest extends Math_Test {
     public void tearDown() {
     }
 
-    //@Test // Uncomment to run tests
+    @Test // Uncomment to run tests
     public void testAll() {
         testRoundToAndSetDecimalPlaces_3args(); // Test passes
         testMultiply(); // Test passes
