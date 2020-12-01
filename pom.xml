@@ -68,16 +68,18 @@
             <groupId>ch.obermuhlner</groupId>
             <artifactId>big-math</artifactId>
             <version>2.3.0</version>
+            <!-- These were attempt to deal with split packages, but probably the problem was something else!
             <exclusions>
                 <exclusion>
                     <groupId>xmlpull</groupId>
                     <artifactId>xmlpull</artifactId>
-                    <!--
+                </exclusion>
+                <exclusion>
                     <groupId>javax.annotation</groupId>
                     <artifactId>org.xmlpull.v1</artifactId>
-                    -->
                 </exclusion>
             </exclusions>
+            -->
         </dependency>
         <!--
         <dependency>
