@@ -2729,7 +2729,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * @param dp If greater than 10000, then a
-     * {@link #java.lang.RuntimeException} is thrown.
+     * {@link java.lang.RuntimeException} is thrown.
      * @param rm The RoundingMode.
      * @return {@link #pi} unless it is {@code null} in which case it is
      * initialised with 10000 decimal places.

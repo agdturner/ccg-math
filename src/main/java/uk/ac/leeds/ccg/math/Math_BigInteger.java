@@ -444,7 +444,7 @@ public class Math_BigInteger extends Math_Number {
      * We don't go too far but it does mean we have to repeat it just a few
      * times.
      *
-     * @param x
+     * @param x The number to log.
      * @return The number of digits in x.
      */
     public static int log10(BigInteger x) {
