@@ -5,7 +5,7 @@
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-math</artifactId>
-    <version>1.6-SNAPSHOT</version>
+    <version>1.6</version>
     <!--
     <version>1.7-SNAPSHOT</version>
     -->
@@ -15,7 +15,10 @@
     <url>https://github.com/agdturner/agdt-java-math</url>
     <description>A Java Library for arithmetic and summary statistics.</description>
     <scm>
-        <tag>agdt-java-math-1.6-SNAPSHOT</tag>
+        <tag>agdt-java-math-1.6</tag>
+        <!--
+        <tag>agdt-java-math-1.7-SNAPSHOT</tag>
+        -->
         <url>git@github.com:agdturner/agdt-java-math.git</url>
         <connection>scm:git:git@github.com:agdturner/agdt-java-math.git</connection>
         <developerConnection>scm:git:git@github.com:agdturner/agdt-java-math</developerConnection>
@@ -47,7 +50,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.5.2</junit.version>
         <!--<agdt-java-generic.version>1.5</agdt-java-generic.version>-->
-        <agdt-java-generic.version>1.7</agdt-java-generic.version>
+        <agdt-java-generic.version>1.7.1</agdt-java-generic.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.version>3.0.1</maven.version>
