@@ -22,7 +22,7 @@ import java.util.Arrays;
  *
  * @author Andy Turner
  */
-public class Matrix_BR {
+public class Math_Matrix_BR {
 
     /**
      * The number of rows in the matrix
@@ -43,7 +43,7 @@ public class Matrix_BR {
      * @param nr What {@link #nr} is set to.
      * @param nc What {@link #nc} is set to.
      */
-    public Matrix_BR(int nr, int nc) {
+    public Math_Matrix_BR(int nr, int nc) {
         m = new BigRational[nr][nc];
         this.nr = nr;
         this.nc = nc;
@@ -70,10 +70,10 @@ public class Matrix_BR {
      * @param b The matrix to multiply by.
      * @return result of multiplying {@code a} by {@code b}
      */
-    public static Matrix_BR multiply(Matrix_BR a, Matrix_BR b) {
-        Matrix_BR r = null;
+    public static Math_Matrix_BR multiply(Math_Matrix_BR a, Math_Matrix_BR b) {
+        Math_Matrix_BR r = null;
         if (a.nc == b.nr) {
-            r = new Matrix_BR(a.nr, b.nc);
+            r = new Math_Matrix_BR(a.nr, b.nc);
             for (int row = 0; row < r.nr; row++) {
                 for (int col = 0; col < r.nc; col++) {
                     BigRational v = BigRational.ZERO;
@@ -88,13 +88,32 @@ public class Matrix_BR {
     }
 
     /**
+     * https://en.wikipedia.org/wiki/Identity_matrix
+     *
+     * @param size The dimension of the identity matrix.
+     * @return A matrix with values equal to 1 on the diagonal and 0 elsewhere;
+     */
+    public static Math_Matrix_BR getIdentityMatrix(int size) {
+        Math_Matrix_BR res = new Math_Matrix_BR(size, size);
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                res.m[r][c] = BigRational.ZERO;
+            }
+        }
+        for (int r = 0; r < size; r++) {
+            res.m[r][r] = BigRational.ONE;
+        }
+        return res;
+    }
+
+    /**
      * https://en.wikipedia.org/wiki/Transpose
      *
      * @param a The matrix to return the transpose of.
      * @return {@code a} transposed
      */
-    public static Matrix_BR transpose(Matrix_BR a) {
-        Matrix_BR r = new Matrix_BR(a.nc, a.nr);
+    public static Math_Matrix_BR transpose(Math_Matrix_BR a) {
+        Math_Matrix_BR r = new Math_Matrix_BR(a.nc, a.nr);
         for (int row = 0; row < a.nr; row++) {
             for (int col = 0; col < a.nc; col++) {
                 r.m[col][row] = a.m[row][col];
@@ -105,8 +124,8 @@ public class Matrix_BR {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Matrix_BR) {
-            return equals((Matrix_BR) o);
+        if (o instanceof Math_Matrix_BR) {
+            return equals((Math_Matrix_BR) o);
         }
         return false;
     }
@@ -120,7 +139,7 @@ public class Matrix_BR {
         return hash;
     }
 
-    public boolean equals(Matrix_BR m) {
+    public boolean equals(Math_Matrix_BR m) {
         if (nr == m.nr && nc == m.nc) {
             for (int r = 0; r < nr; r++) {
                 for (int c = 0; c < nc; c++) {

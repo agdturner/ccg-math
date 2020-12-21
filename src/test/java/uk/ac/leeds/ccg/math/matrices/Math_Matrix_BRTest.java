@@ -27,9 +27,9 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Andy Turner
  */
-public class Matrix_BRTest {
+public class Math_Matrix_BRTest {
     
-    public Matrix_BRTest() {
+    public Math_Matrix_BRTest() {
     }
     
     @BeforeAll
@@ -49,30 +49,30 @@ public class Matrix_BRTest {
     }
 
     /**
-     * Test of multiply method, of class Matrix_BR.
+     * Test of multiply method, of class Math_Matrix_BR.
      */
     @Test
     public void testMultiply() {
         System.out.println("multiply");
-        Matrix_BR a = new Matrix_BR(2, 2);
+        Math_Matrix_BR a = new Math_Matrix_BR(2, 2);
         a.m[0][0] = BigRational.TWO;
         a.m[0][1] = BigRational.valueOf(3);
         a.m[1][0] = BigRational.valueOf(5);
         a.m[1][1] = BigRational.valueOf(7);
-        Matrix_BR b = new Matrix_BR(2, 2);
+        Math_Matrix_BR b = new Math_Matrix_BR(2, 2);
         b.m[0][0] = BigRational.valueOf(11);
         b.m[0][1] = BigRational.valueOf(13);
         b.m[1][0] = BigRational.valueOf(17);
         b.m[1][1] = BigRational.valueOf(19);
-        Matrix_BR expResult = new Matrix_BR(2, 2);
+        Math_Matrix_BR expResult = new Math_Matrix_BR(2, 2);
         expResult.m[0][0] = BigRational.valueOf(2*11 + 3*17);
         expResult.m[0][1] = BigRational.valueOf(2*13 + 3*19);
         expResult.m[1][0] = BigRational.valueOf(5*11 + 7*17);
         expResult.m[1][1] = BigRational.valueOf(5*13 + 7*19);
-        Matrix_BR result = Matrix_BR.multiply(a, b);
+        Math_Matrix_BR result = Math_Matrix_BR.multiply(a, b);
         assertEquals(expResult, result);
         // Test 2
-        a = new Matrix_BR(5, 3);
+        a = new Math_Matrix_BR(5, 3);
         a.m[0][0] = BigRational.TWO;
         a.m[1][0] = BigRational.valueOf(3);
         a.m[2][0] = BigRational.valueOf(5);
@@ -88,7 +88,7 @@ public class Matrix_BRTest {
         a.m[2][2] = BigRational.valueOf(37);
         a.m[3][2] = BigRational.valueOf(41);
         a.m[4][2] = BigRational.valueOf(43);
-        b = new Matrix_BR(3, 4);
+        b = new Math_Matrix_BR(3, 4);
         b.m[0][0] = BigRational.valueOf(47);
         b.m[0][1] = BigRational.valueOf(53);
         b.m[0][2] = BigRational.valueOf(59);
@@ -101,7 +101,7 @@ public class Matrix_BRTest {
         b.m[2][1] = BigRational.valueOf(87);
         b.m[2][2] = BigRational.valueOf(91);
         b.m[2][3] = BigRational.valueOf(97);
-        expResult = new Matrix_BR(5, 4);
+        expResult = new Math_Matrix_BR(5, 4);
         expResult.m[0][0] = BigRational.valueOf(2*47 + 13*67 + 29*83); //3372 
         expResult.m[0][1] = BigRational.valueOf(2*53 + 13*71 + 29*87); //3552
         expResult.m[0][2] = BigRational.valueOf(2*59 + 13*73 + 29*91); //3706
@@ -122,25 +122,25 @@ public class Matrix_BRTest {
         expResult.m[4][1] = BigRational.valueOf(11*53 + 23*71 + 43*87); //5851
         expResult.m[4][2] = BigRational.valueOf(11*59 + 23*73 + 43*91); //6123
         expResult.m[4][3] = BigRational.valueOf(11*61 + 23*79 + 43*97); //6537
-        result = Matrix_BR.multiply(a, b);
+        result = Math_Matrix_BR.multiply(a, b);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of equals method, of class Matrix_BR.
+     * Test of equals method, of class Math_Matrix_BR.
      */
     @Test
     public void testEquals_Object() {
         System.out.println("equals");
-        Object o = new Matrix_BR(1, 1);
-        ((Matrix_BR) o).m[0][0] = BigRational.ZERO;
-        Matrix_BR instance = new Matrix_BR(1, 1);
+        Object o = new Math_Matrix_BR(1, 1);
+        ((Math_Matrix_BR) o).m[0][0] = BigRational.ZERO;
+        Math_Matrix_BR instance = new Math_Matrix_BR(1, 1);
         instance.m[0][0] = BigRational.ZERO;
         assertTrue(instance.equals(o));
     }
 
     /**
-     * Test of hashCode method, of class Matrix_BR.
+     * Test of hashCode method, of class Math_Matrix_BR.
      */
     @Test
     public void testHashCode() {
@@ -149,25 +149,25 @@ public class Matrix_BRTest {
     }
 
     /**
-     * Test of equals method, of class Matrix_BR.
+     * Test of equals method, of class Math_Matrix_BR.
      */
     @Test
     public void testEquals_Matrix_BR() {
         System.out.println("equals");
-        Matrix_BR a = new Matrix_BR(1, 1);
+        Math_Matrix_BR a = new Math_Matrix_BR(1, 1);
         a.m[0][0] = BigRational.ZERO;
-        Matrix_BR instance = new Matrix_BR(1, 1);
+        Math_Matrix_BR instance = new Math_Matrix_BR(1, 1);
         instance.m[0][0] = BigRational.ZERO;
         assertTrue(instance.equals(a));
     }
 
     /**
-     * Test of toString method, of class Matrix_BR.
+     * Test of toString method, of class Math_Matrix_BR.
      */
     @Test
     public void testToString() {
         System.out.println("toString");
-        Matrix_BR instance = new Matrix_BR(1, 1);
+        Math_Matrix_BR instance = new Math_Matrix_BR(1, 1);
         instance.m[0][0] = BigRational.ZERO;
         String expResult = "Matrix_BR(nr=1, nc=1" + "\n" + "0 " + "\n" + ")";
         System.out.println(expResult);
@@ -177,35 +177,51 @@ public class Matrix_BRTest {
     }
 
     /**
-     * Test of transpose method, of class Matrix_BR.
+     * Test of transpose method, of class Math_Matrix_BR.
      */
     @Test
     public void testTranspose() {
         System.out.println("transpose");
-        Matrix_BR a = new Matrix_BR(2, 1);
+        Math_Matrix_BR a = new Math_Matrix_BR(2, 1);
         a.m[0][0] = BigRational.TWO;
         a.m[1][0] = BigRational.valueOf(3);
-        Matrix_BR expResult = new Matrix_BR(1, 2);
+        Math_Matrix_BR expResult = new Math_Matrix_BR(1, 2);
         expResult.m[0][0] = BigRational.TWO;
         expResult.m[0][1] = BigRational.valueOf(3);
-        Matrix_BR result = Matrix_BR.transpose(a);
+        Math_Matrix_BR result = Math_Matrix_BR.transpose(a);
         assertEquals(expResult, result);
         // Test 2
-        a = new Matrix_BR(3, 2);
+        a = new Math_Matrix_BR(3, 2);
         a.m[0][0] = BigRational.TWO;
         a.m[0][1] = BigRational.valueOf(3);
         a.m[1][0] = BigRational.valueOf(5);
         a.m[1][1] = BigRational.valueOf(7);
         a.m[2][0] = BigRational.valueOf(11);
         a.m[2][1] = BigRational.valueOf(13);
-        expResult = new Matrix_BR(2, 3);
+        expResult = new Math_Matrix_BR(2, 3);
         expResult.m[0][0] = BigRational.TWO;
         expResult.m[0][1] = BigRational.valueOf(5);
         expResult.m[0][2] = BigRational.valueOf(11);
         expResult.m[1][0] = BigRational.valueOf(3);
         expResult.m[1][1] = BigRational.valueOf(7);
         expResult.m[1][2] = BigRational.valueOf(13);
-        result = Matrix_BR.transpose(a);
+        result = Math_Matrix_BR.transpose(a);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getIdentityMatrix method, of class Math_Matrix_BR.
+     */
+    @Test
+    public void testGetIdentityMatrix() {
+        System.out.println("getIdentityMatrix");
+        int size = 2;
+        Math_Matrix_BR expResult = new Math_Matrix_BR(2, 2);
+        expResult.m[0][0] = BigRational.ONE;
+        expResult.m[1][1] = BigRational.ONE;
+        expResult.m[0][1] = BigRational.ZERO;
+        expResult.m[1][0] = BigRational.ZERO;
+        Math_Matrix_BR result = Math_Matrix_BR.getIdentityMatrix(size);
         assertEquals(expResult, result);
     }
     
