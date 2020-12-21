@@ -4531,14 +4531,17 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Returns the square rootRoundIfNecessary of x as a BigDecimal rounded to
-     * decimalPlaces decimal places.
+     * Returns the square root of x as a BigDecimal. In some cases the square 
+     * root of a number is irrational and cannot be precisely stored as a 
+     * decimal number. This method therefore rounds the result as necessary 
+     * using the RoundingMode to try to ensure the result is correct to 
+     * {@code dp} decimal places.
      *
-     * @param rm roundingMode
+     * @param rm RoundingMode
      *
-     * @param x The value to square root.
+     * @param x The value for which the square root is returned.
      * @param dp The number of decimal places the result has to be correct to.
-     * @return Square rootRoundIfNecessary of input
+     * @return Square root of {@code x} rounded if necessary.
      */
     public static BigDecimal sqrt(BigDecimal x, int dp, RoundingMode rm) {
 // @TODO This used to be a hack, check tests are working for the new implementation.

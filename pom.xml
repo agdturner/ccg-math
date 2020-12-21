@@ -48,13 +48,12 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.5.2</junit.version>
-        <!--<agdt-java-generic.version>1.5</agdt-java-generic.version>-->
-        <agdt-java-generic.version>1.7.1</agdt-java-generic.version>
+        <agdt-java-generic.version>1.7.2</agdt-java-generic.version>
+        <big-math.version>2.3.0</big-math.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.version>3.0.1</maven.version>
-        <junit.version>5.5.2</junit.version>
+        <junit.version>5.7.0</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
     </properties>
     
@@ -70,28 +69,8 @@
         <dependency>
             <groupId>ch.obermuhlner</groupId>
             <artifactId>big-math</artifactId>
-            <version>2.3.0</version>
-            <!-- These were attempt to deal with split packages, but probably the problem was something else!
-            <exclusions>
-                <exclusion>
-                    <groupId>xmlpull</groupId>
-                    <artifactId>xmlpull</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.annotation</groupId>
-                    <artifactId>org.xmlpull.v1</artifactId>
-                </exclusion>
-            </exclusions>
-            -->
+            <version>${big-math.version}</version>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-            <version>[4.13.1,)</version>
-        </dependency>
-        -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
