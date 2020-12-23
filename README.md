@@ -19,6 +19,7 @@ Developed and tested on Java 15.
 A JAR is available:
 https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.7/agdt-java-math-1.7.jar
 
+[//]: # (Move to version history section if/when a new version and summary are added)
 New to 1.7:
 - uk.ac.leeds.ccg.matrices.Math_Matrix_BR
   For matrices storing BigRational numbers.
@@ -29,7 +30,7 @@ New to 1.7:
 <dependency>
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-generic</artifactId>
-    <version>1.7.2</version>
+    <version>1.7.3</version>
 </dependency>
 <!-- https://mvnrepository.com/artifact/ch.obermuhlner/big-math -->
 <dependency>
@@ -50,7 +51,9 @@ Compare and contrast more with Eric's [BigMath](https://github.com/eobermuhlner/
 ## LICENCE
 - APACHE LICENSE, VERSION 2.0: https://www.apache.org/licenses/LICENSE-2.0
 
-## Acknowledgements and feedback
-- Thanks to the University of Leeds and numerous research grants for supporting the development of this code.
-- If you find this code useful, please let me know and refer to the resources used in the usual ways.
-- Thanks to Eric for the [BigMath](https://github.com/eobermuhlner/big-math) library :-)
+## Acknowledgements
+- The [University of Leeds](http://www.leeds.ac.uk) and succession of externally funded research grants have supported the development of this library.
+- Thank you Eric for the [BigMath](https://github.com/eobermuhlner/big-math) library :-)
+
+## Version history
+- Early versions of this code were bundled together with lots of other code. A first separation of code produced the generic library upon which this depends, and then this library was created. Over time documentation has improved, more unit tests have been added and some undocumented issues have been resolved. Upto version 1.7.3 there is no descitption of what has been changed between versions, but going forward an attempt will be made to provide a summary of additions, deprecations, deletions and other changes for each version release on Maven Central.
