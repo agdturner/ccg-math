@@ -19,8 +19,8 @@ Developed and tested on Java 15.
 A JAR is available:
 https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.7/agdt-java-math-1.7.jar
 
-New packages:
-- uk.ac.leeds.ccg.matrices
+New to 1.7:
+- uk.ac.leeds.ccg.matrices package with a class for working with matrices storing BigRational numbers.
 
 ## Dependencies
 ```
