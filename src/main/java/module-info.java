@@ -7,5 +7,6 @@ module uk.ac.leeds.ccg.math {
     exports uk.ac.leeds.ccg.math;
     exports uk.ac.leeds.ccg.math.core;
     exports uk.ac.leeds.ccg.math.io;
+    exports uk.ac.leeds.ccg.math.matrices;
     exports uk.ac.leeds.ccg.math.primes;
 }

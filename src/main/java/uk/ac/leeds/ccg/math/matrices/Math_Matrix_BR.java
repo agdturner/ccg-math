@@ -64,6 +64,37 @@ public class Math_Matrix_BR {
     }
 
     /**
+     * @return {@link #m}
+     */
+    public BigRational[][] getM() {
+        return m;
+    }
+
+    /**
+     * @return {@link #nr}
+     */
+    public int getNr() {
+        return nr;
+    }
+
+    /**
+     * @return {@link #nc}
+     */
+    public int getNc() {
+        return nc;
+    }
+
+    /**
+     * https://en.wikipedia.org/wiki/Matrix_multiplication
+     *
+     * @param b The matrix to multiply {@code this} by.
+     * @return result of multiplying {@code this} by {@code b}
+     */
+    public Math_Matrix_BR multiply(Math_Matrix_BR b) {
+        return multiply(this, b);
+    }
+
+    /**
      * https://en.wikipedia.org/wiki/Matrix_multiplication
      *
      * @param a The matrix to multiply.
@@ -88,6 +119,80 @@ public class Math_Matrix_BR {
     }
 
     /**
+     * https://en.wikipedia.org/wiki/Determinant
+     * Calculates and returns the determinant of {@code this}.
+     * @return The calculated determinant of {@code this}.
+     */
+    public BigRational getDeterminant() {
+        if (nr == nc) {
+            return getDeterminant(m);
+        } else {
+            throw new RuntimeException("Cannot calculate determinant of matrix "
+                    + "as it is not square.");
+        }
+    }
+
+    private BigRational getDeterminant(BigRational[][] m) {
+        switch (m.length) {
+            case 1:
+                return m[0][0];
+            case 2:
+                // ab
+                // cd
+                // ad - bc
+                return (m[0][0].multiply(m[1][1]))
+                        .subtract(m[0][1].multiply(m[1][0]));
+            case 3:
+                // Leibniz formula
+                // abc
+                // def
+                // ghi
+                // aei + bfg + cdh - ceg - bdi - afh
+                return (m[0][0].multiply(m[1][1]).multiply(m[2][2]))
+                        .add(m[0][1].multiply(m[1][2]).multiply(m[2][0]))
+                        .add(m[0][2].multiply(m[1][0]).multiply(m[2][1]))
+                        .subtract(m[0][2].multiply(m[1][1]).multiply(m[2][0]))
+                        .subtract(m[0][1].multiply(m[1][0]).multiply(m[2][2]))
+                        .subtract(m[0][0].multiply(m[1][2]).multiply(m[2][1]));
+            default:
+                // Use Laplace formula recursively
+                BigRational r = BigRational.ZERO;
+                for (int i = 0; i < m.length; i++) {
+                    BigRational sr = m[0][i].multiply(getDeterminant(
+                            getSubMatrix(m, i)));
+                    if (i % 2 == 0) {
+                        r = r.add(sr);
+                    } else {
+                        r = r.subtract(sr);
+                    }
+                }
+                return r;
+        }
+    }
+    
+    private BigRational[][] getSubMatrix(BigRational[][] m, int col) {
+        int len = m.length;
+        int len2 = len - 1;
+        int col2 = col + 1;
+        int r = 0;
+        int c = 0;
+        BigRational[][] res = new BigRational[len2][len2];
+        for (int i = 1; i < len; i++) {
+            c = 0;
+            for (int j = 0; j < col; j++) {
+                res[r][c] = m[i][j];
+                c ++;
+            }
+            for (int j = col2; j < len; j++) {
+                res[r][c] = m[i][j];
+                c ++;
+            }
+            r ++;
+        }
+        return res;
+    }
+
+    /**
      * https://en.wikipedia.org/wiki/Identity_matrix
      *
      * @param size The dimension of the identity matrix.
@@ -104,6 +209,15 @@ public class Math_Matrix_BR {
             res.m[r][r] = BigRational.ONE;
         }
         return res;
+    }
+
+    /**
+     * https://en.wikipedia.org/wiki/Transpose
+     *
+     * @return {@code this} transposed
+     */
+    public Math_Matrix_BR transpose() {
+        return transpose(this);
     }
 
     /**
