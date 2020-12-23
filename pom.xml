@@ -15,10 +15,6 @@
     <url>https://github.com/agdturner/agdt-java-math</url>
     <description>A Java Library for arithmetic and summary statistics.</description>
     <scm>
-        <tag>agdt-java-math-1.6</tag>
-        <!--
-        <tag>agdt-java-math-1.7-SNAPSHOT</tag>
-        -->
         <url>git@github.com:agdturner/agdt-java-math.git</url>
         <connection>scm:git:git@github.com:agdturner/agdt-java-math.git</connection>
         <developerConnection>scm:git:git@github.com:agdturner/agdt-java-math</developerConnection>
