@@ -1,4 +1,4 @@
-# agdt-java-math
+# [agdt-java-math](https://github.com/agdturner/agdt-java-math)
 
 ## Description
 A Java library for numerical data processing providing BigDecimal and BigInteger arithmetic functionality that allows the user to specify the accuracy and precision of results. It also provides:
@@ -39,8 +39,8 @@ New packages:
 ```
 
 ## Development Roadmap
-### Version 1.7
-Compare and contrast more with https://github.com/eobermuhlner/big-math.
+### Version 1.8
+Compare and contrast more with Eric's [BigMath](https://github.com/eobermuhlner/big-math) library.
 
 ## Contributions
 - Please raise issues in the usual way.
@@ -51,4 +51,5 @@ Compare and contrast more with https://github.com/eobermuhlner/big-math.
 
 ## Acknowledgements and feedback
 - Thanks to the University of Leeds and numerous research grants for supporting the development of this code.
-- If you find this code useful, please let me know and refer to the resources used in the usual ways. 
+- If you find this code useful, please let me know and refer to the resources used in the usual ways.
+- Thanks to Eric for the [BigMath](https://github.com/eobermuhlner/big-math) library :-)
