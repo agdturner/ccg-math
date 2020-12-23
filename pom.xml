@@ -44,13 +44,17 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <agdt-java-generic.version>1.7.2</agdt-java-generic.version>
+        <agdt-java-generic.version>1.7.3</agdt-java-generic.version>
         <big-math.version>2.3.0</big-math.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.version>3.0.1</maven.version>
         <junit.version>5.7.0</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
+        <!--
+        <selenium.version>2.44.0</selenium.version>
+        <selenium.version>3.141.59</selenium.version>
+        -->
     </properties>
     
     <dependencies>
@@ -85,11 +89,13 @@
             <version>${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <!--
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <scope>test</scope>
-            <version>2.44.0</version>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>com.opera</groupId>
@@ -103,6 +109,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        -->
     </dependencies>
     
     <build>
