@@ -1,10 +1,16 @@
 # [agdt-java-math](https://github.com/agdturner/agdt-java-math)
 
 ## Description
-A Java library for numerical data processing providing BigDecimal and BigInteger arithmetic functionality that allows the user to specify the accuracy and precision of results. It also provides:
+A Java library aiming for [arbitrary precision arithmetic](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) using the latest [openJDK](https://openjdk.java.net/), the complimentary [BigMath](https://github.com/eobermuhlner/big-math) library, and [exp4J](https://github.com/fasseg/exp4j) used to simplify and calculate algebraic expressions.
+
+The library has utility for BigInteger and BigDecimal arithmetic that goes beyond what has been available in the latest [openJDK](https://openjdk.java.net/). User can expect to obtain results accurate to a specified scale given a RoundingMode. As the BigInteger and BigDecimal classes are developed, some of the functionality provided may become redundant. It also provides:
 - functionality for processing complex numbers where the real and imaginary parts are stored in part as BigDecimals or BigRationals;
 - a package uk.ac.leeds.ccg.matrices with a class for processing matrices;
 - a package uk.ac.leeds.ccg.primes with a class for prime numbers.
+
+The [BigMath](https://github.com/eobermuhlner/big-math) library has much similar functionality, but it is slightly different in general in that it focusses on users specifying a precision (rather than a scale), so whereas BigMath might provide an answer to a specified number of significant digits, this library aims to provide a result accurate to the nearsest x decimal places or x units (tens, hundreds, thousands etc). BigMath has an extremely useful BigRational class that allows for a wide range and very detailed rational number storage. I only discovered [BigMath](https://github.com/eobermuhlner/big-math) in the year 2020 as I began developing [agdt-java-vector3d](https://github.com/agdturner/agdt-java-vector3d) a library geared for 3 dimensional spatial geometry. There is much that can be done to compare implementations and probably rationalise and optimise and perhaps even combine the code bases.
+
+Irrational numbers can sometimes be easily expressed, but are impossible to store as BigRational. Sometimes computation can be done best using algebraic expressions and symbol manipulation - simplifying terms instead of calculating them until absolutely necessary (avoiding rounding and errors propagation as much as possible). For instance consider a calculation where two terms which are both equal to [sqrt(2)](https://en.wikipedia.org/wiki/Square_root_of_2) are multiplied together - this can be done completely accurately by realising the answer is 2. Irrational numbers can be stored as expression and some such constants become important in many geometric, physical and engineering calculations (see [Stan's Extra Byte Mathematical Constants and Sequences](http://dx.doi.org/10.3247/SL2Math08.001)). I only discovered [exp4J](https://github.com/fasseg/exp4j) in the year 2020 and have yet to figure out whether this library should depend on it.
 
 ## Latest Versions
 Developed and tested on Java 15.
@@ -42,11 +48,12 @@ New to 1.7:
 
 ## Development Roadmap
 ### Version 1.8
-Compare and contrast more with Eric's [BigMath](https://github.com/eobermuhlner/big-math) library.
+- Compare and contrast more with Eric's [BigMath](https://github.com/eobermuhlner/big-math) library.
+- Compare Math_BigDecimal.sqrt(BigDecimal, int, RoundingMode) with BigDecimal.sqrt(MathContext)
 
 ## Contributions
-- Please raise issues in the usual way.
-- Please email Andy about contributing to development (email address in the POM).
+- Please report issues.
+- Contributions welcome.
 
 ## LICENCE
 - APACHE LICENSE, VERSION 2.0: https://www.apache.org/licenses/LICENSE-2.0
