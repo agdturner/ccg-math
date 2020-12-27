@@ -586,4 +586,20 @@ public class Math_BigInteger extends Math_Number {
             return false;
         }
     }
+
+    /**
+     * @param x The number to return the square root if that is an integer.
+     * @return The square root of {@code x} if it is an integer and {@code null}
+     * otherwise.
+     */
+    public static BigInteger getPerfectSquareRoot(BigInteger x) {
+        if (x.compareTo(BigInteger.ZERO) != 1) {
+            return null;
+        }
+        BigInteger xs = x.sqrt();
+        if (x.compareTo(xs.multiply(xs)) == 0) {
+            return xs;
+        }
+        return null;
+    }
 }

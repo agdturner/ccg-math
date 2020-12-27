@@ -4548,6 +4548,10 @@ public class Math_BigDecimal extends Math_Number {
 //        if (x.compareTo(BigDecimal.ZERO) == 1 && x.compareTo(BigDecimal.ONE) == -1) {
 //            return BigDecimal.valueOf(Math.sqrt(x.doubleValue()));
 //        }
+//BigDecimal.sqrt()
+// @TODO Compare with BigDecimal.sqrt(MathContext)
+//int precision = 100;
+//x.sqrt(new MathContext(precision, rm));
         return power(x, new BigDecimal("0.5"), dp, rm);
     }
 

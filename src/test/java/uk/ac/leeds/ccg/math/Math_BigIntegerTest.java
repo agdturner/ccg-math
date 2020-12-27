@@ -18,6 +18,7 @@ package uk.ac.leeds.ccg.math;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import org.junit.jupiter.api.AfterEach;
@@ -57,7 +58,8 @@ public class Math_BigIntegerTest extends Math_Test {
         testCeiling();
         testFloor();
         testFactorial();
-        testPower_4args();
+        testPower_4args_1();
+        testPower_4args_2();
         testReciprocal();
         testGetRandom();
         testGetPowersOfTwoDecomposition_1args();
@@ -143,9 +145,12 @@ public class Math_BigIntegerTest extends Math_Test {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of power method, of class Math_BigInteger.
+     */
     //@Test
-    public void testPower_4args() {
-        String funcName = "power_4args";
+    public void testPower_4args_1() {
+        String funcName = "power_4args_1";
         System.out.println("Test " + funcName);
         BigInteger x;
         int y;
@@ -731,5 +736,164 @@ public class Math_BigIntegerTest extends Math_Test {
             }
         }
         return r;
+    }
+
+    /**
+     * Test of initFactorials method, of class Math_BigInteger.
+     */
+    @Test
+    public void testInitFactorials() {
+        System.out.println("initFactorials");
+        // No test.
+    }
+
+    /**
+     * Test of initPowersOfTwo method, of class Math_BigInteger.
+     */
+    @Test
+    public void testInitPowersOfTwo() {
+        System.out.println("initPowersOfTwo");
+        // No test.
+    }
+
+    /**
+     * Test of powerOfTwo method, of class Math_BigInteger.
+     */
+    @Test
+    public void testPowerOfTwo() {
+        System.out.println("powerOfTwo");
+        // No test.
+    }
+
+    /**
+     * Test of addPowerOfTwo method, of class Math_BigInteger.
+     */
+    @Test
+    public void testAddPowerOfTwo() {
+        System.out.println("addPowerOfTwo");
+        // No test.
+    }
+
+    /**
+     * Test of getPowersOfTwo method, of class Math_BigInteger.
+     */
+    @Test
+    public void testGetPowersOfTwo_0args() {
+        System.out.println("getPowersOfTwo");
+        // No test.
+    }
+
+    /**
+     * Test of getPowersOfTwo method, of class Math_BigInteger.
+     */
+    @Test
+    public void testGetPowersOfTwo_BigInteger() {
+        System.out.println("getPowersOfTwo");
+        // No test.
+    }
+
+    /**
+     * Test of getPowersOfTwoDecomposition method, of class Math_BigInteger.
+     */
+    @Test
+    public void testGetPowersOfTwoDecomposition() {
+        System.out.println("getPowersOfTwoDecomposition");
+        // No test.
+    }
+
+    
+
+    /**
+     * Test of power method, of class Math_BigInteger.
+     */
+    //@Test
+    public void testPower_4args_2() {
+        String funcName = "power_4args_1";
+        System.out.println("Test " + funcName);
+        BigInteger x;
+        long y;
+        int dp;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        int comp;
+        // Test 1
+        int test = 1;
+        x = new BigInteger("100");
+        y = 20;
+        dp = 0;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("10000000000000000000000000000000000000000");
+        result = Math_BigInteger.power(x, y, dp, rm);
+        printFunctionTest(funcName, test, x, y, dp, rm, result);
+        comp = expResult.compareTo(result);
+        assertEquals(comp, 0);
+    }
+
+    /**
+     * Test of exp method, of class Math_BigInteger.
+     */
+    @Test
+    public void testExp() {
+        System.out.println("exp");
+        BigInteger x = new BigInteger("10");
+        Math_BigDecimal bd = new Math_BigDecimal();
+        int dp = 1;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult = new BigDecimal("22026.5");
+        BigDecimal result = Math_BigInteger.exp(x, bd, dp, rm);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of log10 method, of class Math_BigInteger.
+     */
+    @Test
+    public void testLog10() {
+        System.out.println("log10");
+        BigInteger x = new BigInteger("10");
+        int expResult = 1;
+        int result = Math_BigInteger.log10(x);
+        assertEquals(expResult, result);
+        // Test 2
+        x = new BigInteger("1000000000000000000000000000000000000000000000000");
+        expResult = 48;
+        result = Math_BigInteger.log10(x);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of isEven method, of class Math_BigInteger.
+     */
+    @Test
+    public void testIsEven() {
+        System.out.println("isEven");
+        BigInteger x = new BigInteger("12121212124568924316823543574329574388");
+        assertTrue(Math_BigInteger.isEven(x));
+        // Test 2
+        x = new BigInteger("12121212124568924316823543574329574389");
+        assertFalse(Math_BigInteger.isEven(x));
+    }
+
+    /**
+     * Test of isBigInteger method, of class Math_BigInteger.
+     */
+    @Test
+    public void testIsBigInteger() {
+        System.out.println("isBigInteger");
+        String s = "1";
+        assertTrue(Math_BigInteger.isBigInteger(s));
+        // Test 2
+        s = "15824578392891237489237489327489327489327489327849327849372849732";
+        assertTrue(Math_BigInteger.isBigInteger(s));
+        // Test 3
+        s = "-5824578392891237489237489327489327489327489327849327849372849732";
+        assertTrue(Math_BigInteger.isBigInteger(s));
+        // Test 4
+        s = "158245783928912374892374893274893274893274893278493278493728497.0";
+        assertFalse(Math_BigInteger.isBigInteger(s));
+        // Test 4
+        s = "158245783928912374892374893274893274893274893278493278493728497.1";
+        assertFalse(Math_BigInteger.isBigInteger(s));
     }
 }
