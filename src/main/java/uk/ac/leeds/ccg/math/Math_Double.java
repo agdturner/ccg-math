@@ -29,7 +29,14 @@ public class Math_Double extends Math_Number {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The number {@code Double.POSITIVE_INFINITY} for convenience.
+     */
     public static final String POSITIVE_INFINITY = Double.toString(Double.POSITIVE_INFINITY);
+    
+    /**
+     * The number {@code Double.NEGATIVE_INFINITY} for convenience.
+     */
     public static final String NEGATIVE_INFINITY = Double.toString(Double.NEGATIVE_INFINITY);
     
     /**

@@ -29,8 +29,19 @@ public class Math_Float extends Math_Number {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * {@code Float.toString(Float.NaN)}.
+     */
     public static final String SFNAN = Float.toString(Float.NaN);
+    
+    /**
+     * The number {@code Float.POSITIVE_INFINITY} for convenience.
+     */
     public static final String POSITIVE_INFINITY = Float.toString(Float.POSITIVE_INFINITY);
+    
+    /**
+     * The number {@code Float.NEGATIVE_INFINITY} for convenience.
+     */
     public static final String NEGATIVE_INFINITY = Float.toString(Float.NEGATIVE_INFINITY);
 
     /**

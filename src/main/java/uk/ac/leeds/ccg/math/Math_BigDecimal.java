@@ -3947,6 +3947,12 @@ public class Math_BigDecimal extends Math_Number {
         return roundIfNecessary(r, dp, rm);
     }
 
+    /**
+     * For calculating the {@code root}th root of {@code x} without rounding.
+     * @param x The value to calculate and return the root for.
+     * @param root The root.
+     * @return The {@code root}th root of {@code x}
+     */
     public static BigDecimal rootNoRounding(BigDecimal x, int root) {
         // Deal with special cases
         if (x.compareTo(BigDecimal.ZERO) == -1) {

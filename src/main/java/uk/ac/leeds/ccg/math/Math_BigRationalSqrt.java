@@ -135,8 +135,8 @@ public class Math_BigRationalSqrt {
 
     /**
      * @param y The other number to multiply.
-     * @return {@code y} multiplied by {@link # x2} if this can be expressed
-     * exactly as a BigRational and {@code null} otherwise.
+     * @return {@code y.x} multiplied by {@link #x} if this can be expressed
+     * exactly as a {@code BigRational} and {@code null} otherwise.
      */
     public BigRational multiply(Math_BigRationalSqrt y) {
         int c = y.x.compareTo(x);

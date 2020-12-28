@@ -37,14 +37,49 @@ public class Math_BigInteger extends Math_Number {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The number {@code 2} for convenience.
+     */
     public static final BigInteger TWO = BigInteger.valueOf(2);
+
+    /**
+     * The number {@code 3} for convenience.
+     */
     public static final BigInteger THREE = BigInteger.valueOf(3);
-    public static final BigInteger ONE_HUNDRED = BigInteger.valueOf(100);
-    public static final BigInteger INTEGER_MIN_VALUE = BigInteger.valueOf(Integer.MIN_VALUE);
+  
+    /**
+     * The number {@code 100} for convenience.
+     */
+  public static final BigInteger ONE_HUNDRED = BigInteger.valueOf(100);
+  
+    /**
+     * The number {@code Integer.MIN_VALUE} for convenience.
+     */
+  public static final BigInteger INTEGER_MIN_VALUE = BigInteger.valueOf(Integer.MIN_VALUE);
+  
+    /**
+     * The number {@code Integer.MAX_VALUE} for convenience.
+     */
     public static final BigInteger INTEGER_MAX_VALUE = BigInteger.valueOf(Integer.MAX_VALUE);
+  
+    /**
+     * The number {@code Long.MIN_VALUE} for convenience.
+     */
     public static final BigInteger LONG_MIN_VALUE = BigInteger.valueOf(Long.MIN_VALUE);
+  
+    /**
+     * The number {@code Long.MAX_VALUE} for convenience.
+     */
     public static final BigInteger LONG_MAX_VALUE = BigInteger.valueOf(Long.MAX_VALUE);
+  
+    /**
+     * For storing factorials for convenience.
+     */
     protected transient List<BigInteger> factorials;
+  
+    /**
+     * For storing powersOfTwo for convenience.
+     */
     protected transient List<BigInteger> powersOfTwo;
 
     /**
