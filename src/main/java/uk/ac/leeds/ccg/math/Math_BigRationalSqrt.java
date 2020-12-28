@@ -16,7 +16,9 @@
 package uk.ac.leeds.ccg.math;
 
 import ch.obermuhlner.math.big.BigRational;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 
 /**
  * This is a class to help with the storage and multiplication of square roots.
@@ -42,6 +44,18 @@ public class Math_BigRationalSqrt {
     public final BigRational sqrtx;
 
     /**
+     * Stored the approximate square root of x with a minimum precision scale of
+     * {@link #minimumPrecisionScale}.
+     */
+    public BigDecimal sqrtxapprox;
+
+    /**
+     * Stores the minimumPrecisionScale used for the approximately calculating
+     * {@link #sqrtxapprox}.
+     */
+    public int minimumPrecisionScale;
+
+    /**
      * @param x What {@link #x} is set to.
      */
     public Math_BigRationalSqrt(BigRational x) {
@@ -50,15 +64,16 @@ public class Math_BigRationalSqrt {
     }
 
     @Override
-    public String toString(){
-        return this.getClass().getSimpleName() + "(x=" + x + ", sqrtx=" 
+    public String toString() {
+        return this.getClass().getSimpleName() + "(x=" + x + ", sqrtx="
                 + sqrtx + ")";
     }
-    
+
     /**
-     * @param x The number to return the square root of (it the result is rational).
-     * @return The square root of x if that square root is rational and {@code null}
-     * otherwise.
+     * @param x The number to return the square root of (it the result is
+     * rational).
+     * @return The square root of x if that square root is rational and
+     * {@code null} otherwise.
      */
     public static BigRational getSqrtRational(BigRational x) {
         BigInteger[] numden = getNumeratorAndDenominator(x);
@@ -70,6 +85,37 @@ public class Math_BigRationalSqrt {
             }
         }
         return null;
+    }
+
+    /**
+     * @param mps minimum precision scale for approximating the result.
+     * @return The square root of x approximated as a BigDecimal.
+     */
+    public BigDecimal getSqrtApprox(int mps) {
+        if (sqrtx == null) {
+            if (sqrtxapprox == null) {
+                minimumPrecisionScale = mps;
+                // Not sure if new MathContext(mps + 4) is correct.
+                sqrtxapprox = x.toBigDecimal(new MathContext(mps + 4))
+                        .sqrt(new MathContext(mps));
+            } else {
+                if (minimumPrecisionScale >= mps) {
+                    minimumPrecisionScale = mps;
+                    sqrtxapprox = x.toBigDecimal().sqrt(new MathContext(mps));
+                }
+            }
+        } else {
+            if (sqrtxapprox == null) {
+                minimumPrecisionScale = mps;
+                sqrtxapprox = sqrtx.toBigDecimal(new MathContext(mps));
+            } else {
+                if (minimumPrecisionScale >= mps) {
+                    minimumPrecisionScale = mps;
+                    sqrtxapprox = x.toBigDecimal().sqrt(new MathContext(mps));
+                }
+            }
+        }
+        return sqrtxapprox;
     }
 
     /**
@@ -86,7 +132,7 @@ public class Math_BigRationalSqrt {
         }
         return r;
     }
-    
+
     /**
      * @param y The other number to multiply.
      * @return {@code y} multiplied by {@link # x2} if this can be expressed
