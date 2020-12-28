@@ -19,8 +19,10 @@ import ch.obermuhlner.math.big.BigRational;
 import java.util.Arrays;
 
 /**
- *
+ * For processing matrices holding BigRational numbers.
+ * 
  * @author Andy Turner
+ * @version 1.0.0
  */
 public class Math_Matrix_BR {
 

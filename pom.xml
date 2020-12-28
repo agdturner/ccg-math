@@ -5,9 +5,9 @@
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-math</artifactId>
-    <version>1.7</version>
-    <!--
     <version>1.8-SNAPSHOT</version>
+    <!--
+    <version>1.8</version>
     -->
     <packaging>jar</packaging>
 

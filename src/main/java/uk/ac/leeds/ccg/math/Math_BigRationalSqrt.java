@@ -99,7 +99,7 @@ public class Math_BigRationalSqrt {
                 sqrtxapprox = x.toBigDecimal(new MathContext(mps + 4))
                         .sqrt(new MathContext(mps));
             } else {
-                if (minimumPrecisionScale >= mps) {
+                if (minimumPrecisionScale < mps) {
                     minimumPrecisionScale = mps;
                     sqrtxapprox = x.toBigDecimal().sqrt(new MathContext(mps));
                 }
@@ -109,7 +109,7 @@ public class Math_BigRationalSqrt {
                 minimumPrecisionScale = mps;
                 sqrtxapprox = sqrtx.toBigDecimal(new MathContext(mps));
             } else {
-                if (minimumPrecisionScale >= mps) {
+                if (minimumPrecisionScale < mps) {
                     minimumPrecisionScale = mps;
                     sqrtxapprox = x.toBigDecimal().sqrt(new MathContext(mps));
                 }
