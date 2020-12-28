@@ -2,7 +2,7 @@
 
 ## Description
 A [modularised](https://en.wikipedia.org/wiki/Java_Platform_Module_System) Java library dependent on and complimenting [BigMath](https://github.com/eobermuhlner/big-math) with functionality for:
-- [Fixed point arithmetic](https://en.wikipedia.org/wiki/Fixed-point_arithmetic) and [arbitrary precision arithmetic](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic).
+- [Fixed point](https://en.wikipedia.org/wiki/Fixed-point_arithmetic) and [arbitrary precision](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) arithmetic.
 - Processing [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) [matrices].
 - Identifying prime numbers.
 - Generating pseudorandom BigDecimal numbers.
