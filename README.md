@@ -24,8 +24,7 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
     <version>1.7</version>
 </dependency>
 ```
-A stable JAR is available:
-https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.7/agdt-java-math-1.7.jar
+[JAR](https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.7/agdt-java-math-1.7.jar)
 
 ### Unstable development version
 ```
