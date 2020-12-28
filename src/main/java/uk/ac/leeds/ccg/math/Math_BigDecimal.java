@@ -26,17 +26,16 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * For BigDecimal arithmetic.
+ * A class for {@code BigDecimal} numbers.
  *
- * For the time being it is expected that BigDecimal numbers will not have a
- * precision or scale greater than Integer.MAX_VALUE.
+ * For the time being it is expected that {@code BigDecimal} numbers will not
+ * have a precision or scale greater than {@code Integer.MAX_VALUE}.
  *
  * Some of the functionality provided in this class may exist in third party
- * libraries with appropriate licenses, but at the time of writing, I have not
+ * libraries with appropriate licenses, but at the time of writing, I had not
  * found them.
  *
- * The aim is for accuracy within a fixed number of decimal places. All methods
- * need to be fully tested to ensure compliance...
+ * The aim is for accuracy within a fixed number of decimal places.
  *
  * @author Andy Turner
  * @version 1.0.0
@@ -4531,10 +4530,10 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Returns the square root of x as a BigDecimal. In some cases the square 
-     * root of a number is irrational and cannot be precisely stored as a 
-     * decimal number. This method therefore rounds the result as necessary 
-     * using the RoundingMode to try to ensure the result is correct to 
+     * Returns the square root of x as a BigDecimal. In some cases the square
+     * root of a number is irrational and cannot be precisely stored as a
+     * decimal number. This method therefore rounds the result as necessary
+     * using the RoundingMode to try to ensure the result is correct to
      * {@code dp} decimal places.
      *
      * @param rm RoundingMode
@@ -4835,9 +4834,7 @@ public class Math_BigDecimal extends Math_Number {
      * to dp decimal places.
      */
     public static BigDecimal getRandom(Math_Number gn, int dp) {
-        //Generic_BigDecimal a_Generic_BigDecimal = new Math_BigDecimal();
         Random[] random = gn.getRandoms(dp);
-        //System.out.println("Got Random[] size " + random.length);
         String value = "0.";
         int digit;
         int ten_int = 10;

@@ -17,18 +17,27 @@ package uk.ac.leeds.ccg.math;
 
 import uk.ac.leeds.ccg.generic.core.Generic_Strings;
 
+/**
+ * A class for {@code boolean} numbers.
+ *
+ * @author Andy Turner
+ * @version 1.0.0
+ */
 public class Math_Boolean extends Math_Number {
 
     /**
-     * If {@link #isTrue(java.lang.String)} == {@code true} then return
-     * {@code true} else return {@code false}.
+     * {@code if (isTrue(s)) {return true;} return isFalse(s);}
      *
-     * @param s The String to be tested as to whether it is equivalent to
-     * {@code true}.
-     * @return true iff s is equivalent to {@code true}.
+     * @param s The String to be tested as to whether it {@code isTrue} or
+     * {@code isFalse}.
+     * @return {@code true} iff {@code s} has a recognised {@code true} or
+     * {@code false} value.
      */
     public static boolean parseBoolean(String s) {
-        return isTrue(s);
+        if (isTrue(s)) {
+            return true;
+        }
+        return isFalse(s);
     }
 
     /**

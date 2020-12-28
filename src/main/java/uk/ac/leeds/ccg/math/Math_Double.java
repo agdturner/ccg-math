@@ -19,11 +19,19 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
+/**
+ * A class for {@code double} numbers. 
+ *
+ * @author Andy Turner
+ * @version 1.0.0
+ */
 public class Math_Double extends Math_Number {
+
+    private static final long serialVersionUID = 1L;
 
     public static final String POSITIVE_INFINITY = Double.toString(Double.POSITIVE_INFINITY);
     public static final String NEGATIVE_INFINITY = Double.toString(Double.NEGATIVE_INFINITY);
-
+    
     /**
      * In most instances this behaves like
      * {@link java.lang.Double#parseDouble(java.lang.String)}, but if a
@@ -32,7 +40,7 @@ public class Math_Double extends Math_Number {
      * <ul>
      * <li>If {@code s} contains only white space, then a
      * {@link java.lang.Double#NaN} is returned.</li>
-     * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
+     * <li>If {@code s}.equalsIgnoreCase({@link #SNAN}), then a
      * {@link java.lang.Double#NaN} is returned.</li>
      * <li>If {@code s}.equalsIgnoreCase({@link #POSITIVE_INFINITY}), then a
      * {@link java.lang.Double#POSITIVE_INFINITY} is returned.</li>
@@ -52,7 +60,7 @@ public class Math_Double extends Math_Number {
             if (s.isBlank()) {
                 return Double.NaN;
             }
-            if (s.equalsIgnoreCase(NAN)) {
+            if (s.equalsIgnoreCase(SNAN)) {
                 return Double.NaN;
             }
             if (s.equalsIgnoreCase(POSITIVE_INFINITY)) {
@@ -81,7 +89,7 @@ public class Math_Double extends Math_Number {
             if (s.isBlank()) {
                 return true;
             }
-            if (s.equalsIgnoreCase(NAN)) {
+            if (s.equalsIgnoreCase(SNAN)) {
                 return true;
             }
             if (s.equalsIgnoreCase(POSITIVE_INFINITY)) {

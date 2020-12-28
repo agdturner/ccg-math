@@ -18,16 +18,23 @@ package uk.ac.leeds.ccg.math;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * For dealing with numbers.
+ * 
+ * @author Andy Turner
+ * @version 1.0.0
+ */
 public abstract class Math_Number implements Serializable {
 
-    //static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    
     /**
      * A String abbreviation for Not A Number.
      */
-    public static final String NAN = "NAN";
+    public static final String SNAN = "NAN";
 
     /**
-     * Random instance.
+     * Random instances.
      */
     protected Random[] randoms;
 

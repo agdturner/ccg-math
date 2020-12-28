@@ -25,9 +25,17 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.TreeMap;
 import uk.ac.leeds.ccg.generic.util.Generic_Collections;
-import static uk.ac.leeds.ccg.math.Math_BigDecimal.exp;
+//import static uk.ac.leeds.ccg.math.Math_BigDecimal.exp;
 
+/**
+ * A class for {@code BigInteger} numbers.
+ *
+ * @author Andy Turner
+ * @version 1.0.0
+ */
 public class Math_BigInteger extends Math_Number {
+
+    private static final long serialVersionUID = 1L;
 
     public static final BigInteger TWO = BigInteger.valueOf(2);
     public static final BigInteger THREE = BigInteger.valueOf(3);

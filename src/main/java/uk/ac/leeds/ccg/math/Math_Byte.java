@@ -15,18 +15,26 @@
  */
 package uk.ac.leeds.ccg.math;
 
+/**
+ * A class for {@code byte} numbers. 
+ *
+ * @author Andy Turner
+ * @version 1.0.0
+ */
 public class Math_Byte extends Math_Number {
 
+    private static final long serialVersionUID = 1L;
+
     /**
-     * For testing if s can be parsed as a int. If the result is equal to
-     * Byte.MIN_VALUE then this will return false as Byte.MIN_VALUE is
-     * reserved for representing noDataValues.
+     * For testing if {@code s} can be parsed as a {@code byte}. If the result is equal
+     * to {@code Byte.MIN_VALUE} then this will return {@code false} as {@code Byte.MIN_VALUE} is
+     * reserved for representing {@code noDataValues}.
      *
      * @param s The String to be tested as to whether it can be represented as a
-     * byte (excluding Byte.MIN_VALUE which is reserved for representing
-     * noDataValues).
-     * @return true iff s can be represented as a byte (excluding
-     * Byte.MIN_VALUE which is reserved for representing noDataValues).
+     * {@code byte} (excluding {@code Byte.MIN_VALUE} which is reserved for representing
+     *  no data values).
+     * @return {@code true} iff {@code s} can be represented as a {@code byte} (excluding {@code Byte.MIN_VALUE}
+     * which is reserved for representing no data values).
      */
     public static boolean isByte(String s) {
         try {

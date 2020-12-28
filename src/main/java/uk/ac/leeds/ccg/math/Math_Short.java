@@ -15,7 +15,15 @@
  */
 package uk.ac.leeds.ccg.math;
 
+/**
+ * A class for {@code short} numbers.
+ *
+ * @author Andy Turner
+ * @version 1.0.0
+ */
 public class Math_Short extends Math_Number {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * In most instances this behaves like
@@ -25,13 +33,14 @@ public class Math_Short extends Math_Number {
      * <ul>
      * <li>If {@code s} contains only white space, then a
      * {@link java.lang.Short#MIN_VALUE} is returned.</li>
-     * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
+     * <li>If {@code s}.equalsIgnoreCase({@link #SNAN}), then a
      * {@link java.lang.Short#MIN_VALUE} is returned.</li>
      * </ul>
      *
-     * @param s The String to be parsed as a short.
-     * @return The short version of s.
-     * @throws NumberFormatException if s cannot be parsed as a short.
+     * @param s The String to be parsed as a {@code short}.
+     * @return The short version of {@code s}.
+     * @throws NumberFormatException if {@code s} cannot be parsed as a
+     * {@code short}.
      */
     public static short parseShort(String s) throws NumberFormatException {
         try {
@@ -41,23 +50,24 @@ public class Math_Short extends Math_Number {
             if (s.isBlank()) {
                 return Short.MIN_VALUE;
             }
-            if (s.equalsIgnoreCase(NAN)) {
+            if (s.equalsIgnoreCase(SNAN)) {
                 return Short.MIN_VALUE;
             }
             throw e;
         }
     }
-    
+
     /**
-     * For testing if s can be parsed as a int. If the result is equal to
-     * Short.MIN_VALUE then this will return false as Short.MIN_VALUE is
-     * reserved for representing noDataValues.
+     * For testing if {@code s} can be parsed as a {@code int}. If the result is
+     * equal to {@code Short.MIN_VALUE} then this will return {@code false} as
+     * {@code Short.MIN_VALUE} is reserved for representing no data values.
      *
-     * @param s The String to be tested as to whether it can be represented as a
-     * byte (excluding Short.MIN_VALUE which is reserved for representing
-     * noDataValues).
-     * @return true iff s can be represented as a double (excluding
-     * Short.MIN_VALUE which is reserved for representing noDataValues).
+     * @param s The String to indicate whether it can be represented as a
+     * {@code short} (excluding {@code Short.MIN_VALUE} which is reserved for
+     * representing no data values).
+     * @return {@code true} iff {@code s} can be represented as a {@code short}
+     * (excluding {@code Short.MIN_VALUE} which is reserved for representing no
+     * data values).
      */
     public static boolean isShort(String s) {
         try {

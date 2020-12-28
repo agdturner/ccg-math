@@ -15,7 +15,15 @@
  */
 package uk.ac.leeds.ccg.math;
 
-public class Math_Long extends Math_Number  {
+/**
+ * A class for {@code long} numbers.
+ *
+ * @author Andy Turner
+ * @version 1.0.0
+ */
+public class Math_Long extends Math_Number {
+
+    private static final long serialVersionUID = 1L;
 
     public static final long INTEGER_MAX_VALUE = Integer.MAX_VALUE;
 
@@ -27,13 +35,14 @@ public class Math_Long extends Math_Number  {
      * <ul>
      * <li>If {@code s} contains only white space, then a
      * {@link java.lang.Long#MIN_VALUE} is returned.</li>
-     * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
+     * <li>If {@code s}.equalsIgnoreCase({@link #SNAN}), then a
      * {@link java.lang.Long#MIN_VALUE} is returned.</li>
      * </ul>
      *
-     * @param s The String to attempt to parse as a long. 
-     * @return {@code s} parsed as a long. 
-     * @throws NumberFormatException if s cannot be parsed as a long.
+     * @param s The String to attempt to parse as a {@code long}.
+     * @return {@code s} parsed as a long.
+     * @throws NumberFormatException if {@code s} cannot be parsed as a
+     * {@code long}.
      */
     public static long parseLong(String s) throws NumberFormatException {
         try {
@@ -43,23 +52,24 @@ public class Math_Long extends Math_Number  {
             if (s.isBlank()) {
                 return Long.MIN_VALUE;
             }
-            if (s.equalsIgnoreCase(NAN)) {
+            if (s.equalsIgnoreCase(SNAN)) {
                 return Long.MIN_VALUE;
             }
             throw e;
         }
     }
-    
+
     /**
-     * For testing if s can be parsed as a long. If the result is equal to
-     * Long.MIN_VALUE then this will return false as Long.MIN_VALUE is
-     * reserved for representing noDataValues.
+     * For testing if {@code s} can be parsed as a {@code long}. If the result
+     * is equal to {@code Long.MIN_VALUE} then this will return {@code false} as
+     * {@code Long.MIN_VALUE} is reserved for representing no data values.
      *
      * @param s The String to be tested as to whether it can be represented as a
-     * byte (excluding Long.MIN_VALUE which is reserved for representing
-     * noDataValues).
-     * @return true iff s can be represented as a long (excluding
-     * Long.MIN_VALUE which is reserved for representing noDataValues).
+     * {@code long} (excluding {@code Long.MIN_VALUE} which is reserved for
+     * representing no data values).
+     * @return {@code true} iff {@code s} can be represented as a {@code long}
+     * (excluding {@code Long.MIN_VALUE} which is reserved for representing no
+     * data values).
      */
     public static boolean isLong(String s) {
         try {
@@ -69,11 +79,10 @@ public class Math_Long extends Math_Number  {
             return false;
         }
     }
-    
+
     /**
-     * 
-     * @param x The number to test as to whether it is even.
-     * @return True iff x is even. 
+     * @param x The number to indicate if it is even.
+     * @return {@code true} iff {@code x} is even.
      */
     public static boolean isEven(long x) {
         return x % 2 == 0;

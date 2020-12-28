@@ -15,7 +15,15 @@
  */
 package uk.ac.leeds.ccg.math;
 
+/**
+ * A class for {@code int} numbers.
+ *
+ * @author Andy Turner
+ * @version 1.0.0
+ */
 public class Math_Integer extends Math_Number {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * In most instances this behaves like
@@ -25,13 +33,14 @@ public class Math_Integer extends Math_Number {
      * <ul>
      * <li>If {@code s} contains only white space, then a
      * {@link java.lang.Integer#MIN_VALUE} is returned.</li>
-     * <li>If {@code s}.equalsIgnoreCase({@link #NAN}), then a
+     * <li>If {@code s}.equalsIgnoreCase({@link #SNAN}), then a
      * {@link java.lang.Integer#MIN_VALUE} is returned.</li>
      * </ul>
      *
-     * @param s The String to attempt to parse as a int. 
-     * @return {@code s} parsed as a int. 
-     * @throws NumberFormatException If s cannot be parse as a int.
+     * @param s The String to attempt to parse as a {@code int}.
+     * @return {@code s} parsed as a {@code int}.
+     * @throws NumberFormatException If {@code s} cannot be parse as a
+     * {@code int}.
      */
     public static int parseInt(String s) throws NumberFormatException {
         try {
@@ -41,23 +50,24 @@ public class Math_Integer extends Math_Number {
             if (s.isBlank()) {
                 return Integer.MIN_VALUE;
             }
-            if (s.equalsIgnoreCase(NAN)) {
+            if (s.equalsIgnoreCase(SNAN)) {
                 return Integer.MIN_VALUE;
             }
             throw e;
         }
     }
-    
+
     /**
-     * For testing if s can be parsed as a int. If the result is equal to
-     * Integer.MIN_VALUE then this will return false as Integer.MIN_VALUE is
-     * reserved for representing noDataValues.
+     * For testing if {@code s} can be parsed as an {@code int}. If the result
+     * is equal to {@code Integer.MIN_VALUE} then this will return {@code false}
+     * as {@code Integer.MIN_VALUE} is reserved for representing no data values.
      *
-     * @param s The String to be tested as to whether it can be represented as a
-     * byte (excluding Integer.MIN_VALUE which is reserved for representing
-     * noDataValues).
-     * @return true iff s can be represented as a int (excluding
-     * Integer.MIN_VALUE which is reserved for representing noDataValues).
+     * @param s The String to indicate whether it can be represented as an
+     * {@code int} (excluding {@code Integer.MIN_VALUE} which is reserved for
+     * representing {@code noDataValues}).
+     * @return {@code true} iff {@code s} can be represented as an {@code int}
+     * (excluding {@code Integer.MIN_VALUE} which is reserved for representing
+     * no data values).
      */
     public static boolean isInt(String s) {
         try {
@@ -68,14 +78,13 @@ public class Math_Integer extends Math_Number {
             if (s.isBlank()) {
                 return true;
             }
-            return s.equalsIgnoreCase(NAN);
+            return s.equalsIgnoreCase(SNAN);
         }
     }
 
     /**
-     *
-     * @param x The number to test as to whether it is even.
-     * @return True iff x is even.
+     * @param x The number to indicate it is even.
+     * @return {@code true} iff {@code x} is even.
      */
     public static boolean isEven(int x) {
         return x % 2 == 0;
