@@ -10,9 +10,7 @@ The library provides additional [BigInteger](https://docs.oracle.com/en/java/jav
 
 As the [openJDK](https://openjdk.java.net/) evolves, some of the functionality provided by this library may become folded in or redundant. To make this more likely the code is modularised and an effort is being made to better documented, test it and go through the process to [contribute it](https://openjdk.java.net/contribute/). 
 
-The [BigMath](https://github.com/eobermuhlner/big-math) library has much similar functionality, but it is slightly different in general in that it focusses on users specifying a precision (rather than a scale), so whereas BigMath might provide an answer to a specified number of significant digits, this library aims to provide a result accurate to a specific scale (e.g 2 decimal places, e.g. the nearest thousand). BigMath has an extremely useful BigRational class that allows for a wide range and very detailed rational number storage. I only discovered BigMath in the year 2020 as I began developing [agdt-java-vector3d](https://github.com/agdturner/agdt-java-vector3d) a library geared for 3 dimensional spatial geometry. There is much that can be done to compare implementations and probably rationalise and optimise and perhaps even combine the code bases.
-
-Sometimes it is best to use [symbolic computation] to avoid imprecision and error propagation. For instance consider a calculation where two terms which are both equal to [sqrt(2)](https://en.wikipedia.org/wiki/Square_root_of_2) are multiplied together - this can be done completely accurately by realising the answer is 2. The basic idea is to store numbers and operations as symbols and do calculations by first simplifying expressions. Many mathematical constants that are irrational numbers become important in many geometric, physical and engineering calculations (see [Stan's Extra Byte Mathematical Constants and Sequences](http://dx.doi.org/10.3247/SL2Math08.001)), and with logs and roots amongst them, it will be good to figure out how to utilise [exp4J](https://github.com/fasseg/exp4j) or similar...
+The [BigMath](https://github.com/eobermuhlner/big-math) library has much similar functionality, but it is slightly different in general in that it focusses on users specifying a precision (rather than a scale), so whereas BigMath might provide an answer to a specified number of significant digits, this library aims to provide a result accurate to a specific scale (e.g 2 decimal places, e.g. the nearest thousand). BigMath has an extremely useful BigRational class that allows for a wide range and very detailed rational number storage. I discovered BigMath in the year 2020 as I began developing [agdt-java-vector3d](https://github.com/agdturner/agdt-java-vector3d) - a Euclidean geometry library. There is much that can be done to compare implementations and probably rationalise, optimise and perhaps combine the code bases or indeed submit them as contributions to the [openJDK](https://openjdk.java.net/).
 
 ## Latest Versions
 Developed and tested on Java 15.
@@ -27,10 +25,12 @@ Developed and tested on Java 15.
 A JAR is available:
 https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.7/agdt-java-math-1.7.jar
 
+New to 1.8:
+- [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java)
+
 [//]: # (Move to version history section if/when a new version and summary are added)
 New to 1.7:
-- uk.ac.leeds.ccg.matrices.Math_Matrix_BR
-  For matrices storing BigRational numbers.
+- [Math_Matrix_BR](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/matrices/Math_Matrix_BR.java) for processing matrices holding BigRational numbers;
 
 ## Dependencies
 ```
@@ -50,13 +50,15 @@ New to 1.7:
 
 ## Development Roadmap
 ### Version 1.8
-- Improve unit tests and review code.
 
 ## Plans
-- Compare and contrast more with Eric's [BigMath](https://github.com/eobermuhlner/big-math) library.
+- Improve unit tests and review code.
+- More comparison with [BigMath](https://github.com/eobermuhlner/big-math).
+- Take steps towards [contributing code to the openJDK](https://openjdk.java.net/contribute/).
 - Compare Math_BigDecimal.sqrt(BigDecimal, int, RoundingMode) with BigDecimal.sqrt(MathContext) and BigDecimalMath.sqrt()
-- Begin some experiments with [exp4J](https://github.com/fasseg/exp4j) 
-- Develop some functionality for processing complex numbers where the real and imaginary parts are stored as BigRational or [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) based on [Math_Complex_double](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_Complex_double.java);
+- Generalise [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) for [nth roots](https://en.wikipedia.org/wiki/Nth_root).
+
+- Develop functionality for processing complex numbers where the real and imaginary parts are stored as BigRational or [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) based on [Math_Complex_double](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_Complex_double.java).
 
 ## Version history
 - Early versions of this code were bundled together with lots of other code. A first separation of code produced [the generic library upon which this depends](https://github.com/agdturner/agdt-java-generic), and this library both of which were improved significantly via a process of self review refactoring, development of more compreensive unit tests, documention improvements and better use of version control systems. Upto version 1.7.3 there is not any detailed description of what has been changed between versions, but going forward an attempt is being made to provide a summary of additions, deprecations, deletions and other changes for each version released on Maven Central.
