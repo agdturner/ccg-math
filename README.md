@@ -27,10 +27,6 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 A stable JAR is available:
 https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.7/agdt-java-math-1.7.jar
 
-[//]: # (Move to version history section if/when a new version and summary are added)
-New to 1.7:
-- [Math_Matrix_BR](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/matrices/Math_Matrix_BR.java) for processing matrices holding BigRational numbers;
-
 ### Unstable development version
 ```
 <!-- https://mvnrepository.com/artifact/io.github.agdturner/agdt-java-math -->
@@ -40,7 +36,9 @@ New to 1.7:
     <version>1.8-SNAPSHOT</version>
 </dependency>
 ```
+[//]: # (Move to version history section if/when a new version and summary are added)
 New to 1.8-SNAPSHOT:
+- [Math_Matrix_BR](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/matrices/Math_Matrix_BR.java) for processing matrices holding BigRational numbers;
 - [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java)
 
 ## Development plans/ideas
@@ -54,7 +52,7 @@ New to 1.8-SNAPSHOT:
 - Consider developing more functionality for [symbolic computation](https://en.wikipedia.org/wiki/Symbolic_computation) so as to simplify more prior to computation.
 
 ## Development history
-- Early versions of this code were bundled together with lots of other code. A first separation of code produced [the generic library upon which this depends](https://github.com/agdturner/agdt-java-generic), and this library both of which were improved significantly via a process of self review refactoring, development of more compreensive unit tests, documention improvements and better use of version control systems. Upto version 1.7.3 there is not any detailed description of what has been changed between versions, but going forward an attempt is being made to provide a summary of additions, deprecations, deletions and other changes for each version released on Maven Central.
+- Early versions of this code were bundled together with lots of other code developed for academic research projects. A separation of code produced [agdt-java-generic](https://github.com/agdturner/agdt-java-generic) a generic higher level library upon which this depends. agdt-java-generic has some basic functionality for dealing with numbers. From version 1.7 an attempt is being made to provide a summary of changes for each version released on Maven Central.
 
 ## Contributions
 - Welcome.
