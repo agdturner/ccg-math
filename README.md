@@ -6,6 +6,7 @@ A Java library with some generally useful mathematics functionality complimentin
 - Additional [arbitrary precision arithmetic](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) based on [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) and [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) which deals with [surds](https://en.wikipedia.org/wiki/Nth_root) - specifically simplification of calculations involving square roots of rational numbers.
 - [Math_Matrix_BR](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/matrices/Math_Matrix_BR.java) for processing matrices holding BigRational numbers.
 - [Math_PrimeNumbers](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/primes/Math_PrimeNumbers.java) for processing and identifying prime numbers.
+- Functionality for getting pseudorandom BigDecimal numbers in a specied range and at a specified precision.
 
 For [fixed point arithmetic](https://en.wikipedia.org/wiki/Fixed-point_arithmetic) functions that return BigDecimal numbers, the user specifies a minimum precision scale for the precision of the result where: a positive value gives the number of decimal places the result must be accurate to; and, a negative value gives a scale of unit to the left of the decimal point that the number must be accurate to. More accurate results may be provided, but the results provided are accurate at least to the minimum precision scale specified. If a result cannot be stored precisely as a BigDecimal, rounding is done using [RoundingMode.HALF_UP](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/math/RoundingMode.html#HALF_UP).
 
@@ -51,7 +52,7 @@ New to 1.8-SNAPSHOT:
 - Consider developing more functionality for [symbolic computation](https://en.wikipedia.org/wiki/Symbolic_computation) so as to simplify more prior to computation.
 
 ## Development history
-- Early versions of this code were bundled together with lots of other code developed for academic research projects. A separation of code produced [agdt-java-generic](https://github.com/agdturner/agdt-java-generic) a generic higher level library upon which this depends. agdt-java-generic has some basic functionality for dealing with numbers. From version 1.7 an attempt is being made to provide a summary of changes for each version released on Maven Central.
+- Early versions of this code were bundled together with lots of other code developed for academic research projects. A separation of code produced [agdt-java-generic](https://github.com/agdturner/agdt-java-generic) a generic higher level library upon which this depends. From version 1.7 an attempt is being made to provide a summary of changes for each version released on Maven Central.
 
 ## Contributions
 - Welcome.
@@ -60,7 +61,7 @@ New to 1.8-SNAPSHOT:
 - APACHE LICENSE, VERSION 2.0: https://www.apache.org/licenses/LICENSE-2.0
 
 ## Acknowledgements
-- The [University of Leeds](http://www.leeds.ac.uk) and succession of externally funded research grants have supported the development of this library.
+- The [University of Leeds](http://www.leeds.ac.uk) and externally funded research grants have supported the development of this library.
 - Thank you to all Java developers that contribute to the [openJDK](https://openjdk.java.net/) and develop other useful libraries out in the wild that have inspired me. In particular, thank you Eric for the [BigMath](https://github.com/eobermuhlner/big-math) library.
 - Thank you to all those that help maintain and contribute usefully to:
 -- [Wikimedia](https://www.wikimedia.org/) projects, in particular [en.wikipedia](https://en.wikipedia.org/wiki/Main_Page)
