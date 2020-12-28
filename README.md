@@ -1,9 +1,9 @@
 # [agdt-java-math](https://github.com/agdturner/agdt-java-math)
 
 ## Description
-A Java library aiming for [arbitrary precision arithmetic](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) using the latest [openJDK](https://openjdk.java.net/), the complimentary [BigMath](https://github.com/eobermuhlner/big-math) library, and [exp4J](https://github.com/fasseg/exp4j) for [symbolic computation](https://en.wikipedia.org/wiki/Symbolic_computation).
+A Java library aiming for [arbitrary precision arithmetic](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) using the latest [openJDK](https://openjdk.java.net/), the complimentary [BigMath](https://github.com/eobermuhlner/big-math) library, and some [symbolic computation](https://en.wikipedia.org/wiki/Symbolic_computation).
 
-The library provides BigInteger and BigDecimal arithmetic that goes beyond what has been available in the latest openJDK. Users can expect to obtain results accurate to a specified scale (given a RoundingMode). It also provides:
+The library provides additional [BigInteger](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/math/BigInteger.html), BigDecimal and BigRational number arithmetic that goes beyond what has been available in the latest [openJDK](https://openjdk.java.net/) and [BigMath](https://github.com/eobermuhlner/big-math). For many functions the user specifies a minimum precision scale for the precision of the result where: a positive value gives the number of decimal places the result must be accurate to; and, a negative value gives a scale of unit to the left of the decimal point that the number must be accurate too. More accurate result can be provided and the user may use rounding, but the result is accurate at least to the minimum precision scale specified. Sometimes the result is rounded using [RoundingMode.HALF_UP](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/math/RoundingMode.html#HALF_UP) using a can expect to obtain results accurate to a specified scale (given a RoundingMode). It also provides:
 - functionality for processing complex numbers where the real and imaginary parts are stored in part as BigDecimals or BigRationals;
 - a package uk.ac.leeds.ccg.matrices with a class for processing matrices;
 - a package uk.ac.leeds.ccg.primes with a class for prime numbers.
