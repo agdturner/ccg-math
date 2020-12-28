@@ -602,4 +602,18 @@ public class Math_BigInteger extends Math_Number {
         }
         return null;
     }
+
+    /**
+     * @param x The numerator.
+     * @param y The denominator.
+     * @return {@code true} iff x can be divided by y with the answer being able
+     * to be stored precisely as a BigInteger.
+     */
+    public static boolean isDivisibleBy(BigInteger x, BigInteger y) {
+        BigInteger d = x.divide(y);
+        if (d.multiply(y).compareTo(x) == 0) {
+            return true;
+        }
+        return false;
+    }
 }

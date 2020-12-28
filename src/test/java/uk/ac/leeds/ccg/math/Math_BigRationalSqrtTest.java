@@ -16,6 +16,9 @@
 package uk.ac.leeds.ccg.math;
 
 import ch.obermuhlner.math.big.BigRational;
+import java.math.BigInteger;
+import org.hamcrest.Matchers;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,22 +31,22 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0.0
  */
 public class Math_BigRationalSqrtTest {
-    
+
     public Math_BigRationalSqrtTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
@@ -76,6 +79,40 @@ public class Math_BigRationalSqrtTest {
         BigRational expResult = BigRational.valueOf(2);
         BigRational result = instance.multiply(y);
         assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        y = new Math_BigRationalSqrt(BigRational.valueOf(2));
+        instance = new Math_BigRationalSqrt(BigRational.valueOf(8));
+        expResult = BigRational.valueOf(4);
+        result = instance.multiply(y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        y = new Math_BigRationalSqrt(BigRational.valueOf(8));
+        instance = new Math_BigRationalSqrt(BigRational.valueOf(2));
+        expResult = BigRational.valueOf(4);
+        result = instance.multiply(y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        y = new Math_BigRationalSqrt(BigRational.valueOf(12));
+        instance = new Math_BigRationalSqrt(BigRational.valueOf(3));
+        expResult = BigRational.valueOf(6);
+        result = instance.multiply(y);
+        assertTrue(expResult.compareTo(result) == 0);
     }
-    
+
+    /**
+     * Test of getNumeratorAndDenominator method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testGetNumeratorAndDenominator() {
+        System.out.println("getNumeratorAndDenominator");
+        BigRational x = BigRational.valueOf(4);
+        BigInteger[] expResult = new BigInteger[2];
+        expResult[0] = BigInteger.valueOf(4);
+        expResult[1] = BigInteger.valueOf(1);        
+        BigInteger[] result = Math_BigRationalSqrt.getNumeratorAndDenominator(x);
+        for (int i =0; i < result.length; i ++) {
+            assertThat(result[i], Matchers.comparesEqualTo(expResult[i]));
+        }
+    }
+
 }

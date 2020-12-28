@@ -801,8 +801,6 @@ public class Math_BigIntegerTest extends Math_Test {
         // No test.
     }
 
-    
-
     /**
      * Test of power method, of class Math_BigInteger.
      */
@@ -895,5 +893,35 @@ public class Math_BigIntegerTest extends Math_Test {
         // Test 4
         s = "158245783928912374892374893274893274893274893278493278493728497.1";
         assertFalse(Math_BigInteger.isBigInteger(s));
+    }
+
+    /**
+     * Test of getPerfectSquareRoot method, of class Math_BigInteger.
+     */
+    @Test
+    public void testGetPerfectSquareRoot() {
+        System.out.println("getPerfectSquareRoot");
+        BigInteger x = new BigInteger("25");
+        BigInteger expResult = new BigInteger("5");
+        BigInteger result = Math_BigInteger.getPerfectSquareRoot(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigInteger("26");
+        assertNull(Math_BigInteger.getPerfectSquareRoot(x));
+    }
+
+    /**
+     * Test of isDivisibleBy method, of class Math_BigInteger.
+     */
+    @Test
+    public void testIsDivisibleBy() {
+        System.out.println("isDivisibleBy");
+        BigInteger x = new BigInteger("120");
+        BigInteger y = new BigInteger("6");
+        assertTrue(Math_BigInteger.isDivisibleBy(x, y));
+        // Test 2
+        x = new BigInteger("1201");
+        y = new BigInteger("6");
+        assertFalse(Math_BigInteger.isDivisibleBy(x, y));
     }
 }
