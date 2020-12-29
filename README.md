@@ -66,4 +66,4 @@ New to 1.8-SNAPSHOT:
 -- [Wikimedia](https://www.wikimedia.org/) projects, in particular the [English language Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 -- [StackExchange](https://stackexchange.com), in particular [StackOverflow](https://stackoverflow.com/) and (http://math.stackexchange.com/).
 - Information that has helped me develop this library is cited in the source code.
-- Of course, I would not have been able to produce this library without my education. Thanks to all my teachers and the learning resources I have had access to and learned from. 
+- This library is a product of my education and a bit of dedication. A special thank you to all who teach and especially those that supported me.
