@@ -59,11 +59,11 @@ New to 1.8-SNAPSHOT:
 
 ## Acknowledgements and thanks
 - The [University of Leeds](http://www.leeds.ac.uk) and externally funded research grants have supported the development of this library.
-- Thanks you [openJDK](https://openjdk.java.net/) contributors and all involved in creating the platform.
+- Thank you [openJDK](https://openjdk.java.net/) contributors and all involved in creating the platform.
 - Thank you Eric for the [BigMath](https://github.com/eobermuhlner/big-math) library.
 - Thank you developers of other useful Java libraries that have helped inspire me.
-- Thank you to the creators, maintainers and contributors for the utility of:
+- Thank you creators, maintainers and contributors of relevent content on:
 -- [Wikimedia](https://www.wikimedia.org/) projects, in particular the [English language Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
--- [StackExchange](https://stackexchange.com), in particular [StackOverflow](https://stackoverflow.com/) and (http://math.stackexchange.com/).
+-- [StackExchange](https://stackexchange.com), in particular [StackOverflow](https://stackoverflow.com/) and [Math.StackExchange](http://math.stackexchange.com/).
 - Information that has helped me develop this library is cited in the source code.
-- This library is a product of my education and a bit of dedication. A special thank you to all who teach and especially those that supported me.
+- This library is a product of my education, interest and work. Thank you teachers, especially those that supported me.
