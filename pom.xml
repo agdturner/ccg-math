@@ -5,9 +5,9 @@
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-math</artifactId>
-    <version>1.8-SNAPSHOT</version>
-    <!--
     <version>1.8</version>
+    <!--
+    <version>1.9-SNAPSHOT</version>
     -->
     <packaging>jar</packaging>
 
@@ -44,7 +44,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <agdt-java-generic.version>1.7.3</agdt-java-generic.version>
+        <agdt-java-generic.version>1.8</agdt-java-generic.version>
         <big-math.version>2.3.0</big-math.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
