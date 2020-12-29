@@ -57,10 +57,13 @@ New to 1.8-SNAPSHOT:
 ## LICENCE
 - APACHE LICENSE, VERSION 2.0: https://www.apache.org/licenses/LICENSE-2.0
 
-## Acknowledgements
+## Acknowledgements and thanks
 - The [University of Leeds](http://www.leeds.ac.uk) and externally funded research grants have supported the development of this library.
-- Thank you to all Java developers that contribute to the [openJDK](https://openjdk.java.net/) and develop other useful libraries out in the wild that have inspired me. In particular, thank you Eric for the [BigMath](https://github.com/eobermuhlner/big-math) library.
-- Thank you to all those that help maintain and contribute usefully to:
--- [Wikimedia](https://www.wikimedia.org/) projects, in particular [en.wikipedia](https://en.wikipedia.org/wiki/Main_Page)
+- Thanks you [openJDK](https://openjdk.java.net/) contributors and all involved in creating the platform.
+- Thank you Eric for the [BigMath](https://github.com/eobermuhlner/big-math) library.
+- Thank you developers of other useful Java libraries that have helped inspire me.
+- Thank you to the creators, maintainers and contributors for the utility of:
+-- [Wikimedia](https://www.wikimedia.org/) projects, in particular the [English language Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 -- [StackExchange](https://stackexchange.com), in particular [StackOverflow](https://stackoverflow.com/) and (http://math.stackexchange.com/).
--- The information on the Web that has helped me develop this library. I have made an effort to keep links to the content that I have used in the documentation.
+- Information that has helped me develop this library is cited in the source code.
+- Of course, I would not have been able to produce this library without my education. Thanks to all my teachers and the learning resources I have had access to and learned from. 
