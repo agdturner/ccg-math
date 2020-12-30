@@ -21,11 +21,15 @@ import java.math.BigInteger;
 import java.math.MathContext;
 
 /**
- * This is a class to help with the storage and multiplication of square roots.
- * Mathematically the square root of 2 multiplied by the square root of 2 is 2.
- * This helps ensure this is the case. It has application for example in
- * calculating the area of surfaces, such as the area of a square that has the
- * length of a side equal to the square root of 2.
+ * This is a class to help with the storage and arithmetic of numbers that are
+ * square roots. Many square roots are irrational and so it is best not to
+ * compute them very precisely unless needed. Often calculations can be
+ * simplified without needing to calculate terms. For instance: the square root
+ * of 2 ({@code sqrt(2)}) multiplied by {@code sqrt(2)} is {@code 2}; and
+ * {@code sqrt(2)} divided by {@code sqrt(2)} is {@code 1}. In the case of
+ * multiplication, this has application for example in calculating the area of
+ * surfaces, such as the area of a square that has the length of a side equal to
+ * {@code sqrt(2)}.
  *
  * @author Andy Turner
  * @version 1.0.0
@@ -111,7 +115,7 @@ public class Math_BigRationalSqrt {
             } else {
                 if (minimumPrecisionScale < mps) {
                     minimumPrecisionScale = mps;
-                    sqrtxapprox = x.toBigDecimal().sqrt(new MathContext(mps));
+                    sqrtxapprox = sqrtx.toBigDecimal(new MathContext(mps));
                 }
             }
         }
