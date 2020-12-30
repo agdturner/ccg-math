@@ -5,9 +5,9 @@
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-math</artifactId>
-    <version>1.8</version>
-    <!--
     <version>1.9-SNAPSHOT</version>
+    <!--
+    <version>1.10-SNAPSHOT</version>
     -->
     <packaging>jar</packaging>
 
@@ -71,6 +71,10 @@
             <artifactId>big-math</artifactId>
             <version>${big-math.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jscience/jscience -->
+        <!-- https://mvnrepository.com/artifact/org.apfloat/apfloat -->
+        <!-- https://mvnrepository.com/artifact/org.apfloat/apfloat-jscience -->
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -112,6 +116,16 @@
         -->
     </dependencies>
     
+    <!--
+    <repositories>
+        <repository>
+          <id>OpenMind</id>
+          <name>OpenMind Repository for Getting JScience 4.3.3</name>
+          <url>http://repository.openmindonline.it/</url>
+        </repository>
+    </repositories>
+    -->
+  
     <build>
         <plugins>
             <plugin>
