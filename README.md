@@ -19,24 +19,22 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 <dependency>
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-math</artifactId>
-    <version>1.7</version>
+    <version>1.9</version>
 </dependency>
 ```
-[JAR](https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.7/agdt-java-math-1.7.jar)
+[JAR](https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.9/agdt-java-math-1.9.jar)
 
-### Development
-```
-<!-- https://mvnrepository.com/artifact/io.github.agdturner/agdt-java-math -->
-<dependency>
-    <groupId>io.github.agdturner</groupId>
-    <artifactId>agdt-java-math</artifactId>
-    <version>1.8-SNAPSHOT</version>
-</dependency>
-```
+[//]: # ### Development
+[//]: # ```
+[//]: # <!-- https://mvnrepository.com/artifact/io.github.agdturner/agdt-java-math -->
+[//]: # <dependency>
+[//]: #     <groupId>io.github.agdturner</groupId>
+[//]: #     <artifactId>agdt-java-math</artifactId>
+[//]: #     <version>1.10-SNAPSHOT</version>
+[//]: # </dependency>
+[//]: # ```
 [//]: # (Move to version history section if/when a new version and summary are added)
-New to 1.8-SNAPSHOT:
-- [Math_Matrix_BR](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/matrices/Math_Matrix_BR.java) for processing [matrices](https://en.wikipedia.org/wiki/Matrix_(mathematics)) of [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) numbers;
-- [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) for representing the square roots of [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) numbers, some of which (including the square roots of prime numbers) are [irrational](https://en.wikipedia.org/wiki/Irrational_number).
+[//]: # New to 1.10-SNAPSHOT:
 
 ## Development plans/ideas
 - Do some computational comparison, e.g. compare Math_BigDecimal.sqrt(BigDecimal, int, RoundingMode), BigDecimal.sqrt(MathContext) and BigDecimalMath.sqrt().
@@ -49,7 +47,12 @@ New to 1.8-SNAPSHOT:
 - [Contribute](https://openjdk.java.net/contribute/) to the development of the openJDK.
 
 ## Development history
-- Early versions of this code were bundled together with lots of other code developed for academic research projects. A separation of code produced [agdt-java-generic](https://github.com/agdturner/agdt-java-generic) a generic higher level library upon which this depends. From version 1.7 an attempt is being made to provide a summary of changes for each version released on Maven Central.
+### New in 1.9
+- [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) for representing the square roots of [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) numbers, some of which (including the square roots of prime numbers) are [irrational](https://en.wikipedia.org/wiki/Irrational_number).
+### New in 1.8
+- [Math_Matrix_BR](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/matrices/Math_Matrix_BR.java) for processing [matrices](https://en.wikipedia.org/wiki/Matrix_(mathematics)) of [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) numbers;
+### Origins
+- Early versions of this code were bundled together with lots of other code developed for academic research projects. A separation of code produced [agdt-java-generic](https://github.com/agdturner/agdt-java-generic) a generic higher level library upon which this depends. Since Version 1.7 an attempt is being made to provide a summary of changes for each version released on Maven Central.
 
 ## Contributions
 - Welcome.
@@ -66,4 +69,4 @@ New to 1.8-SNAPSHOT:
 -- [Wikimedia](https://www.wikimedia.org/) projects, in particular the [English language Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 -- [StackExchange](https://stackexchange.com), in particular [StackOverflow](https://stackoverflow.com/) and [Math.StackExchange](http://math.stackexchange.com/).
 - Information that has helped me develop this library is cited in the source code.
-- This library is a product of my education, interest and work. Thank you teachers, especially those that supported me.
+- This library is a product of my education, interest and work. Thank you teachers, especially those that supported me. Thank you to everyone that supported my welfare by contributing to society. Let us try to look after this world and create and find others, extending our knowledge, skills and capability, making space for wildlife and creating love and harmony. 
