@@ -167,7 +167,7 @@ public class Math_BigRationalSqrtTest {
         // Test 2
         instance.toBigDecimal(2);
         expResult = "Math_BigRationalSqrt(x=2, sqrtx=null, "
-                + "sqrtxapprox=1.4, mps=2)";
+                + "sqrtxapprox=1.41, mps=2)";
         result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -180,7 +180,7 @@ public class Math_BigRationalSqrtTest {
         System.out.println("toBigDecimal");
         int mps = 2;
         Math_BigRationalSqrt instance = new Math_BigRationalSqrt(2);
-        BigDecimal expResult = new BigDecimal("1.4");
+        BigDecimal expResult = new BigDecimal("1.41");
         BigDecimal result = instance.toBigDecimal(mps);
         assertEquals(expResult, result);
         // Test 2
@@ -196,22 +196,27 @@ public class Math_BigRationalSqrtTest {
         result = instance.toBigDecimal(mps);
         assertEquals(expResult, result);
         // Test 4
-        mps = 2;
+        mps = 0;
         instance = new Math_BigRationalSqrt(257);
         expResult = new BigDecimal("16");
         result = instance.toBigDecimal(mps);
         assertEquals(expResult, result);
         // Test 5
-        mps = 3;
+        mps = -1;
+         instance = new Math_BigRationalSqrt(257);
+         expResult = new BigDecimal("20");
+         result = instance.toBigDecimal(mps);
+        assertThat(expResult,  Matchers.comparesEqualTo(result));
+        // Test 6
+        mps = 1;
          instance = new Math_BigRationalSqrt(257);
          expResult = new BigDecimal("16.0");
          result = instance.toBigDecimal(mps);
         assertThat(expResult,  Matchers.comparesEqualTo(result));
-        // Test 5
-        mps = 100;
+        // Test 7
+        mps = 20;
         instance = new Math_BigRationalSqrt(257);
-        expResult = new BigDecimal("16.031219541881397364871354757688482208097"
-                + "5881441675473080654239044361409850525974296834664075325608");
+        expResult = new BigDecimal("16.03121954188139736487");
         result = instance.toBigDecimal(mps);
         assertThat(expResult,  Matchers.comparesEqualTo(result));
     }

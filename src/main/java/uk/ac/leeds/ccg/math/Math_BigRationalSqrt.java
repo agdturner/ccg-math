@@ -189,8 +189,9 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
             if (sqrtxapprox == null) {
                 this.mps = mps;
                 // Not sure if new MathContext(mps + 4) is correct.
-                sqrtxapprox = x.toBigDecimal(new MathContext(mps + 6))
-                        .sqrt(new MathContext(mps));
+                int precision = (int) Math.ceil(x.integerPart().toBigDecimal().precision() / (double) 2) + mps;
+                sqrtxapprox = x.toBigDecimal(new MathContext(precision + 6))
+                        .sqrt(new MathContext(precision));
             } else {
                 if (this.mps < mps) {
                     this.mps = mps;
