@@ -32,7 +32,7 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 - For exponentiation and logarithms, review the implementation of [logarithmic numbers](https://en.wikipedia.org/wiki/Logarithmic_number_system).
 - Generally improve the coverage of unit tests.
 - Consider developing more functionality for [symbolic computation](https://en.wikipedia.org/wiki/Symbolic_computation).
-- Follow an [agile](https://en.wikipedia.org/wiki/Agile_software_development) development methodology.
+- Develop in an [agile](https://en.wikipedia.org/wiki/Agile_software_development) way.
 - [Contribute](https://openjdk.java.net/contribute/) to the development of the openJDK.
 
 ## Development history
