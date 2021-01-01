@@ -16,6 +16,7 @@
 package uk.ac.leeds.ccg.math;
 
 import ch.obermuhlner.math.big.BigRational;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.hamcrest.Matchers;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -136,36 +137,6 @@ public class Math_BigRationalSqrtTest {
         assertTrue(expResult.equals(result));
     }
 
-//    /**
-//     * Test of multiply method, of class Math_BigRationalSqrt.
-//     */
-//    @Test
-//    public void testMultiply() {
-//        System.out.println("multiply");
-//        Math_BigRationalSqrt y = new Math_BigRationalSqrt(BigRational.valueOf(2));
-//        Math_BigRationalSqrt instance = new Math_BigRationalSqrt(BigRational.valueOf(2));
-//        BigRational expResult = BigRational.valueOf(2);
-//        BigRational result = instance.multiply(y);
-//        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 2
-//        y = new Math_BigRationalSqrt(BigRational.valueOf(2));
-//        instance = new Math_BigRationalSqrt(BigRational.valueOf(8));
-//        expResult = BigRational.valueOf(4);
-//        result = instance.multiply(y);
-//        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 3
-//        y = new Math_BigRationalSqrt(BigRational.valueOf(8));
-//        instance = new Math_BigRationalSqrt(BigRational.valueOf(2));
-//        expResult = BigRational.valueOf(4);
-//        result = instance.multiply(y);
-//        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 4
-//        y = new Math_BigRationalSqrt(BigRational.valueOf(12));
-//        instance = new Math_BigRationalSqrt(BigRational.valueOf(3));
-//        expResult = BigRational.valueOf(6);
-//        result = instance.multiply(y);
-//        assertTrue(expResult.compareTo(result) == 0);
-//    }
     /**
      * Test of getNumeratorAndDenominator method, of class Math_BigRationalSqrt.
      */
@@ -180,6 +151,159 @@ public class Math_BigRationalSqrtTest {
         for (int i = 0; i < result.length; i++) {
             assertThat(result[i], Matchers.comparesEqualTo(expResult[i]));
         }
+    }
+
+    /**
+     * Test of toString method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Math_BigRationalSqrt instance = new Math_BigRationalSqrt(2);
+        String expResult = "Math_BigRationalSqrt(x=2, sqrtx=null, "
+                + "sqrtxapprox=null, mps=0)";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // Test 2
+        instance.toBigDecimal(2);
+        expResult = "Math_BigRationalSqrt(x=2, sqrtx=null, "
+                + "sqrtxapprox=1.4, mps=2)";
+        result = instance.toString();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of toBigDecimal method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testToBigDecimal() {
+        System.out.println("toBigDecimal");
+        int mps = 2;
+        Math_BigRationalSqrt instance = new Math_BigRationalSqrt(2);
+        BigDecimal expResult = new BigDecimal("1.4");
+        BigDecimal result = instance.toBigDecimal(mps);
+        assertEquals(expResult, result);
+        // Test 2
+        mps = 2;
+        instance = new Math_BigRationalSqrt(16);
+        expResult = new BigDecimal("4");
+        result = instance.toBigDecimal(mps);
+        assertEquals(expResult, result);
+        // Test 3
+        mps = 2;
+        instance = new Math_BigRationalSqrt(256);
+        expResult = new BigDecimal("16");
+        result = instance.toBigDecimal(mps);
+        assertEquals(expResult, result);
+        // Test 4
+        mps = 2;
+        instance = new Math_BigRationalSqrt(257);
+        expResult = new BigDecimal("16");
+        result = instance.toBigDecimal(mps);
+        assertEquals(expResult, result);
+        // Test 5
+        mps = 3;
+         instance = new Math_BigRationalSqrt(257);
+         expResult = new BigDecimal("16.0");
+         result = instance.toBigDecimal(mps);
+        assertThat(expResult,  Matchers.comparesEqualTo(result));
+        // Test 5
+        mps = 100;
+        instance = new Math_BigRationalSqrt(257);
+        expResult = new BigDecimal("16.031219541881397364871354757688482208097"
+                + "5881441675473080654239044361409850525974296834664075325608");
+        result = instance.toBigDecimal(mps);
+        assertThat(expResult,  Matchers.comparesEqualTo(result));
+    }
+
+    /**
+     * Test of divide method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testDivide() {
+        System.out.println("divide");
+        int a = 2;
+        int b = 1;
+        int c = 2;
+        int d = 1;
+        BigRational aob = BigRational.valueOf(a);
+        BigRational cod = BigRational.valueOf(c);
+        Math_BigRationalSqrt y = new Math_BigRationalSqrt(aob);
+        Math_BigRationalSqrt instance = new Math_BigRationalSqrt(cod);
+        Math_BigRationalSqrt expResult = Math_BigRationalSqrt.ONE;
+        Math_BigRationalSqrt result = instance.divide(y);
+        assertTrue(expResult.equals(result));
+        // Test 2
+        a = 8;
+        b = 1;
+        c = 2;
+        d = 1;
+        aob = BigRational.valueOf(a);
+        cod = BigRational.valueOf(c);
+        y = new Math_BigRationalSqrt(aob);
+        instance = new Math_BigRationalSqrt(cod);
+        expResult = new Math_BigRationalSqrt(BigRational.valueOf("0.25"));
+        result = instance.divide(y);
+        assertTrue(expResult.equals(result));
+        // Test 3
+        instance = new Math_BigRationalSqrt(cod);
+        expResult = new Math_BigRationalSqrt(BigRational.valueOf(4));
+        result = y.divide(instance);
+        assertTrue(expResult.equals(result));
+    }
+
+    /**
+     * Test of equals method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testEquals_Object() {
+        System.out.println("equals");
+        Object o = Math_BigRationalSqrt.ONE;
+        Math_BigRationalSqrt instance = Math_BigRationalSqrt.ONE;
+        assertTrue(instance.equals(o));
+        // Test 2
+        instance = Math_BigRationalSqrt.ZERO;
+        assertFalse(instance.equals(o));
+    }
+
+    /**
+     * Test of hashCode method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        // No test.
+    }
+
+    /**
+     * Test of equals method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testEquals_Math_BigRationalSqrt() {
+        System.out.println("equals");
+        Math_BigRationalSqrt x = Math_BigRationalSqrt.ONE;
+        Math_BigRationalSqrt instance = Math_BigRationalSqrt.ONE;
+        assertTrue(instance.equals(x));
+        // Test 2
+        instance = Math_BigRationalSqrt.ZERO;
+        assertFalse(instance.equals(x));
+    }
+
+    /**
+     * Test of compareTo method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testCompareTo() {
+        System.out.println("compareTo");
+        Math_BigRationalSqrt o = Math_BigRationalSqrt.ONE;
+        Math_BigRationalSqrt instance = Math_BigRationalSqrt.ONE;
+        assertTrue(instance.compareTo(o) == 0);
+        // Test 2
+        instance = Math_BigRationalSqrt.ZERO;
+        assertTrue(instance.compareTo(o) == -1);
+        // Test 3
+        instance = Math_BigRationalSqrt.ZERO;
+        assertTrue(o.compareTo(instance) == 1);
     }
 
 }

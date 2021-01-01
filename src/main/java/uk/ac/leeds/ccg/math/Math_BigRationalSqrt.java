@@ -36,9 +36,19 @@ import java.util.Objects;
  * @author Andy Turner
  * @version 1.0.0
  */
-public class Math_BigRationalSqrt implements Serializable {
+public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRationalSqrt> {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * ZERO
+     */
+    public static final Math_BigRationalSqrt ZERO = new Math_BigRationalSqrt(0);
+
+    /**
+     * ONE
+     */
+    public static final Math_BigRationalSqrt ONE = new Math_BigRationalSqrt(1);
 
     /**
      * The square of a BigRational
@@ -53,15 +63,15 @@ public class Math_BigRationalSqrt implements Serializable {
 
     /**
      * Stored the approximate square root of x with a minimum precision scale of
-     * {@link #minimumPrecisionScale}.
+     * {@link #mps}.
      */
     public BigDecimal sqrtxapprox;
 
     /**
-     * Stores the minimumPrecisionScale used for the approximately calculating
-     * {@link #sqrtxapprox}.
+     * Stores the minimum precision scale used for the approximate calculation
+     * of {@link #sqrtxapprox}.
      */
-    public int minimumPrecisionScale;
+    public int mps;
 
     /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
@@ -73,6 +83,30 @@ public class Math_BigRationalSqrt implements Serializable {
     public Math_BigRationalSqrt(BigRational x) {
         this.x = x;
         sqrtx = getSqrtRational(x);
+    }
+
+    /**
+     * Creates a new instance attempting to calculate {@link #sqrtx} using
+     * {@link #getSqrtRational(ch.obermuhlner.math.big.BigRational)} with
+     * {@code x} as input.
+     *
+     * @param x What {@link #x} is set to.
+     */
+    public Math_BigRationalSqrt(BigInteger x) {
+        this.x = BigRational.valueOf(x);
+        sqrtx = getSqrtRational(this.x);
+    }
+
+    /**
+     * Creates a new instance attempting to calculate {@link #sqrtx} using
+     * {@link #getSqrtRational(ch.obermuhlner.math.big.BigRational)} with
+     * {@code x} as input.
+     *
+     * @param x What {@link #x} is set to.
+     */
+    public Math_BigRationalSqrt(long x) {
+        this.x = BigRational.valueOf(x);
+        sqrtx = getSqrtRational(this.x);
     }
 
     /**
@@ -109,7 +143,7 @@ public class Math_BigRationalSqrt implements Serializable {
         this.x = x;
         this.sqrtx = sqrtx;
         this.sqrtxapprox = sqrtxapprox;
-        this.minimumPrecisionScale = minimumPrecisionScale;
+        this.mps = minimumPrecisionScale;
     }
 
     /**
@@ -118,19 +152,18 @@ public class Math_BigRationalSqrt implements Serializable {
     public Math_BigRationalSqrt(Math_BigRationalSqrt i) {
         this.x = i.x;
         this.sqrtx = i.sqrtx;
-        this.minimumPrecisionScale = i.minimumPrecisionScale;
+        this.mps = i.mps;
         this.sqrtxapprox = i.sqrtxapprox;
     }
 
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "(x=" + x + ", sqrtx="
-                + sqrtx + ", sqrtxapprox=" + sqrtxapprox 
-                + ", minimumPrecisionScale=" + minimumPrecisionScale + ")";
+                + sqrtx + ", sqrtxapprox=" + sqrtxapprox + ", mps=" + mps + ")";
     }
 
     /**
-     * @param x The number to return the square root of (it the result is
+     * @param x The number to return the square root of (if the result is
      * rational).
      * @return The square root of x if that square root is rational and
      * {@code null} otherwise.
@@ -154,30 +187,30 @@ public class Math_BigRationalSqrt implements Serializable {
     public BigDecimal toBigDecimal(int mps) {
         if (sqrtx == null) {
             if (sqrtxapprox == null) {
-                minimumPrecisionScale = mps;
+                this.mps = mps;
                 // Not sure if new MathContext(mps + 4) is correct.
-                sqrtxapprox = x.toBigDecimal(new MathContext(mps + 4))
+                sqrtxapprox = x.toBigDecimal(new MathContext(mps + 6))
                         .sqrt(new MathContext(mps));
             } else {
-                if (minimumPrecisionScale < mps) {
-                    minimumPrecisionScale = mps;
+                if (this.mps < mps) {
+                    this.mps = mps;
                     sqrtxapprox = x.toBigDecimal().sqrt(new MathContext(mps));
                 }
             }
         } else {
             if (sqrtxapprox == null) {
-                minimumPrecisionScale = mps;
+                this.mps = mps;
                 sqrtxapprox = sqrtx.toBigDecimal(new MathContext(mps));
             } else {
-                if (minimumPrecisionScale < mps) {
-                    minimumPrecisionScale = mps;
+                if (this.mps < mps) {
+                    this.mps = mps;
                     sqrtxapprox = sqrtx.toBigDecimal(new MathContext(mps));
                 }
             }
         }
         return sqrtxapprox;
     }
-    
+
     /**
      * @param x The value for which the numerator and denominator are returned.
      * @return The numerator and denominator of {@code x}
@@ -207,51 +240,6 @@ public class Math_BigRationalSqrt implements Serializable {
         }
     }
 
-//    /**
-//     * @param y The other number to multiply.
-//     * @return {@code y.x} multiplied by {@link #x} if this can be expressed
-//     * exactly as a {@code BigRational} and {@code null} otherwise.
-//     */
-//    public BigRational multiply(Math_BigRationalSqrt y) {
-//        int c = y.x.compareTo(x);
-//        switch (c) {
-//            case 0:
-//                return x;
-//            case 1: {
-//                if (sqrtx != null) {
-//                    if (y.sqrtx != null) {
-//                        return sqrtx.multiply(y.sqrtx);
-//                    }
-//                } else {
-//                    BigRational d = y.x.divide(x);
-//                    if (d.isInteger()) {
-//                        BigRational sqrtd = getSqrtRational(d);
-//                        if (sqrtd != null) {
-//                            return sqrtd.multiply(x);
-//                        }
-//                    }
-//                }
-//                break;
-//            }
-//            default: {
-//                if (sqrtx != null) {
-//                    if (y.sqrtx != null) {
-//                        return sqrtx.multiply(y.sqrtx);
-//                    }
-//                } else {
-//                    BigRational d = x.divide(y.x);
-//                    if (d.isInteger()) {
-//                        BigRational sqrtd = getSqrtRational(d);
-//                        if (sqrtd != null) {
-//                            return sqrtd.multiply(y.x);
-//                        }
-//                    }
-//                }
-//                break;
-//            }
-//        }
-//        return null;
-//    }
     /**
      * @param y The divisor.
      * @return {@code y.x} multiplied by {@link #x} if this can be expressed
@@ -265,7 +253,7 @@ public class Math_BigRationalSqrt implements Serializable {
             return new Math_BigRationalSqrt(x.divide(y.x));
         }
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof Math_BigRationalSqrt) {
@@ -283,5 +271,10 @@ public class Math_BigRationalSqrt implements Serializable {
 
     public boolean equals(Math_BigRationalSqrt x) {
         return x.x.compareTo(this.x) == 0;
+    }
+
+    @Override
+    public int compareTo(Math_BigRationalSqrt o) {
+        return x.compareTo(o.x);
     }
 }
