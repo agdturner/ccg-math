@@ -66,9 +66,11 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 - The [University of Leeds](http://www.leeds.ac.uk) and externally funded research grants have supported the development of this library.
 - Thank you [openJDK](https://openjdk.java.net/) contributors and all involved in creating the platform.
 - Thank you Eric for the [BigMath](https://github.com/eobermuhlner/big-math) library.
-- Thank you developers of other useful Java libraries that have helped inspire me.
-- Thank you creators, maintainers and contributors of relevent content on:
+- Thank you developers and maintainers of other useful Java libraries that provide inspiration.
+- Thank you developers and maintainers of [Apache Maven](https://maven.apache.org/), [Apache NetBeans](https://netbeans.apache.org/), and [git](https://git-scm.com/) which I use for developing code.
+- Thank you developers and maintainers of [GitHub](http://github.com) for supporting the development of this code and for providing a means of creating a community of users and  developers.
+- Thank you developers, maintainers and contributors of relevent content on:
 -- [Wikimedia](https://www.wikimedia.org/) projects, in particular the [English language Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 -- [StackExchange](https://stackexchange.com), in particular [StackOverflow](https://stackoverflow.com/) and [Math.StackExchange](http://math.stackexchange.com/).
 - Information that has helped me develop this library is cited in the source code.
-- This library is a product of my education, interest and work. Thank you teachers, especially those that supported me. Thank you to everyone that supported my welfare by contributing to society. Let us try to look after this world and create and find others, extending our knowledge, skills and capability, making space for wildlife and creating love and harmony. 
+- This library is a product of my education, interest and work. Thank you teachers, especially those that supported me. Thank you to everyone that supported my welfare and made a positive contribution to society. Let us: try to look after this world and create and find others; extend and safeguard knowledge; enhance skills and capability; make space for wildlife; and, love and create harmony :)
