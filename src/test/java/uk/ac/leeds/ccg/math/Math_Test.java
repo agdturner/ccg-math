@@ -21,47 +21,58 @@ import java.math.RoundingMode;
  * @author Andy Turner
  * @version 1.0.0
  */
+@Deprecated
 public class Math_Test {
+    
+    @Deprecated
     public void printTest(int test) {
         System.out.println("Test " + test);
     }
 
+    @Deprecated
     public void printX(Number x) {
         System.out.println("x " + x);
     }
 
+    @Deprecated
     public void printY(Number y) {
         System.out.println("y " + y);
     }
 
+    @Deprecated
     public void printTestAndX(int test, Number x) {
         printTest(test);
         printX(x);
     }
 
+    @Deprecated
     public void printTestAndXAndY(int test, Number x, Number y) {
         printTestAndX(test, x);
         printY(y);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number x,
             Number result) {
         printTestAndX(test, x);
         System.out.println(funcName + "(x) " + result);
     }
     
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number x,
             String result) {
         printTestAndX(test, x);
         System.out.println(funcName + "(x) " + result);
     }
     
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number x,
             boolean result) {
         printTestAndX(test, x);
         System.out.println(funcName + "(x) " + result);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, String s,
             Number result) {
         printTest(test);
@@ -69,6 +80,7 @@ public class Math_Test {
         System.out.println(funcName + "(s) " + result);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, String s,
             boolean result) {
         printTest(test);
@@ -76,6 +88,7 @@ public class Math_Test {
         System.out.println(funcName + "(s) " + result);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, String s,
             int dp, boolean result) {
         printTest(test);
@@ -84,20 +97,24 @@ public class Math_Test {
         System.out.println(funcName + "(s,dp) " + result);
     }
     
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number x,
             Number y, Number result) {
         printTestAndXAndY(test, x, y);
         System.out.println(funcName + "(x,y) " + result);
     }
 
+    @Deprecated
     public void printRoundingMode(RoundingMode rm) {
         System.out.println("RoundingMode (rm) " + rm);
     }
 
+    @Deprecated
     public void printDecimalPlaces(int dp) {
         System.out.println("decimal places (dp) " + dp);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number x,
             int dp, RoundingMode rm, Number result) {
         printTestAndX(test, x);
@@ -106,11 +123,13 @@ public class Math_Test {
         System.out.println(funcName + "(x,dp,rm) " + result);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number x,
             Number y, int dp, Number result) {
         printFunctionTest(funcName, test, x, y, dp, null, result);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number x,
             Number y, int dp, RoundingMode rm, Number result) {
         printTestAndXAndY(test, x, y);
@@ -123,14 +142,17 @@ public class Math_Test {
         }
     }
 
+    @Deprecated
     public void printDiv(int div) {
         System.out.println("div " + div);
     }
 
+    @Deprecated
     public void printCompare(Number c) {
         System.out.println("compare (c)" + c);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number c,
             Number x, Number y, int div, int dp, RoundingMode rm,
             boolean result) {
@@ -144,6 +166,7 @@ public class Math_Test {
         System.out.println(funcName + "(c,x,y,div,dp,rm) " + result);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number x,
             Number y, int div, int dp, RoundingMode rm, Number result) {
         printTestAndXAndY(test, x, y);
@@ -153,6 +176,7 @@ public class Math_Test {
         System.out.println(funcName + "(x,y,div,dp,rm) " + result);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, int dp,
             RoundingMode rm, Number result) {
         printTest(test);
@@ -161,6 +185,7 @@ public class Math_Test {
         System.out.println(funcName + "(x,dp,rm,y) " + result);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test, Number x,
             long seed, int dp, RoundingMode rm, boolean result) {
         printTestAndX(test, x);
@@ -170,6 +195,7 @@ public class Math_Test {
         System.out.println(funcName + "(x,seed,dp,rm) " + result);
     }
 
+    @Deprecated
     public void printFunctionTest(String funcName, int test,
             Math_BigInteger bi, Number x, Number y, Number z, Number result) {
         printTest(test);

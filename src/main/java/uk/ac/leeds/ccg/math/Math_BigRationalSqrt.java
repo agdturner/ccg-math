@@ -25,16 +25,14 @@ import java.util.Objects;
 /**
  * This is a class to help with the storage and arithmetic of numbers that are
  * square roots. Many square roots are irrational and so it is best not to
- * compute them very precisely unless needed. Often calculations can be
- * simplified without needing to calculate terms. For instance: the square root
- * of 2 ({@code sqrt(2)}) multiplied by {@code sqrt(2)} is {@code 2}; and
- * {@code sqrt(2)} divided by {@code sqrt(2)} is {@code 1}. In the case of
- * multiplication, this has application for example in calculating the area of
- * surfaces, such as the area of a square that has the length of a side equal to
- * {@code sqrt(2)}.
+ * compute them to a precision unless necessary. Sometimes calculations can be
+ * simplified without needing to calculate component terms. For instance: the
+ * square root of 2 ({@code sqrt(2)}) multiplied by {@code sqrt(2)} is
+ * {@code 2}; and {@code sqrt(2)} divided by {@code sqrt(2)} is {@code 1}. This
+ * has application in geometry for calculating distances, areas and volumes.
  *
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRationalSqrt> {
 
@@ -51,19 +49,19 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     public static final Math_BigRationalSqrt ONE = new Math_BigRationalSqrt(1);
 
     /**
-     * The square of a BigRational
+     * The number for which {@code this} is the square root representation.
      */
     public final BigRational x;
 
     /**
-     * If the square root of x can be stored exactly as a BigRational then this
-     * stores it, otherwise it is {@code null}.
+     * Stores the square root of {@link #x} if this can be stored exactly as a
+     * BigRational, otherwise it is {@code null}.
      */
     public final BigRational sqrtx;
 
     /**
-     * Stored the approximate square root of x with a minimum precision scale of
-     * {@link #mps}.
+     * Stores the approximate square root of {@link #x} with a minimum precision
+     * scale of {@link #mps}.
      */
     public BigDecimal sqrtxapprox;
 
@@ -72,6 +70,12 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      * of {@link #sqrtxapprox}.
      */
     public int mps;
+
+    /**
+     * Stores the MathContext of the minimum precision scale used for the
+     * approximate calculation of {@link #sqrtxapprox}.
+     */
+    public MathContext mpsmc;
 
     /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
@@ -110,16 +114,15 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     }
 
     /**
-     * No check is performed to test that {@code sqrt} is indeed what would be
+     * No check is performed to test that {@code sqrtx} is indeed what would be
      * returned from
      * {@link #getSqrtRational(ch.obermuhlner.math.big.BigRational)} with
-     * {@code x} as input. This is preferred for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational)} if it
-     * is known what the square root of {@code x} is.
+     * {@code x} input. This is preferred for efficiency reasons over
+     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational)} if the
+     * square root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
-     * @param sqrtx The square root of {@code x} or {@code null} if the square
-     * root of {@code x} is irrational.
+     * @param sqrtx What {@link #sqrtx} is set to.
      */
     public Math_BigRationalSqrt(BigRational x, BigRational sqrtx) {
         this.x = x;
@@ -127,33 +130,41 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     }
 
     /**
-     * No check is performed to test that {@code sqrt} is indeed what would be
+     * No check is performed to test that {@code sqrtx} is indeed what would be
      * returned from
      * {@link #getSqrtRational(ch.obermuhlner.math.big.BigRational)} with
      * {@code x} as input. This is preferred for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational)} if it
-     * is known what the square root of {@code x} is.
+     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational)} if the
+     * square root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
-     * @param sqrtx The square root of {@code x} or {@code null} if the square
-     * root of {@code x} is irrational.
+     * @param sqrtx What {@link #sqrtx} is set to.
+     * @param sqrtxapprox What {@link #sqrtxapprox} is set to.
+     * @param mps What {@link #mps} is set to. This should be the minimum
+     * precision scale for the calculation of {@code sqrtxapprox}.
+     * @param mpsmc What {@link #mpsmc} is set to. This should be the
+     * MathContext for {@link #mps}.
      */
     public Math_BigRationalSqrt(BigRational x, BigRational sqrtx,
-            BigDecimal sqrtxapprox, int minimumPrecisionScale) {
+            BigDecimal sqrtxapprox, int mps, MathContext mpsmc) {
         this.x = x;
         this.sqrtx = sqrtx;
         this.sqrtxapprox = sqrtxapprox;
-        this.mps = minimumPrecisionScale;
+        this.mps = mps;
+        this.mpsmc = mpsmc;
     }
 
     /**
      * Creates a copy of {@code i}.
+     *
+     * @param i The instance to create a copy of.
      */
     public Math_BigRationalSqrt(Math_BigRationalSqrt i) {
         this.x = i.x;
         this.sqrtx = i.sqrtx;
-        this.mps = i.mps;
         this.sqrtxapprox = i.sqrtxapprox;
+        this.mps = i.mps;
+        this.mpsmc = i.mpsmc;
     }
 
     @Override
@@ -181,31 +192,60 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     }
 
     /**
+     * Initialises {@link #mps} and {@link #mpsmc}. {@link #mpsmc} is
+     * initialised as {@code new MathContext(mps)}.
+     *
+     * @param mps What {@link #mps} is set to.
+     */
+    private void init(int mps) {
+        this.mps = mps;
+        if (mps < 0) {
+            mpsmc = new MathContext(0);
+        } else {
+            mpsmc = new MathContext(mps);
+        }
+    }
+    
+    /**
+     * A POJO class for code brevity.
+     */
+    private class MC {
+        MathContext mc;
+        MathContext mcp6;
+        MC(int mps){
+            int precision = (int) Math.ceil(
+                    x.integerPart().toBigDecimal().precision() / (double) 2)
+                    + mps;
+            mc = new MathContext(precision);
+            mcp6 = new MathContext(precision + 6);
+        }
+    }
+
+    /**
      * @param mps minimum precision scale for approximating the result.
      * @return The square root of x approximated as a BigDecimal.
      */
     public BigDecimal toBigDecimal(int mps) {
         if (sqrtx == null) {
             if (sqrtxapprox == null) {
-                this.mps = mps;
-                // Not sure if new MathContext(mps + 4) is correct.
-                int precision = (int) Math.ceil(x.integerPart().toBigDecimal().precision() / (double) 2) + mps;
-                sqrtxapprox = x.toBigDecimal(new MathContext(precision + 6))
-                        .sqrt(new MathContext(precision));
+                init(mps);
+                MC mcs = new MC(mps);
+                sqrtxapprox = x.toBigDecimal(mcs.mcp6).sqrt(mcs.mc);
             } else {
                 if (this.mps < mps) {
-                    this.mps = mps;
-                    sqrtxapprox = x.toBigDecimal().sqrt(new MathContext(mps));
+                    init(mps);
+                    MC mcs = new MC(mps);
+                    sqrtxapprox = x.toBigDecimal(mcs.mcp6).sqrt(mcs.mc);
                 }
             }
         } else {
             if (sqrtxapprox == null) {
-                this.mps = mps;
-                sqrtxapprox = sqrtx.toBigDecimal(new MathContext(mps));
+                init(mps);
+                sqrtxapprox = sqrtx.toBigDecimal(mpsmc);
             } else {
                 if (this.mps < mps) {
-                    this.mps = mps;
-                    sqrtxapprox = sqrtx.toBigDecimal(new MathContext(mps));
+                    init(mps);
+                    sqrtxapprox = sqrtx.toBigDecimal(mpsmc);
                 }
             }
         }

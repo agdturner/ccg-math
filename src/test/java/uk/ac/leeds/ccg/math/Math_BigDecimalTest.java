@@ -20,6 +20,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 import org.hamcrest.Matchers;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,10 +31,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * @author Andy Turner
- * @version 1.0
+ * @version 1.1.0
  */
 public class Math_BigDecimalTest extends Math_Test {
 
@@ -57,27 +60,27 @@ public class Math_BigDecimalTest extends Math_Test {
 
     @Test // Uncomment to run tests
     public void testAll() {
-        testRoundToAndSetDecimalPlaces_3args(); // Test passes
-        testMultiply(); // Test passes
-        testDivide(); // Test passes
-        testReciprocal(); // Test passes
-        testReciprocalWillBeInteger(); // Test passes
-        testGetEulerConstant(); // Test passes
-        testPositionSignificantDigit(); // Test passes
-        testFloorSignificantDigit(); // Test passes
-        testCeilingSignificantDigit(); // Test passes
-        testRandomUniformTest(); // Test passes
-        testExp(); // Not all tests work...
-        testLn(); // Test passes
-        testLog(); // Test passes
-        test_getRandom_2args(); // Test passes
-        test_getRandom_4args(); // Test passes
-        testSqrt();  // Test passes
-        testRoot(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
-        testPower(); //@TODO Not all tests completing in a satisfactory time. Some may be getting stuck in infinite loops.
-        testCos(); // Test passes
-        testSin(); // Test passes
-        testTan(); // Test passes
+//        testRoundToAndSetDecimalPlaces_3args(); // Test passes
+//        testMultiply(); // Test passes
+//        testDivide(); // Test passes
+//        testReciprocal(); // Test passes
+//        testReciprocalWillBeInteger(); // Test passes
+//        testGetEulerConstant(); // Test passes
+//        testPositionSignificantDigit(); // Test passes
+//        testFloorSignificantDigit(); // Test passes
+//        testCeilingSignificantDigit(); // Test passes
+//        testRandomUniformTest(); // Test passes
+//        testExp(); // Not all tests work...
+//        testLn(); // Test passes
+//        testLog(); // Test passes
+//        test_getRandom_2args(); // Test passes
+//        test_getRandom_4args(); // Test passes
+//        testSqrt();  // Test passes
+//        testRoot(); //@TODO Not all tests complete in a reasonable time frame so some have been commented out for the time being.
+//        testPower(); //@TODO Not all tests completing in a satisfactory time. Some may be getting stuck in infinite loops.
+//        testCos(); // Test passes
+//        testSin(); // Test passes
+//        testTan(); // Test passes
     }
 
     //@Test
@@ -130,49 +133,39 @@ public class Math_BigDecimalTest extends Math_Test {
         assertEquals(expResult, result);
     }
 
-    //@Test
-    public void testMultiply() {
-        testMultiplyRoundIfNecessary_5args_1();
-        testMultiplyRoundIfNecessary_4args_1();
-        testMultiplyRoundIfNecessary_4args_2();
-    }
-
-    //@Test
-    public void testMultiplyRoundIfNecessary_5args_1() {
-        String funcName = "multiplyRoundIfNecessary_5args_1";
-        System.out.println("Test " + funcName);
+    @Test
+    @Disabled
+    public void testMultiply_4args() {
+        System.out.println("multiply_4args");
         BigDecimal x;
         BigDecimal y;
-        MathContext mc;
-        int dp;
-        RoundingMode rm;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        int ps;
         BigDecimal expResult;
-        BigDecimal result;
+        BigDecimal result = null;
         // Test 1
         int test = 1;
         x = new BigDecimal("1.1");
         y = new BigDecimal("1.1");
-        rm = RoundingMode.HALF_UP;
-        mc = new MathContext(3, rm);
-        dp = 2;
+        ps = 2;
         expResult = new BigDecimal("1.21");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, mc, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
+        //result = Math_BigDecimal.multiply(x, y, ps, rm);
+        //printFunctionTest(funcName, test, x, y, ps, result);
         assertEquals(expResult, result);
         // Test 2
         test++;
         x = new BigDecimal("1.123456789");
         y = new BigDecimal("1234.1234");
-        rm = RoundingMode.HALF_UP;
-        mc = new MathContext(14, rm);
-        dp = 10;
+        //mc = new MathContext(14, rm);
+        //dp = 10;
         expResult = new BigDecimal("1386.4843121938");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, mc, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
+        //result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, mc, dp, rm);
+        //printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    //@Test
+    @Test
+    @Disabled
     public void testMultiplyRoundIfNecessary_4args_1() {
         String funcName = "multiplyRoundIfNecessary_4args_1";
         System.out.println("Test " + funcName);
@@ -181,7 +174,7 @@ public class Math_BigDecimalTest extends Math_Test {
         int dp;
         RoundingMode rm;
         BigDecimal expResult;
-        BigDecimal result;
+        BigDecimal result = null;
         // Test 1
         int test = 1;
         x = new BigDecimal("10.123456789");
@@ -189,7 +182,7 @@ public class Math_BigDecimalTest extends Math_Test {
         dp = 10;
         rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("10.123456789");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        //result = Math_BigDecimal.multiply(x, y, dp, rm);
         printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
         // Test 2
@@ -200,7 +193,7 @@ public class Math_BigDecimalTest extends Math_Test {
         rm = RoundingMode.HALF_UP;
         // The exact answer if precision were unlimited is 10.1234578013456789
         expResult = new BigDecimal("10.1234578013");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        //result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
         printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
         // Test 3
@@ -217,7 +210,7 @@ public class Math_BigDecimalTest extends Math_Test {
                 "15271348307693848498083695561135354493017650234872663109391721"
                 + "32466014.413624453917232477798220907377131857747836727698261"
                 + "8524788288629667703506739052902096156722546642754");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        //result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
         printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
         // Test 4
@@ -234,7 +227,7 @@ public class Math_BigDecimalTest extends Math_Test {
                 + "023487266310939172132466014.41362445391723247779822090737713"
                 + "185774783672769826185247882886296677035067390529020961567225"
                 + "46642754");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        //result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
         printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
         // Test 5
@@ -250,78 +243,65 @@ public class Math_BigDecimalTest extends Math_Test {
                 "-1527134830769384849808369556113535449301765023487266310939172"
                 + "132466014.41362445391723247779822090737713185774783672769826"
                 + "18524788288629667703506739052902096156722546642754");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
+        //result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
         printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    //@Test
-    public void testMultiplyRoundIfNecessary_4args_2() {
-        String funcName = "multiplyRoundIfNecessary_4args_2";
-        System.out.println("Test " + funcName);
+    @Test
+    public void testMultiply_4args_2() {
+        System.out.println("multiply");
         BigDecimal x;
         BigInteger y;
-        int dp;
-        RoundingMode rm;
+        int ps;
+        RoundingMode rm = RoundingMode.HALF_UP;
         BigDecimal expResult;
         BigDecimal result;
         // Test 1
-        int test = 1;
         x = new BigDecimal("1.005");
         y = new BigInteger("2");
-        dp = 3;
-        rm = RoundingMode.HALF_UP;
+        ps = 3;
         expResult = new BigDecimal("2.010");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
-        assertEquals(expResult, result);
+        result = Math_BigDecimal.multiply(x, y, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
-        test++;
         x = new BigDecimal("1.006");
         y = new BigInteger("3");
-        dp = 3;
-        rm = RoundingMode.HALF_UP;
+        ps = 3;
         expResult = new BigDecimal("3.018");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
-        assertEquals(expResult, result);
+        result = Math_BigDecimal.multiply(x, y, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 3
-        test++;
         x = new BigDecimal("1.006");
         y = new BigInteger("3");
-        dp = 2;
+        ps = 2;
         rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("3.02");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
-        assertEquals(expResult, result);
+        result = Math_BigDecimal.multiply(x, y, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 4
-        test++;
         x = new BigDecimal("1.123456789123456");
         y = new BigInteger("12356789");
-        dp = 2;
+        ps = 2;
         rm = RoundingMode.HALF_UP;
         // Accurate result 13882318.493816040742784
         expResult = new BigDecimal("13882318.49");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
-        assertEquals(expResult, result);
+        result = Math_BigDecimal.multiply(x, y, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 5
-        test++;
         x = new BigDecimal(
                 "1234567891011121314151617181991967676675410.123456789");
         y = new BigInteger(
                 "14632748325142541437589475834957438967342068989089035451545415"
                 + "457485917594001");
-        dp = 1000;
+        ps = 1000;
         rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal(
                 "18065121239467745048010407669300110379939339155567645320133264"
                 + "901389499811971334588569293633668157618732327166017614283.96"
                 + "9122789");
-        result = Math_BigDecimal.multiplyRoundIfNecessary(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
-        assertEquals(expResult, result);
+        result = Math_BigDecimal.multiply(x, y, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     public void testDivide() {
@@ -2805,8 +2785,8 @@ public class Math_BigDecimalTest extends Math_Test {
         BigDecimal expResult;
         BigDecimal result;
         // Main switches for test
-        boolean do1to6 = false;
-        do1to6 = true;
+        //boolean do1to6 = false;
+        boolean do1to6 = true;
         int test = 1;
         if (do1to6) {
             // Test 1
@@ -3163,7 +3143,10 @@ public class Math_BigDecimalTest extends Math_Test {
         assertEquals(expResult, result);
     }
 
-    @Test // Not all tests running...
+    /**
+     * Not all tests running...
+     */
+    @Test
     public void testExp() {
         String funcName = "exp";
         System.out.println("Test " + funcName);
@@ -4097,5 +4080,1022 @@ public class Math_BigDecimalTest extends Math_Test {
         result = Math_BigDecimal.getRandom(bd.bi, dp, lowerBound, upperBound);
         printFunctionTest(funcName, test, bd.bi, dp, lowerBound, upperBound, result);
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of max method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testMax() {
+        System.out.println("max");
+        Collection<BigDecimal> c = new ArrayList<>();
+        for (int i = -100; i < 101; i ++) {
+            c.add(BigDecimal.valueOf(123456789, i));
+        }
+        BigDecimal expResult = BigDecimal.valueOf(123456789, -100);
+        BigDecimal result = Math_BigDecimal.max(c);
+        assertThat(expResult,  Matchers.comparesEqualTo(result));
+    }
+
+    /**
+     * Test of isEven method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testIsEven() {
+        System.out.println("isEven");
+        BigDecimal x = Math_BigDecimal.TWO;
+        assertTrue(Math_BigDecimal.isEven(x));
+        // Test 2
+        x = BigDecimal.valueOf(42, 2);
+        assertTrue(Math_BigDecimal.isEven(x));
+        // Test 3
+        x = BigDecimal.valueOf(424, 2);
+        assertTrue(Math_BigDecimal.isEven(x));
+        // Test 4
+        x = BigDecimal.valueOf(-424, 2);
+        assertTrue(Math_BigDecimal.isEven(x));
+        // Test 5
+        x = BigDecimal.valueOf(4241, 2);
+        assertFalse(Math_BigDecimal.isEven(x));
+        // Test 6
+        x = BigDecimal.valueOf(424, -2);
+        assertTrue(Math_BigDecimal.isEven(x));
+        // Test 7
+        x = BigDecimal.valueOf(4241, -2);
+        assertTrue(Math_BigDecimal.isEven(x));
+    }
+
+    /**
+     * Test of isBigDecimal method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testIsBigDecimal() {
+        System.out.println("isBigDecimal");
+        String s = "1";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 2
+        s = "1.0";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 3
+        s = "1.000000000000000000000000000000000000000000000000000000000000001";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 4
+        s = "100000000000000000000000000000000000000000000000000000000000000000"
+                + ".0000000000000000000000000000000000000000000000000000000001";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 5
+        s = "1.0.0";
+        assertFalse(Math_BigDecimal.isBigDecimal(s));
+        // Test 6
+        s = "1,000.0";
+        assertFalse(Math_BigDecimal.isBigDecimal(s));
+        // Test 7
+        s = "-123";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 8
+        s = "1.23E3";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 9
+        s = "1.23E+3";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 10
+        s = "12.3E+7";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 11
+        s = "-1.23E-12";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 12
+        s = "1234.5E-4";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 13
+        s = "0E+7";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+        // Test 14
+        s = "-0";
+        assertTrue(Math_BigDecimal.isBigDecimal(s));
+    }
+
+    /**
+     * Test of getRoundingMode method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetRoundingMode() {
+        System.out.println("getRoundingMode");
+        Math_BigDecimal instance = new Math_BigDecimal();
+        RoundingMode expResult = null;
+        RoundingMode result = instance.getRoundingMode();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setRoundingMode method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testSetRoundingMode() {
+        System.out.println("setRoundingMode");
+        RoundingMode r = null;
+        Math_BigDecimal instance = new Math_BigDecimal();
+        instance.setRoundingMode(r);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getMagnitude method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetMagnitude() {
+        System.out.println("getMagnitude");
+        BigDecimal x = null;
+        int expResult = 0;
+        int result = Math_BigDecimal.getMagnitude(x);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of multiply method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testMultiply_4args_1() {
+        System.out.println("multiply");
+        BigDecimal x = null;
+        BigDecimal y = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.multiply(x, y, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of multiply method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testMultiply_BigDecimal_BigInteger() {
+        System.out.println("multiply");
+        BigDecimal x = null;
+        BigInteger y = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.multiply(x, y);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideRoundIfNecessary method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideRoundIfNecessary_3args() {
+        System.out.println("divideRoundIfNecessary");
+        BigDecimal x = null;
+        BigDecimal y = null;
+        MathContext mc = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideRoundIfNecessary(x, y, mc);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideRoundToFixedDecimalPlaces method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideRoundToFixedDecimalPlaces_4args_1() {
+        System.out.println("divideRoundToFixedDecimalPlaces");
+        BigDecimal x = null;
+        BigDecimal y = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideRoundToFixedDecimalPlaces(x, y, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideNoRounding_BigDecimal_BigDecimal() {
+        System.out.println("divideNoRounding");
+        BigDecimal x = null;
+        BigDecimal y = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideNoRounding(x, y);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideRoundToFixedDecimalPlaces method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideRoundToFixedDecimalPlaces_4args_2() {
+        System.out.println("divideRoundToFixedDecimalPlaces");
+        BigDecimal x = null;
+        BigInteger y = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideRoundToFixedDecimalPlaces(x, y, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideNoRounding_BigDecimal_BigInteger() {
+        System.out.println("divideNoRounding");
+        BigDecimal x = null;
+        BigInteger y = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideNoRounding(x, y);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideRoundToFixedDecimalPlaces method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideRoundToFixedDecimalPlaces_4args_3() {
+        System.out.println("divideRoundToFixedDecimalPlaces");
+        BigInteger x = null;
+        BigDecimal y = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideRoundToFixedDecimalPlaces(x, y, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideNoRounding_BigInteger_BigDecimal() {
+        System.out.println("divideNoRounding");
+        BigInteger x = null;
+        BigDecimal y = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideNoRounding(x, y);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideRoundIfNecessary method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideRoundIfNecessary_4args_5() {
+        System.out.println("divideRoundIfNecessary");
+        BigInteger x = null;
+        BigInteger y = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideRoundIfNecessary(x, y, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideRoundToFixedDecimalPlaces method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideRoundToFixedDecimalPlaces_4args_4() {
+        System.out.println("divideRoundToFixedDecimalPlaces");
+        BigInteger x = null;
+        BigInteger y = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideRoundToFixedDecimalPlaces(x, y, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of divideNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testDivideNoRounding_BigInteger_BigInteger() {
+        System.out.println("divideNoRounding");
+        BigInteger x = null;
+        BigInteger y = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.divideNoRounding(x, y);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerTestAbove method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerTestAbove() {
+        System.out.println("powerTestAbove");
+        BigDecimal compare = null;
+        BigDecimal x = null;
+        BigInteger y = null;
+        int div = 0;
+        int dp = 0;
+        RoundingMode rm = null;
+        boolean expResult = false;
+        boolean result = Math_BigDecimal.powerTestAbove(compare, x, y, div, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerTestAboveNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerTestAboveNoRounding() {
+        System.out.println("powerTestAboveNoRounding");
+        BigDecimal compare = null;
+        BigDecimal x = null;
+        BigInteger y = null;
+        int div = 0;
+        boolean expResult = false;
+        boolean result = Math_BigDecimal.powerTestAboveNoRounding(compare, x, y, div);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerTestBelow method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerTestBelow() {
+        System.out.println("powerTestBelow");
+        BigDecimal compare = null;
+        BigDecimal x = null;
+        BigInteger y = null;
+        int div = 0;
+        int dp = 0;
+        RoundingMode rm = null;
+        boolean expResult = false;
+        boolean result = Math_BigDecimal.powerTestBelow(compare, x, y, div, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerTestBelowNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerTestBelowNoRounding() {
+        System.out.println("powerTestBelowNoRounding");
+        BigDecimal compare = null;
+        BigDecimal x = null;
+        BigInteger y = null;
+        int div = 0;
+        boolean expResult = false;
+        boolean result = Math_BigDecimal.powerTestBelowNoRounding(compare, x, y, div);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of power method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPower_4args_1() {
+        System.out.println("power");
+        BigDecimal x = null;
+        BigDecimal y = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.power(x, y, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerNoRounding_BigDecimal_BigDecimal() {
+        System.out.println("powerNoRounding");
+        BigDecimal x = null;
+        BigDecimal y = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of power method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPower_4args_2() {
+        System.out.println("power");
+        BigDecimal x = null;
+        long y = 0L;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.power(x, y, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerNoRounding_3args_1() {
+        System.out.println("powerNoRounding");
+        BigDecimal x = null;
+        int y = 0;
+        int div = 0;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.powerNoRounding(x, y, div);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of rootUnscaled1Precision1 method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRootUnscaled1Precision1() {
+        System.out.println("rootUnscaled1Precision1");
+        BigDecimal x = null;
+        int root = 0;
+        int dp = 0;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.rootUnscaled1Precision1(x, root, dp);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerNoRounding_3args_2() {
+        System.out.println("powerNoRounding");
+        BigDecimal x = null;
+        BigInteger y = null;
+        int div = 0;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.powerNoRounding(x, y, div);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerNoSpecialCaseCheck method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerNoSpecialCaseCheck() {
+        System.out.println("powerNoSpecialCaseCheck");
+        BigDecimal x = null;
+        BigInteger y = null;
+        int div = 0;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerNoSpecialCaseCheckNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerNoSpecialCaseCheckNoRounding() {
+        System.out.println("powerNoSpecialCaseCheckNoRounding");
+        BigDecimal x = null;
+        BigInteger y = null;
+        int div = 0;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.powerNoSpecialCaseCheckNoRounding(x, y, div);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of powerNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerNoRounding_BigDecimal_int() {
+        System.out.println("powerNoRounding");
+        BigDecimal x = null;
+        int y = 0;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of reciprocalWillBeIntegerReturnBigInteger method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testReciprocalWillBeIntegerReturnBigInteger() {
+        System.out.println("reciprocalWillBeIntegerReturnBigInteger");
+        BigDecimal x = null;
+        BigInteger expResult = null;
+        BigInteger result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of reciprocalWillBeIntegerReturnBigDecimal method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testReciprocalWillBeIntegerReturnBigDecimal() {
+        System.out.println("reciprocalWillBeIntegerReturnBigDecimal");
+        BigDecimal x = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigDecimal(x);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of roundToAndSetDecimalPlaces method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRoundToAndSetDecimalPlaces() {
+        System.out.println("roundToAndSetDecimalPlaces");
+        BigDecimal x = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.roundToAndSetDecimalPlaces(x, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of roundStrippingTrailingZeros method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRoundStrippingTrailingZeros() {
+        System.out.println("roundStrippingTrailingZeros");
+        BigDecimal x = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.roundStrippingTrailingZeros(x, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of roundIfNecessary method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRoundIfNecessary() {
+        System.out.println("roundIfNecessary");
+        BigDecimal x = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.roundIfNecessary(x, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPi method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetPi() {
+        System.out.println("getPi");
+        int dp = 0;
+        RoundingMode rm = null;
+        Math_BigDecimal instance = new Math_BigDecimal();
+        BigDecimal expResult = null;
+        BigDecimal result = instance.getPi(dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPiBy2 method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetPiBy2() {
+        System.out.println("getPiBy2");
+        int dp = 0;
+        RoundingMode rm = null;
+        Math_BigDecimal instance = new Math_BigDecimal();
+        BigDecimal expResult = null;
+        BigDecimal result = instance.getPiBy2(dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPi2 method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetPi2() {
+        System.out.println("getPi2");
+        int dp = 0;
+        RoundingMode rm = null;
+        Math_BigDecimal instance = new Math_BigDecimal();
+        BigDecimal expResult = null;
+        BigDecimal result = instance.getPi2(dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPiBy4 method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetPiBy4() {
+        System.out.println("getPiBy4");
+        int dp = 0;
+        RoundingMode rm = null;
+        Math_BigDecimal instance = new Math_BigDecimal();
+        BigDecimal expResult = null;
+        BigDecimal result = instance.getPiBy4(dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of rootRoundIfNecessary method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRootRoundIfNecessary_4args_1() {
+        System.out.println("rootRoundIfNecessary");
+        BigDecimal x = null;
+        BigInteger root = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of rootNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRootNoRounding_BigDecimal_BigInteger() {
+        System.out.println("rootNoRounding");
+        BigDecimal x = null;
+        BigInteger root = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.rootNoRounding(x, root);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of rootRoundIfNecessary method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRootRoundIfNecessary_4args_2() {
+        System.out.println("rootRoundIfNecessary");
+        BigDecimal x = null;
+        int root = 0;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of rootNoRounding method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRootNoRounding_BigDecimal_int() {
+        System.out.println("rootNoRounding");
+        BigDecimal x = null;
+        int root = 0;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.rootNoRounding(x, root);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of randomUniformTest method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRandomUniformTest_3args_1() {
+        System.out.println("randomUniformTest");
+        Random r = null;
+        BigDecimal p = null;
+        RoundingMode rm = null;
+        boolean expResult = false;
+        boolean result = Math_BigDecimal.randomUniformTest(r, p, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of randomUniformTest method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRandomUniformTest_4args() {
+        System.out.println("randomUniformTest");
+        Random rand = null;
+        BigDecimal p = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        boolean expResult = false;
+        boolean result = Math_BigDecimal.randomUniformTest(rand, p, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of randomUniformTest method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRandomUniformTest_3args_2() {
+        System.out.println("randomUniformTest");
+        Random rand = null;
+        BigDecimal p = null;
+        MathContext mc = null;
+        boolean expResult = false;
+        boolean result = Math_BigDecimal.randomUniformTest(rand, p, mc);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getRandom method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetRandom_4args() {
+        System.out.println("getRandom");
+        Math_BigInteger bi = null;
+        int dp = 0;
+        BigDecimal l = null;
+        BigDecimal u = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.getRandom(bi, dp, l, u);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getRandom method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetRandom_Math_Number_int() {
+        System.out.println("getRandom");
+        Math_Number gn = null;
+        int dp = 0;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.getRandom(gn, dp);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of sinNoCaseCheck method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testSinNoCaseCheck() {
+        System.out.println("sinNoCaseCheck");
+        BigDecimal x = null;
+        BigDecimal aPI = null;
+        BigDecimal twoPI = null;
+        BigDecimal aPIBy2 = null;
+        Math_BigDecimal bd = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.sinNoCaseCheck(x, aPI, twoPI, aPIBy2, bd, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of sinAngleBetweenZeroAndPI method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testSinAngleBetweenZeroAndPI_6args_1() {
+        System.out.println("sinAngleBetweenZeroAndPI");
+        BigDecimal x = null;
+        BigDecimal aPI = null;
+        BigDecimal twoPI = null;
+        Math_BigDecimal bd = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.sinAngleBetweenZeroAndPI(x, aPI, twoPI, bd, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of sinAngleBetweenZeroAndPI method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testSinAngleBetweenZeroAndPI_6args_2() {
+        System.out.println("sinAngleBetweenZeroAndPI");
+        BigDecimal x = null;
+        BigDecimal aPI = null;
+        BigDecimal twoPI = null;
+        Math_BigInteger bi = null;
+        int dp = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.sinAngleBetweenZeroAndPI(x, aPI, twoPI, bi, dp, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of atan method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testAtan() {
+        System.out.println("atan");
+        BigDecimal x = null;
+        int scale = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.atan(x, scale, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of acos method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testAcos() {
+        System.out.println("acos");
+        BigDecimal x = null;
+        BigDecimal pi = null;
+        int scale = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.acos(x, pi, scale, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of asin method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testAsin() {
+        System.out.println("asin");
+        BigDecimal x = null;
+        int scale = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.asin(x, scale, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of round method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRound() {
+        System.out.println("round");
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal x = new BigDecimal("98765432123456789.98765432123456789");
+        int ps = 1;
+        BigDecimal expResult = new BigDecimal("98765432123456790.0");
+        BigDecimal result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        ps = 2;
+        expResult = new BigDecimal("98765432123456789.99");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        ps = 3;
+        expResult = new BigDecimal("98765432123456789.988");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        ps = 4;
+        expResult = new BigDecimal("98765432123456789.9877");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        ps = 5;
+        expResult = new BigDecimal("98765432123456789.98766");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        ps = 6;
+        expResult = new BigDecimal("98765432123456789.987654");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        ps = 7;
+        expResult = new BigDecimal("98765432123456789.9876543");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        ps = 8;
+        expResult = new BigDecimal("98765432123456789.98765432");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        ps = 9;
+        expResult = new BigDecimal("98765432123456789.987654321");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 10
+        ps = -1;
+        expResult = new BigDecimal("98765432123456790");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 11
+        ps = -2;
+        expResult = new BigDecimal("98765432123456800");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 12
+        ps = -3;
+        expResult = new BigDecimal("98765432123457000");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 13
+        ps = -4;
+        expResult = new BigDecimal("98765432123460000");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 14
+        ps = -5;
+        expResult = new BigDecimal("98765432123400000");
+        result = Math_BigDecimal.round(x, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        
     }
 }

@@ -18,7 +18,6 @@ package uk.ac.leeds.ccg.math;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import org.junit.jupiter.api.AfterEach;
@@ -923,5 +922,99 @@ public class Math_BigIntegerTest extends Math_Test {
         x = new BigInteger("1201");
         y = new BigInteger("6");
         assertFalse(Math_BigInteger.isDivisibleBy(x, y));
+    }
+
+    /**
+     * Test of getMagnitude method, of class Math_BigInteger.
+     */
+    @Test
+    public void testGetMagnitude() {
+        System.out.println("getMagnitude");
+        BigInteger x = BigInteger.valueOf(123456789);
+        int expResult = 9;
+        int result = Math_BigInteger.getMagnitude(x);
+        assertEquals(expResult, result);
+        // Test 2
+        x = BigInteger.valueOf(-123456789);
+        expResult = 9;
+        result = Math_BigInteger.getMagnitude(x);
+        assertEquals(expResult, result);
+        // Test 3
+        x = new BigInteger("123456789000000000000000000000");
+        expResult = 30;
+        result = Math_BigInteger.getMagnitude(x);
+        assertEquals(expResult, result);
+        // Test 4
+        x = BigInteger.ZERO;
+        expResult = 0;
+        result = Math_BigInteger.getMagnitude(x);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of multiply method, of class Math_BigInteger.
+     */
+    @Test
+    public void testMultiply() {
+        System.out.println("multiply");
+        BigInteger x = new BigInteger("123456789000000000000000000000");
+        BigInteger y = new BigInteger("12345678900000000");
+        int ps = 10;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        System.out.println(x.multiply(y));
+        BigInteger expResult = new BigInteger("15241578750190521000000000000000"
+                + "00000000000000");
+        BigInteger result = Math_BigInteger.multiply(x, y, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        ps = 30;
+        expResult = new BigInteger("1524157875019052000000000000000000000000000"
+                + "000");
+        result = Math_BigInteger.multiply(x, y, ps, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of round method, of class Math_BigInteger.
+     */
+    @Test
+    public void testRound() {
+        System.out.println("round");
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigInteger x = BigInteger.valueOf(123456789);
+        int s = 1;
+        BigInteger expResult = BigInteger.valueOf(123456790);
+        BigInteger result = Math_BigInteger.round(x, s, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        s = 2;
+        expResult = BigInteger.valueOf(123456800);
+        result = Math_BigInteger.round(x, s, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        s = 3;
+        expResult = BigInteger.valueOf(123457000);
+        result = Math_BigInteger.round(x, s, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        s = 4;
+        expResult = BigInteger.valueOf(123460000);
+        result = Math_BigInteger.round(x, s, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        s = 5;
+        expResult = BigInteger.valueOf(123500000);
+        result = Math_BigInteger.round(x, s, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        s = 6;
+        expResult = BigInteger.valueOf(123000000);
+        result = Math_BigInteger.round(x, s, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        s = 7;
+        expResult = BigInteger.valueOf(120000000);
+        result = Math_BigInteger.round(x, s, rm);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 }

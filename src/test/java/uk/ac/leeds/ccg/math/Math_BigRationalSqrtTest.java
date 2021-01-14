@@ -203,22 +203,22 @@ public class Math_BigRationalSqrtTest {
         assertEquals(expResult, result);
         // Test 5
         mps = -1;
-         instance = new Math_BigRationalSqrt(257);
-         expResult = new BigDecimal("20");
-         result = instance.toBigDecimal(mps);
-        assertThat(expResult,  Matchers.comparesEqualTo(result));
+        instance = new Math_BigRationalSqrt(257);
+        expResult = new BigDecimal("20");
+        result = instance.toBigDecimal(mps);
+        assertThat(expResult, Matchers.comparesEqualTo(result));
         // Test 6
         mps = 1;
-         instance = new Math_BigRationalSqrt(257);
-         expResult = new BigDecimal("16.0");
-         result = instance.toBigDecimal(mps);
-        assertThat(expResult,  Matchers.comparesEqualTo(result));
+        instance = new Math_BigRationalSqrt(257);
+        expResult = new BigDecimal("16.0");
+        result = instance.toBigDecimal(mps);
+        assertThat(expResult, Matchers.comparesEqualTo(result));
         // Test 7
         mps = 20;
         instance = new Math_BigRationalSqrt(257);
         expResult = new BigDecimal("16.03121954188139736487");
         result = instance.toBigDecimal(mps);
-        assertThat(expResult,  Matchers.comparesEqualTo(result));
+        assertThat(expResult, Matchers.comparesEqualTo(result));
     }
 
     /**

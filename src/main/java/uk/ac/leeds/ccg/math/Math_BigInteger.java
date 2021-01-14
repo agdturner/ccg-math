@@ -17,6 +17,7 @@ package uk.ac.leeds.ccg.math;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -46,37 +47,37 @@ public class Math_BigInteger extends Math_Number {
      * The number {@code 3} for convenience.
      */
     public static final BigInteger THREE = BigInteger.valueOf(3);
-  
+
     /**
      * The number {@code 100} for convenience.
      */
-  public static final BigInteger ONE_HUNDRED = BigInteger.valueOf(100);
-  
+    public static final BigInteger ONE_HUNDRED = BigInteger.valueOf(100);
+
     /**
      * The number {@code Integer.MIN_VALUE} for convenience.
      */
-  public static final BigInteger INTEGER_MIN_VALUE = BigInteger.valueOf(Integer.MIN_VALUE);
-  
+    public static final BigInteger INTEGER_MIN_VALUE = BigInteger.valueOf(Integer.MIN_VALUE);
+
     /**
      * The number {@code Integer.MAX_VALUE} for convenience.
      */
     public static final BigInteger INTEGER_MAX_VALUE = BigInteger.valueOf(Integer.MAX_VALUE);
-  
+
     /**
      * The number {@code Long.MIN_VALUE} for convenience.
      */
     public static final BigInteger LONG_MIN_VALUE = BigInteger.valueOf(Long.MIN_VALUE);
-  
+
     /**
      * The number {@code Long.MAX_VALUE} for convenience.
      */
     public static final BigInteger LONG_MAX_VALUE = BigInteger.valueOf(Long.MAX_VALUE);
-  
+
     /**
      * For storing factorials for convenience.
      */
     protected transient List<BigInteger> factorials;
-  
+
     /**
      * For storing powersOfTwo for convenience.
      */
@@ -117,6 +118,45 @@ public class Math_BigInteger extends Math_Number {
         powersOfTwo.add(BigInteger.ONE);
         powersOfTwo.add(TWO);
         powersOfTwo.add(TWO.multiply(TWO));
+    }
+
+    /**
+     *
+     * @param x The value for which the magnitude is returned.
+     * @return The number of digits of {@code x}
+     */
+    public static int getMagnitude(BigInteger x) {
+        return x.abs().toString().length();
+    }
+
+    /**
+     * Calculate and return {@code x} multiplied by {@code y} to the precision
+     * scale given by {@code ps} using the RoundingMode {@code rm}.
+     *
+     * @param x A number to multiply.
+     * @param y A number to multiply.
+     * @param ps The precision scale the result is returned accurate at using
+     * the {@code rm} to round as necessary. {@code ps > 0}
+     * @param rm The {@link RoundingMode} used to round the final result if
+     * rounding is necessary.
+     * @return x multiplied by y to the precision scale given by {@code ps} and
+     * {@code rm}.
+     */
+    public static BigInteger multiply(BigInteger x, BigInteger y, int ps,
+            RoundingMode rm) {
+        return round(x.multiply(y), ps, rm);
+    }
+
+    /**
+     * @param x The number to round
+     * @param s The scale to round to. {@code s=1} rounds to the nearest
+     * {@code 10}. {@code s=2} rounds to the nearest {@code 100},  {@code s=3}
+     * rounds to the nearest {@code 1000} etc...
+     * @param rm The rounding mode for any rounding.
+     * @return {@code x} rounded given {@code s} and {@code rm}
+     */
+    public static BigInteger round(BigInteger x, int s, RoundingMode rm) {
+        return new BigDecimal(x).movePointLeft(s).setScale(0, rm).movePointRight(s).toBigInteger();
     }
 
     /**
@@ -373,9 +413,8 @@ public class Math_BigInteger extends Math_Number {
         BigDecimal y0Power = power(x, y0, dp, rm);
         long y1 = y - y0;
         BigDecimal y1Power = power(x, y1, dp, rm);
-        r = Math_BigDecimal.multiplyRoundIfNecessary(y0Power, y1Power, dp,
-                rm);
-        return r;
+        //return Math_BigDecimal.multiplyRoundIfNecessary(y0Power, y1Power, dp, rm);
+        return y0Power.multiply(y1Power);
     }
 
     /**
