@@ -2466,18 +2466,27 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * @param x The number to round
-     * @param ps The scale to round to. {@code ps=-1} rounds to the nearest
-     * {@code 10}. {@code ps=-2} rounds to the nearest
-     * {@code 100},  {@code ps=-3} rounds to the nearest {@code 1000} etc...
-     * {@code ps=1} rounds to the nearest {@code 0.1}. {@code ps=2} rounds to
-     * the nearest {@code 0.01},  {@code ps=-3} rounds to the nearest
-     * {@code 0.001} etc
+     * @param x The number to round.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * to round to.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
+     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
      * @param rm The rounding mode for any rounding.
-     * @return {@code x} rounded given {@code ps} and {@code rm}
+     * @return {@code x} rounded given {@code oom} and {@code rm}
      */
-    public static BigDecimal round(BigDecimal x, int ps, RoundingMode rm) {
-        return x.movePointRight(ps).setScale(0, rm).movePointLeft(ps);
+    public static BigDecimal round(BigDecimal x, int oom, RoundingMode rm) {
+        return x.movePointLeft(oom).setScale(0, rm).movePointRight(oom);
     }
 
     /**
@@ -2523,6 +2532,8 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
+     * @Deprecated Use {@link #round(java.math.BigDecimal, int, java.math.RoundingMode) instead. Where {@code oom = -dp}.
+     *
      * This may return {@code x}.
      *
      * @param x The number to be rounded.
@@ -2541,6 +2552,7 @@ public class Math_BigDecimal extends Math_Number {
         return x;
     }
 
+    @Deprecated
     private static BigDecimal roundIfNecessaryNoScaleCheck(BigDecimal x,
             int dp, RoundingMode rm) {
         return x.setScale(dp, rm);

@@ -982,39 +982,50 @@ public class Math_BigIntegerTest extends Math_Test {
         System.out.println("round");
         RoundingMode rm = RoundingMode.HALF_UP;
         BigInteger x = BigInteger.valueOf(123456789);
-        int s = 1;
-        BigInteger expResult = BigInteger.valueOf(123456790);
-        BigInteger result = Math_BigInteger.round(x, s, rm);
+        int oom = 0;
+        BigInteger expResult = BigInteger.valueOf(123456789);
+        BigInteger result = Math_BigInteger.round(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 1
+        oom = 1;
+        expResult = BigInteger.valueOf(123456790);
+        result = Math_BigInteger.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
-        s = 2;
+        oom = 2;
         expResult = BigInteger.valueOf(123456800);
-        result = Math_BigInteger.round(x, s, rm);
+        result = Math_BigInteger.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
-        s = 3;
+        oom = 3;
         expResult = BigInteger.valueOf(123457000);
-        result = Math_BigInteger.round(x, s, rm);
+        result = Math_BigInteger.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
-        s = 4;
+        oom = 4;
         expResult = BigInteger.valueOf(123460000);
-        result = Math_BigInteger.round(x, s, rm);
+        result = Math_BigInteger.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 5
-        s = 5;
+        oom = 5;
         expResult = BigInteger.valueOf(123500000);
-        result = Math_BigInteger.round(x, s, rm);
+        result = Math_BigInteger.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 6
-        s = 6;
+        oom = 6;
         expResult = BigInteger.valueOf(123000000);
-        result = Math_BigInteger.round(x, s, rm);
+        result = Math_BigInteger.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 7
-        s = 7;
+        oom = 7;
         expResult = BigInteger.valueOf(120000000);
-        result = Math_BigInteger.round(x, s, rm);
+        result = Math_BigInteger.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        oom = -1;
+        expResult = BigInteger.valueOf(123456789);
+        result = Math_BigInteger.round(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        
     }
 }

@@ -149,14 +149,24 @@ public class Math_BigInteger extends Math_Number {
 
     /**
      * @param x The number to round
-     * @param s The scale to round to. {@code s=1} rounds to the nearest
-     * {@code 10}. {@code s=2} rounds to the nearest {@code 100},  {@code s=3}
-     * rounds to the nearest {@code 1000} etc...
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * to round to. This should be greater than 0 otherwise the result is simply
+     * x and this method need not be called.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
      * @param rm The rounding mode for any rounding.
      * @return {@code x} rounded given {@code s} and {@code rm}
      */
-    public static BigInteger round(BigInteger x, int s, RoundingMode rm) {
-        return new BigDecimal(x).movePointLeft(s).setScale(0, rm).movePointRight(s).toBigInteger();
+    public static BigInteger round(BigInteger x, int oom, RoundingMode rm) {
+        return new BigDecimal(x).movePointLeft(oom).setScale(0, rm)
+                .movePointRight(oom).toBigInteger();
     }
 
     /**

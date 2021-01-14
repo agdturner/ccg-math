@@ -5027,74 +5027,79 @@ public class Math_BigDecimalTest extends Math_Test {
         System.out.println("round");
         RoundingMode rm = RoundingMode.HALF_UP;
         BigDecimal x = new BigDecimal("98765432123456789.98765432123456789");
-        int ps = 1;
+        int oom = -1;
         BigDecimal expResult = new BigDecimal("98765432123456790.0");
-        BigDecimal result = Math_BigDecimal.round(x, ps, rm);
+        BigDecimal result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
-        ps = 2;
+        oom = -2;
         expResult = new BigDecimal("98765432123456789.99");
-        result = Math_BigDecimal.round(x, ps, rm);
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
-        ps = 3;
+        oom = -3;
         expResult = new BigDecimal("98765432123456789.988");
-        result = Math_BigDecimal.round(x, ps, rm);
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
-        ps = 4;
+        oom = -4;
         expResult = new BigDecimal("98765432123456789.9877");
-        result = Math_BigDecimal.round(x, ps, rm);
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 5
-        ps = 5;
-        expResult = new BigDecimal("98765432123456789.98766");
-        result = Math_BigDecimal.round(x, ps, rm);
+        oom = -5;
+        expResult = new BigDecimal("98765432123456789.98765");
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 6
-        ps = 6;
+        oom = -6;
         expResult = new BigDecimal("98765432123456789.987654");
-        result = Math_BigDecimal.round(x, ps, rm);
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 7
-        ps = 7;
+        oom = -7;
         expResult = new BigDecimal("98765432123456789.9876543");
-        result = Math_BigDecimal.round(x, ps, rm);
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 8
-        ps = 8;
+        oom = -8;
         expResult = new BigDecimal("98765432123456789.98765432");
-        result = Math_BigDecimal.round(x, ps, rm);
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 9
-        ps = 9;
+        oom = -9;
         expResult = new BigDecimal("98765432123456789.987654321");
-        result = Math_BigDecimal.round(x, ps, rm);
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 10
-        ps = -1;
+        oom = 0;
         expResult = new BigDecimal("98765432123456790");
-        result = Math_BigDecimal.round(x, ps, rm);
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 11
-        ps = -2;
-        expResult = new BigDecimal("98765432123456800");
-        result = Math_BigDecimal.round(x, ps, rm);
+        oom = 1;
+        expResult = new BigDecimal("98765432123456790");
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 12
-        ps = -3;
-        expResult = new BigDecimal("98765432123457000");
-        result = Math_BigDecimal.round(x, ps, rm);
+        oom = 2;
+        expResult = new BigDecimal("98765432123456800");
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 13
-        ps = -4;
-        expResult = new BigDecimal("98765432123460000");
-        result = Math_BigDecimal.round(x, ps, rm);
+        oom = 3;
+        expResult = new BigDecimal("98765432123457000");
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 14
-        ps = -5;
-        expResult = new BigDecimal("98765432123400000");
-        result = Math_BigDecimal.round(x, ps, rm);
+        oom = 4;
+        expResult = new BigDecimal("98765432123460000");
+        result = Math_BigDecimal.round(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 15
+        oom = 5;
+        expResult = new BigDecimal("98765432123500000");
+        result = Math_BigDecimal.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         
     }
