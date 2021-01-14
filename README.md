@@ -11,9 +11,8 @@ A [modularised](https://en.wikipedia.org/wiki/Java_Platform_Module_System) Java 
 
 [BigMath](https://github.com/eobermuhlner/big-math) has an extremely useful [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) class for representing a very wide range of [rational numbers](https://en.wikipedia.org/wiki/Rational_number). [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) is for representing the square roots of [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) numbers, some of which (including the square roots of prime numbers) are [irrational](https://en.wikipedia.org/wiki/Irrational_number). Math_BigRationalSqrt is useful as sometimes calculations can be simplified without a square root needing to be computed, consider for example calculating the area of a square that has a side with length equal to the square root of 2. 
 
-## Latest versions
+## Latest versioned release
 Developed and tested on [Java Development Kit, version 15](https://openjdk.java.net/projects/jdk/15/).
-### Stable
 ```
 <!-- https://mvnrepository.com/artifact/io.github.agdturner/agdt-java-math -->
 <dependency>
@@ -24,18 +23,6 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 ```
 [JAR](https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.9/agdt-java-math-1.9.jar)
 
-[//]: # ### Development
-[//]: # ```
-[//]: # <!-- https://mvnrepository.com/artifact/io.github.agdturner/agdt-java-math -->
-[//]: # <dependency>
-[//]: #     <groupId>io.github.agdturner</groupId>
-[//]: #     <artifactId>agdt-java-math</artifactId>
-[//]: #     <version>1.10-SNAPSHOT</version>
-[//]: # </dependency>
-[//]: # ```
-[//]: # (Move to version history section if/when a new version and summary are added)
-[//]: # New to 1.10-SNAPSHOT:
-
 ## Development plans/ideas
 - Do some computational comparison, e.g. compare Math_BigDecimal.sqrt(BigDecimal, int, RoundingMode), BigDecimal.sqrt(MathContext) and BigDecimalMath.sqrt().
 - Generalise [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) for [nth roots](https://en.wikipedia.org/wiki/Nth_root).
@@ -45,7 +32,7 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 - For exponentiation and logarithms, review the implementation of [logarithmic numbers](https://en.wikipedia.org/wiki/Logarithmic_number_system).
 - Generally improve the coverage of unit tests.
 - Consider developing more functionality for [symbolic computation](https://en.wikipedia.org/wiki/Symbolic_computation).
-- Develop the library in an [agile](https://en.wikipedia.org/wiki/Agile_software_development) way by engaging in more code review activity.
+- Develop in an [agile](https://en.wikipedia.org/wiki/Agile_software_development) way.
 - [Contribute](https://openjdk.java.net/contribute/) to the development of the openJDK.
 
 ## Development history
@@ -66,9 +53,11 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 - The [University of Leeds](http://www.leeds.ac.uk) and externally funded research grants have supported the development of this library.
 - Thank you [openJDK](https://openjdk.java.net/) contributors and all involved in creating the platform.
 - Thank you Eric for the [BigMath](https://github.com/eobermuhlner/big-math) library.
-- Thank you developers of other useful Java libraries that have helped inspire me.
-- Thank you creators, maintainers and contributors of relevent content on:
+- Thank you developers and maintainers of other useful Java libraries that provide inspiration.
+- Thank you developers and maintainers of [Apache Maven](https://maven.apache.org/), [Apache NetBeans](https://netbeans.apache.org/), and [git](https://git-scm.com/) which I use for developing code.
+- Thank you developers and maintainers of [GitHub](http://github.com) for supporting the development of this code and for providing a means of creating a community of users and  developers.
+- Thank you developers, maintainers and contributors of relevent content on:
 -- [Wikimedia](https://www.wikimedia.org/) projects, in particular the [English language Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 -- [StackExchange](https://stackexchange.com), in particular [StackOverflow](https://stackoverflow.com/) and [Math.StackExchange](http://math.stackexchange.com/).
 - Information that has helped me develop this library is cited in the source code.
-- This library is a product of my education, interest and work. Thank you teachers, especially those that supported me. Thank you to everyone that supported my welfare by contributing to society. Let us try to look after this world and create and find others, extending our knowledge, skills and capability, making space for wildlife and creating love and harmony. 
+- Thank you to those that supported me personally and all who have made a positive contribution to society. Let us try to look after each other, look after this world, make space for wildlife, and engineer knowledge :)
