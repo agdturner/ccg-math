@@ -959,18 +959,24 @@ public class Math_BigIntegerTest extends Math_Test {
         System.out.println("multiply");
         BigInteger x = new BigInteger("123456789000000000000000000000");
         BigInteger y = new BigInteger("12345678900000000");
-        int ps = 10;
+        int oom = 10;
         RoundingMode rm = RoundingMode.HALF_UP;
         System.out.println(x.multiply(y));
         BigInteger expResult = new BigInteger("15241578750190521000000000000000"
                 + "00000000000000");
-        BigInteger result = Math_BigInteger.multiply(x, y, ps, rm);
+        BigInteger result = Math_BigInteger.multiply(x, y, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
-        ps = 30;
+        oom = 30;
         expResult = new BigInteger("1524157875019052000000000000000000000000000"
                 + "000");
-        result = Math_BigInteger.multiply(x, y, ps, rm);
+        result = Math_BigInteger.multiply(x, y, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        oom = 40;
+        expResult = new BigInteger("1524160000000000000000000000000000000000000"
+                + "000");
+        result = Math_BigInteger.multiply(x, y, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
     }
 
@@ -1026,6 +1032,63 @@ public class Math_BigIntegerTest extends Math_Test {
         expResult = BigInteger.valueOf(123456789);
         result = Math_BigInteger.round(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
-        
+
+    }
+
+    /**
+     * Test of multiplyPriorRound method, of class Math_BigInteger.
+     */
+    @Test
+    public void testMultiplyPriorRound() {
+        System.out.println("multiplyPriorRound");
+        System.out.println("multiply");
+        BigInteger x = new BigInteger("123456789000000000000000000000");
+        BigInteger y = new BigInteger("12345678900000000");
+        int oom = 40;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigInteger expResult;
+        expResult = new BigInteger("1524160000000000000000000000000000000000000"
+                + "000");
+        x = new BigInteger("123456789123456789123456789");
+        y = new BigInteger("123456789123456789");
+        oom = 40;
+        BigInteger xy = x.multiply(y);
+        expResult = new BigInteger("1524000000000000000000000000000000000000000"
+                + "0");
+        BigInteger result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
+        System.out.println(result.toString());
+        System.out.println(expResult.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of round method, of class Math_BigInteger.
+     */
+    @Test
+    public void testRound_3args() {
+        System.out.println("round");
+        BigInteger x = null;
+        int oom = 0;
+        RoundingMode rm = null;
+        BigInteger expResult = null;
+        BigInteger result = Math_BigInteger.round(x, oom, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of round method, of class Math_BigInteger.
+     */
+    @Test
+    public void testRound_BigInteger_int() {
+        System.out.println("round");
+        BigInteger x = null;
+        int oom = 0;
+        BigInteger expResult = null;
+        BigInteger result = Math_BigInteger.round(x, oom);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }

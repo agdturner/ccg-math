@@ -135,16 +135,83 @@ public class Math_BigInteger extends Math_Number {
      *
      * @param x A number to multiply.
      * @param y A number to multiply.
-     * @param ps The precision scale the result is returned accurate at using
-     * the {@code rm} to round as necessary. {@code ps > 0}
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * to round to. This should be greater than 0 otherwise the result is simply
+     * x and this method need not be called.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
      * @return x multiplied by y to the precision scale given by {@code ps} and
      * {@code rm}.
      */
-    public static BigInteger multiply(BigInteger x, BigInteger y, int ps,
+    public static BigInteger multiply(BigInteger x, BigInteger y, int oom,
             RoundingMode rm) {
-        return round(x.multiply(y), ps, rm);
+        return round(x.multiply(y), oom, rm);
+    }
+
+    /**
+     * Calculate and return {@code x} multiplied by {@code y} to the precision
+     * scale given by {@code ps} using the RoundingMode {@code rm}. This method
+     * is appropriate when {@code x} and or {@code y} are very large, and the
+     * precision of the result required is at an order of magnitude the square
+     * root of which is less than the magnitude of the larger of x and y.
+     * Multiplication is only very time consuming for huge numbers, so to gain
+     * some computational advantage of prior rounding the numbers have to be
+     * perhaps over 100 digits in length. (TODO test timings, maybe efficiency
+     * is only gained once numbers have an
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) of over 1000 digits!)
+     *
+     * @param x A number to multiply.
+     * @param y A number to multiply.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * to round to. This should be greater than 0 otherwise the result is simply
+     * x and this method need not be called.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
+     * @param rm The {@link RoundingMode} used to round the final result if
+     * rounding is necessary.
+     * @return x multiplied by y to the precision scale given by {@code ps} and
+     * {@code rm}.
+     */
+    public static BigInteger multiplyPriorRound(BigInteger x, BigInteger y, int oom,
+            RoundingMode rm) {
+        int xm = Math_BigInteger.getMagnitude(x);
+        int m = (int) Math.sqrt(oom);
+        BigInteger d = BigInteger.TEN.pow(m);
+        BigInteger rp;
+        int ym = Math_BigInteger.getMagnitude(y);
+        if (xm >= ym) {
+            if (xm > m) {
+                BigInteger xr = x.divide(d);
+                rp = y.multiply(xr).multiply(d);
+            } else {
+                rp = y.multiply(x).multiply(d);
+            }
+        } else {
+            if (ym > m) {
+                BigInteger yr = y.divide(d);
+                rp = x.multiply(yr).multiply(d);
+            } else {
+                rp = x.multiply(y).multiply(d);
+            }
+        }
+        return Math_BigInteger.round(rp, oom);
     }
 
     /**
@@ -167,6 +234,30 @@ public class Math_BigInteger extends Math_Number {
     public static BigInteger round(BigInteger x, int oom, RoundingMode rm) {
         return new BigDecimal(x).movePointLeft(oom).setScale(0, rm)
                 .movePointRight(oom).toBigInteger();
+    }
+
+    /**
+     * This is the same as
+     * {@link #round(java.math.BigInteger, int, java.math.RoundingMode)} with
+     * {@code rm = RoundingMode.HALF_UP}
+     *
+     * @param x The number to round
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * to round to. This should be greater than 0 otherwise the result is simply
+     * x and this method need not be called.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
+     * @return {@code x} rounded given {@code s} and {@code rm}
+     */
+    public static BigInteger round(BigInteger x, int oom) {
+        return round(x, oom, RoundingMode.HALF_UP);
     }
 
     /**
