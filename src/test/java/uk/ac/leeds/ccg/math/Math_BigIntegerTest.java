@@ -25,13 +25,15 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Andy Turner
  * @version 1.0.0
  */
-public class Math_BigIntegerTest extends Math_Test {
+public class Math_BigIntegerTest {
 
     public Math_BigIntegerTest() {
     }
@@ -52,19 +54,7 @@ public class Math_BigIntegerTest extends Math_Test {
     public void tearDown() {
     }
 
-    @Test // Uncomment to run tests
-    public void testAll() {
-        testCeiling();
-        testFloor();
-        testFactorial();
-        testPower_4args_1();
-        testPower_4args_2();
-        testReciprocal();
-        testGetRandom();
-        testGetPowersOfTwoDecomposition_1args();
-    }
-
-    //@Test
+    @Test
     public void testCeiling() {
         String funcName = "ceiling";
         System.out.println("Test " + funcName);
@@ -76,18 +66,16 @@ public class Math_BigIntegerTest extends Math_Test {
         x = new BigDecimal("1.0000000000000000000000000000000000000000000001");
         expResult = new BigInteger("2");
         result = Math_BigInteger.ceiling(x);
-        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 2
         test++;
         x = new BigDecimal("-1.0000000000000000000000000000000000000000000001");
         expResult = new BigInteger("-1");
         result = Math_BigInteger.ceiling(x);
-        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
     }
 
-    //@Test
+    @Test
     public void testFloor() {
         String funcName = "floor";
         System.out.println("Test " + funcName);
@@ -99,32 +87,28 @@ public class Math_BigIntegerTest extends Math_Test {
         x = new BigDecimal("1");
         result = Math_BigInteger.floor(x);
         expResult = new BigInteger("1");
-        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 2
         test++;
         x = new BigDecimal("-1");
         result = Math_BigInteger.floor(x);
         expResult = new BigInteger("-1");
-        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 3
         test++;
         x = new BigDecimal("1.00000000000000000000000000000000000000000000001");
         result = Math_BigInteger.floor(x);
         expResult = new BigInteger("1");
-        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
         // Test 4
         test++;
         x = new BigDecimal("-1.0000000000000000000000000000000000000000000001");
         result = Math_BigInteger.floor(x);
         expResult = new BigInteger("-2");
-        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
     }
 
-    //@Test
+    @Test
     public void testFactorial() {
         String funcName = "factorial";
         System.out.println("Test " + funcName);
@@ -140,14 +124,13 @@ public class Math_BigIntegerTest extends Math_Test {
                 + "161829235892362167668831156960612640202170735835221294047782"
                 + "591091570411651472186029519906261646730733907419814952960000"
                 + "000000000000000000000000");
-        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
     }
 
     /**
      * Test of power method, of class Math_BigInteger.
      */
-    //@Test
+    @Test
     public void testPower_4args_1() {
         String funcName = "power_4args_1";
         System.out.println("Test " + funcName);
@@ -166,7 +149,6 @@ public class Math_BigIntegerTest extends Math_Test {
         rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("10000000000000000000000000000000000000000");
         result = Math_BigInteger.power(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
         comp = expResult.compareTo(result);
         assertEquals(comp, 0);
         // Test 2
@@ -178,7 +160,6 @@ public class Math_BigIntegerTest extends Math_Test {
         expResult = new BigDecimal(
                 "0.0000000000000000000000000000000000000001");
         result = Math_BigInteger.power(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
         comp = expResult.compareTo(result);
         assertEquals(comp, 0);
         // Test 3
@@ -210,7 +191,6 @@ public class Math_BigIntegerTest extends Math_Test {
                 + "481031260859030013024134671897266732164915111316029207817380"
                 + "33436090243804708340403154190336");
         result = Math_BigInteger.power(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
         // Test 4
         test++;
@@ -549,7 +529,6 @@ public class Math_BigIntegerTest extends Math_Test {
                 + "521291457756991465775300413847171245779650481758563950728953"
                 + "37539755822087777506072339445587895905719156736");
         result = Math_BigInteger.power(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
         assertEquals(expResult, result);
 //        // Test 5
 //        test++;
@@ -613,7 +592,7 @@ public class Math_BigIntegerTest extends Math_Test {
 //        assertEquals(expResult, result);
     }
 
-    //@Test
+    @Test
     public void testReciprocal() {
         String funcName = "reciprocal";
         System.out.println("Test " + funcName);
@@ -631,11 +610,10 @@ public class Math_BigIntegerTest extends Math_Test {
                 "8.100000067149000556665214614754629156315875705858609601567873"
                 + "59699767211911070186742771848E-11");
         result = Math_BigInteger.reciprocal(x, dp, rm);
-        printFunctionTest(funcName, test, x, dp, rm, result);
         assertEquals(expResult, result);
     }
 
-    //@Test
+    @Test
     public void testGetRandom() {
         String funcName = "getRandom";
         System.out.println("Test " + funcName);
@@ -655,7 +633,6 @@ public class Math_BigIntegerTest extends Math_Test {
         upperLimit = new BigInteger("10000");
         expResult = new BigInteger("4402");
         result = bi.getRandom(upperLimit);
-        printFunctionTest(funcName, test, upperLimit, result);
         assertEquals(expResult, result);
         // Test 2
         test++;
@@ -666,7 +643,6 @@ public class Math_BigIntegerTest extends Math_Test {
         expResult = new BigInteger("628570378078456855601488631590048551226");
         result = bi.getRandom(upperLimit);
         //System.out.println(result);
-        printFunctionTest(funcName, test, upperLimit, result);
         assertEquals(expResult, result);
         // Test 3
         test++;
@@ -677,7 +653,6 @@ public class Math_BigIntegerTest extends Math_Test {
         expResult = new BigInteger("8804");
         result = bi.getRandom(upperLimit);
         //System.out.println(result);
-        printFunctionTest(funcName, test, upperLimit, result);
         assertEquals(expResult, result);
         // Test 4
         test++;
@@ -688,11 +663,10 @@ public class Math_BigIntegerTest extends Math_Test {
         expResult = new BigInteger("772480814235536969920545354438528182674");
         //System.out.println(result);
         result = bi.getRandom(upperLimit);
-        printFunctionTest(funcName, test, upperLimit, result);
         assertEquals(expResult, result);
     }
 
-    //@Test
+    @Test
     public void testGetPowersOfTwoDecomposition_1args() {
         String funcName = "getPowersOfTwoDecomposition_1args";
         System.out.println("Test " + funcName);
@@ -705,21 +679,18 @@ public class Math_BigIntegerTest extends Math_Test {
         x = new BigInteger("67");
         powersOfTwoDecomposition = bi.getPowersOfTwoDecomposition(x);
         xR = getXRecomposed(bi, powersOfTwoDecomposition);
-        printFunctionTest(funcName, test, x, xR);
         assertEquals(x, xR);
         // Test 2
         test++;
         x = new BigInteger("6734517348951454718534151347888542719004873129054");
         powersOfTwoDecomposition = bi.getPowersOfTwoDecomposition(x);
         xR = getXRecomposed(bi, powersOfTwoDecomposition);
-        printFunctionTest(funcName, test, x, xR);
         assertEquals(x, xR);
         // Test 3
         test++;
         x = new BigInteger("0");
         powersOfTwoDecomposition = bi.getPowersOfTwoDecomposition(x);
         xR = getXRecomposed(bi, powersOfTwoDecomposition);
-        printFunctionTest(funcName, test, x, xR);
         assertEquals(x, xR);
     }
 
@@ -803,7 +774,7 @@ public class Math_BigIntegerTest extends Math_Test {
     /**
      * Test of power method, of class Math_BigInteger.
      */
-    //@Test
+    @Test
     public void testPower_4args_2() {
         String funcName = "power_4args_1";
         System.out.println("Test " + funcName);
@@ -822,7 +793,6 @@ public class Math_BigIntegerTest extends Math_Test {
         rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("10000000000000000000000000000000000000000");
         result = Math_BigInteger.power(x, y, dp, rm);
-        printFunctionTest(funcName, test, x, y, dp, rm, result);
         comp = expResult.compareTo(result);
         assertEquals(comp, 0);
     }
@@ -857,6 +827,17 @@ public class Math_BigIntegerTest extends Math_Test {
         expResult = 48;
         result = Math_BigInteger.log10(x);
         assertEquals(expResult, result);
+        // Test 3
+        x = new BigInteger("9999999999999999999999999999999999999999999999999");
+        expResult = 48;
+        result = Math_BigInteger.log10(x);
+        assertEquals(expResult, result);
+        // Test 4
+        Throwable exception = assertThrows(ArithmeticException.class, () -> {
+            Math_BigInteger.log10(new BigInteger("-10"));
+        });
+        String m = exception.getMessage();
+        assertTrue(m.equalsIgnoreCase("!(x > 0)"));
     }
 
     /**
@@ -895,18 +876,34 @@ public class Math_BigIntegerTest extends Math_Test {
     }
 
     /**
-     * Test of getPerfectSquareRoot method, of class Math_BigInteger.
+     * Test of sqrt method, of class Math_BigInteger.
      */
     @Test
-    public void testGetPerfectSquareRoot() {
-        System.out.println("getPerfectSquareRoot");
+    public void testSqrt() {
+        System.out.println("sqrt");
         BigInteger x = new BigInteger("25");
         BigInteger expResult = new BigInteger("5");
-        BigInteger result = Math_BigInteger.getPerfectSquareRoot(x);
+        BigInteger result = Math_BigInteger.sqrt(x);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         x = new BigInteger("26");
-        assertNull(Math_BigInteger.getPerfectSquareRoot(x));
+        expResult = new BigInteger("-5");
+        result = Math_BigInteger.sqrt(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigInteger("35");
+        expResult = new BigInteger("-5");
+        result = Math_BigInteger.sqrt(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigInteger("36");
+        expResult = new BigInteger("6");
+        result = Math_BigInteger.sqrt(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigInteger("-2");
+        result = Math_BigInteger.sqrt(x);
+        assertNull(result);
     }
 
     /**
@@ -925,29 +922,29 @@ public class Math_BigIntegerTest extends Math_Test {
     }
 
     /**
-     * Test of getMagnitude method, of class Math_BigInteger.
+     * Test of getMagnitudeOfMostSignificantDigit method, of class Math_BigInteger.
      */
     @Test
-    public void testGetMagnitude() {
-        System.out.println("getMagnitude");
+    public void testGetMagnitudeOfMostSignificantDigit() {
+        System.out.println("getMagnitudeOfMostSignificantDigit");
         BigInteger x = BigInteger.valueOf(123456789);
         int expResult = 9;
-        int result = Math_BigInteger.getMagnitude(x);
+        int result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 2
         x = BigInteger.valueOf(-123456789);
         expResult = 9;
-        result = Math_BigInteger.getMagnitude(x);
+        result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 3
         x = new BigInteger("123456789000000000000000000000");
         expResult = 30;
-        result = Math_BigInteger.getMagnitude(x);
+        result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 4
         x = BigInteger.ZERO;
-        expResult = 0;
-        result = Math_BigInteger.getMagnitude(x);
+        expResult = 1;
+        result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -984,7 +981,7 @@ public class Math_BigIntegerTest extends Math_Test {
      * Test of round method, of class Math_BigInteger.
      */
     @Test
-    public void testRound() {
+    public void testRound_3args() {
         System.out.println("round");
         RoundingMode rm = RoundingMode.HALF_UP;
         BigInteger x = BigInteger.valueOf(123456789);
@@ -1046,49 +1043,144 @@ public class Math_BigIntegerTest extends Math_Test {
         BigInteger y = new BigInteger("12345678900000000");
         int oom = 40;
         RoundingMode rm = RoundingMode.HALF_UP;
+        BigInteger xy = x.multiply(y);
         BigInteger expResult;
         expResult = new BigInteger("1524160000000000000000000000000000000000000"
                 + "000");
+        BigInteger result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
         x = new BigInteger("123456789123456789123456789");
         y = new BigInteger("123456789123456789");
         oom = 40;
-        BigInteger xy = x.multiply(y);
+        xy = x.multiply(y); // 15241578780673678530864199515622620750190521
+        // 15241578780673678530857188528025088762600000
+        //System.out.println(xy.toString());
         expResult = new BigInteger("1524000000000000000000000000000000000000000"
                 + "0");
-        BigInteger result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
+        result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
+        //System.out.println(result.toString());
+        //System.out.println(expResult.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigInteger("123456789123456789123456789");
+        y = new BigInteger("123456789123456789");
+        oom = 30;
+        xy = x.multiply(y);
+        expResult = new BigInteger("1524157878067400000000000000000000000000000"
+                + "0");
+        result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
+        System.out.println(result.toString());
+        System.out.println(expResult.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigInteger(
+                "9999999999" + "9999999999" + "9999999999" + "9999999999"
+                + "9999999999" + "9999999999" + "9999999999" + "9999999999"
+                + "9999999999" + "9999999999");
+        y = new BigInteger(
+                "9999999999" + "9999999999" + "9999999999" + "9999999999"
+                + "9999999999" + "9999999999");
+        oom = 64;
+        xy = x.multiply(y);
+        System.out.println(xy.toString());
+        // 9999999999999999999999999999999999999999999999999999999999989999999999999999999999999999999999999999000000000000000000000000000000000000000000000000000000000001
+        // =
+        // 999
+        // 9999999999 9999999999 999999999 9999999999 9999999999 9999999899 
+        // 9999999999 9999999999 999999999 9999999990 0000000000 0000000000
+        // 0000000000 0000000000 000000000 0000000001
+        // prior rounded x.y
+        // 9999999999999999999999999999999999999999999999999999999999989999999999999999999999999999999900000000000000000000000000000000000000000000000000000000000100000000
+        // 99999999999999999999999999999999999999999999999999999999999899999999999999999999999999999999999990000000000000000000000000000000000000000000000000000000000000000
+        expResult = new BigInteger("9999999999" + "9999999999" + "9999999999"
+                + "9999999999" + "9999999999" + "9999999998" + "9999999999"
+                + "9999999999" + "9999999999" + "9900000000" + "0000000000"
+                + "0000000000" + "0000000000" + "0000000000" + "0000000000"
+                + "0000000000");
+        result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
         System.out.println(result.toString());
         System.out.println(expResult.toString());
         assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
-     * Test of round method, of class Math_BigInteger.
+     * Test of getMagnitudeOfLeastSignificantDigit method, of class Math_BigInteger.
      */
     @Test
-    public void testRound_3args() {
-        System.out.println("round");
-        BigInteger x = null;
-        int oom = 0;
-        RoundingMode rm = null;
-        BigInteger expResult = null;
-        BigInteger result = Math_BigInteger.round(x, oom, rm);
+    public void testGetMagnitudeOfLeastSignificantDigit() {
+        System.out.println("getMagnitudeOfLeastSignificantDigit");
+        BigInteger x = BigInteger.valueOf(123456789);
+        int expResult = 1;
+        int result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // Test 2
+        x = BigInteger.valueOf(-123456789);
+        expResult = 1;
+        result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 3
+        x = new BigInteger("123456789000000000000000000000");
+        expResult = 1;
+        result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 4
+        x = BigInteger.ZERO;
+        expResult = 1;
+        result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
+     */
+    @Test
+    public void testGetMagnitudeOfSmallestNonZeroDigit_BigInteger() {
+        System.out.println("getMagnitudeOfSmallestNonZeroDigit");
+        BigInteger x = BigInteger.valueOf(123456789);
+        int expResult = 1;
+        int result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
+        // Test 2
+        x = BigInteger.valueOf(-123456789);
+        expResult = 1;
+        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
+        // Test 3
+        x = new BigInteger("123456789000000000000000000000");
+        expResult = 22;
+        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
+        // Test 4
+        x = new BigInteger("-123456789000000000000000000000");
+        expResult = 22;
+        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
+        // Test 5
+        x = BigInteger.ZERO;
+        expResult = 1;
+        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of round method, of class Math_BigInteger.
+     * Test covered by {@link #testRound_3args()}.
      */
     @Test
     public void testRound_BigInteger_int() {
         System.out.println("round");
-        BigInteger x = null;
-        int oom = 0;
-        BigInteger expResult = null;
-        BigInteger result = Math_BigInteger.round(x, oom);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // No test.
     }
+
+    /**
+     * Test of getMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
+     * Test covered by {@link #testGetMagnitudeOfSmallestNonZeroDigit_BigInteger()}
+     */
+    @Test
+    public void testGetMagnitudeOfSmallestNonZeroDigit_BigInteger_int() {
+        System.out.println("getMagnitudeOfSmallestNonZeroDigit");
+        // No test.
+    }
+
 }

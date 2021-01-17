@@ -17,7 +17,6 @@ package uk.ac.leeds.ccg.math;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,21 +36,6 @@ import uk.ac.leeds.ccg.generic.util.Generic_Collections;
 public class Math_BigInteger extends Math_Number {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * The number {@code 2} for convenience.
-     */
-    public static final BigInteger TWO = BigInteger.valueOf(2);
-
-    /**
-     * The number {@code 3} for convenience.
-     */
-    public static final BigInteger THREE = BigInteger.valueOf(3);
-
-    /**
-     * The number {@code 100} for convenience.
-     */
-    public static final BigInteger ONE_HUNDRED = BigInteger.valueOf(100);
 
     /**
      * The number {@code Integer.MIN_VALUE} for convenience.
@@ -116,17 +100,80 @@ public class Math_BigInteger extends Math_Number {
     protected void initPowersOfTwo() {
         powersOfTwo = new ArrayList<>();
         powersOfTwo.add(BigInteger.ONE);
-        powersOfTwo.add(TWO);
-        powersOfTwo.add(TWO.multiply(TWO));
+        powersOfTwo.add(BigInteger.TWO);
+        powersOfTwo.add(BigInteger.TWO.multiply(BigInteger.TWO));
     }
 
     /**
+     * Returns the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> of the most significant digit of {@code x}.
      *
-     * @param x The value for which the magnitude is returned.
-     * @return The number of digits of {@code x}
+     * @param x The value for which the order of magnitude of the most
+     * significant digit is returned.
+     * @return The order of magnitude of the most significant digit of
+     * {@code x}.
      */
-    public static int getMagnitude(BigInteger x) {
-        return x.abs().toString().length();
+    public static int getMagnitudeOfMostSignificantDigit(BigInteger x) {
+        //return x.abs().toString().length();
+        int xs = x.signum();
+        switch (xs) {
+            case -1:
+                return log10(x.negate()) + 1;
+            case 0:
+                return 1;
+            default:
+                return log10(x) + 1;
+        }
+    }
+
+    /**
+     * Returns the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> of the least significant digit of {@code x}.
+     *
+     * @param x The value for which the order of magnitude of the most
+     * significant digit is returned.
+     * @return The order of magnitude of the most significant digit of
+     * {@code x}.
+     */
+    public static int getMagnitudeOfLeastSignificantDigit(BigInteger x) {
+        return 1;
+    }
+
+    /**
+     * Returns the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> of the smallest non-zero digit of {@code x}.
+     *
+     * @param x The value for which the order of magnitude of the most
+     * significant digit is returned.
+     * @return The order of magnitude of the smallest non zero digit of
+     * {@code x}.
+     */
+    public static int getMagnitudeOfSmallestNonZeroDigit(BigInteger x) {
+        return getMagnitudeOfSmallestNonZeroDigit(x,
+                getMagnitudeOfMostSignificantDigit(x));
+    }
+
+    /**
+     * Returns the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) of the smallest non-zero digit of {@code x}. This is
+     * computationally more efficient that
+     * {@link #getMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger)}. No
+     * checking is done to ensure that {@code m} is correct. That is the
+     * responsibility of the user.
+     *
+     * @param x The value for which the order of magnitude of the most
+     * significant digit is returned.
+     * @param m The OOM of the most significant digit of {@code x}. value for
+     * which the order of magnitude of the most
+     * @return The order of magnitude of the smallest non zero digit of
+     * {@code x}.
+     */
+    public static int getMagnitudeOfSmallestNonZeroDigit(BigInteger x, int m) {
+        return m - new BigDecimal(x).divide(BigDecimal.TEN.pow(m - 1)).scale();
     }
 
     /**
@@ -191,15 +238,16 @@ public class Math_BigInteger extends Math_Number {
      */
     public static BigInteger multiplyPriorRound(BigInteger x, BigInteger y, int oom,
             RoundingMode rm) {
-        int xm = Math_BigInteger.getMagnitude(x);
+        int xm = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         int m = (int) Math.sqrt(oom);
         BigInteger d = BigInteger.TEN.pow(m);
         BigInteger rp;
-        int ym = Math_BigInteger.getMagnitude(y);
+        int ym = Math_BigInteger.getMagnitudeOfMostSignificantDigit(y);
         if (xm >= ym) {
             if (xm > m) {
                 BigInteger xr = x.divide(d);
                 rp = y.multiply(xr).multiply(d);
+                System.out.println(rp);
             } else {
                 rp = y.multiply(x).multiply(d);
             }
@@ -228,7 +276,7 @@ public class Math_BigInteger extends Math_Number {
      * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
      * <li>...</li>
      * </ul>
-     * @param rm The rounding mode for any rounding.
+     * @param rm The {@link RoundingMode} used for any rounding.
      * @return {@code x} rounded given {@code s} and {@code rm}
      */
     public static BigInteger round(BigInteger x, int oom, RoundingMode rm) {
@@ -239,7 +287,7 @@ public class Math_BigInteger extends Math_Number {
     /**
      * This is the same as
      * {@link #round(java.math.BigInteger, int, java.math.RoundingMode)} with
-     * {@code rm = RoundingMode.HALF_UP}
+     * {@code rm} set to {@link RoundingMode#HALF_UP}.
      *
      * @param x The number to round
      * @param oom The
@@ -271,18 +319,14 @@ public class Math_BigInteger extends Math_Number {
      */
     public static BigInteger ceiling(BigDecimal x) {
         if (x.compareTo(BigDecimal.ZERO) == -1) {
-            //BigInteger ceiling = ceiling(x.negate());
-            BigInteger r = floor(x.negate()).negate();
+            return floor(x.negate()).negate();
+        }
+        BigInteger r = x.toBigInteger();
+        if (new BigDecimal(r).compareTo(x) == 0) {
             return r;
-        }
-        BigInteger xBI = x.toBigInteger();
-        BigDecimal xBD = new BigDecimal(xBI);
-        if (xBD.compareTo(x) == 0) {
-            return xBI;
         } else {
-            xBI = xBI.add(BigInteger.ONE);
+            return r.add(BigInteger.ONE);
         }
-        return xBI;
     }
 
     /**
@@ -321,15 +365,12 @@ public class Math_BigInteger extends Math_Number {
         if (x <= size) {
             return factorials.get(x);
         }
-        BigInteger lastFactorial = factorials.get(size - 1);
-        BigInteger factorial = null;
-        for (int keys = size; keys <= x; keys++) {
-            BigInteger value = new BigInteger("" + keys);
-            factorial = lastFactorial.multiply(value);
-            factorials.add(factorial);
-            lastFactorial = factorial;
+        BigInteger r = factorials.get(size - 1);
+        for (int i = size; i <= x; i++) {
+            r = r.multiply(BigInteger.valueOf(i));
+            factorials.add(r);
         }
-        return factorial;
+        return r;
     }
 
     /**
@@ -347,14 +388,12 @@ public class Math_BigInteger extends Math_Number {
         if (size > x) {
             return powersOfTwo.get(x);
         }
-        BigInteger lastPowerOfTwo = powersOfTwo.get(size - 1);
-        BigInteger powerOfTwo = null;
-        for (int keys = size; keys <= x; keys++) {
-            powerOfTwo = TWO.multiply(lastPowerOfTwo);
-            powersOfTwo.add(powerOfTwo);
-            lastPowerOfTwo = powerOfTwo;
+        BigInteger r = powersOfTwo.get(size - 1);
+        for (int i = size; i <= x; i++) {
+            r = BigInteger.TWO.multiply(r);
+            powersOfTwo.add(r);
         }
-        return powerOfTwo;
+        return r;
     }
 
     /**
@@ -368,10 +407,9 @@ public class Math_BigInteger extends Math_Number {
             initPowersOfTwo();
         }
         int size = powersOfTwo.size();
-        BigInteger lastPowerOfTwo = powersOfTwo.get(size - 1);
-        BigInteger powerOfTwo = TWO.multiply(lastPowerOfTwo);
-        powersOfTwo.add(powerOfTwo);
-        return powerOfTwo;
+        BigInteger r = BigInteger.TWO.multiply(powersOfTwo.get(size - 1));
+        powersOfTwo.add(r);
+        return r;
     }
 
     /**
@@ -380,15 +418,15 @@ public class Math_BigInteger extends Math_Number {
      * @return {@link #powersOfTwo}.
      */
     protected List<BigInteger> getPowersOfTwo() {
-        if (this.powersOfTwo == null) {
+        if (powersOfTwo == null) {
             initPowersOfTwo();
         }
-        return this.powersOfTwo;
+        return powersOfTwo;
     }
 
     /**
      * If {@link #powersOfTwo} is null then it is initialised. This returns a
-     * subList of powersOfTwo where the fist power of two in the subList is
+     * subList of powersOfTwo where the first power of two in the subList is
      * {@code 1} and the last power of two in the subList is the last power of
      * two less than x. (All other powers of 2 are included in the subList
      * returned.)
@@ -403,22 +441,22 @@ public class Math_BigInteger extends Math_Number {
             initPowersOfTwo();
         }
         int size = powersOfTwo.size();
-        BigInteger lastPowerOfTwo = powersOfTwo.get(size - 1);
-        if (x.compareTo(lastPowerOfTwo) != -1) {
-            while (x.compareTo(lastPowerOfTwo) == 1) {
-                lastPowerOfTwo = lastPowerOfTwo.multiply(TWO);
-                powersOfTwo.add(lastPowerOfTwo);
+        BigInteger p = powersOfTwo.get(size - 1);
+        if (x.compareTo(p) != -1) {
+            while (x.compareTo(p) == 1) {
+                p = p.multiply(BigInteger.TWO);
+                powersOfTwo.add(p);
             }
             return powersOfTwo.subList(0, powersOfTwo.size() - 1);
         } else {
             List<BigInteger> r = new ArrayList<>();
             Iterator<BigInteger> ite = powersOfTwo.iterator();
             while (ite.hasNext()) {
-                BigInteger powerOfTwo = ite.next();
-                if (x.compareTo(powerOfTwo) != 1) {
+                BigInteger p2 = ite.next();
+                if (x.compareTo(p2) != 1) {
                     return r;
                 } else {
-                    r.add(powerOfTwo);
+                    r.add(p2);
                 }
             }
             return r;
@@ -450,27 +488,30 @@ public class Math_BigInteger extends Math_Number {
             r.put(0, 1);
             return r;
         }
-        List<BigInteger> xPowersOfTwo = getPowersOfTwo(x);
-        int i = xPowersOfTwo.size() - 1;
-        BigInteger powerofTwo;
+        List<BigInteger> xP = getPowersOfTwo(x);
+        int i = xP.size() - 1;
+        BigInteger p;
         BigInteger remainder = new BigInteger(x.toString());
         for (int index = i; index >= 0; index--) {
-            powerofTwo = xPowersOfTwo.get(index);
+            p = xP.get(index);
             if (remainder.compareTo(BigInteger.ZERO) == 1) {
                 int c = 0;
-                while (powerofTwo.compareTo(remainder) != 1) {
-                    remainder = remainder.subtract(powerofTwo);
+                while (p.compareTo(remainder) != 1) {
+                    remainder = remainder.subtract(p);
                     c++;
                 }
                 if (c > 0) {
-                    Generic_Collections.addToMapInteger(r, index, c);
+                    //Generic_Collections.addToMapInteger(r, index, c);
+                    Generic_Collections.addToCount(r, index, c);
                 }
             } else {
                 break;
             }
         }
         if (remainder.compareTo(BigInteger.ZERO) == 1) {
-            Generic_Collections.addToMapInteger(r,
+            //Generic_Collections.addToMapInteger(r,
+            //       getPowersOfTwoDecomposition(remainder));
+            Generic_Collections.addToCount(r,
                     getPowersOfTwoDecomposition(remainder));
         }
         return r;
@@ -519,23 +560,34 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Calculates and returns the reciprocal of x (1/x) to {@code dp} decimal
+     * Calculates and returns the reciprocal of x (1/x) to {@code oom} decimal
      * place precision using the {@link RoundingMode} {@code rm}. If
      * {@code x == 0} then an {@link IllegalArgumentException} is thrown.
      *
      * @param x The base.
-     * @param dp The number of decimal places the result is to be accurate to.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * to round to. This should be greater than 0 otherwise the result is simply
+     * x and this method need not be called.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
      * @param rm The {@link RoundingMode} used for any rounding.
      * @return 1/x
      */
-    public static BigDecimal reciprocal(BigInteger x, int dp, RoundingMode rm) {
+    public static BigDecimal reciprocal(BigInteger x, int oom, RoundingMode rm) {
         if (x.compareTo(BigInteger.ZERO) == 0) {
             throw new IllegalArgumentException(
                     "x = 0 in " + Math_BigInteger.class
                     + ".reciprocal(BigInteger,int,RoundingMode)");
         }
-        BigDecimal result = BigDecimal.ONE.divide(new BigDecimal(x), dp, rm);
-        return Math_BigDecimal.roundIfNecessary(result, dp, rm);
+        return Math_BigDecimal.divideRoundToFixedDecimalPlaces(
+                BigDecimal.ONE, new BigDecimal(x), oom, rm);
     }
 
     /**
@@ -627,28 +679,33 @@ public class Math_BigInteger extends Math_Number {
      * We don't go too far but it does mean we have to repeat it just a few
      * times.
      *
-     * @param x The number to log.
+     * @param x The number to log. This should be positive.
      * @return The number of digits in x.
+     * @throws {@link ArithmeticException} if {@code x} is not greater than {@code 0}.
      */
     public static int log10(BigInteger x) {
-        int digits = 0;
-        int bits = x.bitLength();
-        // Serious reductions.
-        while (bits > 4) {
-            // 4 > log[2](10) so we should not reduce it too far.
-            int reduce = bits / 4;
-            // Divide by 10^reduce
-            x = x.divide(BigInteger.TEN.pow(reduce));
-            // Removed that many decimal digits.
-            digits += reduce;
-            // Recalculate bitLength
-            bits = x.bitLength();
+        int xs = x.signum();
+        if (xs == 1) {
+                int digits = 0;
+                int bits = x.bitLength();
+                // Serious reductions.
+                while (bits > 4) {
+                    // 4 > log[2](10) so we should not reduce it too far.
+                    int reduce = bits / 4;
+                    // Divide by 10^reduce
+                    x = x.divide(BigInteger.TEN.pow(reduce));
+                    // Removed that many decimal digits.
+                    digits += reduce;
+                    // Recalculate bitLength
+                    bits = x.bitLength();
+                }
+                // Now 4 bits or less - add 1 if necessary.
+                if (x.intValue() > 9) {
+                    digits += 1;
+                }
+                return digits;
         }
-        // Now 4 bits or less - add 1 if necessary.
-        if (x.intValue() > 9) {
-            digits += 1;
-        }
-        return digits;
+        throw new ArithmeticException("!(x > 0)");
     }
 
     /**
@@ -713,10 +770,10 @@ public class Math_BigInteger extends Math_Number {
         if (!powersOfTwo.contains(powerOf2)) {
             int size = powersOfTwo.size();
             BigInteger lastPower = powersOfTwo.get(size - 1);
-            BigInteger power = lastPower.multiply(TWO);
+            BigInteger power = lastPower.multiply(BigInteger.TWO);
             powersOfTwo.add(power);
             while (power.compareTo(powerOf2) == -1) {
-                power = lastPower.multiply(TWO);
+                power = lastPower.multiply(BigInteger.TWO);
                 powersOfTwo.add(power);
             }
         }
@@ -771,19 +828,34 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * @param x The number to return the square root if that is an integer.
-     * @return The square root of {@code x} if it is an integer and {@code null}
-     * otherwise.
+     * Calculate and return the square root of {@code x}. This uses
+     * {@link BigInteger#sqrt()} and returns a positive value iff {@code x} is a
+     * <a href="https://en.wikipedia.org/wiki/Square_number">square number</a>).
+     * (Maybe use {@link BigInteger#signum} to test the type of result if
+     * necessary.)
+     *
+     * @param x The number to calculate and return the square root of.
+     * @return:
+     * <ul>
+     * <li>{@code null} if {@code x} is negative</li>
+     * <li>the square root of {@code x} if {@code x} is a
+     * <a href="https://en.wikipedia.org/wiki/Square_number">square number</a>
+     * </li>
+     * <li>the {@link BigInteger#negate()} of the {@link BigInteger#sqrt()} of
+     * {@code x} if that is smaller than the actual square root of {@code x}
+     * </li>
+     * </ul>
      */
-    public static BigInteger getPerfectSquareRoot(BigInteger x) {
+    public static BigInteger sqrt(BigInteger x) {
         if (x.compareTo(BigInteger.ZERO) != 1) {
             return null;
         }
         BigInteger xs = x.sqrt();
         if (x.compareTo(xs.multiply(xs)) == 0) {
             return xs;
+        } else {
+            return xs.negate();
         }
-        return null;
     }
 
     /**

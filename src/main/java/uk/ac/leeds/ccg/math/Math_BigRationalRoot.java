@@ -190,10 +190,10 @@ public class Math_BigRationalRoot implements Serializable, Comparable<Math_BigRa
      */
     public static BigRational getRootRational(BigRational x) {
         BigInteger[] numden = getNumeratorAndDenominator(x);
-        BigInteger nums = Math_BigInteger.getPerfectSquareRoot(numden[0]);
-        if (nums != null) {
-            BigInteger dens = Math_BigInteger.getPerfectSquareRoot(numden[1]);
-            if (dens != null) {
+        BigInteger nums = Math_BigInteger.sqrt(numden[0]);
+        if (nums.signum() != -1) {
+            BigInteger dens = Math_BigInteger.sqrt(numden[1]);
+            if (dens.signum() != -1) {
                 return BigRational.valueOf(nums).divide(BigRational.valueOf(dens));
             }
         }
