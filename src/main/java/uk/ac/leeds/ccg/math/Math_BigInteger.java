@@ -185,8 +185,7 @@ public class Math_BigInteger extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to. This should be greater than 0 otherwise the result is simply
-     * x and this method need not be called.
+     * to round to.
      * <ul>
      * <li>...</li>
      * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
@@ -222,8 +221,7 @@ public class Math_BigInteger extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to. This should be greater than 0 otherwise the result is simply
-     * x and this method need not be called.
+     * to round to.
      * <ul>
      * <li>...</li>
      * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
@@ -568,8 +566,7 @@ public class Math_BigInteger extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to. This should be greater than 0 otherwise the result is simply
-     * x and this method need not be called.
+     * to round to.
      * <ul>
      * <li>...</li>
      * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
@@ -603,24 +600,22 @@ public class Math_BigInteger extends Math_Number {
      * @return e^x where e is the Euler constant to a sufficient precision to
      * return the result accurate to the requested dp decimal place precision.
      */
-    protected static BigDecimal exp(BigInteger x, Math_BigDecimal bd,
-            int dp, RoundingMode rm) {
+    protected static BigDecimal exp(BigInteger x, Math_BigDecimal bd, int oom) {
         // Deal with special cases
         if (x.compareTo(BigInteger.ZERO) == 0) {
             return BigDecimal.ONE;
         }
         if (x.compareTo(BigInteger.ZERO) == -1) {
-            return Math_BigDecimal.reciprocal(exp(x.negate(), bd, dp, rm), dp, rm);
+            return Math_BigDecimal.reciprocal(exp(x.negate(), bd, oom), oom);
         }
         BigDecimal r = BigDecimal.ZERO;
         if (x.compareTo(BigInteger.valueOf(999999999)) != 1
                 && x.compareTo(BigInteger.ZERO) != -1) {
-            r = bd.getEulerConstantToAMinimumDecimalPlacePrecision(
-                    dp + Math_BigInteger.log10(x)).pow(x.intValueExact());
+            int xi = x.intValueExact();
+            r = bd.getE(oom - xi).pow(xi);
         } else {
             ArrayList<BigDecimal> rp = new ArrayList<>();
-            BigDecimal rpp = bd.getEulerConstantToAMinimumDecimalPlacePrecision(
-                    dp + Math_BigInteger.log10(x));
+            BigDecimal rpp = bd.getE(oom - Math_BigInteger.log10(x));
             BigInteger c = BigInteger.valueOf(2);
             BigInteger cl = BigInteger.ZERO;
             while (c.compareTo(x) != 1) {
@@ -644,7 +639,7 @@ public class Math_BigInteger extends Math_Number {
 
             }
         }
-        return Math_BigDecimal.roundToAndSetDecimalPlaces(r, dp, rm);
+        return Math_BigDecimal.round(r, oom);
     }
 
     /**

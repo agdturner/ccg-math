@@ -53,15 +53,48 @@ public class Math_BigDecimal extends Math_Number {
     public Math_BigInteger bi;
 
     /**
-     * For storing the Euler constant correct to a fixed decimal place
-     * precision. ~2.71828182845904523536028747135266249775724709369995
+     * For storing the
+     * <a href="https://en.wikipedia.org/wiki/Euler%E2%80%93Mascheroni_constant">Euler
+     * constant</a> rounded to {@link #eOOM}
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> rounded using {@link RoundingMode#HALF_UP}. The first few
+     * digits of the number are
+     * {@code ~2.71828182845904523536028747135266249775724709369995}.
      */
     private BigDecimal e;
 
     /**
-     * For storing the PI constant correct to a fixed decimal place precision.
+     * For storing the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * that {@link #e} is rounded to.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li>
+     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     */
+    private int eOOM;
+
+    /**
+     * For storing the
+     * <a href="https://en.wikipedia.org/wiki/Pi">Pi constant</a> rounded to
+     * {@link #piOOM}
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> rounded using {@link RoundingMode#HALF_UP}. The first few
+     * digits of the number are
+     * {@code 3.1415926535897932384626433...}.
      */
     private BigDecimal pi;
+
+    /**
+     * For storing the PI constant correct to a fixed decimal place precision.
+     */
+    private int piOOM;
 
     /**
      * For storing the PI constant divided by two correct to a fixed decimal
@@ -100,16 +133,6 @@ public class Math_BigDecimal extends Math_Number {
     private int pi2DP;
 
     /**
-     * The {@link RoundingMode} used in calculations.
-     */
-    private RoundingMode rm;
-
-    /**
-     * Default RoundingMode
-     */
-    private static RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_UP;
-
-    /**
      * The number 2 is often used so is made available as a constant.
      */
     public static final BigDecimal TWO = BigDecimal.valueOf(2);
@@ -122,8 +145,8 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * The number 11 is often used so is made available as a constant.
      */
-    public static final BigDecimal ELEVEN = BigDecimal.TEN.add(BigDecimal.ONE);
-
+    public static final BigDecimal ELEVEN = BigDecimal.valueOf(11);
+    
     /**
      * Creates a new instance initialising {@link #bi} with 1000 entries and
      * initialising {@link #pi} to 1000 decimal places.
@@ -141,27 +164,8 @@ public class Math_BigDecimal extends Math_Number {
      * initialised to.
      */
     public Math_BigDecimal(int n) {
-        rm = DEFAULT_ROUNDING_MODE;
         initBIF(n);
-        initE(n);
-    }
-
-    /**
-     * @return {@link #rm} defaulting it to {@link #DEFAULT_ROUNDING_MODE} if it
-     * is {@code null}.
-     */
-    public RoundingMode getRoundingMode() {
-        if (rm == null) {
-            rm = DEFAULT_ROUNDING_MODE;
-        }
-        return rm;
-    }
-
-    /**
-     * @param r sets {@link #rm} to r.
-     */
-    public void setRoundingMode(RoundingMode r) {
-        this.rm = r;
+        initE(-n);
     }
 
     /**
@@ -182,9 +186,9 @@ public class Math_BigDecimal extends Math_Number {
      * @param dp The number of decimal places {@link #e} is initialised accurate
      * to.
      */
-    private void initE(int dp) {
-        bi.factorial(dp);
-        e = getEulerConstantToAFixedDecimalPlacePrecision(dp, getRoundingMode());
+    private void initE(int oom) {
+        bi.factorial(-oom);
+        e = getE(oom);
     }
 
     /**
@@ -469,7 +473,6 @@ public class Math_BigDecimal extends Math_Number {
 //        return multiplyRoundIfNecessaryNoSpecialCaseCheck(x, new BigDecimal(y),
 //                dp, rm);
 //    }
-
     /**
      * Calculates and returns x multiplied by y (x*y).
      *
@@ -499,8 +502,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to. This should be greater than 0 otherwise the result is simply
-     * x and this method need not be called.
+     * to round to.
      * <ul>
      * <li>...</li>
      * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
@@ -521,7 +523,7 @@ public class Math_BigDecimal extends Math_Number {
             int oom, RoundingMode rm) {
         return Math_BigDecimal.round(x.multiply(new BigDecimal(y)), oom, rm);
     }
-    
+
     /**
      * Calculate and return {@code x} multiplied by {@code y} to the precision
      * scale given by {@code ps} using the RoundingMode {@code rm}. This method
@@ -540,8 +542,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to. This should be greater than 0 otherwise the result is simply
-     * x and this method need not be called.
+     * to round to.
      * <ul>
      * <li>...</li>
      * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
@@ -562,7 +563,7 @@ public class Math_BigDecimal extends Math_Number {
             int oom, RoundingMode rm) {
         return Math_BigDecimal.round(x.multiply(y), oom, rm);
     }
-    
+
     /**
      * Calculate and return {@code x} multiplied by {@code y} to the precision
      * scale given by {@code ps} using the RoundingMode {@code rm}. This method
@@ -581,8 +582,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to. This should be greater than 0 otherwise the result is simply
-     * x and this method need not be called.
+     * to round to.
      * <ul>
      * <li>...</li>
      * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
@@ -724,11 +724,45 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Calculates and returns x divided by y (x/y) rounded to fixed decimal
-     * places using the {@link RoundingMode} {@code rm} and {@code dp}. If
-     * {@code x} is {@link BigDecimal#ZERO} then {@link BigDecimal#ZERO} is
-     * returned. Otherwise if {@code y} is {@link BigDecimal#ZERO} then an
-     * {@link ArithmeticException} is thrown.
+     * Calculates and returns {@code x} divided by {@code y} (x/y) rounded using
+     * {@link RoundingMode#HALF_UP} to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) given by {@code oom}. If {@code y} is
+     * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
+     * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
+     * {@link BigDecimal#ZERO} is returned.
+     *
+     * @param x The numerator of the division.
+     * @param y The denominator of the division.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) to round to.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
+     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
+     * @return x/y rounded to OOM = oom;
+     * @throws ArithmeticException if y
+     */
+    public static BigDecimal divide(BigDecimal x, BigDecimal y, int oom) {
+        return divide(x, y, oom, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * Calculates and returns {@code x} divided by {@code y} (x/y) rounded using
+     * {@link RoundingMode} {@code rm} to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) given by {@code oom}. If {@code y} is
+     * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
+     * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
+     * {@link BigDecimal#ZERO} is returned.
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
@@ -751,7 +785,7 @@ public class Math_BigDecimal extends Math_Number {
      * @return x/y then rounded;
      * @throws ArithmeticException if y
      */
-    public static BigDecimal divide(BigDecimal x, BigDecimal y, int oom, 
+    public static BigDecimal divide(BigDecimal x, BigDecimal y, int oom,
             RoundingMode rm) {
         // Deal with special cases
         if (y.signum() == 0) {
@@ -768,14 +802,14 @@ public class Math_BigDecimal extends Math_Number {
         }
         return divideNoCaseCheck(x, y, oom, rm);
     }
-    
+
     private static BigDecimal divideNoCaseCheck(
             BigDecimal x, BigDecimal y, int oom, RoundingMode rm) {
         int precision = x.divideToIntegralValue(y).precision() - oom;
         MathContext mc = new MathContext(precision, rm);
         return x.divide(y, mc);
     }
-    
+
     /**
      * Calculates and returns x divided by y (x/y) rounded to fixed decimal
      * places using the {@link RoundingMode} {@code rm} and {@code dp}.
@@ -1991,6 +2025,7 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @return x^y accurate to decimalPlaces
      */
+    @Deprecated
     public static BigDecimal power(BigDecimal x, BigInteger y, int div,
             int dp, RoundingMode rm) {
         // Deal with special cases
@@ -2409,12 +2444,29 @@ public class Math_BigDecimal extends Math_Number {
      * roundingMode==RoundingMode.UNNECESSARY and the specified scale is
      * insufficient to represent the result of the division exactly.
      */
+    @Deprecated
     public static BigDecimal reciprocal(BigDecimal x, int dp, RoundingMode rm) {
         BigDecimal r = BigDecimal.ONE.divide(x, dp, rm);
         return r;
 //        return roundIfNecessary(result, decimalPlace, a_RoundingMode);
     }
 
+    /**
+     * Calculates and returns the reciprocal 1 divided by x (1/x).
+     *
+     * @param x The number to calculate the reciprocal of.
+     * @param dp The number of decimal places the result has to be correct to.
+     * @param rm The {@link RoundingMode} used to round intermediate results and
+     * the final result.
+     * @return 1/x Accurate to decimalPlace number of decimal places. Throws an
+     * ArithmeticException - if divisor is zero,
+     * roundingMode==RoundingMode.UNNECESSARY and the specified scale is
+     * insufficient to represent the result of the division exactly.
+     */
+    public static BigDecimal reciprocal(BigDecimal x, int oom) {
+        return Math_BigDecimal.divide(BigDecimal.ONE, x, oom);
+    }
+    
     /**
      * Calculates and returns the reciprocal 1 divided by x (1/x) iff the result
      * can be stored as an integer, otherwise an {@link ArithmeticException} is
@@ -2664,7 +2716,7 @@ public class Math_BigDecimal extends Math_Number {
     public static BigDecimal round(BigDecimal x, int oom, RoundingMode rm) {
         return x.movePointLeft(oom).setScale(0, rm).movePointRight(oom);
     }
-    
+
     /**
      * This is the same as
      * {@link #round(java.math.BigDecimal, int, java.math.RoundingMode)} with
@@ -2735,7 +2787,9 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * @Deprecated Use {@link #round(java.math.BigDecimal, int, java.math.RoundingMode) instead. Where {@code oom = -dp}.
+     * @Deprecated Use
+     * {@link #round(java.math.BigDecimal, int, java.math.RoundingMode} instead,
+     * where {@code oom = -dp}.
      *
      * This may return {@code x}.
      *
@@ -2759,35 +2813,6 @@ public class Math_BigDecimal extends Math_Number {
     private static BigDecimal roundIfNecessaryNoScaleCheck(BigDecimal x,
             int dp, RoundingMode rm) {
         return x.setScale(dp, rm);
-    }
-
-    /**
-     * Calculates and returns the decimal place precision of x.
-     *
-     * @param x The number for which the decimal place precision is calculated
-     * and returned.
-     * @param sd The number of significant digits.
-     * @return The decimal place precision of x.
-     */
-    public static int getDecimalPlacePrecision(BigDecimal x, int sd) {
-        int r = 0;
-        if (x != null) {
-            int scale = x.scale();
-            int precision = x.precision();
-            int iScale = precision - scale;
-            if (iScale < 0) {
-                // e.g. 0.00123467891011; scale = 15, precision = 12
-                r = (iScale * -1) + sd;
-            } else {
-                // e.g. 192.1231213; scale = 7, precision = 10
-                if (iScale < sd) {
-                    r = sd - iScale;
-                } else {
-                    r = 1;
-                }
-            }
-        }
-        return r;
     }
 
     /**
@@ -3100,47 +3125,36 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * If {@link #e} has at least dp decimal place precision, then a copy
-     * created using new BigDecimal(e.toString()) is returned otherwise the
-     * Euler constant is recalculated to the required precision, stored as
-     * {@link #e} and a copy is returned.
+     * If {@link #e} has enough precision it is rounded and returned otherwise
+     * {@link #e} is recalculated to the required precision, stored and a copy
+     * returned.
      *
-     * @param dp The number of decimal places that the Euler constant is
-     * required to be accurate to.
-     * @return A value of the Euler constant to a minimum decimal place
-     * accuracy.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * to round to.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
+     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
+     * @return A value of the Euler constant rounded to {@code oom} using
+     * {@link RoundingMode#HALF_UP}.
      */
-    public BigDecimal getEulerConstantToAMinimumDecimalPlacePrecision(
-            int dp) {
+    public BigDecimal getE(int oom) {
         if (e != null) {
-            if (e.scale() > dp) {
-                return new BigDecimal(e.toString());
-            }
-        }
-        return getEulerConstantToAFixedDecimalPlacePrecision(dp,
-                getRoundingMode());
-    }
-
-    /**
-     * If {@link #e} has enough precision, this is rounded and returned
-     * otherwise {@link #e} is recalculated to the required precision, stored
-     * and a copy returned that is rounded to the number of decimal places
-     * specified.
-     *
-     * @param dp The number of decimal places the result has to be correct to.
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
-     * @return A value of the Euler constant to fixed number of decimal places.
-     */
-    public BigDecimal getEulerConstantToAFixedDecimalPlacePrecision(
-            int dp, RoundingMode rm) {
-        if (e != null) {
-            if (e.scale() > dp) {
-                return roundIfNecessary(new BigDecimal(e.toString()), dp, rm);
+            if (eOOM < oom) {
+                return round(e, oom);
             }
         }
         e = new BigDecimal("2");
-        int dps = dp + 3;
+        int dps = 3 - oom;
         //int maxite = 10000;
         //int maxite = decimalPlaces * 2;
         int maxite = dps;
@@ -3153,14 +3167,14 @@ public class Math_BigDecimal extends Math_Number {
         // Use Taylor Series
         for (int i = 2; i < maxite; i++) {
             BigDecimal f = new BigDecimal(bi.factorials.get(i));
-            BigDecimal rf = BigDecimal.ONE.divide(f, dps, rm);
+            BigDecimal rf = Math_BigDecimal.divide(BigDecimal.ONE, f, oom);
             e = e.add(rf);
             if (rf.compareTo(tollerance) == -1) {
                 break;
             }
         }
-        e = roundIfNecessary(e, dp, rm);
-        return new BigDecimal(e.toString());
+        eOOM = oom;
+        return round(e, oom);
     }
 
     /**
@@ -3172,14 +3186,13 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The value for which e to the power of y (e^y) is returned.
      * @param bd may be null. Passing a Math_BigDecimal in can save computation.
      * The Euler constant is used in most invocations.
-     * @param dp The number of decimal places the result has to be correct to.
+     * @param oom The number of decimal places the result has to be correct to.
      * @param rm The {@link RoundingMode} used to round intermediate results and
      * the final result.
      * @return e^y where e is the Euler constant. The result is returned correct
      * to decimalPlaces decimal place precision.
      */
-    public static BigDecimal exp(BigDecimal x, Math_BigDecimal bd, int dp,
-            RoundingMode rm) {
+    public static BigDecimal exp(BigDecimal x, Math_BigDecimal bd, int oom) {
         BigDecimal r;
         // Deal with special cases
         if (x.compareTo(BigDecimal.ZERO) == 0) {
@@ -3190,23 +3203,21 @@ public class Math_BigDecimal extends Math_Number {
             bd = new Math_BigDecimal();
         }
         if (x.compareTo(BigDecimal.ONE) == 0) {
-            return bd.getEulerConstantToAFixedDecimalPlacePrecision(dp, rm);
+            return bd.getE(oom);
         }
         BigInteger xBi = x.toBigInteger();
         BigDecimal xBiBd = new BigDecimal(xBi, 0);
         if (xBiBd.compareTo(x) == 0) {
-            return Math_BigInteger.exp(xBi, bd, dp, rm);
+            return Math_BigInteger.exp(xBi, bd, oom);
         }
         BigDecimal fract = x.subtract(xBiBd);
-        int safeDecimalPlaces;
         if (fract.compareTo(BigDecimal.ZERO) == -1) {
-            safeDecimalPlaces = fract.scale() + dp;
-            BigDecimal exp = exp(fract.negate(), bd, safeDecimalPlaces, rm);
-            r = reciprocal(exp, dp, rm);
-            r = Math_BigInteger.exp(xBi, bd, dp + 2, rm).multiply(r);
-            return Math_BigDecimal.roundIfNecessary(r, dp, rm);
+            BigDecimal exp = exp(fract.negate(), bd, oom - fract.scale());
+            r = reciprocal(exp, oom);
+            r = Math_BigInteger.exp(xBi, bd, oom + 2).multiply(r);
+            return Math_BigDecimal.round(r, oom);
         }
-        int dpd = dp + 3;
+        int oomm3 = oom - 3;
         r = BigDecimal.ONE.add(fract);
 //        if (bd.bi == null) {
 //            bd.init_Factorial_Generic_BigInteger(maxite);
@@ -3214,7 +3225,7 @@ public class Math_BigDecimal extends Math_Number {
 //            bd.bi.factorial(maxite);
 //        }
         BigDecimal dpxff;
-        BigDecimal tollerance = new BigDecimal(BigInteger.ONE, dp + 1);
+        BigDecimal tollerance = new BigDecimal(BigInteger.ONE, 1 - oom);
         // Use Taylor Series
         BigInteger bi = BigInteger.ONE;
         Integer f = 1;
@@ -3223,18 +3234,18 @@ public class Math_BigDecimal extends Math_Number {
             f = f + 1;
             BigDecimal ff = new BigDecimal(bd.bi.factorial(f));
             /**
-             * May need dp to be higher (even though the bottom of the Taylor
+             * May need dpd to be larger (even though the bottom of the Taylor
              * series grows fast).
              */
-            BigDecimal px = power(fract, bi, 64, dpd, rm);
-            dpxff = divideRoundIfNecessary(px, ff, dpd, rm);
+            BigDecimal px = power(fract, bi, 64, oomm3, RoundingMode.HALF_UP);
+            dpxff = divide(px, ff, oomm3);
             r = r.add(dpxff);
             if (dpxff.compareTo(tollerance) == -1) {
                 break;
             }
         }
-        r = Math_BigInteger.exp(xBi, bd, dp + 2, rm).multiply(r);
-        return roundIfNecessary(r, dp, rm);
+        r = Math_BigInteger.exp(xBi, bd, oom - 2).multiply(r);
+        return round(r, oom);
     }
 
 //    /**
@@ -3357,7 +3368,7 @@ public class Math_BigDecimal extends Math_Number {
         // (two successive approximations are within the tolerance).
         do {
             // e^toCompare
-            BigDecimal exp = exp(r, a, sp1, rm);
+            BigDecimal exp = exp(r, a, sp1);
             // (e^toCompare - x)/e^toCompare
             term = exp.subtract(x).divide(exp, sp1, rm);
             // toCompare - (e^toCompare - x)/e^toCompare

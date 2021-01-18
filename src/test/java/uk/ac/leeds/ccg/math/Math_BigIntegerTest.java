@@ -805,10 +805,11 @@ public class Math_BigIntegerTest {
         System.out.println("exp");
         BigInteger x = new BigInteger("10");
         Math_BigDecimal bd = new Math_BigDecimal();
-        int dp = 1;
-        RoundingMode rm = RoundingMode.HALF_UP;
+        int oom = -1;
         BigDecimal expResult = new BigDecimal("22026.5");
-        BigDecimal result = Math_BigInteger.exp(x, bd, dp, rm);
+        //22166.1
+        //22026.465794803051057748866010572
+        BigDecimal result = Math_BigInteger.exp(x, bd, oom);
         assertEquals(expResult, result);
     }
 
