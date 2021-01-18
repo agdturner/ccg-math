@@ -807,9 +807,61 @@ public class Math_BigIntegerTest {
         Math_BigDecimal bd = new Math_BigDecimal();
         int oom = -1;
         BigDecimal expResult = new BigDecimal("22026.5");
-        //22166.1
-        //22026.465794803051057748866010572
         BigDecimal result = Math_BigInteger.exp(x, bd, oom);
+        assertEquals(expResult, result);
+        // Test 2
+        oom = -10;
+        expResult = new BigDecimal("22026.4657948067");
+        result = Math_BigInteger.exp(x, bd, oom);
+        assertEquals(expResult, result);
+        // Test 3
+        x = BigInteger.TWO;
+        oom = -20;
+        expResult = new BigDecimal("7.38905609893065022723");
+        result = Math_BigInteger.exp(x, bd, oom);
+        assertEquals(expResult, result);
+        // Test 4
+        x = BigInteger.valueOf(100);
+        oom = -20;
+        expResult = new BigDecimal("2688117141816135448412625551580013587361111"
+                + "8.77374192241519160862");
+        result = Math_BigInteger.exp(x, bd, oom);
+        //System.out.println(result);
+        assertEquals(expResult, result);
+        // Test 5
+        x = BigInteger.valueOf(1000);
+        oom = -20;
+        expResult = new BigDecimal("1970071114017046993888879352243323125316937"
+                + "985323845789952802991385063850782441193474978076563026889930"
+                + "963817987520226935982981730544612899232627836601528252323205"
+                + "351695845667561922715676027880714224668263140068551685086534"
+                + "979416603160453678179380929052997285801328699458564702865343"
+                + "759004565643555891562204223202605188261122886383583722487247"
+                + "252145061504188819374941008712642322484363157605603774399306"
+                + "23959705844189509050047074217568.22675780833081020707");
+        result = Math_BigInteger.exp(x, bd, oom);
+        //System.out.println(result);
+        assertEquals(expResult, result);
+        // Test 6
+        x = BigInteger.TWO;
+        oom = -200;
+        expResult = new BigDecimal("7.38905609893065022723042746057500781318031"
+                + "557055184732408712782252257379607905776338431248507912179477"
+                + "375316126547886612388460369278127337447839221339807777490012"
+                + "289560741075370239133094755068208658182");
+        result = Math_BigInteger.exp(x, bd, oom);
+        //System.out.println(result);
+        assertEquals(expResult, result);
+        // Test 7
+        x = BigInteger.valueOf(100);
+        oom = -200;
+        expResult = new BigDecimal("2688117141816135448412625551580013587361111"
+                + "8.7737419224151916086152802870349095649141588710972198457108"
+                + "116708791905760686975977097618682335484596389298719660896291"
+                + "336261200293809572765340329622698656680169177435144518460651"
+                + "6280444223775676229696");
+        result = Math_BigInteger.exp(x, bd, oom);
+        System.out.println(result);
         assertEquals(expResult, result);
     }
 
