@@ -1005,7 +1005,7 @@ public class Math_BigIntegerTest {
      * Test of multiply method, of class Math_BigInteger.
      */
     @Test
-    public void testMultiply() {
+    public void testMultiply_3args() {
         System.out.println("multiply");
         BigInteger x = new BigInteger("123456789000000000000000000000");
         BigInteger y = new BigInteger("12345678900000000");
@@ -1089,7 +1089,7 @@ public class Math_BigIntegerTest {
      * Test of multiplyPriorRound method, of class Math_BigInteger.
      */
     @Test
-    public void testMultiplyPriorRound() {
+    public void testMultiplyPriorRound_3args() {
         System.out.println("multiplyPriorRound");
         System.out.println("multiply");
         BigInteger x = new BigInteger("123456789000000000000000000000");
@@ -1235,5 +1235,26 @@ public class Math_BigIntegerTest {
         System.out.println("getMagnitudeOfSmallestNonZeroDigit");
         // No test.
     }
+
+    /**
+     * Test of multiply method, of class Math_BigInteger.
+     * Test covered by {@link #testMultiply_3args()}.
+     */
+    @Test
+    public void testMultiply_4args() {
+        System.out.println("multiply");
+        // No test.
+    }
+
+    /**
+     * Test of multiplyPriorRound method, of class Math_BigInteger.
+     * Test covered by {@link #testMultiplyPriorRound_3args()}.
+     */
+    @Test
+    public void testMultiplyPriorRound_4args() {
+        System.out.println("multiplyPriorRound");
+        // Not test.
+    }
+
 
 }

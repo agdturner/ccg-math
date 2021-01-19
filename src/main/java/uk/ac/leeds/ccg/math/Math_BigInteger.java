@@ -177,8 +177,9 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Calculate and return {@code x} multiplied by {@code y} to the precision
-     * scale given by {@code ps} using the RoundingMode {@code rm}.
+     * Calculate and return {@code x} multiplied by {@code y} rounding to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      *
      * @param x A number to multiply.
      * @param y A number to multiply.
@@ -195,8 +196,9 @@ public class Math_BigInteger extends Math_Number {
      * </ul>
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
-     * @return x multiplied by y to the precision scale given by {@code ps} and
-     * {@code rm}.
+     * @return x multiplied by y rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigInteger multiply(BigInteger x, BigInteger y, int oom,
             RoundingMode rm) {
@@ -204,15 +206,42 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Calculate and return {@code x} multiplied by {@code y} to the precision
-     * scale given by {@code ps} using the RoundingMode {@code rm}. This method
-     * is appropriate when {@code x} and or {@code y} are very large, and the
-     * precision of the result required is at an order of magnitude the square
-     * root of which is less than the magnitude of the larger of x and y.
-     * Multiplication is only very time consuming for huge numbers, so to gain
-     * some computational advantage of prior rounding the numbers have to be
-     * perhaps over 100 digits in length. (TODO test timings, maybe efficiency
-     * is only gained once numbers have an
+     * Calculate and return {@code x} multiplied by {@code y} rounding to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
+     *
+     * @param x A number to multiply.
+     * @param y A number to multiply.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * to round to.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
+     * @return x multiplied by y rounding to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
+     */
+    public static BigInteger multiply(BigInteger x, BigInteger y, int oom) {
+        return multiply(x, y, oom, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * Calculate and return {@code x} multiplied by {@code y} rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}. This
+     * method is appropriate when {@code x} and/or {@code y} are very large, and
+     * the precision of the result required is at an order of magnitude the
+     * square root of which is less than the magnitude of the larger of
+     * {@code x} and/or {@code y}. Multiplication is only very time consuming
+     * for huge numbers, so to gain some computational advantage of prior
+     * rounding the numbers have to be perhaps over 100 digits in length. (TODO
+     * test timings, maybe efficiency is only gained once numbers have an
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> (OOM) of over 1000 digits!)
      *
@@ -231,8 +260,9 @@ public class Math_BigInteger extends Math_Number {
      * </ul>
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
-     * @return x multiplied by y to the precision scale given by {@code ps} and
-     * {@code rm}.
+     * @return x multiplied by y rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigInteger multiplyPriorRound(BigInteger x, BigInteger y, int oom,
             RoundingMode rm) {
@@ -258,6 +288,41 @@ public class Math_BigInteger extends Math_Number {
             }
         }
         return Math_BigInteger.round(rp, oom);
+    }
+
+    /**
+     * Calculate and return {@code x} multiplied by {@code y} rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}. This
+     * method is appropriate when {@code x} and/or {@code y} are very large, and
+     * the precision of the result required is at an order of magnitude the
+     * square root of which is less than the magnitude of the larger of
+     * {@code x} and/or {@code y}. Multiplication is only very time consuming
+     * for huge numbers, so to gain some computational advantage of prior
+     * rounding the numbers have to be perhaps over 100 digits in length. (TODO
+     * test timings, maybe efficiency is only gained once numbers have an
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) of over 1000 digits!)
+     *
+     * @param x A number to multiply.
+     * @param y A number to multiply.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * to round to.
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
+     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
+     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>...</li>
+     * </ul>
+     * @return x multiplied by y rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
+     */
+    public static BigInteger multiplyPriorRound(BigInteger x, BigInteger y, int oom) {
+        return multiplyPriorRound(x, y, oom, RoundingMode.HALF_UP);
     }
 
     /**
@@ -676,29 +741,30 @@ public class Math_BigInteger extends Math_Number {
      *
      * @param x The number to log. This should be positive.
      * @return The number of digits in x.
-     * @throws {@link ArithmeticException} if {@code x} is not greater than {@code 0}.
+     * @throws {@link ArithmeticException} if {@code x} is not greater than
+     * {@code 0}.
      */
     public static int log10(BigInteger x) {
         int xs = x.signum();
         if (xs == 1) {
-                int digits = 0;
-                int bits = x.bitLength();
-                // Serious reductions.
-                while (bits > 4) {
-                    // 4 > log[2](10) so we should not reduce it too far.
-                    int reduce = bits / 4;
-                    // Divide by 10^reduce
-                    x = x.divide(BigInteger.TEN.pow(reduce));
-                    // Removed that many decimal digits.
-                    digits += reduce;
-                    // Recalculate bitLength
-                    bits = x.bitLength();
-                }
-                // Now 4 bits or less - add 1 if necessary.
-                if (x.intValue() > 9) {
-                    digits += 1;
-                }
-                return digits;
+            int digits = 0;
+            int bits = x.bitLength();
+            // Serious reductions.
+            while (bits > 4) {
+                // 4 > log[2](10) so we should not reduce it too far.
+                int reduce = bits / 4;
+                // Divide by 10^reduce
+                x = x.divide(BigInteger.TEN.pow(reduce));
+                // Removed that many decimal digits.
+                digits += reduce;
+                // Recalculate bitLength
+                bits = x.bitLength();
+            }
+            // Now 4 bits or less - add 1 if necessary.
+            if (x.intValue() > 9) {
+                digits += 1;
+            }
+            return digits;
         }
         throw new ArithmeticException("!(x > 0)");
     }
