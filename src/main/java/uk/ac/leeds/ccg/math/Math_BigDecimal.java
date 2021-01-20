@@ -26,21 +26,19 @@ import java.util.Comparator;
 //import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Random;
-import static uk.ac.leeds.ccg.math.Math_BigInteger.round;
 
 /**
- * A class for arithmetic and trigonometry with {@code BigDecimal} numbers. Some
- * of the functionality herein was not available in the openJDK at the time of
- * writing.
+ * A class of methods for computation with {@code BigDecimal} numbers. The
+ * functionality herein was not available in the openJDK at the time of writing,
+ * so it may become redundant.
  *
- * The aim is for accuracy with a minimum precision scale (mps). A positive mps
- * gives the number of decimal places a result must be accurate to albeit
- * rounded using {@link RoundingMode#HALF_UP}. A negative mps gives the scale
- * precision to the left of the decimal point, e.g. -3 ensures the result is
- * accurate to the nearest hundred. More accurate results may be provided.
+ * The aim is for accuracy to a given
+ * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+ * Magnitude</a> and speed. By default if rounding is needed for results, then
+ * {@link RoundingMode#HALF_UP} is used.
  *
  * @author Andy Turner
- * @version 1.1.0
+ * @version 2.0.0
  */
 public class Math_BigDecimal extends Math_Number {
 
@@ -67,16 +65,14 @@ public class Math_BigDecimal extends Math_Number {
      * For storing the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * that {@link #e} is rounded to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li>
-     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li>
      * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
      * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
      * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * that {@link #e} is rounded to.
      */
     private int eOOM;
 
@@ -86,8 +82,7 @@ public class Math_BigDecimal extends Math_Number {
      * {@link #piOOM}
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> rounded using {@link RoundingMode#HALF_UP}. The first few
-     * digits of the number are
-     * {@code 3.1415926535897932384626433...}.
+     * digits of the number are {@code 3.1415926535897932384626433...}.
      */
     private BigDecimal pi;
 
@@ -146,7 +141,7 @@ public class Math_BigDecimal extends Math_Number {
      * The number 11 is often used so is made available as a constant.
      */
     public static final BigDecimal ELEVEN = BigDecimal.valueOf(11);
-    
+
     /**
      * Creates a new instance initialising {@link #bi} with 1000 entries and
      * initialising {@link #pi} to 1000 decimal places.
@@ -502,20 +497,16 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
-     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
-     * @param rm The {@link RoundingMode} used to round the final result if
-     * rounding is necessary.
+     * the result is rounded to if rounding is needed.
+     * @param rm The {@link RoundingMode} used to round the result if rounding
+     * is necessary.
      * @return x multiplied by y to the precision scale given by {@code ps} and
      * {@code rm}.
      */
@@ -542,17 +533,14 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
-     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
      * </ul>
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
@@ -582,18 +570,14 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
-     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * the result is rounded to if rounding is needed.
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
      * @return x multiplied by y to the precision scale given by {@code ps} and
@@ -736,18 +720,15 @@ public class Math_BigDecimal extends Math_Number {
      * @param y The denominator of the division.
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> (OOM) to round to.
+     * Magnitude</a>
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
-     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * the result is rounded to if rounding is needed.
      * @return x/y rounded to OOM = oom;
      * @throws ArithmeticException if y
      */
@@ -769,18 +750,14 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
-     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * the result is rounded to if rounding is needed.
      * @param rm The {@link RoundingMode} for rounding.
      * @return x/y then rounded;
      * @throws ArithmeticException if y
@@ -2466,7 +2443,32 @@ public class Math_BigDecimal extends Math_Number {
     public static BigDecimal reciprocal(BigDecimal x, int oom) {
         return Math_BigDecimal.divide(BigDecimal.ONE, x, oom);
     }
-    
+
+    /**
+     * Calculates and returns the reciprocal of {@code x} ({@code 1/x}) rounded
+     * to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> given by {@code oom} using {@link RoundingMode#HALF_UP}.
+     *
+     * @param x The base.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * @return {@code 1/x}
+     * @throws {@link ArithmeticException} iff {@code x = 0}
+     */
+    public static BigDecimal reciprocal(BigInteger x, int oom) {
+        return Math_BigDecimal.divide(BigDecimal.ONE, new BigDecimal(x), oom);
+    }
+
     /**
      * Calculates and returns the reciprocal 1 divided by x (1/x) iff the result
      * can be stored as an integer, otherwise an {@link ArithmeticException} is
@@ -2698,16 +2700,11 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
-     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
      * @param rm The rounding mode for any rounding.
@@ -2726,16 +2723,11 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
-     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
      * @return {@code x} rounded given {@code s} and {@code rm}
@@ -3132,18 +3124,14 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=-3} rounds to the nearest {@code 0.001}</li=>
-     * <li>{@code oom=-2} rounds to the nearest {@code 0.01}</li=>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li=>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li=>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * the result is rounded to if rounding is needed.
      * @return A value of the Euler constant rounded to {@code oom} using
      * {@link RoundingMode#HALF_UP}.
      */
@@ -3192,29 +3180,26 @@ public class Math_BigDecimal extends Math_Number {
      * @return e^y where e is the Euler constant. The result is returned correct
      * to decimalPlaces decimal place precision.
      */
-    public static BigDecimal exp(BigDecimal x, Math_BigDecimal bd, int oom) {
+    public BigDecimal exp(BigDecimal x, int oom) {
         BigDecimal r;
         // Deal with special cases
         if (x.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ONE;
         }
         // Check bd
-        if (bd == null) {
-            bd = new Math_BigDecimal();
-        }
         if (x.compareTo(BigDecimal.ONE) == 0) {
-            return bd.getE(oom);
+            return getE(oom);
         }
         BigInteger xBi = x.toBigInteger();
         BigDecimal xBiBd = new BigDecimal(xBi, 0);
         if (xBiBd.compareTo(x) == 0) {
-            return Math_BigInteger.exp(xBi, bd, oom);
+            return exp(xBi, oom);
         }
         BigDecimal fract = x.subtract(xBiBd);
         if (fract.compareTo(BigDecimal.ZERO) == -1) {
-            BigDecimal exp = exp(fract.negate(), bd, oom - fract.scale());
+            BigDecimal exp = exp(fract.negate(), oom - fract.scale());
             r = reciprocal(exp, oom);
-            r = Math_BigInteger.exp(xBi, bd, oom + 2).multiply(r);
+            r = exp(xBi, oom + 2).multiply(r);
             return Math_BigDecimal.round(r, oom);
         }
         int oomm3 = oom - 3;
@@ -3232,7 +3217,7 @@ public class Math_BigDecimal extends Math_Number {
         while (true) {
             bi = bi.add(BigInteger.ONE);
             f = f + 1;
-            BigDecimal ff = new BigDecimal(bd.bi.factorial(f));
+            BigDecimal ff = new BigDecimal(this.bi.factorial(f));
             /**
              * May need dpd to be larger (even though the bottom of the Taylor
              * series grows fast).
@@ -3244,8 +3229,72 @@ public class Math_BigDecimal extends Math_Number {
                 break;
             }
         }
-        r = Math_BigInteger.exp(xBi, bd, oom - 2).multiply(r);
+        r = exp(xBi, oom - 2).multiply(r);
         return round(r, oom);
+    }
+
+    /**
+     * Calculates and returns the exponent of x:
+     * <ul>
+     * <li>e^x = 1 + x/1! + x^2/2! + x^3/3! +...</li>
+     * </ul>
+     *
+     * @param x The exponent.
+     * @param bd A Math_BigDecimal.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * @return e^x where e is the Euler constant to a sufficient precision to
+     * return the result accurate to the requested {@code oom} using
+     * {@link RoundingMode#HALF_UP}.
+     */
+    protected BigDecimal exp(BigInteger x, int oom) {
+        // Deal with special cases
+        if (x.compareTo(BigInteger.ZERO) == 0) {
+            return BigDecimal.ONE;
+        }
+        if (x.compareTo(BigInteger.ZERO) == -1) {
+            return Math_BigDecimal.reciprocal(exp(x.negate(), oom), oom);
+        }
+        BigDecimal r = BigDecimal.ZERO;
+        if (x.compareTo(BigInteger.valueOf(999999999)) != 1
+                && x.compareTo(BigInteger.ZERO) != -1) {
+            int xi = x.intValueExact();
+            r = getE(oom - xi).pow(xi);
+        } else {
+            ArrayList<BigDecimal> rp = new ArrayList<>();
+            BigDecimal rpp = getE(oom - Math_BigInteger.log10(x));
+            BigInteger c = BigInteger.valueOf(2);
+            BigInteger cl = BigInteger.ZERO;
+            while (c.compareTo(x) != 1) {
+                BigDecimal m = rpp.multiply(rpp);
+                rp.add(m);
+                r = m;
+                cl = c;
+                c = c.multiply(c);
+            }
+            if (cl.compareTo(x) != 0) {
+                for (int i = rp.size() - 1; i == 0; i--) {
+                    BigInteger pow = BigInteger.valueOf(2).pow(i);
+                    if (cl.compareTo(pow) == 1) {
+                        cl = cl.subtract(pow);
+                        r = r.multiply(rp.get(i));
+                    }
+                    if (cl.compareTo(BigInteger.ZERO) != 0) {
+                        break;
+                    }
+                }
+
+            }
+        }
+        return Math_BigDecimal.round(r, oom);
     }
 
 //    /**
@@ -3326,7 +3375,7 @@ public class Math_BigDecimal extends Math_Number {
      * @return The natural logarithm of x accurate to decimalPlaces number of
      * decimal places and with result rounded using a_RoundingMode if necessary.
      */
-    public static BigDecimal ln(BigDecimal x, Math_BigDecimal bd, int dp,
+    public BigDecimal ln(BigDecimal x, Math_BigDecimal bd, int dp,
             RoundingMode rm) {
         // Check that x > 0.
         if (x.compareTo(BigDecimal.ZERO) != 1) {
@@ -3337,13 +3386,13 @@ public class Math_BigDecimal extends Math_Number {
         // The number of digits to the left of the decimal point.
         int magnitude = x.toString().length() - x.scale() - 1;
         if (magnitude < 3) {
-            return lnNewton(x, bd, dp, rm);
+            return lnNewton(x, dp, rm);
         } else {
             // Compute magnitude*ln(x^(1/magnitude)).
             // x^(1/magnitude)
             BigDecimal root = rootRoundIfNecessary(x, magnitude, dp, rm);
             // ln(x^(1/magnitude))
-            BigDecimal lnRoot = lnNewton(root, bd, dp, rm);
+            BigDecimal lnRoot = lnNewton(root, dp, rm);
             //BigDecimal lnRoot = ln(rootRoundIfNecessary, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
             // magnitude*ln(x^(1/magnitude))
             BigDecimal result = BigDecimal.valueOf(magnitude).multiply(lnRoot);
@@ -3357,8 +3406,7 @@ public class Math_BigDecimal extends Math_Number {
      * decimal place precision using Newton's algorithm.
      * http://stackoverflow.com/questions/739532/logarithm-of-a-bigdecimal
      */
-    private static BigDecimal lnNewton(BigDecimal x, Math_BigDecimal a,
-            int scale, RoundingMode rm) {
+    private BigDecimal lnNewton(BigDecimal x, int scale, RoundingMode rm) {
         BigDecimal r = new BigDecimal(x.toString());
         int sp1 = scale + 1;
         BigDecimal term;
@@ -3368,7 +3416,7 @@ public class Math_BigDecimal extends Math_Number {
         // (two successive approximations are within the tolerance).
         do {
             // e^toCompare
-            BigDecimal exp = exp(r, a, sp1);
+            BigDecimal exp = exp(r, sp1);
             // (e^toCompare - x)/e^toCompare
             term = exp.subtract(x).divide(exp, sp1, rm);
             // toCompare - (e^toCompare - x)/e^toCompare

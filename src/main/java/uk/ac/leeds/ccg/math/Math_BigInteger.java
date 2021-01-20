@@ -28,7 +28,12 @@ import uk.ac.leeds.ccg.generic.util.Generic_Collections;
 //import static uk.ac.leeds.ccg.math.Math_BigDecimal.exp;
 
 /**
- * A class for {@code BigInteger} numbers.
+ * A class of methods for computation with {@code BigInteger} numbers.
+ *
+ * The aim is for accuracy to a given
+ * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+ * Magnitude</a> and speed. By default if rounding is needed for results, then
+ * {@link RoundingMode#HALF_UP} is used.
  *
  * @author Andy Turner
  * @version 1.0.0
@@ -71,7 +76,7 @@ public class Math_BigInteger extends Math_Number {
      * Creates a new instance.
      */
     public Math_BigInteger() {
-        //super();
+        super();
     }
 
     /**
@@ -160,10 +165,9 @@ public class Math_BigInteger extends Math_Number {
      * Returns the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> (OOM) of the smallest non-zero digit of {@code x}. This is
-     * computationally more efficient that
+     * computationally more efficient than
      * {@link #getMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger)}. No
-     * checking is done to ensure that {@code m} is correct. That is the
-     * responsibility of the user.
+     * checking is done to ensure that {@code m} is correct.
      *
      * @param x The value for which the order of magnitude of the most
      * significant digit is returned.
@@ -186,14 +190,13 @@ public class Math_BigInteger extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * the result is rounded to if rounding is needed.
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
      * @return x multiplied by y rounded to the
@@ -215,14 +218,13 @@ public class Math_BigInteger extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * the result is rounded to if rounding is needed.
      * @return x multiplied by y rounding to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
@@ -250,14 +252,13 @@ public class Math_BigInteger extends Math_Number {
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * the result is rounded to if rounding is needed.
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
      * @return x multiplied by y rounded to the
@@ -291,54 +292,54 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Calculate and return {@code x} multiplied by {@code y} rounded to the
+     * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
+     * rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}. This
+     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.This
      * method is appropriate when {@code x} and/or {@code y} are very large, and
      * the precision of the result required is at an order of magnitude the
      * square root of which is less than the magnitude of the larger of
      * {@code x} and/or {@code y}. Multiplication is only very time consuming
      * for huge numbers, so to gain some computational advantage of prior
-     * rounding the numbers have to be perhaps over 100 digits in length. (TODO
-     * test timings, maybe efficiency is only gained once numbers have an
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> (OOM) of over 1000 digits!)
+     * rounding the numbers they may have to be very big. Some timing
+     * experiments should be performed to test for any efficiencies...
      *
      * @param x A number to multiply.
      * @param y A number to multiply.
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
-     * @return x multiplied by y rounded to the
+     * the result is rounded to if rounding is needed.
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
+     * @return {@code x*y}
      */
     public static BigInteger multiplyPriorRound(BigInteger x, BigInteger y, int oom) {
         return multiplyPriorRound(x, y, oom, RoundingMode.HALF_UP);
     }
 
     /**
-     * @param x The number to round
+     * For rounding {@code x}.
+     *
+     * @param x The number to round.
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to. This should be greater than 0 otherwise the result is simply
-     * x and this method need not be called.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * the result is rounded to if rounding is needed. This should be greater
+     * than 0 otherwise the result is simply x and this method need not be
+     * called.
      * @param rm The {@link RoundingMode} used for any rounding.
      * @return {@code x} rounded given {@code s} and {@code rm}
      */
@@ -348,23 +349,24 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * This is the same as
+     * For rounding {@code x}. This is the same as
      * {@link #round(java.math.BigInteger, int, java.math.RoundingMode)} with
      * {@code rm} set to {@link RoundingMode#HALF_UP}.
      *
-     * @param x The number to round
+     * @param x The number to round.
+     *
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
-     * to round to. This should be greater than 0 otherwise the result is simply
-     * x and this method need not be called.
      * <ul>
      * <li>...</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * the result is rounded to if rounding is needed. This should be greater
+     * than 0 otherwise the result is simply x and this method need not be
+     * called.
      * @return {@code x} rounded given {@code s} and {@code rm}
      */
     public static BigInteger round(BigInteger x, int oom) {
@@ -373,11 +375,11 @@ public class Math_BigInteger extends Math_Number {
 
     /**
      * Calculates and returns the next integer closer to positive infinity
-     * unless x is an integer - in which case a {@link BigInteger} version of it
-     * is returned. See also {@link java.lang.Math#ceil(double)}.
+     * unless {@code x} is an integer - in which case a {@link BigInteger}
+     * version of it is returned. See also {@link java.lang.Math#ceil(double)}.
      *
      * @param x The number for which the ceiling is returned.
-     * @return If x is an integer then return a BigInteger value of x. Otherwise
+     * @return {@code x.toBigInteger()} if {@code x} is an integer. Otherwise
      * return the next integer closer to positive infinity.
      */
     public static BigInteger ceiling(BigDecimal x) {
@@ -394,11 +396,11 @@ public class Math_BigInteger extends Math_Number {
 
     /**
      * Calculates and returns the next integer closer to negative infinity
-     * unless x is an integer - in which case a {@link BigInteger} version of it
-     * is returned. See also {@link java.lang.Math#floor(double)}.
+     * unless {@code x} is an integer - in which case a {@link BigInteger}
+     * version of it is returned. See also {@link java.lang.Math#floor(double)}.
      *
      * @param x The number for which the floor is returned.
-     * @return If x is an integer then return a BigInteger value of x. Otherwise
+     * @return {@code x.toBigInteger()} if {@code x} is an integer. Otherwise
      * return the next integer closer to minus infinity.
      *
      */
@@ -412,10 +414,10 @@ public class Math_BigInteger extends Math_Number {
 
     /**
      * Adds values to {@link #factorials} if they do not already exist and
-     * returns x factorial (x!) = x*(x-1)*(x-2)*(x-3)*...*(x-(x-1)).
+     * returns {@code x} factorial ({@code x*(x-1)*(x-2)*(x-3)*...*(x-(x-1))}).
      *
      * @param x The number for which the factorial is returned.
-     * @return x! as a BigInteger
+     * @return {@code x} factorial as a BigInteger
      */
     public BigInteger factorial(int x) {
         if (x < 0) {
@@ -438,7 +440,7 @@ public class Math_BigInteger extends Math_Number {
 
     /**
      * Adds values to {@link #powersOfTwo} if they do not already exist and
-     * returns 2 to the power of x (2^x).
+     * returns {@code 2} to the power of {@code x} (2^x).
      *
      * @param x The number for which 2^x is returned.
      * @return 2^x as a BigInteger
@@ -460,7 +462,7 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Adds and power of 2 to {@link #powersOfTwo} and returns it. If
+     * Adds a power of {@code 2} to {@link #powersOfTwo} and returns it. If
      * {@link #powersOfTwo} is {@code null}, then it is initialised first.
      *
      * @return The next power of 2.
@@ -500,9 +502,7 @@ public class Math_BigInteger extends Math_Number {
      * @return {@link #powersOfTwo}.
      */
     protected List<BigInteger> getPowersOfTwo(BigInteger x) {
-        if (powersOfTwo == null) {
-            initPowersOfTwo();
-        }
+        getPowersOfTwo();
         int size = powersOfTwo.size();
         BigInteger p = powersOfTwo.get(size - 1);
         if (x.compareTo(p) != -1) {
@@ -527,19 +527,22 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Calculates and returns what basically amount to a binary encoding for x
-     * based on the fact that all integers can be represented in the form:
+     * Calculates and returns what basically amount to a binary encoding for
+     * {@code x} based on the fact that all integers can be represented in the
+     * form:
      * <ul>
      * <li>{@code x = m0*(2^y0) + m1*(2^y1) + m2*(2^y2) +... (where mi and yi are
      * integers, and the yi are decreasing from y0 being the smallest integer
      * such that 2^y0 >= x)}</li>
      * </ul>
-     * The keys are the number 2 is raised to in each part (yi) and the values
-     * are the multiples (mi).
+     * The keys are what the number 2 is raised to in each part (yi) and the
+     * values are the multiples (mi).
      *
      *
      * @param x The value to be decomposed.
-     * @return A map of the powers of 2 decomposition of x.
+     * @return A map of the powers of 2 decomposition of x. The keys are what
+     * the number 2 is raised to in each part (yi) and the values are the
+     * multiples (mi).
      */
     public TreeMap<Integer, Integer> getPowersOfTwoDecomposition(BigInteger x) {
         // Special Cases
@@ -578,133 +581,6 @@ public class Math_BigInteger extends Math_Number {
                     getPowersOfTwoDecomposition(remainder));
         }
         return r;
-    }
-
-    /**
-     * Calculates and returns x to the power of y (x^y) to {@code dp} decimal
-     * place precision using the {@link RoundingMode} {@code rm}.
-     *
-     * @param x The base.
-     * @param y The power.
-     * @param dp The number of decimal places the result is to be accurate to.
-     * @param rm The {@link RoundingMode} used for any rounding.
-     * @return x^y
-     */
-    public static BigDecimal power(BigInteger x, int y, int dp, RoundingMode rm) {
-        if (y < 0) {
-            return reciprocal(x.pow(-y), dp, rm);
-        } else {
-            return new BigDecimal(x.pow(y));
-        }
-    }
-
-    /**
-     * Calculates and returns x to the power of y (x^y) to {@code dp} decimal
-     * place precision using the {@link RoundingMode} {@code rm}.
-     *
-     * @param x The base.
-     * @param y The power.
-     * @param dp The number of decimal places the result is to be accurate to.
-     * @param rm The {@link RoundingMode} used for any rounding.
-     * @return x^y
-     */
-    public static BigDecimal power(BigInteger x, long y, int dp,
-            RoundingMode rm) {
-        if (y <= Math_Long.INTEGER_MAX_VALUE) {
-            return power(x, (int) y, dp, rm);
-        }
-        BigDecimal r;
-        long y0 = y / Math_Long.INTEGER_MAX_VALUE;
-        BigDecimal y0Power = power(x, y0, dp, rm);
-        long y1 = y - y0;
-        BigDecimal y1Power = power(x, y1, dp, rm);
-        //return Math_BigDecimal.multiplyRoundIfNecessary(y0Power, y1Power, dp, rm);
-        return y0Power.multiply(y1Power);
-    }
-
-    /**
-     * Calculates and returns the reciprocal of x (1/x) to {@code oom} decimal
-     * place precision using the {@link RoundingMode} {@code rm}. If
-     * {@code x == 0} then an {@link IllegalArgumentException} is thrown.
-     *
-     * @param x The base.
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a>
-     * to round to.
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li=>
-     * <li>{@code oom=2} rounds to the nearest {@code 100}</li>
-     * <li>{@code oom=3} rounds to the nearest {@code 1000}</li>
-     * <li>...</li>
-     * </ul>
-     * @param rm The {@link RoundingMode} used for any rounding.
-     * @return 1/x
-     */
-    public static BigDecimal reciprocal(BigInteger x, int oom, RoundingMode rm) {
-        if (x.compareTo(BigInteger.ZERO) == 0) {
-            throw new IllegalArgumentException(
-                    "x = 0 in " + Math_BigInteger.class
-                    + ".reciprocal(BigInteger,int,RoundingMode)");
-        }
-        return Math_BigDecimal.divideRoundToFixedDecimalPlaces(
-                BigDecimal.ONE, new BigDecimal(x), oom, rm);
-    }
-
-    /**
-     * Calculates and returns the exponent of x:
-     * <ul>
-     * <li>e^x = 1 + x/1! + x^2/2! + x^3/3! +...</li>
-     * </ul>
-     *
-     * @param x The exponent.
-     * @param bd A Math_BigDecimal.
-     * @param dp The number of decimal places the result is to be accurate to.
-     * @param rm The {@link RoundingMode} used for any rounding.
-     * @return e^x where e is the Euler constant to a sufficient precision to
-     * return the result accurate to the requested dp decimal place precision.
-     */
-    protected static BigDecimal exp(BigInteger x, Math_BigDecimal bd, int oom) {
-        // Deal with special cases
-        if (x.compareTo(BigInteger.ZERO) == 0) {
-            return BigDecimal.ONE;
-        }
-        if (x.compareTo(BigInteger.ZERO) == -1) {
-            return Math_BigDecimal.reciprocal(exp(x.negate(), bd, oom), oom);
-        }
-        BigDecimal r = BigDecimal.ZERO;
-        if (x.compareTo(BigInteger.valueOf(999999999)) != 1
-                && x.compareTo(BigInteger.ZERO) != -1) {
-            int xi = x.intValueExact();
-            r = bd.getE(oom - xi).pow(xi);
-        } else {
-            ArrayList<BigDecimal> rp = new ArrayList<>();
-            BigDecimal rpp = bd.getE(oom - Math_BigInteger.log10(x));
-            BigInteger c = BigInteger.valueOf(2);
-            BigInteger cl = BigInteger.ZERO;
-            while (c.compareTo(x) != 1) {
-                BigDecimal m = rpp.multiply(rpp);
-                rp.add(m);
-                r = m;
-                cl = c;
-                c = c.multiply(c);
-            }
-            if (cl.compareTo(x) != 0) {
-                for (int i = rp.size() - 1; i == 0; i--) {
-                    BigInteger pow = BigInteger.valueOf(2).pow(i);
-                    if (cl.compareTo(pow) == 1) {
-                        cl = cl.subtract(pow);
-                        r = r.multiply(rp.get(i));
-                    }
-                    if (cl.compareTo(BigInteger.ZERO) != 0) {
-                        break;
-                    }
-                }
-
-            }
-        }
-        return Math_BigDecimal.round(r, oom);
     }
 
     /**
@@ -795,7 +671,7 @@ public class Math_BigInteger extends Math_Number {
         }
         TreeMap<Integer, Integer> upperLimit_PowersOfTwoDecomposition = getPowersOfTwoDecomposition(upperLimit);
         //Random[] random = this.getRandomsMinLength(1);
-        BigInteger theRandom = BigInteger.ZERO;
+        BigInteger r = BigInteger.ZERO;
         Integer key;
         BigInteger powerOfTwo;
         Integer multiples;
@@ -804,16 +680,16 @@ public class Math_BigInteger extends Math_Number {
             powerOfTwo = powerOfTwo(key);
             multiples = entry.getValue();
             for (int i = 0; i < multiples; i++) {
-                theRandom = theRandom.add(getRandomFromPowerOf2(powerOfTwo));
+                r = r.add(getRandomFromPowerOf2(powerOfTwo));
 //                if (random[0].nextBoolean()){
-//                    theRandom = theRandom.add(getRandomFromPowerOf2(powerOfTwo));
+//                    r = r.add(getRandomFromPowerOf2(powerOfTwo));
 //                }
             }
 //            if (random[0].nextBoolean()){
-//                theRandom = theRandom.add(BigInteger.ONE);
+//                r = r.add(BigInteger.ONE);
 //            }
         }
-        return theRandom;
+        return r;
     }
 
     /**
@@ -863,21 +739,21 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Implementation tests the remainder when divided by 2.
+     * Test if {@code} is an even number.
      *
      * @param x The number to test as to whether it is even.
-     * @return true iff x is even (ends in 0,2,4,6,8)
+     * @return {@code true} iff {@code x} is even (ends in 0,2,4,6,8)
      */
     public static boolean isEven(BigInteger x) {
-        return x.remainder(new BigInteger("2")).compareTo(BigInteger.ZERO) == 0;
+        return x.remainder(BigInteger.TWO).compareTo(BigInteger.ZERO) == 0;
     }
 
     /**
-     * For testing if s can be parsed as a BigInteger.
+     * For testing if {@code s} can be parsed as a {@link BigInteger}.
      *
      * @param s The String to be tested as to whether it can be represented as a
      * BigInteger.
-     * @return true iff s can be represented as a BigInteger.
+     * @return true iff {@code s} can be represented as a {@link BigInteger}.
      */
     public static boolean isBigInteger(String s) {
         try {
@@ -920,10 +796,13 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
+     * For checking that {@code x} can be divided into {@code y} equal integer
+     * parts.
+     *
      * @param x The numerator.
      * @param y The denominator.
-     * @return {@code true} iff x can be divided by y with the answer being able
-     * to be stored precisely as a BigInteger.
+     * @return {@code true} iff {@code x} can be divided by {@code y} and the
+     * exact answer stored as a {@link BigInteger}.
      */
     public static boolean isDivisibleBy(BigInteger x, BigInteger y) {
         BigInteger d = x.divide(y);
