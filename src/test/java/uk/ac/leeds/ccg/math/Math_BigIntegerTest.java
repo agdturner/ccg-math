@@ -401,22 +401,22 @@ public class Math_BigIntegerTest {
     public void testGetMagnitudeOfMostSignificantDigit() {
         System.out.println("getMagnitudeOfMostSignificantDigit");
         BigInteger x = BigInteger.valueOf(123456789);
-        int expResult = 9;
+        int expResult = 8;
         int result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 2
         x = BigInteger.valueOf(-123456789);
-        expResult = 9;
+        expResult = 8;
         result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 3
-        x = new BigInteger("123456789000000000000000000000");
+        x = new BigInteger("1234567890000000000000000000000");
         expResult = 30;
         result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 4
         x = BigInteger.ZERO;
-        expResult = 1;
+        expResult = 0;
         result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
     }
@@ -584,22 +584,22 @@ public class Math_BigIntegerTest {
     public void testGetMagnitudeOfLeastSignificantDigit() {
         System.out.println("getMagnitudeOfLeastSignificantDigit");
         BigInteger x = BigInteger.valueOf(123456789);
-        int expResult = 1;
+        int expResult = 0;
         int result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 2
         x = BigInteger.valueOf(-123456789);
-        expResult = 1;
+        expResult = 0;
         result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 3
         x = new BigInteger("123456789000000000000000000000");
-        expResult = 1;
+        expResult = 0;
         result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 4
         x = BigInteger.ZERO;
-        expResult = 1;
+        expResult = 0;
         result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
         assertEquals(expResult, result);
     }
@@ -630,10 +630,10 @@ public class Math_BigIntegerTest {
         result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
         // Test 5
-        x = BigInteger.ZERO;
-        expResult = 1;
-        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
-        assertEquals(expResult, result);
+        // x = BigInteger.ZERO;
+        assertThrows(ArithmeticException.class, () -> {
+            Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(BigInteger.ZERO);
+        });
     }
 
     /**

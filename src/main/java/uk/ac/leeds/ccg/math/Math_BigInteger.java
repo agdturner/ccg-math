@@ -124,11 +124,11 @@ public class Math_BigInteger extends Math_Number {
         int xs = x.signum();
         switch (xs) {
             case -1:
-                return log10(x.negate()) + 1;
+                return log10(x.negate());
             case 0:
-                return 1;
+                return 0;
             default:
-                return log10(x) + 1;
+                return log10(x);
         }
     }
 
@@ -143,7 +143,7 @@ public class Math_BigInteger extends Math_Number {
      * {@code x}.
      */
     public static int getMagnitudeOfLeastSignificantDigit(BigInteger x) {
-        return 1;
+        return 0;
     }
 
     /**
@@ -234,18 +234,21 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Calculate and return {@code x} multiplied by {@code y} rounded to the
+     * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
+     * rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}. This
-     * method is appropriate when {@code x} and/or {@code y} are very large, and
-     * the precision of the result required is at an order of magnitude the
-     * square root of which is less than the magnitude of the larger of
-     * {@code x} and/or {@code y}. Multiplication is only very time consuming
-     * for huge numbers, so to gain some computational advantage of prior
-     * rounding the numbers have to be perhaps over 100 digits in length. (TODO
-     * test timings, maybe efficiency is only gained once numbers have an
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> (OOM) of over 1000 digits!)
+     * Magnitude</a> (OOM) {@code oom} using the
+     * {@link RoundingMode} {@code rm}. This method is appropriate when
+     * {@code x} and/or {@code y} are very large, and the precision of the
+     * result required is at an order of magnitude the square root of which is
+     * less than the magnitude of the larger of {@code x} and/or {@code y}.
+     * Multiplication is only very time consuming for huge numbers, so to gain
+     * some computational advantage of prior rounding the numbers being
+     * multiplied may have to be very big. Some timing experiments should be
+     * performed to test for any efficiencies... If the OOM of {@code x} and/or
+     * {@code y} are small relative to {@code oom} then it may be
+     * computationally advantageous to simply use
+     * {@link #multiply(java.math.BigInteger, java.math.BigInteger, int)}.
      *
      * @param x A number to multiply.
      * @param y A number to multiply.
@@ -265,8 +268,8 @@ public class Math_BigInteger extends Math_Number {
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      */
-    public static BigInteger multiplyPriorRound(BigInteger x, BigInteger y, int oom,
-            RoundingMode rm) {
+    public static BigInteger multiplyPriorRound(BigInteger x, BigInteger y,
+            int oom, RoundingMode rm) {
         int xm = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
         int m = (int) Math.sqrt(oom);
         BigInteger d = BigInteger.TEN.pow(m);
@@ -295,14 +298,17 @@ public class Math_BigInteger extends Math_Number {
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
      * rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.This
+     * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This
      * method is appropriate when {@code x} and/or {@code y} are very large, and
      * the precision of the result required is at an order of magnitude the
      * square root of which is less than the magnitude of the larger of
      * {@code x} and/or {@code y}. Multiplication is only very time consuming
      * for huge numbers, so to gain some computational advantage of prior
-     * rounding the numbers they may have to be very big. Some timing
-     * experiments should be performed to test for any efficiencies...
+     * rounding the numbers being multiplied may have to be very big. Some
+     * timing experiments should be performed to test for any efficiencies... If
+     * the OOM of {@code x} and/or {@code y} are small relative to {@code oom}
+     * then it may be computationally advantageous to simply use
+     * {@link #multiply(java.math.BigInteger, java.math.BigInteger, int)}.
      *
      * @param x A number to multiply.
      * @param y A number to multiply.
