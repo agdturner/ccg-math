@@ -26,6 +26,7 @@ import java.util.Comparator;
 //import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Random;
+import uk.ac.leeds.ccg.math.Math_BigDecimal;
 
 /**
  * A class of methods for computation with {@code BigDecimal} numbers. The
@@ -187,43 +188,85 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Return the <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> (OOM) of the most significant digit of {@code x}.
+     * Return the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) of the most significant digit of {@code x}. This
+     * works for all values of {@code x}. If it is known that {@code x < 1} use
+     * {@link #getOrderOfMagnitudeOfLeastSignificantDigit(java.math.BigDecimal, int)}
+     * for more computational efficeincy. Examples:
+     * <ul>
+     * <li>x=0.0001, result=-4</li>
+     * <li>x=0.0011, result=-3</li>
+     * <li>x=0.0101, result=-2</li>
+     * <li>x=0.1001, result=-1</li>
+     * <li>x=1.1001, result=0</li>
+     * <li>x=10.001, result=1</li>
+     * <li>x=101.01, result=2</li>
+     * <li>x=1001.1, result=3</li>
+     * </ul>
      *
-     * @param x The number for which the largest OOM digit of {@code x} is returned.
+     * @param x The number for which the largest OOM digit is returned.
      * @return The largest OOM digit of {@code x}.
      */
-    public static int getMagnitudeOfMostSignificantDigit(BigDecimal x) {
+    public static int getOrderOfMagnitudeOfMostSignificantDigit(BigDecimal x) {
         if (x.compareTo(BigDecimal.ONE) != -1) {
             return Math_BigInteger.getMagnitudeOfMostSignificantDigit(x.toBigInteger());
         }
         int scale = x.scale();
-        int um = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x.unscaledValue());
-        return um - scale;
+        return getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
     }
-    
+
     /**
-     * Return the <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> (OOM) of the most significant digit.
+     * Return the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) of the most significant digit. This only returns the
+     * expected answer for {@code x < 1}. If {@code x > 1} use
+     * {@link #getOrderOfMagnitudeOfLeastSignificantDigit(java.math.BigDecimal)}.
+     * Examples:
+     * <ul>
+     * <li>x=0.0001, result=-4</li>
+     * <li>x=0.0011, result=-3</li>
+     * <li>x=0.0111, result=-2</li>
+     * <li>x=0.1111, result=-1</li>
+     * </ul>
      *
-     * @param x The number for which the largest OOM digit of {@code x} is returned.
+     * @param x The number for which the largest OOM digit is returned.
      * @param scale The scale of {@code x}.
      * @return The largest OOM digit of {@code x}.
      */
-    public static int getMagnitudeOfMostSignificantDigit(BigDecimal x, int scale) {
+    public static int getOrderOfMagnitudeOfMostSignificantDigit(BigDecimal x, int scale) {
         int um = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x.unscaledValue());
         return um - scale;
     }
 
     /**
-     * Return the <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> (OOM) of the least significant digit of {@code x}.
+     * Return the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) of the least significant digit of {@code x}. If the
+     * scale of Examples:
+     * <ul>
+     * <li>x=10.0001, result=-4</li>
+     * <li>x=1.0001, result=-4</li>
+     * <li>x=0.1001, result=-4</li>
+     * <li>x=0.0011, result=-4</li>
+     * <li>x=0.0111, result=-4</li>
+     * <li>x=0.1111, result=-4</li>
+     * <li>x=1.1111, result=-4</li>
+     * <li>x=11.111, result=-3</li>
+     * <li>x=101.11, result=-2</li>
+     * <li>x=1001.1, result=-1</li>
+     * <li>x=1001.0, result=0</li>
+     * <li>x=1001, result=0</li>
+     * <li>x=1010, result=1</li>
+     * <li>x=110, result=2</li>
+     * <li>x=100, result=3</li>
+     * <li>x=10100, result=3</li>
+     * </ul>
      *
-     * @param x The number for which the magnitude is returned.
-     * @return The number of digits to the left of the decimal point of
-     * {@code x}.
+     * @param x The number for which the smallest OOM digit is returned.
+     * @return The smallest OOM digit of {@code x}.
      */
-    public static int getMagnitudeOfLeastSignificantDigit(BigDecimal x) {
+    public static int getOrderOfMagnitudeOfLeastSignificantDigit(BigDecimal x) {
         BigDecimal xs = x.stripTrailingZeros();
         int scale = xs.scale();
         if (scale > 0) {
@@ -231,19 +274,6 @@ public class Math_BigDecimal extends Math_Number {
         }
         return Math_BigInteger.getMagnitudeOfMostSignificantDigit(
                 xs.toBigInteger()) + 1 - xs.precision();
-    }
-    
-    /**
-     * Return the <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> (OOM) of the least significant digit of a number {@code x}.
-     *
-     * @param mx The order of magnitude of the most significant digit of {@code x}.
-     * @param scale The scale of {@code x}.
-     * @return The number of digits to the left of the decimal point of
-     * {@code x}.
-     */
-    public static int getMagnitudeOfLeastSignificantDigit(int mx, int scale) {
-        return scale - mx;
     }
 
 //    /**
@@ -537,6 +567,96 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
+     * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
+     * rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) {@code oom} using the
+     * {@link RoundingMode} {@code rm}. This method is appropriate when
+     * {@code x} and/or {@code y} are very large, and the precision of the
+     * result required is at an order of magnitude the square root of which is
+     * less than the magnitude of the larger of {@code x} and/or {@code y}.
+     * Multiplication is only very time consuming for huge and/or very precise
+     * numbers, so to gain some computational advantage of prior rounding the
+     * numbers being multiplied may have to be very big and/or very precise.
+     * Some timing experiments should be performed to test efficiencies... If
+     * the OOM of {@code x} and/or {@code y} are small relative to {@code oom}
+     * and {@code x} and/or {@code y} do not have a very large precision then it
+     * may be computationally advantageous to simply use
+     * {@link #multiply(java.math.BigDecimal java.math.BigDecimal, int)}.
+     *
+     * @param x A number to multiply.
+     * @param y A number to multiply.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * @param rm The {@link RoundingMode} used to round the result.
+     * @return ({@code x*y}) rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * {@code oom} using the {@link RoundingMode} {@code rm}.
+     */
+    public static BigDecimal multiplyPriorRound(BigDecimal x, BigInteger y,
+            int oom, RoundingMode rm) {
+        int xl = Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(x);
+        if (xl < 0) {
+            int ym = Math_BigInteger.getMagnitudeOfMostSignificantDigit(y);
+            int xlo = oom - ym - 1;
+            if (xlo > xl) {
+                BigDecimal xr = Math_BigDecimal.round(x, xlo);
+                return multiply(xr, y, oom, rm);
+            }
+            return multiply(x, y, oom, rm);
+        }
+        return new BigDecimal(Math_BigInteger.multiplyPriorRound(
+                x.toBigIntegerExact(), y, oom, rm));
+    }
+
+    /**
+     * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
+     * rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This
+     * method is appropriate when {@code x} and/or {@code y} are very large, and
+     * the precision of the result required is at an order of magnitude the
+     * square root of which is less than the magnitude of the larger of
+     * {@code x} and/or {@code y}. Multiplication is only very time consuming
+     * for huge and/or very precise numbers, so to gain some computational
+     * advantage of prior rounding the numbers being multiplied may have to be
+     * very big and/or very precise. Some timing experiments should be performed
+     * to test efficiencies... If the OOM of {@code x} and/or {@code y} are
+     * small relative to {@code oom} and {@code x} and/or {@code y} do not have
+     * a very large precision then it may be computationally advantageous to
+     * simply use
+     * {@link #multiply(java.math.BigDecimal java.math.BigDecimal, int)}.
+     *
+     * @param x A number to multiply.
+     * @param y A number to multiply.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * @return ({@code x*y}) rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * {@code oom} using {@link RoundingMode#HALF_UP}.
+     */
+    public static BigDecimal multiplyPriorRound(BigDecimal x, BigInteger y,
+            int oom) {
+        return multiplyPriorRound(x, y, oom, RoundingMode.HALF_UP);
+    }
+
+    /**
      * Calculate and return {@code x} multiplied by {@code y} rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> given by {@code oom} using the
@@ -607,29 +727,133 @@ public class Math_BigDecimal extends Math_Number {
     public static BigDecimal multiplyPriorRound(BigDecimal x, BigDecimal y,
             int oom, RoundingMode rm) {
         int s = x.scale();
-        int xm = getMagnitudeOfMostSignificantDigit(x, s);
-        int xl = getMagnitudeOfLeastSignificantDigit(x);
+        int xm = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, s);
+        int ym = getOrderOfMagnitudeOfMostSignificantDigit(y);
         int m = (int) Math.sqrt(oom);
         BigDecimal d = BigDecimal.TEN.pow(m);
-        BigDecimal rp;
-        int ym = getMagnitudeOfMostSignificantDigit(y);
-        if (xm >= ym) {
-            if (xm > m) {
-                BigDecimal xr = x.divide(d);
-                rp = y.multiply(xr).multiply(d);
-                System.out.println(rp);
+        if (ym > 0) {
+            if (xm > 0) {
+                // Case 4
+                BigInteger yi = y.toBigInteger();
+                BigDecimal xyi = Math_BigDecimal.multiplyPriorRound(x, yi, oom - 2, rm);
+                BigDecimal yf = y.subtract(new BigDecimal(yi));
+                BigDecimal xyf = Math_BigDecimal.multiplyPriorRoundXLT1YGT1(yf, x, oom - 2, rm);
+                System.out.println(x.multiply(y));
+                System.out.println(Math_BigDecimal.round(xyi.add(xyf), oom, rm));
+                return Math_BigDecimal.round(xyi.add(xyf), oom, rm);
             } else {
-                rp = y.multiply(x).multiply(d);
+                // Case 2
+                return multiplyPriorRoundXLT1YGT1(x, y, oom, rm);
             }
         } else {
-            if (ym > m) {
-                BigDecimal yr = y.divide(d);
-                rp = x.multiply(yr).multiply(d);
+            if (xm > 0) {
+                // Case 3
+                return multiplyPriorRoundXLT1YGT1(y, x, oom, rm);
             } else {
-                rp = x.multiply(y).multiply(d);
+                // Case 1
+                return multiplyPriorRoundXLT1YLT1(x, y, oom, rm);
             }
         }
-        return Math_BigDecimal.round(rp, oom);
+    }
+
+    /**
+     * @param x A number to multiply {@code x < 1}.
+     * @param y A number to multiply {@code y < 1}.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * @param rm The {@link RoundingMode} used to round the result.
+     * @return ({@code x*y}) rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * {@code oom} using the {@link RoundingMode} {@code rm}.
+     */
+    public static BigDecimal multiplyPriorRoundXLT1YLT1(BigDecimal x,
+            BigDecimal y, int oom, RoundingMode rm) {
+        int s = x.scale();
+        int xm = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, s);
+        int ym = getOrderOfMagnitudeOfMostSignificantDigit(y);
+        BigDecimal xr;
+        if (xm + 1 >= oom) {
+            xr = Math_BigDecimal.round(x, oom + ym, rm);
+            xm = getOrderOfMagnitudeOfMostSignificantDigit(xr);
+        } else {
+            xr = x;
+        }
+        BigDecimal yr;
+        if (ym + 1 >= oom) {
+            yr = Math_BigDecimal.round(y, oom + xm, rm);
+            ym = getOrderOfMagnitudeOfMostSignificantDigit(yr);
+        } else {
+            yr = y;
+        }
+        if ((ym + xm) < oom) {
+            return BigDecimal.ZERO;
+        } else {
+            return Math_BigDecimal.multiply(xr,
+                    Math_BigDecimal.round(yr, oom), oom, rm);
+        }
+    }
+
+    /**
+     * @param x A number to multiply {@code x < 1}.
+     * @param y A number to multiply {@code y > 1}.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * @param rm The {@link RoundingMode} used to round the result.
+     * @return ({@code x*y}) rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * {@code oom} using the {@link RoundingMode} {@code rm}.
+     */
+    public static BigDecimal multiplyPriorRoundXLT1YGT1(BigDecimal x,
+            BigDecimal y, int oom, RoundingMode rm) {
+        int s = x.scale();
+        int xm = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, s);
+        int ym = getOrderOfMagnitudeOfMostSignificantDigit(y);
+        BigDecimal xr;
+        if (xm + 1 >= oom) {
+            int xl = Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(x);
+            if ((oom - ym - 1) > xl) {
+                xr = Math_BigDecimal.round(x, oom - ym - 1, rm);
+                xm = getOrderOfMagnitudeOfMostSignificantDigit(xr);
+            } else {
+                xr = x;
+            }
+        } else {
+            xr = x;
+        }
+        BigDecimal yr;
+        if (ym + 1 >= oom) {
+            int yl = Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(y);
+            if ((oom + xm) > yl) {
+                yr = Math_BigDecimal.round(y, oom + xm, rm);
+                ym = getOrderOfMagnitudeOfMostSignificantDigit(yr);
+            } else {
+                yr = y;
+            }
+        } else {
+            yr = y;
+        }
+        if ((ym + xm) < oom) {
+            return BigDecimal.ZERO;
+        } else {
+            return Math_BigDecimal.multiply(xr,
+                    Math_BigDecimal.round(yr, oom), oom, rm);
+        }
     }
 
     /**
@@ -2769,11 +2993,12 @@ public class Math_BigDecimal extends Math_Number {
      * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * Trailing zeros are stripped from any fractional part.
      * @param rm The rounding mode for any rounding.
      * @return {@code x} rounded given {@code oom} and {@code rm}
      */
     public static BigDecimal round(BigDecimal x, int oom, RoundingMode rm) {
-        return x.movePointLeft(oom).setScale(0, rm).movePointRight(oom);
+        return x.movePointLeft(oom).setScale(0, rm).movePointRight(oom).stripTrailingZeros();
     }
 
     /**

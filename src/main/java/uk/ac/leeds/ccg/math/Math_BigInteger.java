@@ -112,12 +112,18 @@ public class Math_BigInteger extends Math_Number {
     /**
      * Returns the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> of the most significant digit of {@code x}.
+     * Magnitude</a> (OOM) of the most significant digit of {@code x}. Examples:
+     * <ul>
+     * <li>x=0, result=0</li>
+     * <li>x=1, result=0</li>
+     * <li>x=11, result=1</li>
+     * <li>x=111, result=2</li>
+     * <li>x=100, result=2</li>
+     * <li>x=1001, result=3</li>
+     * </ul>
      *
-     * @param x The value for which the order of magnitude of the most
-     * significant digit is returned.
-     * @return The order of magnitude of the most significant digit of
-     * {@code x}.
+     * @param x The number for which the largest OOM digit is returned.
+     * @return The largest OOM digit of {@code x}.
      */
     public static int getMagnitudeOfMostSignificantDigit(BigInteger x) {
         //return x.abs().toString().length();
@@ -135,26 +141,25 @@ public class Math_BigInteger extends Math_Number {
     /**
      * Returns the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> of the least significant digit of {@code x}.
+     * Magnitude</a> (OOM) of the smallest non-zero digit of {@code x}. If the
+     * OOM of the most significant digit of {@code x} is already known then use
+     * {@link #getMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger, int)}
+     * for computational efficiency. Examples:
+     * <ul>
+     * <li>x=0, result=0</li>
+     * <li>x=1, result=0</li>
+     * <li>x=11, result=0</li>
+     * <li>x=110, result=1</li>
+     * <li>x=100, result=2</li>
+     * <li>x=1001, result=0</li>
+     * <li>x=100100, result=2</li>
+     * <li>x=1001000, result=3</li>
+     * </ul>
      *
-     * @param x The value for which the order of magnitude of the most
-     * significant digit is returned.
-     * @return The order of magnitude of the most significant digit of
-     * {@code x}.
-     */
-    public static int getMagnitudeOfLeastSignificantDigit(BigInteger x) {
-        return 0;
-    }
-
-    /**
-     * Returns the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> of the smallest non-zero digit of {@code x}.
-     *
-     * @param x The value for which the order of magnitude of the most
-     * significant digit is returned.
-     * @return The order of magnitude of the smallest non zero digit of
-     * {@code x}.
+     * @param x The number for which the smallest non-zero OOM digit is
+     * returned.
+     * @return The smallest non-zero OOM digit of {@code x}.
+     * @throws {@link ArithmeticException} if {@code x=0}.
      */
     public static int getMagnitudeOfSmallestNonZeroDigit(BigInteger x) {
         return getMagnitudeOfSmallestNonZeroDigit(x,
@@ -167,17 +172,27 @@ public class Math_BigInteger extends Math_Number {
      * Magnitude</a> (OOM) of the smallest non-zero digit of {@code x}. This is
      * computationally more efficient than
      * {@link #getMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger)}. No
-     * checking is done to ensure that {@code m} is correct.
+     * checking is done to ensure that {@code m} is correct. Examples:
+     * <ul>
+     * <li>x=0, result=0</li>
+     * <li>x=1, result=0</li>
+     * <li>x=11, result=0</li>
+     * <li>x=110, result=1</li>
+     * <li>x=100, result=2</li>
+     * <li>x=1001, result=0</li>
+     * <li>x=100100, result=2</li>
+     * <li>x=1001000, result=3</li>
+     * </ul>
      *
      * @param x The value for which the order of magnitude of the most
      * significant digit is returned.
      * @param m The OOM of the most significant digit of {@code x}. value for
      * which the order of magnitude of the most
      * @return The order of magnitude of the smallest non zero digit of
-     * {@code x}.
+     * {@code x}. If {@code x=0} this returns {@code 0}.
      */
     public static int getMagnitudeOfSmallestNonZeroDigit(BigInteger x, int m) {
-        return m - new BigDecimal(x).divide(BigDecimal.TEN.pow(m - 1)).scale();
+        return m - new BigDecimal(x).divide(BigDecimal.TEN.pow(m)).scale();
     }
 
     /**
@@ -271,24 +286,27 @@ public class Math_BigInteger extends Math_Number {
     public static BigInteger multiplyPriorRound(BigInteger x, BigInteger y,
             int oom, RoundingMode rm) {
         int xm = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
-        int m = (int) Math.sqrt(oom);
-        BigInteger d = BigInteger.TEN.pow(m);
         BigInteger rp;
         int ym = Math_BigInteger.getMagnitudeOfMostSignificantDigit(y);
         if (xm >= ym) {
-            if (xm > m) {
+            //if (xm > m) {
+            if (ym < oom) {
+                int m = (int) Math.sqrt(oom);
+                BigInteger d = BigInteger.TEN.pow(m);
                 BigInteger xr = x.divide(d);
                 rp = y.multiply(xr).multiply(d);
-                System.out.println(rp);
             } else {
-                rp = y.multiply(x).multiply(d);
+                rp = y.multiply(x);
             }
         } else {
-            if (ym > m) {
+            //if (ym > m) {
+            if (xm < oom) {
+                int m = (int) Math.sqrt(oom);
+                BigInteger d = BigInteger.TEN.pow(m);
                 BigInteger yr = y.divide(d);
                 rp = x.multiply(yr).multiply(d);
             } else {
-                rp = x.multiply(y).multiply(d);
+                rp = x.multiply(y);
             }
         }
         return Math_BigInteger.round(rp, oom);

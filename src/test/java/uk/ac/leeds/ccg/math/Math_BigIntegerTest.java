@@ -427,26 +427,90 @@ public class Math_BigIntegerTest {
     @Test
     public void testMultiply_3args() {
         System.out.println("multiply");
-        BigInteger x = new BigInteger("123456789000000000000000000000");
-        BigInteger y = new BigInteger("12345678900000000");
+        BigInteger x = null;
+        BigInteger y = null;
         int oom = 10;
-        RoundingMode rm = RoundingMode.HALF_UP;
+        BigInteger expResult = null;
+        BigInteger result = null;
+        // Test 1
+        x = new BigInteger("123456789000000000000000000000");
+        y = new BigInteger("12345678900000000");
         System.out.println(x.multiply(y));
-        BigInteger expResult = new BigInteger("15241578750190521000000000000000"
-                + "00000000000000");
-        BigInteger result = Math_BigInteger.multiply(x, y, oom, rm);
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         oom = 30;
-        expResult = new BigInteger("1524157875019052000000000000000000000000000"
-                + "000");
-        result = Math_BigInteger.multiply(x, y, oom, rm);
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
         oom = 40;
-        expResult = new BigInteger("1524160000000000000000000000000000000000000"
-                + "000");
-        result = Math_BigInteger.multiply(x, y, oom, rm);
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigInteger("9999999");
+        y = new BigInteger("999999");
+        oom = 4;
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = new BigInteger("99999999");
+        y = new BigInteger("9999999");
+        oom = 4;
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = new BigInteger("999999999");
+        y = new BigInteger("99999999");
+        oom = 5;
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        x = new BigInteger("999999999");
+        y = new BigInteger("99999999");
+        oom = 6;
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        x = new BigInteger("999999999");
+        y = new BigInteger("99999999");
+        oom = 7;
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        x = new BigInteger("999999999");
+        y = new BigInteger("99999999");
+        oom = 8;
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 10
+        x = new BigInteger("999999999");
+        y = new BigInteger("99999999");
+        oom = 9;
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 11
+        x = new BigInteger("99999999999");
+        y = new BigInteger("999999");
+        oom = 4;
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 12
+        x = new BigInteger("999999");
+        y = new BigInteger("99999999999");
+        oom = 4;
+        expResult = Math_BigInteger.round(x.multiply(y), oom);
+        result = Math_BigInteger.multiply(x, y, oom);
         assertTrue(expResult.compareTo(result) == 0);
     }
 
@@ -512,26 +576,24 @@ public class Math_BigIntegerTest {
     public void testMultiplyPriorRound_3args() {
         System.out.println("multiplyPriorRound");
         System.out.println("multiply");
-        BigInteger x = new BigInteger("123456789000000000000000000000");
-        BigInteger y = new BigInteger("12345678900000000");
+        BigInteger x = null;
+        BigInteger y = null;
         int oom = 40;
-        RoundingMode rm = RoundingMode.HALF_UP;
-        BigInteger xy = x.multiply(y);
         BigInteger expResult;
-        expResult = new BigInteger("1524160000000000000000000000000000000000000"
-                + "000");
-        BigInteger result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
+        // Test 1
+        x = new BigInteger("123456789000000000000000000000");
+        y = new BigInteger("12345678900000000");
+        //System.out.println(x.multiply(y));
+        expResult = Math_BigInteger.multiply(x, y, oom);
+        BigInteger result = Math_BigInteger.multiplyPriorRound(x, y, oom);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         x = new BigInteger("123456789123456789123456789");
         y = new BigInteger("123456789123456789");
         oom = 40;
-        xy = x.multiply(y); // 15241578780673678530864199515622620750190521
-        // 15241578780673678530857188528025088762600000
-        //System.out.println(xy.toString());
-        expResult = new BigInteger("1524000000000000000000000000000000000000000"
-                + "0");
-        result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
+        //System.out.println(x.multiply(y));
+        expResult = Math_BigInteger.multiply(x, y, oom);
+        result = Math_BigInteger.multiplyPriorRound(x, y, oom);
         //System.out.println(result.toString());
         //System.out.println(expResult.toString());
         assertTrue(expResult.compareTo(result) == 0);
@@ -539,12 +601,9 @@ public class Math_BigIntegerTest {
         x = new BigInteger("123456789123456789123456789");
         y = new BigInteger("123456789123456789");
         oom = 30;
-        xy = x.multiply(y);
-        expResult = new BigInteger("1524157878067400000000000000000000000000000"
-                + "0");
-        result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
-        System.out.println(result.toString());
-        System.out.println(expResult.toString());
+        //System.out.println(x.multiply(y));
+        expResult = Math_BigInteger.multiply(x, y, oom);
+        result = Math_BigInteger.multiplyPriorRound(x, y, oom);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
         x = new BigInteger(
@@ -555,8 +614,8 @@ public class Math_BigIntegerTest {
                 "9999999999" + "9999999999" + "9999999999" + "9999999999"
                 + "9999999999" + "9999999999");
         oom = 64;
-        xy = x.multiply(y);
-        System.out.println(xy.toString());
+        //System.out.println(x.multiply(y));
+        expResult = Math_BigInteger.multiply(x, y, oom);
         // 9999999999999999999999999999999999999999999999999999999999989999999999999999999999999999999999999999000000000000000000000000000000000000000000000000000000000001
         // =
         // 999
@@ -571,37 +630,8 @@ public class Math_BigIntegerTest {
                 + "9999999999" + "9999999999" + "9900000000" + "0000000000"
                 + "0000000000" + "0000000000" + "0000000000" + "0000000000"
                 + "0000000000");
-        result = Math_BigInteger.multiplyPriorRound(x, y, oom, rm);
-        System.out.println(result.toString());
-        System.out.println(expResult.toString());
+        result = Math_BigInteger.multiplyPriorRound(x, y, oom);
         assertTrue(expResult.compareTo(result) == 0);
-    }
-
-    /**
-     * Test of getMagnitudeOfLeastSignificantDigit method, of class Math_BigInteger.
-     */
-    @Test
-    public void testGetMagnitudeOfLeastSignificantDigit() {
-        System.out.println("getMagnitudeOfLeastSignificantDigit");
-        BigInteger x = BigInteger.valueOf(123456789);
-        int expResult = 0;
-        int result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
-        assertEquals(expResult, result);
-        // Test 2
-        x = BigInteger.valueOf(-123456789);
-        expResult = 0;
-        result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
-        assertEquals(expResult, result);
-        // Test 3
-        x = new BigInteger("123456789000000000000000000000");
-        expResult = 0;
-        result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
-        assertEquals(expResult, result);
-        // Test 4
-        x = BigInteger.ZERO;
-        expResult = 0;
-        result = Math_BigInteger.getMagnitudeOfLeastSignificantDigit(x);
-        assertEquals(expResult, result);
     }
 
     /**
@@ -611,29 +641,29 @@ public class Math_BigIntegerTest {
     public void testGetMagnitudeOfSmallestNonZeroDigit_BigInteger() {
         System.out.println("getMagnitudeOfSmallestNonZeroDigit");
         BigInteger x = BigInteger.valueOf(123456789);
-        int expResult = 1;
+        int expResult = 0;
         int result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
         // Test 2
         x = BigInteger.valueOf(-123456789);
-        expResult = 1;
+        expResult = 0;
         result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
         // Test 3
         x = new BigInteger("123456789000000000000000000000");
-        expResult = 22;
+        expResult = 21;
         result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
         // Test 4
         x = new BigInteger("-123456789000000000000000000000");
-        expResult = 22;
+        expResult = 21;
         result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
         // Test 5
-        // x = BigInteger.ZERO;
-        assertThrows(ArithmeticException.class, () -> {
-            Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(BigInteger.ZERO);
-        });
+        x = BigInteger.ZERO;
+        expResult = 0;
+        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
     }
 
     /**
