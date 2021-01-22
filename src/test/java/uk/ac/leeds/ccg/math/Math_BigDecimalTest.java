@@ -1011,26 +1011,130 @@ public class Math_BigDecimalTest {
     @Test
     public void testFloorSignificantDigit() {
         System.out.println("floorSignificantDigit");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.floorSignificantDigit(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal x;
+        BigDecimal expResult;
+        BigDecimal result;
+        int test = 1;
+        // Test 1
+        x = new BigDecimal("0.0001");
+        expResult = new BigDecimal("0.0001");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        test++;
+        x = new BigDecimal("0.00012");
+        expResult = new BigDecimal("0.0001");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        test++;
+        x = new BigDecimal("0.0009");
+        expResult = new BigDecimal("0.0009");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        test++;
+        x = new BigDecimal("1.00099");
+        expResult = new BigDecimal("1");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        test++;
+        x = new BigDecimal("10008798.00099");
+        expResult = new BigDecimal("10000000");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        test++;
+        x = new BigDecimal("-1.00099");
+        expResult = new BigDecimal("-2");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        test++;
+        x = new BigDecimal("-10008798.00099");
+        expResult = new BigDecimal("-20000000");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        test++;
+        x = new BigDecimal("-0.00099");
+        expResult = new BigDecimal("-0.001");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        test++;
+        x = new BigDecimal("-0.99");
+        expResult = new BigDecimal("-1");
+        result = Math_BigDecimal.floorSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
      * Test of ceilingSignificantDigit method, of class Math_BigDecimal.
+     * -0.99
      */
     @Test
     public void testCeilingSignificantDigit() {
         System.out.println("ceilingSignificantDigit");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.ceilingSignificantDigit(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal x;
+        BigDecimal expResult;
+        BigDecimal result;
+        int test = 1;
+        // Test 1
+        x = new BigDecimal("0.0001");
+        expResult = new BigDecimal("0.0002");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        test++;
+        x = new BigDecimal("0.00012");
+        expResult = new BigDecimal("0.0002");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        test++;
+        x = new BigDecimal("0.0009");
+        expResult = new BigDecimal("0.001");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        test++;
+        x = new BigDecimal("1.00099");
+        expResult = new BigDecimal("2");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        test++;
+        x = new BigDecimal("10008798.00099");
+        //expResult = new BigDecimal("20000000");
+        expResult = new BigDecimal("2E+7");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        test++;
+        x = new BigDecimal("-1.00099");
+        expResult = new BigDecimal("-1");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        test++;
+        x = new BigDecimal("-10008798.00099");
+        expResult = new BigDecimal("-10000000");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        test++;
+        x = new BigDecimal("-0.00099");
+        expResult = new BigDecimal("-0.0009");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        test++;
+        x = new BigDecimal("-0.99");
+        expResult = new BigDecimal("-0.9");
+        result = Math_BigDecimal.ceilingSignificantDigit(x);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**

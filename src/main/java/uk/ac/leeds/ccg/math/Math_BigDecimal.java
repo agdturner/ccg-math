@@ -3759,12 +3759,27 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Calculate and return the closer to zero value of x where the last
-     * significant digit in lowered by 1. Trailing zeros are stripped from the
-     * result.
+     * Calculate and return the closer to negative infinity value of {@code x}
+     * where the non-zero digit with the largest
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) is lowered by {@code 1}. Trailing zeros are stripped
+     * from the result. Examples
+     * <table>
+     * <th><td>x</td><td>floorSignificantDigit</td></th>
+     * <tr><td>0.0001</td><td>0.0001</td></tr>
+     * <tr><td>0.00012</td><td>0.0001</td></tr>
+     * <tr><td>0.0009</td><td>0.0009</td></tr>
+     * <tr><td>1.00099</td><td>1</td></tr>
+     * <tr><td>10008798.00099</td><td>10000000</td></tr>
+     * <tr><td>-1.00099</td><td>2</td></tr>
+     * <tr><td>-10008798.00099</td><td>-20000000</td></tr>
+     * <tr><td>-0.00099</td><td>-0.001</td></tr>
+     * <tr><td>-0.99</td><td>-1</td></tr>
+     * </table>
      *
      * @param x The value to calculate the floor of.
-     * @return Calculate and return the closer to zero integer of x.
+     * @return The next closer to negative infinity value at the OOM of the most
+     * significant digit.
      */
     public static BigDecimal floorSignificantDigit(BigDecimal x) {
         // Deal with special cases
@@ -3791,12 +3806,27 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Calculate and return the further from zero integer of x. Trailing zeros
-     * are stripped from the result.
+     * Calculate and return the closer to positive infinity value of {@code x}
+     * where the non-zero digit with the largest
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) is increased by {@code 1}. Trailing zeros are
+     * stripped from the result. Examples
+     * <table>
+     * <th><td>x</td><td>floorSignificantDigit</td></th>
+     * <tr><td>0.0001</td><td>0.0002</td></tr>
+     * <tr><td>0.00012</td><td>0.0002</td></tr>
+     * <tr><td>0.0009</td><td>0.001</td></tr>
+     * <tr><td>1.00099</td><td>2</td></tr>
+     * <tr><td>10008798.00099</td><td>20000000</td></tr>
+     * <tr><td>-1.00099</td><td>-1</td></tr>
+     * <tr><td>-10008798.00099</td><td>-10000000</td></tr>
+     * <tr><td>-0.00099</td><td>-0.0009</td></tr>
+     * <tr><td>-0.99</td><td>-0.9</td></tr>
+     * </table>
      *
      * @param x The value to calculate the floor of.
-     * @return The next further away from 0 BigDecimal with same decimal place
-     * precision as x.
+     * @return The next further away from negative infinity value at the OOM of
+     * the most significant digit.
      */
     public static BigDecimal ceilingSignificantDigit(BigDecimal x) {
         // Deal with special cases
@@ -3810,10 +3840,10 @@ public class Math_BigDecimal extends Math_Number {
             return BigDecimal.ZERO;
         }
         BigDecimal r;
-        BigInteger xUnscaledValue = x.unscaledValue();
-        String xUnscaledValueString = xUnscaledValue.toString();
-        int scale = x.scale() - xUnscaledValueString.length() + 1;
-        int biggest = Integer.valueOf(xUnscaledValueString.substring(0, 1));
+        BigInteger xu = x.unscaledValue();
+        String xus = xu.toString();
+        int scale = x.scale() - xus.length() + 1;
+        int biggest = Integer.valueOf(xus.substring(0, 1));
         biggest++;
         r = new BigDecimal(BigInteger.valueOf(biggest), scale);
         return r.stripTrailingZeros();
