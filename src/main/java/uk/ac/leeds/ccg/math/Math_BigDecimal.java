@@ -54,10 +54,10 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * For storing the
      * <a href="https://en.wikipedia.org/wiki/Euler%E2%80%93Mascheroni_constant">Euler
-     * constant</a> rounded to {@link #eOOM}
+     * Mascheroni constant</a> rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> rounded using {@link RoundingMode#HALF_UP}. The first few
-     * digits of the number are
+     * Magnitude</a> {@link #eOOM} rounded using {@link RoundingMode#HALF_UP}.
+     * The first few digits of the number are:
      * {@code ~2.71828182845904523536028747135266249775724709369995}.
      */
     private BigDecimal e;
@@ -65,36 +65,29 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * For storing the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a>
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * that {@link #e} is rounded to.
+     * Magnitude that {@link #e} is rounded to.
      */
     private int eOOM;
 
     /**
      * For storing the
-     * <a href="https://en.wikipedia.org/wiki/Pi">Pi constant</a> rounded to
-     * {@link #piOOM}
+     * <a href="https://en.wikipedia.org/wiki/Pi">Pi constant</a> rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> rounded using {@link RoundingMode#HALF_UP}. The first few
-     * digits of the number are {@code 3.1415926535897932384626433...}.
+     * Magnitude</a> {@link #piOOM} rounded using {@link RoundingMode#HALF_UP}.
+     * The first few digits of the number are
+     * {@code 3.1415926535897932384626433...}.
      */
     private BigDecimal pi;
 
     /**
-     * For storing the PI constant correct to a fixed decimal place precision.
+     * For storing the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude that {@link #pi} is rounded to.
      */
     private int piOOM;
 
     /**
-     * For storing the PI constant divided by two correct to a fixed decimal
-     * place precision.
+     * For storing the {@link #pi} divided by {@code 2}.
      */
     private BigDecimal piBy2;
 
@@ -102,8 +95,7 @@ public class Math_BigDecimal extends Math_Number {
      * For storing the number of decimal places that {@link #piBy2} is accurate
      * to.
      */
-    private int piBy2DP;
-
+    //private int piBy2DP;
     /**
      * For storing the PI constant divided by four correct to a fixed decimal
      * place precision.
@@ -185,6 +177,7 @@ public class Math_BigDecimal extends Math_Number {
     private void initE(int oom) {
         bi.factorial(-oom);
         e = getE(oom);
+        eOOM = oom;
     }
 
     /**
@@ -907,14 +900,12 @@ public class Math_BigDecimal extends Math_Number {
      * @return x/y then rounded if necessary
      */
     private static BigDecimal divideNoCaseCheckRoundIfNecessary(
-            BigDecimal x, BigDecimal y, int dp, RoundingMode rm) {
-        //int integerPartPrecision = x.divideToIntegralValue(y).toString().length();
-        int integerPartPrecision = x.divideToIntegralValue(y).precision();
-        //int precision = integerPartPrecision + decimalPlaces + 1;
-        int precision = integerPartPrecision + dp + 2;
-        MathContext mc = new MathContext(precision, rm);
+            BigDecimal x, BigDecimal y, int oom, RoundingMode rm) {
+        int ipp = x.divideToIntegralValue(y).precision();
+        int precision = ipp - oom + 2;
+        MathContext mc = new MathContext(precision);
         BigDecimal xDivideY = x.divide(y, mc);
-        return roundIfNecessary(xDivideY, dp, rm);
+        return round(xDivideY, oom, rm);
     }
 
     /**
@@ -929,13 +920,16 @@ public class Math_BigDecimal extends Math_Number {
      * @return x/y rounded to decimalPlaces decimal places if necessary.
      */
     public static BigDecimal divideRoundIfNecessary(BigDecimal x, BigDecimal y,
-            int dp, RoundingMode rm) {
+            int oom, RoundingMode rm) {
         // Deal with special cases
-        if (x.compareTo(BigDecimal.ZERO) == 0) {
+        if (x.signum() == 0) {
+            if (y.signum() == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (y.signum() == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
             return new BigDecimal(x.toString());
@@ -943,7 +937,7 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(y) == 0) {
             return BigDecimal.ONE;
         }
-        return divideNoCaseCheckRoundIfNecessary(x, y, dp, rm);
+        return divideNoCaseCheckRoundIfNecessary(x, y, oom, rm);
     }
 
     /**
@@ -958,11 +952,15 @@ public class Math_BigDecimal extends Math_Number {
     public static BigDecimal divideRoundIfNecessary(BigDecimal x, BigDecimal y,
             MathContext mc) {
         // Deal with special cases
-        if (x.compareTo(BigDecimal.ZERO) == 0) {
+        int ys = y.signum();
+        if (x.signum() == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
             return new BigDecimal(x.toString());
@@ -985,12 +983,12 @@ public class Math_BigDecimal extends Math_Number {
      * @return x/y rounded if necessary
      */
     private static BigDecimal divideNoCaseCheckRoundToFixedDecimalPlaces(
-            BigDecimal x, BigDecimal y, int dp, RoundingMode rm) {
-        int integerPartLength = x.divideToIntegralValue(y).toString().length();
-        int precision = integerPartLength + dp + 1;
+            BigDecimal x, BigDecimal y, int oom, RoundingMode rm) {
+        int ipl = x.divideToIntegralValue(y).toString().length();
+        int precision = ipl + oom - 1;
         MathContext mc = new MathContext(precision, rm);
         BigDecimal xDivideY = x.divide(y, mc);
-        return roundToAndSetDecimalPlaces(xDivideY, dp, rm);
+        return round(xDivideY, oom, rm);
     }
 
     /**
@@ -1019,7 +1017,7 @@ public class Math_BigDecimal extends Math_Number {
      * @throws ArithmeticException if y
      */
     public static BigDecimal divide(BigDecimal x, BigDecimal y, int oom) {
-        return divide(x, y, oom, RoundingMode.HALF_UP);
+        return Math_BigDecimal.divide(x, y, oom, RoundingMode.HALF_UP);
     }
 
     /**
@@ -1051,11 +1049,15 @@ public class Math_BigDecimal extends Math_Number {
     public static BigDecimal divide(BigDecimal x, BigDecimal y, int oom,
             RoundingMode rm) {
         // Deal with special cases
-        if (y.signum() == 0) {
-            throw new ArithmeticException("Division by zero.");
-        }
+        int ys = y.signum();
         if (x.signum() == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
+        }
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
             return round(x, oom, rm);
@@ -1086,22 +1088,26 @@ public class Math_BigDecimal extends Math_Number {
      */
     @Deprecated
     public static BigDecimal divideRoundToFixedDecimalPlaces(BigDecimal x,
-            BigDecimal y, int dp, RoundingMode rm) {
+            BigDecimal y, int oom, RoundingMode rm) {
         // Deal with special cases
-        if (x.compareTo(BigDecimal.ZERO) == 0) {
+        int ys = y.signum();
+        if (x.signum() == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
-            return roundToAndSetDecimalPlaces(x, dp, rm);
+            return round(x, oom);
         }
         if (x.compareTo(y) == 0) {
-            return BigDecimal.ONE.setScale(dp);
+            return BigDecimal.ONE;
         }
-        BigDecimal result = divideNoCaseCheckRoundIfNecessary(x, y, dp, rm);
-        return roundToAndSetDecimalPlaces(result, dp, rm);
+        BigDecimal result = divideNoCaseCheckRoundIfNecessary(x, y, oom, rm);
+        return round(result, oom);
     }
 
     /**
@@ -1113,11 +1119,15 @@ public class Math_BigDecimal extends Math_Number {
      */
     public static BigDecimal divideNoRounding(BigDecimal x, BigDecimal y) {
         // Deal with special cases
+        int ys = y.signum();
         if (x.compareTo(BigDecimal.ZERO) == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
             return new BigDecimal(x.toString());
@@ -1141,14 +1151,13 @@ public class Math_BigDecimal extends Math_Number {
      * @return a new list containing all the numbers in list divided by divisor.
      */
     public static ArrayList<BigDecimal> divideRoundIfNecessary(
-            ArrayList<BigDecimal> list, BigDecimal divisor, int dp,
-            RoundingMode rm) {
+            ArrayList<BigDecimal> list, BigDecimal divisor, int oom, RoundingMode rm) {
         ArrayList<BigDecimal> r = new ArrayList<>();
         Iterator<BigDecimal> ite = list.iterator();
         while (ite.hasNext()) {
             BigDecimal v = ite.next();
             BigDecimal dividedValue = Math_BigDecimal.divideRoundIfNecessary(
-                    v, divisor, dp, rm);
+                    v, divisor, oom, rm);
             r.add(dividedValue);
         }
         return r;
@@ -1166,13 +1175,17 @@ public class Math_BigDecimal extends Math_Number {
      * @return x/y then rounded;
      */
     public static BigDecimal divideRoundIfNecessary(BigDecimal x, BigInteger y,
-            int dp, RoundingMode rm) {
+            int oom, RoundingMode rm) {
         // Deal with special cases
+        int ys = y.signum();
         if (x.compareTo(BigDecimal.ZERO) == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigInteger.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigInteger.ONE) == 0) {
             return new BigDecimal(x.toString());
@@ -1181,7 +1194,7 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(y_BigDecimal) == 0) {
             return BigDecimal.ONE;
         }
-        return divideNoCaseCheckRoundIfNecessary(x, y_BigDecimal, dp, rm);
+        return divideNoCaseCheckRoundIfNecessary(x, y_BigDecimal, oom, rm);
     }
 
     /**
@@ -1195,24 +1208,28 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @return x/y then rounded;
      */
-    public static BigDecimal divideRoundToFixedDecimalPlaces(
-            BigDecimal x, BigInteger y, int dp, RoundingMode rm) {
+    public static BigDecimal divide(
+            BigDecimal x, BigInteger y, int oom, RoundingMode rm) {
         // Deal with special cases
+        int ys = y.signum();
         if (x.compareTo(BigDecimal.ZERO) == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigInteger.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigInteger.ONE) == 0) {
-            return roundToAndSetDecimalPlaces(x, dp, rm);
+            return round(x, oom);
         }
-        BigDecimal y_BigDecimal = new BigDecimal(y);
-        if (x.compareTo(y_BigDecimal) == 0) {
-            return BigDecimal.ONE.setScale(dp);
+        BigDecimal yb = new BigDecimal(y);
+        if (x.compareTo(yb) == 0) {
+            return BigDecimal.ONE;
         }
-        BigDecimal r = divideNoCaseCheckRoundIfNecessary(x, y_BigDecimal, dp, rm);
-        return roundToAndSetDecimalPlaces(r, dp, rm);
+        BigDecimal r = divideNoCaseCheckRoundIfNecessary(x, yb, oom, rm);
+        return round(r, oom, rm);
     }
 
     /**
@@ -1224,11 +1241,15 @@ public class Math_BigDecimal extends Math_Number {
      */
     public static BigDecimal divideNoRounding(BigDecimal x, BigInteger y) {
         // Deal with special cases
+        int ys = y.signum();
         if (x.compareTo(BigDecimal.ZERO) == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigInteger.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigInteger.ONE) == 0) {
             return new BigDecimal(x.toString());
@@ -1251,13 +1272,17 @@ public class Math_BigDecimal extends Math_Number {
      * @return x/y
      */
     public static BigDecimal divideRoundIfNecessary(BigInteger x, BigDecimal y,
-            int dp, RoundingMode rm) {
+            int oom, RoundingMode rm) {
         // Deal with special cases
+        int ys = y.signum();
         if (x.compareTo(BigInteger.ZERO) == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
             return new BigDecimal(x.toString());
@@ -1266,7 +1291,7 @@ public class Math_BigDecimal extends Math_Number {
         if (xBD.compareTo(y) == 0) {
             return BigDecimal.ONE;
         }
-        return divideNoCaseCheckRoundIfNecessary(xBD, y, dp, rm);
+        return divideNoCaseCheckRoundIfNecessary(xBD, y, oom, rm);
     }
 
     /**
@@ -1274,30 +1299,32 @@ public class Math_BigDecimal extends Math_Number {
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
-     * @param dp The number of decimal places the result has to be correct to.
+     * @param oom
      * @param rm The {@link RoundingMode} used to round intermediate results and
      * the final result.
      * @return x/y
      */
     public static BigDecimal divideRoundToFixedDecimalPlaces(BigInteger x,
-            BigDecimal y, int dp, RoundingMode rm) {
+            BigDecimal y, int oom, RoundingMode rm) {
         // Deal with special cases
-        if (x.compareTo(BigInteger.ZERO) == 0) {
+        int ys = y.signum();
+        if (x.signum() == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
-            return roundToAndSetDecimalPlaces(new BigDecimal(x), dp, rm);
+            return round(new BigDecimal(x), oom, rm);
         }
         BigDecimal xBD = new BigDecimal(x);
         if (xBD.compareTo(y) == 0) {
-            return BigDecimal.ONE.setScale(dp);
+            return BigDecimal.ONE;
         }
-        BigDecimal r;
-        r = divideNoCaseCheckRoundIfNecessary(xBD, y, dp, rm);
-        return roundToAndSetDecimalPlaces(r, dp, rm);
+        return divideNoCaseCheckRoundIfNecessary(xBD, y, oom, rm);
     }
 
     /**
@@ -1309,11 +1336,15 @@ public class Math_BigDecimal extends Math_Number {
      */
     public static BigDecimal divideNoRounding(BigInteger x, BigDecimal y) {
         // Deal with special cases
-        if (x.compareTo(BigInteger.ZERO) == 0) {
+        int ys = y.signum();
+        if (x.signum() == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigDecimal.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
             return new BigDecimal(x.toString());
@@ -1336,13 +1367,17 @@ public class Math_BigDecimal extends Math_Number {
      * @return x/y
      */
     public static BigDecimal divideRoundIfNecessary(BigInteger x, BigInteger y,
-            int dp, RoundingMode rm) {
+            int oom, RoundingMode rm) {
         // Deal with special cases
-        if (x.compareTo(BigInteger.ZERO) == 0) {
+        int ys = y.signum();
+        if (x.signum() == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigInteger.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigInteger.ONE) == 0) {
             return new BigDecimal(x.toString());
@@ -1351,7 +1386,7 @@ public class Math_BigDecimal extends Math_Number {
             return BigDecimal.ONE;
         }
         return divideNoCaseCheckRoundIfNecessary(new BigDecimal(x),
-                new BigDecimal(y), dp, rm);
+                new BigDecimal(y), oom, rm);
     }
 
     /**
@@ -1359,29 +1394,32 @@ public class Math_BigDecimal extends Math_Number {
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
-     * @param dp The number of decimal places the result has to be correct to.
+     * @param oom.
      * @param rm The {@link RoundingMode} used to round intermediate results and
      * the final result.
      * @return x/y
      */
     public static BigDecimal divideRoundToFixedDecimalPlaces(BigInteger x,
-            BigInteger y, int dp, RoundingMode rm) {
+            BigInteger y, int oom, RoundingMode rm) {
         // Deal with special cases
-        if (x.compareTo(BigInteger.ZERO) == 0) {
+        int ys = y.signum();
+        if (x.signum() == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigInteger.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigInteger.ONE) == 0) {
-            return roundToAndSetDecimalPlaces(new BigDecimal(x), dp, rm);
+            return round(new BigDecimal(x), oom);
         }
         if (x.compareTo(y) == 0) {
-            return BigDecimal.ONE.setScale(dp);
+            return BigDecimal.ONE;
         }
-        BigDecimal r = divideNoCaseCheckRoundIfNecessary(
-                new BigDecimal(x), new BigDecimal(y), dp, rm);
-        return roundToAndSetDecimalPlaces(r, dp, rm);
+        return divideNoCaseCheckRoundIfNecessary(new BigDecimal(x),
+                new BigDecimal(y), oom, rm);
     }
 
     /**
@@ -1393,11 +1431,15 @@ public class Math_BigDecimal extends Math_Number {
      */
     public static BigDecimal divideNoRounding(BigInteger x, BigInteger y) {
         // Deal with special cases
-        if (x.compareTo(BigInteger.ZERO) == 0) {
+        int ys = y.signum();
+        if (x.signum() == 0) {
+            if (ys == 0) {
+                throw new ArithmeticException("Division undefined 0/0.");
+            }
             return BigDecimal.ZERO;
         }
-        if (y.compareTo(BigInteger.ZERO) == 0) {
-            throw new ArithmeticException("Attempted division by zero...");
+        if (ys == 0) {
+            throw new ArithmeticException("Division by zero.");
         }
         if (y.compareTo(BigInteger.ONE) == 0) {
             return new BigDecimal(x.toString());
@@ -1429,7 +1471,7 @@ public class Math_BigDecimal extends Math_Number {
      * @return x^y accurate to at least decimalPlaces
      */
     private static BigDecimal powerExponentLessThanOne(BigDecimal x,
-            BigDecimal y, int dp, RoundingMode rm) {
+            BigDecimal y, int oom, RoundingMode rm) {
         BigDecimal r;
         //BigDecimal epsilon_BigDecimal = new BigDecimal(BigInteger.ONE, decimalPlaces);
         BigDecimal y0 = new BigDecimal(y.toString());
@@ -1447,15 +1489,15 @@ public class Math_BigDecimal extends Math_Number {
             elementUnscaled = element.unscaledValue();
             //System.out.println("element " + element + " elementUnscaled " + elementUnscaled);
             if (elementUnscaled.compareTo(BigInteger.ZERO) == 1) {
-                elementOne = divideRoundIfNecessary(element, elementUnscaled, dp + 2, rm); // +2 sufficient?
+                elementOne = divide(element, elementUnscaled, oom - 2, rm); // +2 sufficient?
                 if (elementOne.compareTo(BigDecimal.ZERO) == 0) {
                     break;
                 }
                 //System.out.println("element " + element + " elementUnscaled " + elementUnscaled);
                 elementOneReciprocal = reciprocalWillBeIntegerReturnBigInteger(elementOne);
-                root = rootRoundIfNecessary(x, elementOneReciprocal, dp + 3, rm);
+                root = rootRoundIfNecessary(x, elementOneReciprocal, oom - 3, rm);
                 if (root.compareTo(BigDecimal.ZERO) == 1) {
-                    rootMultiple = power(root, elementUnscaled, 64, dp, rm);
+                    rootMultiple = power(root, elementUnscaled, 64, oom, rm);
                     //r = multiplyRoundIfNecessary(r, rootMultiple, dp, rm);
                     r = r.multiply(rootMultiple);
                 }
@@ -1665,7 +1707,7 @@ public class Math_BigDecimal extends Math_Number {
 //    }
 //    //return round(result, decimalPlaces, a_RoundingMode);
 //}
-        return roundIfNecessary(r, dp, rm);
+        return round(r, oom);
     }
 
     private static BigDecimal powerExponentLessThanOneNoRounding(BigDecimal x,
@@ -1730,17 +1772,17 @@ public class Math_BigDecimal extends Math_Number {
      * @return true iff x^y {@code >} compare.
      */
     public static boolean powerTestAbove(BigDecimal compare, BigDecimal x,
-            BigInteger y, int div, int dp, RoundingMode rm) {
+            BigInteger y, int div, int oom, RoundingMode rm) {
         div = parseDiv(div);
         BigInteger div_BigInteger = BigInteger.valueOf(div);
         BigDecimal toCompare = BigDecimal.ONE;
         BigDecimal toCompare0;
         int compareScale = compare.scale();
-        int powerDecimalPlaces;
+        int oomp;
         // Deal with special case
         if (y.compareTo(div_BigInteger) == -1) {
-            powerDecimalPlaces = Math.min(compareScale + 1, dp);
-            toCompare0 = power(x, y, div, powerDecimalPlaces, rm);
+            oomp = Math.min(compareScale + 1, -oom);
+            toCompare0 = power(x, y, div, -oomp, rm);
             return toCompare0.compareTo(compare) == 1;
         }
         BigInteger y1 = new BigInteger(y.toString());
@@ -1750,26 +1792,26 @@ public class Math_BigDecimal extends Math_Number {
         while (y1.compareTo(BigInteger.ONE) == 1) {
             toCompareScale = toCompare.scale();
             if (y1.compareTo(div_BigInteger) == -1) {
-                powerDecimalPlaces = Math.min((div * compareScale) + 1, dp);
-                toCompare0 = power(x, y1, div, powerDecimalPlaces, rm);
+                oomp = Math.min((div * compareScale) + 1, -oom);
+                toCompare0 = power(x, y1, div, -oomp, rm);
             } else {
                 yDivideAndRemainder = y1.divideAndRemainder(div_BigInteger);
-                powerDecimalPlaces = Math.min(compareScale + 1, dp);
+                oomp = Math.min(compareScale + 1, -oom);
                 boolean powerTest0 = powerTestAbove(compare, x,
-                        yDivideAndRemainder[0], div, powerDecimalPlaces, rm);
+                        yDivideAndRemainder[0], div, -oomp, rm);
                 if (powerTest0) {
                     return true;
                 } else {
-                    powerDecimalPlaces = Math.min((div * compareScale) + 1, dp);
+                    oomp = Math.min((div * compareScale) + 1, -oom);
                     toCompare0 = power(x, yDivideAndRemainder[0], div,
-                            powerDecimalPlaces, rm);
+                            -oomp, rm);
                 }
                 if (toCompare.compareTo(compare) == 1) {
                     return true;
                 }
                 if (yDivideAndRemainder[1].compareTo(BigInteger.ONE) == 1) {
                     BigDecimal resultRemainder = power(x,
-                            yDivideAndRemainder[1], div, dp, // @TODO Is this sufficient?
+                            yDivideAndRemainder[1], div, oom, // @TODO Is this sufficient?
                             rm);
                     if (resultRemainder.compareTo(compare) == 1) {
                         return true;
@@ -1865,49 +1907,37 @@ public class Math_BigDecimal extends Math_Number {
      * @return true iff x^y {@code <} compare
      */
     public static boolean powerTestBelow(BigDecimal compare, BigDecimal x,
-            BigInteger y, int div, int dp, RoundingMode rm) {
+            BigInteger y, int div, int oom, RoundingMode rm) {
         div = parseDiv(div);
         BigInteger div_BigInteger = BigInteger.valueOf(div);
         BigDecimal toCompare = BigDecimal.ONE;
         BigDecimal toCompare0;
         // Deal with special case
         if (y.compareTo(div_BigInteger) == -1) {
-            toCompare0 = power(x, y, div,
-                    dp, // @TODO Is this sufficient?
-                    rm);
+            toCompare0 = power(x, y, div, oom, rm);
             return toCompare0.compareTo(compare) == -1;
         }
         BigInteger y1 = new BigInteger(y.toString());
         BigInteger[] yDivideAndRemainder;
         while (y1.compareTo(BigInteger.ONE) == 1) {
             if (y1.compareTo(div_BigInteger) == -1) {
-                toCompare0 = power(x, y1, div,
-                        dp, // @TODO Is this sufficient?
-                        rm);
+                toCompare0 = power(x, y1, div, oom, rm);
             } else {
                 yDivideAndRemainder = y1.divideAndRemainder(div_BigInteger);
                 boolean powerTest0 = powerTestAbove(compare, x,
-                        yDivideAndRemainder[0], div,
-                        dp, // @TODO Is this sufficient?
-                        rm);
+                        yDivideAndRemainder[0], div, oom, rm);
                 if (powerTest0) {
                     return true;
                 } else {
-                    toCompare0 = power(x, yDivideAndRemainder[0], div,
-                            dp, // @TODO Is this sufficient?
-                            rm);
+                    toCompare0 = power(x, yDivideAndRemainder[0], div, oom, rm);
                 }
-                toCompare0 = power(toCompare0, div,
-                        dp, // @TODO Is this sufficient?
-                        rm);
+                toCompare0 = power(toCompare0, div, oom);
                 if (toCompare.compareTo(compare) == -1) {
                     return true;
                 }
                 if (yDivideAndRemainder[1].compareTo(BigInteger.ONE) == 1) {
                     BigDecimal resultRemainder = power(x,
-                            yDivideAndRemainder[1], div,
-                            dp, // @TODO Is this sufficient?
-                            rm);
+                            yDivideAndRemainder[1], div, oom, rm);
                     if (resultRemainder.compareTo(compare) == -1) {
                         return true;
                     }
@@ -2007,14 +2037,13 @@ public class Math_BigDecimal extends Math_Number {
      * @param dp The number of decimal places the result has to be correct to.
      * @return x^y
      */
-    public static BigDecimal power(BigDecimal x, BigDecimal y, int dp,
-            RoundingMode rm) {
+    public static BigDecimal power(BigDecimal x, BigDecimal y, int oom, RoundingMode rm) {
         // Deal with special cases
         if (y.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ONE;
         }
         if (y.compareTo(BigDecimal.ONE) == 0) {
-            return roundIfNecessary(x, dp, rm);
+            return round(x, oom, rm);
         }
         if (x.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
@@ -2023,36 +2052,35 @@ public class Math_BigDecimal extends Math_Number {
             return BigDecimal.ONE;
         }
         if (x.compareTo(BigDecimal.ZERO) == -1) {
-            BigDecimal r = power(x.negate(), y, dp, rm);
+            BigDecimal r = power(x.negate(), y, oom, rm);
             if (isEven(y)) {
-                return roundIfNecessary(r.negate(), dp, rm);
+                return round(r.negate(), oom);
             } else {
-                return roundIfNecessary(r, dp, rm);
+                return round(r, oom);
             }
         }
         if (y.compareTo(BigDecimal.ZERO) == -1) {
-            BigDecimal power = power(x, y.negate(), dp + 2, rm);
-            BigDecimal r = reciprocal(power, dp, rm);
+            BigDecimal power = power(x, y.negate(), oom - 2, rm);
+            BigDecimal r = reciprocal(power, oom, rm);
             return r;
             //return round(r, dp, rm);
         }
         if (y.scale() <= 0) {
-            return power(x, y.toBigIntegerExact(), 64, dp, rm);
+            return power(x, y.toBigIntegerExact(), 64, oom, rm);
         }
         if (x.compareTo(TWO) == -1) {
             if (y.compareTo(BigDecimal.ONE) == -1) {
-                return powerExponentLessThanOne(x, y, dp, rm);
+                return powerExponentLessThanOne(x, y, oom, rm);
                 //throw new UnsupportedOperationException();
             } else {
                 BigDecimal fractionalPart = powerExponentLessThanOne(x,
-                        y.subtract(BigDecimal.ONE), dp + 2, rm);
-                return roundIfNecessary(x.multiply(fractionalPart), dp, rm);
-                //throw new UnsupportedOperationException();
+                        y.subtract(BigDecimal.ONE), oom - 2, rm);
+                return round(x.multiply(fractionalPart), oom, rm);
             }
         } else {
             if (y.compareTo(BigDecimal.ONE) == -1) {
                 // x > 2 && y < 1
-                BigDecimal r = powerExponentLessThanOne(x, y, dp, rm);
+                BigDecimal r = powerExponentLessThanOne(x, y, oom, rm);
 //                // Use x^a * y^a = (x * y)^a
 //                BigInteger xIntegerPart = x.toBigInteger();
 //                ...
@@ -2061,9 +2089,9 @@ public class Math_BigDecimal extends Math_Number {
             } else {
                 // x > 2 && y > 1
                 BigInteger y_BigInteger = y.toBigInteger();
-                BigDecimal integerPartResult = power(x, y_BigInteger, 256, dp, rm);
+                BigDecimal integerPartResult = power(x, y_BigInteger, 256, oom, rm);
                 BigDecimal fractionalPartResult = power(x,
-                        y.subtract(new BigDecimal(y_BigInteger)), dp, rm);
+                        y.subtract(new BigDecimal(y_BigInteger)), oom, rm);
 //                BigDecimal r = multiplyRoundIfNecessary(
 //                        integerPartResult, fractionalPartResult, dp, rm);
                 BigDecimal r = integerPartResult.multiply(fractionalPartResult);
@@ -2115,11 +2143,11 @@ public class Math_BigDecimal extends Math_Number {
             return BigDecimal.ONE;
         }
         if (x.compareTo(BigDecimal.ZERO) == -1) {
-            BigDecimal result = powerNoRounding(x.negate(), y);
+            BigDecimal r = powerNoRounding(x.negate(), y);
             if (isEven(y)) {
-                return result.negate();
+                return r.negate();
             } else {
-                return result;
+                return r;
             }
         }
         if (y.compareTo(BigDecimal.ZERO) == -1) {
@@ -2171,14 +2199,14 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @return x^y
      */
-    public static BigDecimal power(BigDecimal x, long y, int dp, RoundingMode rm) {
+    public static BigDecimal power(BigDecimal x, long y, int oom, RoundingMode rm) {
         // The current (Java6) limit for n in x.pow(n)
         // for BigDecimal x and int n is
         // -999999999 < n < 999999999
 //        if (Math.abs(y) < 999999999) {
 //            return power(x, (int) y, 256, dp, rm);
 //        } else {
-        return power(x, BigInteger.valueOf(y), dp, 256, rm);
+        return power(x, BigInteger.valueOf(y), oom, 256, rm);
 //        }
     }
 
@@ -2201,9 +2229,8 @@ public class Math_BigDecimal extends Math_Number {
      * @return x^y accurate to decimalPlaces
      */
     //private static BigDecimal power(
-    public static BigDecimal power(BigDecimal x, int y, int div, int dp,
-            RoundingMode rm) {
-        return power(x, BigInteger.valueOf(y), div, dp, rm);
+    public static BigDecimal power(BigDecimal x, int y, int div, int oom, RoundingMode rm) {
+        return power(x, BigInteger.valueOf(y), div, oom, rm);
     }
 
     /**
@@ -2234,15 +2261,14 @@ public class Math_BigDecimal extends Math_Number {
         if (y == 0) {
             return BigDecimal.ONE;
         }
-        BigDecimal result;
-        int xscale = x.scale();
-        int xprecision = x.precision();
-        if (xscale == 0) {
-            result = x.movePointRight((y - 1) * (xprecision - 1));
+        BigDecimal r;
+        int xs = x.scale();
+        if (xs == 0) {
+            r = x.movePointRight((y - 1) * (x.precision() - 1));
         } else {
-            result = x.movePointLeft((y - 1) * xscale);
+            r = x.movePointLeft((y - 1) * xs);
         }
-        return result;
+        return r;
     }
 
     /**
@@ -2277,20 +2303,18 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculates and returns x raised to the power of y (x^y) accurate to
      * {@code dp} number of decimal places. The calculation is divided into
-     * parts...
+     * parts... In this implementation {@code 0^0 = 1}
+     * <a href="https://en.wikipedia.org/wiki/Zero_to_the_power_of_zero">https://en.wikipedia.org/wiki/Zero_to_the_power_of_zero"</a>.
      *
      * @param x The base of the exponent.
      * @param y The exponent.
      * @param div An optimisation parameter... If div &lt; 2 it is set to 2. If
      * div &gt; 256 it is set to 256.
-     * @param dp The number of decimal places the result has to be correct to.
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
+     * @param oom
      * @return x^y accurate to decimalPlaces
      */
-    @Deprecated
-    public static BigDecimal power(BigDecimal x, BigInteger y, int div,
-            int dp, RoundingMode rm) {
+    public static BigDecimal power(BigDecimal x, BigInteger y, int div, int oom,
+            RoundingMode rm) {
         // Deal with special cases
         // x = 0
         if (x.compareTo(BigDecimal.ZERO) == 0) {
@@ -2306,16 +2330,15 @@ public class Math_BigDecimal extends Math_Number {
         }
         // y = 1
         if (y.compareTo(BigInteger.ONE) == 0) {
-            return roundIfNecessary(x, dp, rm);
+            return round(x, oom, rm);
         }
         // y = 2
         if (y.compareTo(BigInteger.TWO) == 0) {
-            //return multiplyRoundIfNecessary(x, x, dp, rm);
-            return x.multiply(x);
+            return round(x.multiply(x), oom, rm);
         }
         // x < 0
         if (x.compareTo(BigDecimal.ZERO) == -1) {
-            BigDecimal r = power(x.negate(), y, div, dp, rm);
+            BigDecimal r = power(x.negate(), y, div, oom, rm);
             if (Math_BigInteger.isEven(y)) {
                 return r.negate();
                 //return round(result.negate(), decimalPlaces, a_RoundingMode);
@@ -2327,12 +2350,12 @@ public class Math_BigDecimal extends Math_Number {
         // y < 0
         if (y.compareTo(BigInteger.ZERO) == -1) {
             BigDecimal power = powerNoSpecialCaseCheck(x, y.negate(), div,
-                    dp + 2, rm);
-            BigDecimal r = reciprocal(power, dp, rm);
+                    oom - 2, rm);
+            BigDecimal r = reciprocal(power, oom, rm);
             return r;
             //return round(result, decimalPlaces, a_RoundingMode);
         }
-        BigDecimal r = powerNoSpecialCaseCheck(x, y, div, dp, rm);
+        BigDecimal r = powerNoSpecialCaseCheck(x, y, div, oom, rm);
         return r;
     }
 
@@ -2547,24 +2570,12 @@ public class Math_BigDecimal extends Math_Number {
      * a copy of x which is probably not what is wanted, so this method should not
      * be used for such calculations. No check is made for efficiency reasons.
      */
-    private static BigDecimal power(BigDecimal x, int y, int dp,
-            RoundingMode rm) {
-        // x.pow(y) returned a mathematically incorrect result for
-        // x = 1.0000000000000000000000000001, y1 = 100
-        // Is x a "supernormal" number in this context?
-        //BigDecimal r = x.pow(y1);// Don't attempt to support "supernormal" numbers.
+    private static BigDecimal power(BigDecimal x, int y, int oom) {
         BigDecimal r = new BigDecimal(x.toString());
-        int dpMultiply;
         for (int i = 1; i < y; i++) {
-            dpMultiply = (r.scale() * x.scale()) + 1;
-            dpMultiply = Math.min(dpMultiply, dp + 2 + y);
-            //r = multiplyRoundIfNecessary(r, x, dpMultiply, rm);
             r = r.multiply(x);
         }
-        if (r.scale() > dp) {
-            roundIfNecessary(r, dp, rm);
-        }
-        return r;
+        return round(r, oom);
     }
 
     /**
@@ -2610,8 +2621,7 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @return x^y
      */
-    private static BigDecimal power(BigDecimal x, int y, MathContext mc, int dp,
-            RoundingMode rm) {
+    private static BigDecimal power(BigDecimal x, int y, int oom, RoundingMode rm) {
         // x.pow(y) returned a mathematically incorrect result for
         // x = 1.0000000000000000000000000001, y1 = 100
         // Is x a "supernormal" number in this context?
@@ -2632,7 +2642,7 @@ public class Math_BigDecimal extends Math_Number {
         }
         // y = 1
         if (y == 1) {
-            return roundIfNecessary(x, dp, rm);
+            return round(x, oom, rm);
         }
         // y = 2
         if (y == 2) {
@@ -2641,7 +2651,7 @@ public class Math_BigDecimal extends Math_Number {
         }
         // x < 0
         if (x.compareTo(BigDecimal.ZERO) == -1) {
-            BigDecimal r = power(x.negate(), y, dp, rm);
+            BigDecimal r = power(x.negate(), y, oom, rm);
             if ((double) y / 2.0d > y / 2) {
                 return r;
             } else {
@@ -2650,48 +2660,33 @@ public class Math_BigDecimal extends Math_Number {
         }
         // y < 0
         if (y < 0) {
-            BigDecimal power = powerNoSpecialCaseCheck(x, -y, mc, dp + 2, rm);
-            BigDecimal r = reciprocal(power, dp, rm);
+            BigDecimal power = powerNoSpecialCaseCheck(x, -y, oom - 2, rm);
+            BigDecimal r = reciprocal(power, oom, rm);
             return r;
             //return round(result, decimalPlaces, a_RoundingMode);
         }
-        BigDecimal r = powerNoSpecialCaseCheck(x, y, mc, dp, rm);
+        BigDecimal r = powerNoSpecialCaseCheck(x, y, oom, rm);
         return r;
     }
 
     private static BigDecimal powerNoSpecialCaseCheck(BigDecimal x,
-            int y, MathContext mc, int dp, RoundingMode rm) {
+            int y, int oom, RoundingMode rm) {
         // Find the integer part of x.
-        BigInteger xIP = x.toBigInteger();
-        if (xIP.compareTo(BigInteger.ZERO) == 0) {
+        BigInteger xi = x.toBigInteger();
+        if (xi.compareTo(BigInteger.ZERO) == 0) {
             BigDecimal r = new BigDecimal(x.toString());
-            int decimalPlacesMultiply;
-            int xScale = x.scale();
             for (int i = 1; i < y; i++) {
-                decimalPlacesMultiply = (r.scale() + x.scale()) + 1;
-                decimalPlacesMultiply = Math.min(
-                        decimalPlacesMultiply,
-                        dp + 2 + y);
-                if (decimalPlacesMultiply < mc.getPrecision()) {
-                    //r = multiplyRoundIfNecessary(r, x, mc, decimalPlacesMultiply, rm);
-                    r = r.multiply(x);
+                if (getOrderOfMagnitudeOfMostSignificantDigit(r) < oom) {
+                    break;
                 }
+                r = multiply(r, x, oom - 3, rm);
             }
-            if (r.scale() > dp) {
-                roundIfNecessary(r, dp, rm);
-            }
-            return r;
+            return round(r, oom, rm);
         } else {
-            BigInteger integerPartResult = xIP.pow(y);
-            BigDecimal xRemainder = x.subtract(new BigDecimal(integerPartResult));
-            BigDecimal fractionalPartResult;
-            if (xRemainder.compareTo(BigDecimal.ZERO) == 1) {
-                fractionalPartResult = powerNoSpecialCaseCheck(xRemainder, y, mc, dp,
-                        rm);
-            }
-            //return multiply(xRemainder, xIP, dp, rm);
-            return null;
-            //xRemainder.multiply(xIP);
+            BigInteger ri = xi.pow(y);
+            BigDecimal xf = x.subtract(new BigDecimal(ri));
+            BigDecimal rf = powerNoSpecialCaseCheck(xf, y, oom, rm);
+            return multiply(rf, ri, oom, rm);
         }
     }
 
@@ -2707,27 +2702,8 @@ public class Math_BigDecimal extends Math_Number {
      * roundingMode==RoundingMode.UNNECESSARY and the specified scale is
      * insufficient to represent the result of the division exactly.
      */
-    @Deprecated
-    public static BigDecimal reciprocal(BigDecimal x, int dp, RoundingMode rm) {
-        BigDecimal r = BigDecimal.ONE.divide(x, dp, rm);
-        return r;
-//        return roundIfNecessary(result, decimalPlace, a_RoundingMode);
-    }
-
-    /**
-     * Calculates and returns the reciprocal 1 divided by x (1/x).
-     *
-     * @param x The number to calculate the reciprocal of.
-     * @param dp The number of decimal places the result has to be correct to.
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
-     * @return 1/x Accurate to decimalPlace number of decimal places. Throws an
-     * ArithmeticException - if divisor is zero,
-     * roundingMode==RoundingMode.UNNECESSARY and the specified scale is
-     * insufficient to represent the result of the division exactly.
-     */
-    public static BigDecimal reciprocal(BigDecimal x, int oom) {
-        return Math_BigDecimal.divide(BigDecimal.ONE, x, oom);
+    public static BigDecimal reciprocal(BigDecimal x, int oom, RoundingMode rm) {
+        return Math_BigDecimal.divide(BigDecimal.ONE, x, oom, rm);
     }
 
     /**
@@ -2751,8 +2727,8 @@ public class Math_BigDecimal extends Math_Number {
      * @return {@code 1/x}
      * @throws {@link ArithmeticException} iff {@code x = 0}
      */
-    public static BigDecimal reciprocal(BigInteger x, int oom) {
-        return Math_BigDecimal.divide(BigDecimal.ONE, new BigDecimal(x), oom);
+    public static BigDecimal reciprocal(BigInteger x, int oom, RoundingMode rm) {
+        return Math_BigDecimal.divide(BigDecimal.ONE, new BigDecimal(x), oom, rm);
     }
 
     /**
@@ -2842,7 +2818,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param dp The number of decimal places the result has to be correct to.
      * @return logbx
      */
-    public static BigDecimal log(int b, BigDecimal x, int dp,
+    public static BigDecimal log(int b, BigDecimal x, int oom,
             RoundingMode rm) {
         // Deal with special cases
         if (x.compareTo(BigDecimal.ZERO) != 1) {
@@ -2855,16 +2831,16 @@ public class Math_BigDecimal extends Math_Number {
             return BigDecimal.ONE;
         }
         if (x.compareTo(BigDecimal.ONE) == -1) {
-            BigDecimal rX = Math_BigDecimal.reciprocal(x, dp, rm);
-            BigDecimal logRX = Math_BigDecimal.log(b, rX, dp, rm);
+            BigDecimal rX = Math_BigDecimal.reciprocal(x, oom, rm);
+            BigDecimal logRX = Math_BigDecimal.log(b, rX, oom, rm);
             return logRX.negate();
         }
         BigDecimal r = BigDecimal.ZERO;
         BigDecimal input = new BigDecimal(x.toString());
-        int scale = input.precision() + dp;
+        int scale = input.precision() - oom;
         int maxite = Math.max(b, 10000);
         int ite = 0;
-        BigDecimal maxErrorBD = new BigDecimal(BigInteger.ONE, dp + 1);
+        BigDecimal maxErrorBD = new BigDecimal(BigInteger.ONE, 1 - oom);
         //System.out.println("epsilon_BigDecimal " + epsilon_BigDecimal);
         //System.out.println("scale " + scale);
         BigDecimal baseBD = new BigDecimal(b);
@@ -2874,7 +2850,7 @@ public class Math_BigDecimal extends Math_Number {
         }
         BigDecimal f = new BigDecimal("0.5");
         input = input.multiply(input);
-        int dps = Math.max(dp * 2, dp + 10); // Not sure this is safe enough, maybe log(base,maxite,0) would be?
+        int ooms = Math.max(oom * 2, 10 - oom); // Not sure this is safe enough, maybe log(base,maxite,0) would be?
 
         boolean condition;
         do {
@@ -2884,7 +2860,7 @@ public class Math_BigDecimal extends Math_Number {
                 input = input.divide(baseBD, scale, rm);
                 r = r.add(f);
             }
-            input = multiply(input, input, dps, rm);
+            input = multiply(input, input, ooms, rm);
             f = f.divide(TWO, scale, rm);
             BigDecimal raf = r.add(f);
             if (f.abs().compareTo(maxErrorBD) == -1) {
@@ -2892,10 +2868,8 @@ public class Math_BigDecimal extends Math_Number {
             }
             if (maxite == ite) {
                 System.out.println("Warning: maxite reached in "
-                        + Math_BigDecimal.class.getName()
-                        + ".log(int,BigDecimal,int,RoundingMode) "
-                        + " log(" + b + ", " + x + ", " + dp + ", "
-                        + rm.toString() + ") " + r.toString());
+                        + Math_BigDecimal.class.getSimpleName()
+                        + ".log(int,BigDecimal,int,RoundingMode)");
                 break;
             }
             ite++;
@@ -2903,7 +2877,7 @@ public class Math_BigDecimal extends Math_Number {
                     && (input.compareTo(BigDecimal.ONE) == 1);
 
         } while (condition);
-        return roundIfNecessary(r, dp, rm);
+        return round(r, oom, rm);
     }
 
     /**
@@ -2917,7 +2891,8 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @return The log of x to the base base to decimalPlace precision
      */
-    public static BigDecimal log(BigDecimal base, BigDecimal x, int dp, RoundingMode rm) {
+    public static BigDecimal log(BigDecimal base, BigDecimal x, int oom,
+            RoundingMode rm) {
         BigDecimal r;// = BigDecimal.ZERO;
         // Deal with special cases
         if (x.compareTo(BigDecimal.ZERO) != 1) {
@@ -2936,26 +2911,26 @@ public class Math_BigDecimal extends Math_Number {
             int index = xp - xup;
             BigDecimal xum = new BigDecimal(xu, index);
             //System.out.print(unscaledxmajor);
-            BigDecimal logxum = log(base, xum, dp + index, rm);
+            BigDecimal logxum = log(base, xum, oom - index, rm);
             r = logxum.subtract(BigDecimal.valueOf(index));
-            return roundIfNecessary(r, dp, rm);
+            return round(r, oom);
         }
         r = BigDecimal.ZERO;
         BigDecimal input = new BigDecimal(x.toString());
-        int scale = input.precision() + dp;
+        int scale = input.precision() - oom;
         BigInteger maxite = x.toBigInteger().max(BigInteger.valueOf(10000));
         BigInteger ite = BigInteger.ZERO;
-        BigDecimal epsilon = new BigDecimal(BigInteger.ONE, dp + 1);
+        BigDecimal epsilon = new BigDecimal(BigInteger.ONE, oom - 1);
         //System.out.println("epsilon " + epsilon);
         //System.out.println("scale " + scale);
         while (input.compareTo(base) == 1) {
             r = r.add(BigDecimal.ONE);
-            input = input.divide(base, scale, rm);
+            input = input.divide(base, scale, oom);
         }
         BigDecimal f = new BigDecimal("0.5");
         input = input.multiply(input);
         BigDecimal raf = r.add(f);
-        int dps = Math.max(dp * 2, dp + 10); // Safe in terms of precision? Maybe log(base_int,maxite,0) would be more appropriate?
+        int dps = Math.max(oom * 2, oom - 10); // Safe in terms of precision? Maybe log(base_int,maxite,0) would be more appropriate?
         while (((raf).compareTo(r) == 1)
                 && (input.compareTo(BigDecimal.ONE) == 1)) {
             if (input.compareTo(base) == 1) {
@@ -2971,14 +2946,12 @@ public class Math_BigDecimal extends Math_Number {
             if (maxite.compareTo(ite) == 0) {
                 System.out.println("Warning: maxite reached in "
                         + Math_BigDecimal.class.getName()
-                        + ".log(BigDecimal,BigDecimal,int,RoundingMode) "
-                        + " log(" + base + ", " + x + ", " + dp + ", "
-                        + rm.toString() + ") " + r.toString());
+                        + ".log(BigDecimal,BigDecimal,int,RoundingMode)");
                 break;
             }
             ite = ite.add(BigInteger.ONE);
         }
-        return roundIfNecessary(r, dp, rm);
+        return round(r, oom, rm);
     }
 
     /**
@@ -3098,7 +3071,8 @@ public class Math_BigDecimal extends Math_Number {
      * Initialises {@link #pi} with first 10,000 digits. The data were obtained
      * from
      * <a href="http://www.eveandersson.com/pi/digits/">http://www.eveandersson.com/pi/digits/</a>
-     * on 2011-01-14, where the first million digits of PI was also available...
+     * on 2011-01-14, where the first million digits of Pi were also
+     * available...
      */
     private void initPi() {
         pi = new BigDecimal(
@@ -3303,104 +3277,56 @@ public class Math_BigDecimal extends Math_Number {
                 + "21624843914035998953539459094407046912091409387001"
                 + "26456001623742880210927645793106579229552498872758"
                 + "46101264836999892256959688159205600101655256375678");
+        piBy2 = pi.divide(TWO);
+        piBy4 = piBy2.divide(TWO);
+        pi2 = pi.multiply(TWO);
+        piOOM = getOrderOfMagnitudeOfLeastSignificantDigit(pi);
     }
 
     /**
-     * @param dp If greater than 10000, then a
+     * @param oom If greater than 10000, then a
      * {@link java.lang.RuntimeException} is thrown.
-     * @param rm The RoundingMode.
      * @return {@link #pi} unless it is {@code null} in which case it is
      * initialised with 10000 decimal places.
      */
-    public BigDecimal getPi(int dp, RoundingMode rm) {
-        if (dp > 10000) {
-            throw new RuntimeException("dp > 10000");
+    public BigDecimal getPi(int oom) {
+        if (oom < -10000) {
+            throw new RuntimeException("oom < -10000");
         }
         if (pi == null) {
             initPi();
         }
-        return Math_BigDecimal.roundToAndSetDecimalPlaces(pi, dp, rm);
+        return Math_BigDecimal.round(pi, oom);
     }
 
     /**
-     * Initialises {@link #piBy2}.
-     *
-     * @param dp DecimalPlaces
-     * @param rm RoundingMode
+     * @return {@link #pi} divided by {@code 2}.
      */
-    private void initPiBy2(int dp, RoundingMode rm) {
-        piBy2 = Math_BigDecimal.divideRoundIfNecessary(getPi(dp + 1, rm),
-                BigDecimal.valueOf(2), dp, rm);
-        piBy2DP = dp;
+    public BigDecimal getPiBy2(int oom) {
+        if (pi == null) {
+            initPi();
+        }
+        return Math_BigDecimal.round(piBy2, oom);
     }
 
     /**
-     * @param dp The decimal place precision.
-     * @param rm The RoundingMode.
-     * @return {@link #pi} divided by 2.
+     * @return {@link #pi} multiplied by {@code 2}.
      */
-    public BigDecimal getPiBy2(int dp, RoundingMode rm) {
-        if (piBy2 == null) {
-            initPiBy2(dp, rm);
+    public BigDecimal getPi2(int oom) {
+        if (pi == null) {
+            initPi();
         }
-        if (piBy2DP < dp) {
-            initPiBy2(dp, rm);
-        }
-        return Math_BigDecimal.roundToAndSetDecimalPlaces(piBy2, dp, rm);
+        return Math_BigDecimal.round(pi2, oom);
     }
 
     /**
-     * Initialises {@link #pi2}.
-     *
-     * @param dp DecimalPlaces
-     * @param rm RoundingMode
+     * @return {@link #pi} divided by {@code 4}.
      */
-    private void initPi2(int dp, RoundingMode rm) {
-        pi2 = Math_BigDecimal.divideRoundIfNecessary(getPi(dp + 1, rm),
-                BigDecimal.valueOf(2), dp, rm);
-        pi2DP = dp;
-    }
-
-    /**
-     * @param dp The decimal place precision.
-     * @param rm The RoundingMode.
-     * @return {@link #pi} divided by 2.
-     */
-    public BigDecimal getPi2(int dp, RoundingMode rm) {
-        if (pi2 == null) {
-            initPi2(dp, rm);
+    private BigDecimal getPiBy4(int oom) {
+        if (pi == null) {
+            initPi();
         }
-        if (pi2DP < dp) {
-            initPi2(dp, rm);
-        }
-        return Math_BigDecimal.roundToAndSetDecimalPlaces(pi2, dp, rm);
-    }
-
-    /**
-     * Initialises {@link #piBy4}.
-     *
-     * @param dp DecimalPlaces
-     * @param rm RoundingMode
-     */
-    private void initPiBy4(int dp, RoundingMode rm) {
-        piBy4 = Math_BigDecimal.divideRoundIfNecessary(getPi(dp + 1, rm),
-                BigDecimal.valueOf(4), dp, rm);
-        piBy4DP = dp;
-    }
-
-    /**
-     * @param dp The decimal place precision.
-     * @param rm The RoundingMode.
-     * @return {@link #pi} divided by 4.
-     */
-    public BigDecimal getPiBy4(int dp, RoundingMode rm) {
-        if (piBy4 == null) {
-            initPiBy4(dp, rm);
-        }
-        if (piBy4DP < dp) {
-            initPiBy4(dp, rm);
-        }
-        return Math_BigDecimal.roundToAndSetDecimalPlaces(piBy4, dp, rm);
+        return Math_BigDecimal.round(piBy4, oom);
     }
 
     /**
@@ -3442,14 +3368,14 @@ public class Math_BigDecimal extends Math_Number {
         // Use Taylor Series
         for (int i = 2; i < maxite; i++) {
             BigDecimal f = new BigDecimal(bi.factorials.get(i));
-            BigDecimal rf = Math_BigDecimal.divide(BigDecimal.ONE, f, oom);
+            BigDecimal rf = Math_BigDecimal.divide(BigDecimal.ONE, f, oom, RoundingMode.HALF_UP);
             e = e.add(rf);
             if (rf.compareTo(tollerance) == -1) {
                 break;
             }
         }
         eOOM = oom;
-        return round(e, oom);
+        return round(e, oom, RoundingMode.HALF_UP);
     }
 
     /**
@@ -3459,11 +3385,7 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      *
      * @param x The value for which e to the power of y (e^y) is returned.
-     * @param bd may be null. Passing a Math_BigDecimal in can save computation.
-     * The Euler constant is used in most invocations.
      * @param oom The number of decimal places the result has to be correct to.
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
      * @return e^y where e is the Euler constant. The result is returned correct
      * to decimalPlaces decimal place precision.
      */
@@ -3477,16 +3399,16 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(BigDecimal.ONE) == 0) {
             return getE(oom);
         }
-        BigInteger xBi = x.toBigInteger();
-        BigDecimal xBiBd = new BigDecimal(xBi, 0);
-        if (xBiBd.compareTo(x) == 0) {
-            return exp(xBi, oom);
+        BigInteger xi = x.toBigInteger();
+        BigDecimal xid = new BigDecimal(xi);
+        if (xid.compareTo(x) == 0) {
+            return exp(xi, oom);
         }
-        BigDecimal fract = x.subtract(xBiBd);
+        BigDecimal fract = x.subtract(xid);
         if (fract.compareTo(BigDecimal.ZERO) == -1) {
             BigDecimal exp = exp(fract.negate(), oom - fract.scale());
-            r = reciprocal(exp, oom);
-            r = exp(xBi, oom + 2).multiply(r);
+            r = reciprocal(exp, oom, RoundingMode.HALF_UP);
+            r = exp(xi, oom + 2).multiply(r);
             return Math_BigDecimal.round(r, oom);
         }
         int oomm3 = oom - 3;
@@ -3510,13 +3432,13 @@ public class Math_BigDecimal extends Math_Number {
              * series grows fast).
              */
             BigDecimal px = power(fract, bi, 64, oomm3, RoundingMode.HALF_UP);
-            dpxff = divide(px, ff, oomm3);
+            dpxff = Math_BigDecimal.divide(px, ff, oomm3);
             r = r.add(dpxff);
             if (dpxff.compareTo(tollerance) == -1) {
                 break;
             }
         }
-        r = exp(xBi, oom - 2).multiply(r);
+        r = exp(xi, oom - 2).multiply(r);
         return round(r, oom);
     }
 
@@ -3527,7 +3449,6 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      *
      * @param x The exponent.
-     * @param bd A Math_BigDecimal.
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
@@ -3548,7 +3469,7 @@ public class Math_BigDecimal extends Math_Number {
             return BigDecimal.ONE;
         }
         if (x.compareTo(BigInteger.ZERO) == -1) {
-            return Math_BigDecimal.reciprocal(exp(x.negate(), oom), oom);
+            return Math_BigDecimal.reciprocal(exp(x.negate(), oom), oom, RoundingMode.HALF_UP);
         }
         BigDecimal r = BigDecimal.ZERO;
         if (x.compareTo(BigInteger.valueOf(999999999)) != 1
@@ -3662,8 +3583,7 @@ public class Math_BigDecimal extends Math_Number {
      * @return The natural logarithm of x accurate to decimalPlaces number of
      * decimal places and with result rounded using a_RoundingMode if necessary.
      */
-    public BigDecimal ln(BigDecimal x, Math_BigDecimal bd, int dp,
-            RoundingMode rm) {
+    public BigDecimal ln(BigDecimal x, int oom, RoundingMode rm) {
         // Check that x > 0.
         if (x.compareTo(BigDecimal.ZERO) != 1) {
             throw new IllegalArgumentException(
@@ -3671,20 +3591,17 @@ public class Math_BigDecimal extends Math_Number {
                     + "ln(BigDecimal,Generic_BigDecimal,int,RoundingMode)");
         }
         // The number of digits to the left of the decimal point.
-        int magnitude = x.toString().length() - x.scale() - 1;
-        if (magnitude < 3) {
-            return lnNewton(x, dp, rm);
+        int magnitude = getOrderOfMagnitudeOfMostSignificantDigit(x);
+        if (magnitude < 2) {
+            return lnNewton(x, oom, rm);
         } else {
             // Compute magnitude*ln(x^(1/magnitude)).
             // x^(1/magnitude)
-            BigDecimal root = rootRoundIfNecessary(x, magnitude, dp, rm);
+            BigDecimal root = rootRoundIfNecessary(x, magnitude, oom, rm);
             // ln(x^(1/magnitude))
-            BigDecimal lnRoot = lnNewton(root, dp, rm);
-            //BigDecimal lnRoot = ln(rootRoundIfNecessary, a_Generic_BigDecimal, decimalPlaces, a_RoundingMode);
+            BigDecimal lnRoot = lnNewton(root, oom, rm);
             // magnitude*ln(x^(1/magnitude))
-            BigDecimal result = BigDecimal.valueOf(magnitude).multiply(lnRoot);
-            return result;
-            //setScale(scale, BigDecimal.ROUND_HALF_EVEN);
+            return BigDecimal.valueOf(magnitude).multiply(lnRoot);
         }
     }
 
@@ -3693,9 +3610,9 @@ public class Math_BigDecimal extends Math_Number {
      * decimal place precision using Newton's algorithm.
      * http://stackoverflow.com/questions/739532/logarithm-of-a-bigdecimal
      */
-    private BigDecimal lnNewton(BigDecimal x, int scale, RoundingMode rm) {
+    private BigDecimal lnNewton(BigDecimal x, int oom, RoundingMode rm) {
         BigDecimal r = new BigDecimal(x.toString());
-        int sp1 = scale + 1;
+        int sp1 = oom - 1;
         BigDecimal term;
         // Convergence tolerance = 5*(10^-(scale+1))
         BigDecimal tolerance = BigDecimal.valueOf(5).movePointLeft(sp1);
@@ -3710,7 +3627,7 @@ public class Math_BigDecimal extends Math_Number {
             r = r.subtract(term);
             //Thread.yield();
         } while (term.compareTo(tolerance) > 0);
-        return r.setScale(scale, rm);
+        return round(r, oom, rm);
     }
 
     /**
@@ -3731,31 +3648,6 @@ public class Math_BigDecimal extends Math_Number {
 //            r = r.max(ite.next());
 //        }
 //        return r;
-    }
-
-    /**
-     * Calculates and returns the position of the most significant digit. If the
-     * most significant digit is right of decimal point then this is positive.
-     * If left of decimal point this is negative.
-     *
-     * @param x The number for which the most significant digit is evaluated.
-     * @return The position of the most significant digit.
-     */
-    @Deprecated
-    public static int positionSignificantDigit(BigDecimal x) {
-        int r;
-        // Deal with special cases
-        if (x.compareTo(BigDecimal.ZERO) == -1) {
-            r = positionSignificantDigit(x.negate());
-            return r;
-        }
-        BigInteger xu = x.unscaledValue();
-        String xus = xu.toString();
-        r = xus.length() - x.scale();
-        if (r < 1) {
-            r--;
-        }
-        return r;
     }
 
     /**
@@ -3860,14 +3752,14 @@ public class Math_BigDecimal extends Math_Number {
      * @return The root-th root of x.
      */
     public static BigDecimal rootRoundIfNecessary(BigDecimal x, BigInteger root,
-            int dp, RoundingMode rm) {
+            int oom, RoundingMode rm) {
         // The Java6 limit for n in x.pow(n)
         // for BigDecimal x and int n is
         // -999999999 < n < 999999999
         if (root.compareTo(BigInteger.valueOf(999999999)) != 1) {
-            BigDecimal r = rootRoundIfNecessary(x, root.intValue(), dp, rm);
+            BigDecimal r = rootRoundIfNecessary(x, root.intValue(), oom, rm);
             // return result;
-            return roundIfNecessary(r, dp, rm);
+            return round(r, oom);
         } else {
             // Deal with special cases
             // x <= 0
@@ -3884,8 +3776,8 @@ public class Math_BigDecimal extends Math_Number {
             // rootRoundIfNecessary = 1
             if (root.compareTo(BigInteger.ONE) == 0) {
                 BigDecimal r = new BigDecimal(x.toString());
-                if (r.scale() > dp) {
-                    return roundIfNecessary(r, dp, rm);
+                if (r.scale() > -oom) {
+                    return round(r, oom, rm);
                 }
                 return r;
             }
@@ -3902,27 +3794,27 @@ public class Math_BigDecimal extends Math_Number {
                     // places for both numerator and denominator are required!
                     BigDecimal denominator = rootRoundIfNecessary(
                             denominatorUnrooted, root,
-                            dp + xscale + rootLength, // Can we cope with less or do we need more?
+                            oom - xscale - rootLength, // Can we cope with less or do we need more?
                             rm);
                     int denominatorScale = denominator.scale();
                     BigDecimal numerator = rootRoundIfNecessary(
                             numeratorUnrooted, root,
-                            dp + xscale + rootLength, // Can we cope with less or do we need more?
+                            oom - xscale - rootLength, // Can we cope with less or do we need more?
                             rm);
                     BigDecimal r = Math_BigDecimal.divideRoundIfNecessary(
-                            numerator, denominator, dp, rm);
+                            numerator, denominator, oom, rm);
                     return r;
                 } else {
-                    BigDecimal r = rootLessThanOne(x, root, dp, rm);
-                    return roundIfNecessary(r, dp, rm);
+                    BigDecimal r = rootLessThanOne(x, root, oom, rm);
+                    return round(r, oom, rm);
                 }
             }
             // x > 1
             //int safeDecimalPlaces = decimalPlaces + 5;
-            BigDecimal epsilon_BigDecimal = new BigDecimal(BigInteger.ONE, dp);
+            BigDecimal epsilon_BigDecimal = new BigDecimal(BigInteger.ONE, oom);
             // Check there is a rootRoundIfNecessary in the precision and return 0 if not
             BigDecimal comparator = BigDecimal.ONE.add(epsilon_BigDecimal);
-            boolean powerTest = powerTestAbove(x, comparator, root, 256, dp, rm);
+            boolean powerTest = powerTestAbove(x, comparator, root, 256, oom, rm);
             if (powerTest) {
                 System.out.println("No root in the precision returning BigDecimal.ONE"
                         + "in " + Math_BigDecimal.class
@@ -3931,15 +3823,10 @@ public class Math_BigDecimal extends Math_Number {
             }
             BigDecimal result;// = new BigDecimal("1");
             int rootInitialisationMaxIte = 10;
-            result = rootInitialisation(x, root, epsilon_BigDecimal, rootInitialisationMaxIte, dp, rm);
+            result = rootInitialisation(x, root, epsilon_BigDecimal, rootInitialisationMaxIte, oom, rm);
             // Newton Raphson
-            //int newtonRaphsonMaxite = 100;
-            result = newtonRaphson(x, result, root, epsilon_BigDecimal,
-                    //newtonRaphsonMaxite,
-                    dp + 1);
-//                    a_RoundingMode);
-            // return result;
-            return roundIfNecessary(result, dp, rm);
+            result = newtonRaphson(x, result, root, epsilon_BigDecimal,                    oom - 1);
+            return round(result, oom, rm);
         }
     }
 
@@ -4022,8 +3909,7 @@ public class Math_BigDecimal extends Math_Number {
     private static BigDecimal newtonRaphson(BigDecimal x, BigDecimal result0,
             BigInteger root, BigDecimal epsilon,
             //int maxite,
-            int decimalPlaces) {
-//            RoundingMode a_RoundingMode) {
+            int oom) {
         RoundingMode rm;
         if (x.compareTo(BigDecimal.ONE) == 1) {
             rm = RoundingMode.DOWN;
@@ -4034,8 +3920,8 @@ public class Math_BigDecimal extends Math_Number {
         BigDecimal root_BigDecimal = new BigDecimal(root);
         //int magnitudex = magnitude(x);
         //System.out.println("magnitudex " + magnitudex);
-        int precision = decimalPlaces + 5;
-        int divprecision = decimalPlaces + 10;
+        int precision = oom - 5;
+        int divprecision = oom - 10;
 
         BigDecimal r0;
         BigDecimal resultipowroot;
@@ -4072,7 +3958,7 @@ public class Math_BigDecimal extends Math_Number {
 //                    + " previousResult_BigDecimal0.subtract(result).abs() "
 //                    + previousResult_BigDecimal0.subtract(result).abs());
 //        }
-        return roundIfNecessary(r, decimalPlaces, rm);
+        return round(r, oom, rm);
     }
 
     /**
@@ -4237,18 +4123,18 @@ public class Math_BigDecimal extends Math_Number {
 //        return result;
 //    }
     private static BigDecimal rootInitialisation(BigDecimal x, BigInteger root,
-            BigDecimal epsilon_BigDecimal, int maxite, int dp,
+            BigDecimal epsilon_BigDecimal, int maxite, int oom,
             RoundingMode rm) {
         BigDecimal result;
         int div = 64;
         // Initialise toCompare and previousResult_BigDecimal
         if (x.compareTo(BigDecimal.ONE) == -1) {
             return rootInitialisationLessThanOne(x, root, epsilon_BigDecimal,
-                    maxite, dp, rm);
+                    maxite, oom, rm);
         } else {
             int i = 0;
             result = BigDecimal.ONE.add(epsilon_BigDecimal);
-            boolean powerTestAbove = powerTestAbove(x, result, root, 64, dp, rm);
+            boolean powerTestAbove = powerTestAbove(x, result, root, 64, oom, rm);
             if (powerTestAbove) {
                 // Root cannot be found within current precision...
                 int debug = 1;
@@ -4269,9 +4155,9 @@ public class Math_BigDecimal extends Math_Number {
 //                }
 //                if (notInitialised) {
                 // Disect
-                c = divideRoundIfNecessary(a.subtract(b), rootdiv, dp + 1, rm);
+                c = divideRoundIfNecessary(a.subtract(b), rootdiv, oom - 1, rm);
                 c = b.add(c);
-                powerTestAbove = powerTestAbove(x, c, root, div, dp, rm);
+                powerTestAbove = powerTestAbove(x, c, root, div, oom, rm);
                 if (powerTestAbove) {
                     a = c;
                     //a = new BigDecimal(c.toString());
@@ -4287,9 +4173,9 @@ public class Math_BigDecimal extends Math_Number {
                 }
 //                if (notInitialised) {
                 // Bisect
-                c = divideRoundIfNecessary(a.subtract(b), TWO, dp + 1, rm);
+                c = divideRoundIfNecessary(a.subtract(b), TWO, oom - 1, rm);
                 c = c.add(b);
-                powerTestAbove = powerTestAbove(x, c, root, div, dp, rm);
+                powerTestAbove = powerTestAbove(x, c, root, div, oom, rm);
                 if (powerTestAbove) {
                     a = c;
                     //a = new BigDecimal(c.toString());
@@ -4692,8 +4578,8 @@ public class Math_BigDecimal extends Math_Number {
      * @return The root-th root of x.
      */
     private static BigDecimal rootLessThanOne(BigDecimal x, BigInteger root,
-            int dp, RoundingMode rm) {
-        BigDecimal epsilon_BigDecimal = new BigDecimal(BigInteger.ONE, dp);
+            int oom, RoundingMode rm) {
+        BigDecimal epsilon_BigDecimal = new BigDecimal(BigInteger.ONE, -oom);
         //BigDecimal comparator = BigDecimal.ONE.subtract(epsilon_BigDecimal);
 //        // Check there is a rootRoundIfNecessary in the precision and return 1 if not
 //        boolean powerTest = powerTestBelow(
@@ -4709,18 +4595,18 @@ public class Math_BigDecimal extends Math_Number {
 //        }
 
         BigDecimal r;// = BigDecimal.ONE;
-        if (x.scale() - x.precision() > dp) {
+        if (x.scale() - x.precision() > -oom) {
             r = BigDecimal.ONE.subtract(epsilon_BigDecimal);
         } else {
             int rootInitialisationMaxite = 10;
             //int rootInitialisationMaxite = x.scale();
             r = rootInitialisationLessThanOne(x, root, epsilon_BigDecimal,
-                    rootInitialisationMaxite, dp, rm);
+                    rootInitialisationMaxite, oom, rm);
         }
         //result = new BigDecimal(x.add(epsilon_BigDecimal).toString());
-        int newtonRaphsonMaxite = dp + x.scale();
+        int newtonRaphsonMaxite = -oom + x.scale();
         return newtonRaphsonLessThanOne(x, r, root, epsilon_BigDecimal,
-                newtonRaphsonMaxite, dp, rm);
+                newtonRaphsonMaxite, oom, rm);
 
 // For rootRoundIfNecessary is large this takes too long 
 //        BigDecimal tenPowerRoot = power(
@@ -4769,11 +4655,11 @@ public class Math_BigDecimal extends Math_Number {
      * @return The root-th root of x.
      */
     private static BigDecimal rootLessThanOne(BigDecimal x, BigInteger root,
-            BigDecimal estimate, int dp, RoundingMode rm) {
-        BigDecimal epsilon_BigDecimal = new BigDecimal(BigInteger.ONE, dp);
-        int newtonRaphsonMaxite = dp + x.scale();
+            BigDecimal estimate, int oom, RoundingMode rm) {
+        BigDecimal epsilon_BigDecimal = new BigDecimal(BigInteger.ONE, -oom);
+        int newtonRaphsonMaxite = -oom + x.scale();
         return newtonRaphsonLessThanOne(x, estimate, root,
-                epsilon_BigDecimal, newtonRaphsonMaxite, dp, rm);
+                epsilon_BigDecimal, newtonRaphsonMaxite, oom, rm);
     }
 
     /**
@@ -4797,10 +4683,10 @@ public class Math_BigDecimal extends Math_Number {
      */
     private static BigDecimal newtonRaphsonLessThanOne(BigDecimal x,
             BigDecimal result0, BigInteger root, BigDecimal epsilon,
-            int maxite, int dp, RoundingMode rm) {
+            int maxite, int oom, RoundingMode rm) {
         BigDecimal r = new BigDecimal(result0.toString());
-        int precision = dp + 5;
-        int divprecision = dp + 10;
+        int precision = oom - 5;
+        int divprecision = oom - 10;
         //MathContext a_MathContext = new MathContext(precision);
         BigDecimal rootsubtract1 = new BigDecimal(root.subtract(BigInteger.ONE));
         // p = (n-1)xk        
@@ -4809,7 +4695,7 @@ public class Math_BigDecimal extends Math_Number {
         BigDecimal adivresultipowrootsubtract1;
         BigDecimal inside;
         MathContext add_MathContext;
-        int generalAddPrecision = dp + root.toString().length() + 2;
+        int generalAddPrecision = oom + root.toString().length() + 2;
 //        MathContext add_MathContext = new MathContext(
 //                decimalPlaces + rootRoundIfNecessary.toString().length() + 1,
 //                a_RoundingMode);
@@ -4849,7 +4735,7 @@ public class Math_BigDecimal extends Math_Number {
                     + " previousResult_BigDecimal0.subtract(result).abs() "
                     + result0.subtract(r).abs());
         }
-        return roundIfNecessary(r, dp, rm);
+        return round(r, oom, rm);
     }
 
     /**
@@ -5182,13 +5068,11 @@ public class Math_BigDecimal extends Math_Number {
      * using the RoundingMode to try to ensure the result is correct to
      * {@code dp} decimal places.
      *
-     * @param rm RoundingMode
-     *
      * @param x The value for which the square root is returned.
-     * @param dp The number of decimal places the result has to be correct to.
+     * @param oom
      * @return Square root of {@code x} rounded if necessary.
      */
-    public static BigDecimal sqrt(BigDecimal x, int dp, RoundingMode rm) {
+    public static BigDecimal sqrt(BigDecimal x, int oom, RoundingMode rm) {
 // @TODO This used to be a hack, check tests are working for the new implementation.
 //        if (x.compareTo(BigDecimal.ZERO) == 1 && x.compareTo(BigDecimal.ONE) == -1) {
 //            return BigDecimal.valueOf(Math.sqrt(x.doubleValue()));
@@ -5197,7 +5081,7 @@ public class Math_BigDecimal extends Math_Number {
 // @TODO Compare with BigDecimal.sqrt(MathContext)
 //int precision = 100;
 //x.sqrt(new MathContext(precision, rm));
-        return power(x, new BigDecimal("0.5"), dp, rm);
+        return power(x, new BigDecimal("0.5"), oom, rm);
     }
 
     /**
@@ -5524,15 +5408,13 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @return The cosine of x.
      */
-    public static BigDecimal cos(BigDecimal x, Math_BigDecimal bd, int dp,
-            RoundingMode rm) {
+    public BigDecimal cos(BigDecimal x, int oom, RoundingMode rm) {
 //        //BigDecimal aPIBy2 = bd.getPiBy2(dp + 2, rm);
 //        //BigDecimal r = sin(x.add(aPIBy2), bd, dp + 1, rm);
 //        return Math_BigDecimal.roundToAndSetDecimalPlaces(r, dp, rm);
-        Math_BigInteger bi = bd.bi;
         //BigDecimal aPI1000 = bd.getPi(1000, rm);
         // cosx = 1-(x^2)/(2!)+(x^4)/(4!)-(x^6)/(6!)+...
-        BigDecimal precision = new BigDecimal(BigInteger.ONE, dp + 2);
+        BigDecimal precision = new BigDecimal(BigInteger.ONE, oom - 2);
         BigDecimal cosx = BigDecimal.ONE;
         int factor = 2;
         BigInteger factorial;
@@ -5540,9 +5422,9 @@ public class Math_BigDecimal extends Math_Number {
         boolean alternator = true;
         while (true) {
             factorial = bi.factorial(factor);
-            power = Math_BigDecimal.power(x, factor, dp + 2, rm);
+            power = Math_BigDecimal.power(x, factor, oom - 2, rm);
             BigDecimal division = Math_BigDecimal.divideRoundIfNecessary(
-                    power, factorial, dp + 2, rm);
+                    power, factorial, oom - 2, rm);
             if (division.compareTo(precision) != -1) {
                 if (alternator) {
                     alternator = false;
@@ -5556,7 +5438,7 @@ public class Math_BigDecimal extends Math_Number {
             }
             factor += 2;
         }
-        cosx = Math_BigDecimal.roundIfNecessary(cosx, dp, rm);
+        cosx = Math_BigDecimal.round(cosx, oom, rm);
         return cosx;
     }
 
@@ -5564,16 +5446,12 @@ public class Math_BigDecimal extends Math_Number {
      * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
      *
      * @param x The value for which the sine is returned.
-     * @param bd An instance of {@link Math_BigDecimal}
-     * @param dp The number of decimal places that the result should be correct
-     * to.
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
+     * @param oom
      * @return The sine of x.
      */
-    public static BigDecimal sin(BigDecimal x, Math_BigDecimal bd, int dp, RoundingMode rm) {
-        BigDecimal aPi = bd.getPi(dp + 1, rm);
-        BigDecimal aPi2 = bd.getPi2(dp + 1, rm);
+    public BigDecimal sin(BigDecimal x, int oom, RoundingMode rm) {
+        BigDecimal aPi = getPi(oom - 1);
+        BigDecimal aPi2 = getPi2(oom - 1);
         while (x.compareTo(BigDecimal.ZERO) == -1) {
             x = x.add(aPi2);
         }
@@ -5590,8 +5468,8 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(aPi2) == 0) {
             return BigDecimal.ZERO;
         }
-        BigDecimal aPIBy2 = bd.getPiBy2(dp + 2, rm);
-        return sinNoCaseCheck(x, aPi, aPi2, aPIBy2, bd, dp, rm);
+        BigDecimal aPIBy2 = getPiBy2(oom);
+        return sinNoCaseCheck(x, aPi, aPi2, aPIBy2, oom, rm);
     }
 
     /**
@@ -5601,25 +5479,20 @@ public class Math_BigDecimal extends Math_Number {
      * @param aPI The value of PI to be used.
      * @param twoPI The value of 2PI to be used.
      * @param aPIBy2 The value of PI/2 to be used.
-     * @param bd An instance of {@link Math_BigDecimal}
-     * @param dp The number of decimal places that the result should be correct
-     * to.
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
+     * @param oom
      * @return The sine of x without checking the case of x.
      */
-    protected static BigDecimal sinNoCaseCheck(BigDecimal x, BigDecimal aPI,
-            BigDecimal twoPI, BigDecimal aPIBy2, Math_BigDecimal bd, int dp,
-            RoundingMode rm) {
+    protected BigDecimal sinNoCaseCheck(BigDecimal x, BigDecimal aPI,
+            BigDecimal twoPI, BigDecimal aPIBy2, int oom, RoundingMode rm) {
         // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
         if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
-            return sinAngleBetweenZeroAndPI(x, aPI, twoPI, bd, dp, rm);
+            return sinAngleBetweenZeroAndPI(x, aPI, twoPI, oom, rm);
         } else {
             if (x.compareTo(aPI) == -1) {
-                return sinAngleBetweenZeroAndPI(aPI.subtract(x), aPI, twoPI, bd, dp, rm);
+                return sinAngleBetweenZeroAndPI(aPI.subtract(x), aPI, twoPI, oom, rm);
             }
             BigDecimal uncorrectedResult = sinNoCaseCheck(twoPI.subtract(x),
-                    aPI, twoPI, aPIBy2, bd, dp, rm);
+                    aPI, twoPI, aPIBy2, oom, rm);
             return uncorrectedResult.negate();
         }
     }
@@ -5630,40 +5503,15 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The value for which the sine is returned.
      * @param aPI The value of PI to be used.
      * @param twoPI The value of 2PI to be used.
-     * @param bd An instance of {@link Math_BigDecimal}
-     * @param dp The number of decimal places that the result should be correct
-     * to.
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
+     * @param oom
      * @return The sine of x in the range [0, PI].
      */
-    protected static BigDecimal sinAngleBetweenZeroAndPI(BigDecimal x,
-            BigDecimal aPI, BigDecimal twoPI, Math_BigDecimal bd,
-            int dp, RoundingMode rm) {
-        return sinAngleBetweenZeroAndPI(x, aPI, twoPI, bd.bi, dp, rm);
-    }
-
-    /**
-     * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
-     *
-     * @param x The value for which the sine is returned.
-     * @param aPI The value of PI to be used.
-     * @param twoPI The value of 2PI to be used.
-     * @param bi An instance of {@link Math_BigInteger}
-     * @param dp The number of decimal places that the result should be correct
-     * to.
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
-     * @return The sine of x in the range [0, PI].
-     */
-    protected static BigDecimal sinAngleBetweenZeroAndPI(BigDecimal x,
-            BigDecimal aPI, BigDecimal twoPI, Math_BigInteger bi,
-            int dp, RoundingMode rm) {
-        BigDecimal aPIBy2 = Math_BigDecimal.divideRoundIfNecessary(
-                aPI, BigInteger.valueOf(2), dp + 2, rm);
+    protected BigDecimal sinAngleBetweenZeroAndPI(BigDecimal x, BigDecimal aPI,
+            BigDecimal twoPI, int oom, RoundingMode rm) {
+        BigDecimal aPIBy2 = Math_BigDecimal.round(piBy2, oom - 2);
         // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
         if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
-            BigDecimal precision = new BigDecimal(BigInteger.ONE, dp + 4);
+            BigDecimal precision = new BigDecimal(BigInteger.ONE, oom - 4);
             BigDecimal sinx = new BigDecimal(x.toString());
             int factor = 3;
             BigInteger factorial;
@@ -5671,9 +5519,9 @@ public class Math_BigDecimal extends Math_Number {
             boolean alternator = true;
             while (true) {
                 factorial = bi.factorial(factor);
-                power = Math_BigDecimal.power(x, factor, dp + 2, rm);
+                power = Math_BigDecimal.power(x, factor, oom - 2);
                 BigDecimal division = Math_BigDecimal.divideRoundIfNecessary(
-                        power, factorial, dp + 2, rm);
+                        power, factorial, oom - 2, rm);
                 if (division.compareTo(precision) != -1) {
                     if (alternator) {
                         alternator = false;
@@ -5687,8 +5535,7 @@ public class Math_BigDecimal extends Math_Number {
                 }
                 factor += 2;
             }
-            sinx = Math_BigDecimal.roundIfNecessary(sinx, dp, rm);
-            return sinx;
+            return Math_BigDecimal.round(sinx, oom);
         }
         return null;
     }
@@ -5706,17 +5553,16 @@ public class Math_BigDecimal extends Math_Number {
      * final result.
      * @return tan(x)
      */
-    public static BigDecimal tan(BigDecimal x, Math_BigDecimal bd, int dp,
-            RoundingMode rm) {
-        BigDecimal sinx = sin(x, bd, dp + 10, rm);
+    public BigDecimal tan(BigDecimal x, int oom, RoundingMode rm) {
+        BigDecimal sinx = sin(x, oom - 10, rm);
         RoundingMode rmd = RoundingMode.DOWN;
-        sinx = roundIfNecessary(sinx, dp + 8, rmd);
-        BigDecimal cosx = cos(x, bd, dp + 10, rm);
-        cosx = roundIfNecessary(cosx, dp + 8, rmd);
+        sinx = round(sinx, oom - 8, rmd);
+        BigDecimal cosx = cos(x, oom - 10, rm);
+        cosx = round(cosx, oom - 8, rmd);
         if (cosx.compareTo(BigDecimal.ZERO) == 0) {
             return null;
         }
-        return divideRoundIfNecessary(sinx, cosx, dp, rm);
+        return divideRoundIfNecessary(sinx, cosx, oom, rm);
     }
 
     /**
