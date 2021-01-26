@@ -125,7 +125,7 @@ public class Math_BigInteger extends Math_Number {
      * @param x The number for which the largest OOM digit is returned.
      * @return The largest OOM digit of {@code x}.
      */
-    public static int getMagnitudeOfMostSignificantDigit(BigInteger x) {
+    public static int getOrderOfMagnitudeOfMostSignificantDigit(BigInteger x) {
         //return x.abs().toString().length();
         int xs = x.signum();
         switch (xs) {
@@ -143,7 +143,7 @@ public class Math_BigInteger extends Math_Number {
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> (OOM) of the smallest non-zero digit of {@code x}. If the
      * OOM of the most significant digit of {@code x} is already known then use
-     * {@link #getMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger, int)}
+     * {@link #getOrderOfMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger, int)}
      * for computational efficiency. Examples:
      * <ul>
      * <li>x=0, result=0</li>
@@ -161,9 +161,9 @@ public class Math_BigInteger extends Math_Number {
      * @return The smallest non-zero OOM digit of {@code x}.
      * @throws {@link ArithmeticException} if {@code x=0}.
      */
-    public static int getMagnitudeOfSmallestNonZeroDigit(BigInteger x) {
-        return getMagnitudeOfSmallestNonZeroDigit(x,
-                getMagnitudeOfMostSignificantDigit(x));
+    public static int getOrderOfMagnitudeOfSmallestNonZeroDigit(BigInteger x) {
+        return getOrderOfMagnitudeOfSmallestNonZeroDigit(x,
+                getOrderOfMagnitudeOfMostSignificantDigit(x));
     }
 
     /**
@@ -171,7 +171,7 @@ public class Math_BigInteger extends Math_Number {
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> (OOM) of the smallest non-zero digit of {@code x}. This is
      * computationally more efficient than
-     * {@link #getMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger)}. No
+     * {@link #getOrderOfMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger)}. No
      * checking is done to ensure that {@code m} is correct. Examples:
      * <ul>
      * <li>x=0, result=0</li>
@@ -191,7 +191,7 @@ public class Math_BigInteger extends Math_Number {
      * @return The order of magnitude of the smallest non zero digit of
      * {@code x}. If {@code x=0} this returns {@code 0}.
      */
-    public static int getMagnitudeOfSmallestNonZeroDigit(BigInteger x, int m) {
+    public static int getOrderOfMagnitudeOfSmallestNonZeroDigit(BigInteger x, int m) {
         return m - new BigDecimal(x).divide(BigDecimal.TEN.pow(m)).scale();
     }
 
@@ -285,9 +285,9 @@ public class Math_BigInteger extends Math_Number {
      */
     public static BigInteger multiplyPriorRound(BigInteger x, BigInteger y,
             int oom, RoundingMode rm) {
-        int xm = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
+        int xm = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(x);
         BigInteger rp;
-        int ym = Math_BigInteger.getMagnitudeOfMostSignificantDigit(y);
+        int ym = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(y);
         if (xm >= ym) {
             //if (xm > m) {
             if (ym < oom) {

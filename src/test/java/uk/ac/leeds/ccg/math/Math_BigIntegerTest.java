@@ -395,29 +395,29 @@ public class Math_BigIntegerTest {
     }
 
     /**
-     * Test of getMagnitudeOfMostSignificantDigit method, of class Math_BigInteger.
+     * Test of getOrderOfMagnitudeOfMostSignificantDigit method, of class Math_BigInteger.
      */
     @Test
-    public void testGetMagnitudeOfMostSignificantDigit() {
-        System.out.println("getMagnitudeOfMostSignificantDigit");
+    public void testGetOrderOfMagnitudeOfMostSignificantDigit() {
+        System.out.println("getOrderOfMagnitudeOfMostSignificantDigit");
         BigInteger x = BigInteger.valueOf(123456789);
         int expResult = 8;
-        int result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
+        int result = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 2
         x = BigInteger.valueOf(-123456789);
         expResult = 8;
-        result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
+        result = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 3
         x = new BigInteger("1234567890000000000000000000000");
         expResult = 30;
-        result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
+        result = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
         // Test 4
         x = BigInteger.ZERO;
         expResult = 0;
-        result = Math_BigInteger.getMagnitudeOfMostSignificantDigit(x);
+        result = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -635,34 +635,34 @@ public class Math_BigIntegerTest {
     }
 
     /**
-     * Test of getMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
+     * Test of getOrderOfMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
      */
     @Test
-    public void testGetMagnitudeOfSmallestNonZeroDigit_BigInteger() {
-        System.out.println("getMagnitudeOfSmallestNonZeroDigit");
+    public void testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger() {
+        System.out.println("getOrderOfMagnitudeOfSmallestNonZeroDigit");
         BigInteger x = BigInteger.valueOf(123456789);
         int expResult = 0;
-        int result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        int result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
         // Test 2
         x = BigInteger.valueOf(-123456789);
         expResult = 0;
-        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
         // Test 3
         x = new BigInteger("123456789000000000000000000000");
         expResult = 21;
-        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
         // Test 4
         x = new BigInteger("-123456789000000000000000000000");
         expResult = 21;
-        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
         // Test 5
         x = BigInteger.ZERO;
         expResult = 0;
-        result = Math_BigInteger.getMagnitudeOfSmallestNonZeroDigit(x);
+        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
         assertEquals(expResult, result);
     }
 
@@ -677,12 +677,12 @@ public class Math_BigIntegerTest {
     }
 
     /**
-     * Test of getMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
-     * Test covered by {@link #testGetMagnitudeOfSmallestNonZeroDigit_BigInteger()}
+     * Test of getOrderOfMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
+     * Test covered by {@link #testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger()}
      */
     @Test
-    public void testGetMagnitudeOfSmallestNonZeroDigit_BigInteger_int() {
-        System.out.println("getMagnitudeOfSmallestNonZeroDigit");
+    public void testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger_int() {
+        System.out.println("getOrderOfMagnitudeOfSmallestNonZeroDigit");
         // No test.
     }
 
