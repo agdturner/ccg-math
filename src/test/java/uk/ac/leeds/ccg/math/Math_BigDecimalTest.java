@@ -1173,7 +1173,7 @@ public class Math_BigDecimalTest {
         result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
         mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result), rm);
         expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-        expResult = Math_BigDecimal.roundIfNecessary(expResult, oom, rm);
+        //expResult = Math_BigDecimal.round(expResult, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
         x = new BigDecimal("8904831940328.25");
@@ -2173,23 +2173,23 @@ public class Math_BigDecimalTest {
         //System.out.println(expResult);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 9
-        oom = -100;
         x = BigDecimal.valueOf(100);
         result = bd.ln(x, oom, rm);
         mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
         expResult = BigDecimalMath.log(x, mc);
         //expResult = new BigDecimal("");
-        System.out.println(result);
-        System.out.println(expResult);
+        //System.out.println(result);
+        //System.out.println(expResult);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 10
         x = new BigDecimal("300");
+        oom = -100;//-101;
         result = bd.ln(x, oom, rm);
         mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
         expResult = BigDecimalMath.log(x, mc);
         //expResult = new BigDecimal("");
-        System.out.println(result);
-        System.out.println(expResult);
+        //System.out.println(result);
+        //System.out.println(expResult);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 7
         x = new BigDecimal("3000");
@@ -2197,8 +2197,8 @@ public class Math_BigDecimalTest {
         mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
         expResult = BigDecimalMath.log(x, mc);
         //expResult = new BigDecimal("");
-        System.out.println(result);
-        System.out.println(expResult);
+        //System.out.println(result);
+        //System.out.println(expResult);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 8
         x = new BigDecimal("300000");
