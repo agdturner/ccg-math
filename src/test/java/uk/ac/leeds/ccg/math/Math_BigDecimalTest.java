@@ -527,13 +527,99 @@ public class Math_BigDecimalTest {
     @Test
     public void testPowerNoRounding_BigDecimal_BigDecimal() {
         System.out.println("powerNoRounding");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.powerNoRounding(x, y);
+        BigDecimal x;
+        int y;
+        BigDecimal expResult;
+        BigDecimal result;
+        x = new BigDecimal("5.1");
+        y = 2;
+        // Test 1
+        expResult = new BigDecimal("26.01");
+        result = Math_BigDecimal.powerNoRounding(x, y);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // Test 2
+        x = new BigDecimal("5.1");
+        y = 20;
+        expResult = new BigDecimal("141710986707530.43575626125424226001");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 3
+        x = new BigDecimal("5.10");
+        y = 20;
+        expResult = new BigDecimal(
+                "141710986707530.4357562612542422600100000000000000000000");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 4
+        x = new BigDecimal("5.10000000000000000000000000000000000000000000001");
+        y = 20;
+        expResult = new BigDecimal(
+                "141710986707530.4357562612542422600100000000000055572935963737"
+                + "425786769119310690200000000000001035182140500991264655503202"
+                + "846190000000000000012178613417658720760652978857014000000000"
+                + "000000101488445147156006338774823808450000000000000000636790"
+                + "244060586706439371443504000000000000000003121520804218562286"
+                + "467507076000000000000000000012241258055759067790068655200000"
+                + "000000000000000039004008510997029723257970000000000000000000"
+                + "000101971264081037986204596000000000000000000000000219938020"
+                + "566944676127560000000000000000000000000392046382472272149960"
+                + "000000000000000000000000000576538797753341397000000000000000"
+                + "000000000000000695672757470095200000000000000000000000000000"
+                + "000682032115166760000000000000000000000000000000000534927149"
+                + "150400000000000000000000000000000000000327773988450000000000"
+                + "000000000000000000000000000151222140000000000000000000000000"
+                + "000000000000000049419000000000000000000000000000000000000000"
+                + "000010200000000000000000000000000000000000000000000001");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 5
+        x = new BigDecimal("5.2");
+        y = 2;
+        expResult = new BigDecimal("27.04");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 6
+        x = new BigDecimal("5.3");
+        y = 2;
+        expResult = new BigDecimal("28.09");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 7
+        x = new BigDecimal("5.4");
+        y = 2;
+        expResult = new BigDecimal("29.16");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 8
+        x = new BigDecimal("5.5");
+        y = 2;
+        expResult = new BigDecimal("30.25");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 9
+        x = new BigDecimal("5.6");
+        y = 2;
+        expResult = new BigDecimal("31.36");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 10
+        x = new BigDecimal("5.7");
+        y = 2;
+        expResult = new BigDecimal("32.49");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 11
+        x = new BigDecimal("5.8");
+        y = 2;
+        expResult = new BigDecimal("33.64");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
+        // Test 12
+        x = new BigDecimal("5.9");
+        y = 2;
+        expResult = new BigDecimal("34.81");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -593,13 +679,40 @@ public class Math_BigDecimalTest {
     @Test
     public void testPowerUnscaled1Precision1() {
         System.out.println("powerUnscaled1Precision1");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        BigDecimal x;
+        int y;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        x = new BigDecimal("10");
+        y = 2;
+        expResult = new BigDecimal("100");
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // Test 2
+        x = new BigDecimal("0.1");
+        y = 2;
+        expResult = new BigDecimal("0.01");
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        assertEquals(expResult, result);
+        // Test 3
+        x = new BigDecimal("100");
+        y = 3;
+        expResult = new BigDecimal("1000000");
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        assertEquals(expResult, result);
+        // Test 4
+        x = new BigDecimal("0.01");
+        y = 3;
+        expResult = new BigDecimal("0.000001");
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        assertEquals(expResult, result);
+        // Test 5
+        x = new BigDecimal("0.0001");
+        y = 20;
+        expResult = new BigDecimal("1e-80");
+        result = Math_BigDecimal.powerUnscaled1Precision1(x, y);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -723,14 +836,34 @@ public class Math_BigDecimalTest {
     @Test
     public void testReciprocal() {
         System.out.println("reciprocal");
-        BigDecimal x = null;
-        int dp = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.reciprocal(x, dp, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal x;
+        int oom;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        rm = RoundingMode.HALF_UP;
+        oom = -10;
+        x = BigDecimal.ONE;
+        expResult = BigDecimal.ONE;
+        result = Math_BigDecimal.reciprocal(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("0.1");
+        expResult = new BigDecimal("10");
+        result = Math_BigDecimal.reciprocal(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("0.00000000000000000000001");
+        expResult = new BigDecimal("100000000000000000000000");
+        result = Math_BigDecimal.reciprocal(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigDecimal("1000000000000000000000000.00000000000000000000001");
+        expResult = new BigDecimal("9.99999999999999999999999999999999999999999"
+                + "9999900000000000000000000000000000E-25");
+        result = Math_BigDecimal.reciprocal(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -740,12 +873,24 @@ public class Math_BigDecimalTest {
     @Test
     public void testReciprocalWillBeIntegerReturnBigInteger() {
         System.out.println("reciprocalWillBeIntegerReturnBigInteger");
-        BigDecimal x = null;
-        BigInteger expResult = null;
-        BigInteger result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal x;
+        BigInteger expResult;
+        BigInteger result;
+        // Test 1
+        x = BigDecimal.ONE;
+        expResult = BigInteger.ONE;
+        result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("0.1");
+        expResult = new BigInteger("10");
+        result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("0.00000000000000000000001");
+        expResult = new BigInteger("100000000000000000000000");
+        result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigInteger(x);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -755,12 +900,24 @@ public class Math_BigDecimalTest {
     @Test
     public void testReciprocalWillBeIntegerReturnBigDecimal() {
         System.out.println("reciprocalWillBeIntegerReturnBigDecimal");
-        BigDecimal x = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigDecimal(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal x;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        x = BigDecimal.ONE;
+        expResult = BigDecimal.ONE;
+        result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigDecimal(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("0.1");
+        expResult = new BigDecimal("10");
+        result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigDecimal(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("0.00000000000000000000001");
+        expResult = new BigDecimal("100000000000000000000000");
+        result = Math_BigDecimal.reciprocalWillBeIntegerReturnBigDecimal(x);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -769,15 +926,32 @@ public class Math_BigDecimalTest {
     @Test
     public void testLog_4args_1() {
         System.out.println("log");
-        int b = 0;
-        BigDecimal x = null;
-        int dp = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.log(b, x, dp, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int base;
+        BigDecimal x;
+        int oom;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        base = 10;
+        x = new BigDecimal("10");
+        oom = 10;
+        expResult = new BigDecimal("1");
+        result = Math_BigDecimal.log(base, x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("100");
+        expResult = new BigDecimal("2");
+        result = Math_BigDecimal.log(base, x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        base = 10;
+        x = new BigDecimal("100100.1");
+        oom = 10;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal("5.0004345113");
+        result = Math_BigDecimal.log(base, x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -1329,14 +1503,67 @@ public class Math_BigDecimalTest {
     @Test
     public void testSqrt() {
         System.out.println("sqrt");
-        BigDecimal x = null;
-        int dp = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.sqrt(x, dp, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal x;
+        int oom;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        oom = 0;
+        x = new BigDecimal("25");
+        expResult = BigDecimal.valueOf(5);
+        result = Math_BigDecimal.sqrt(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("100");
+        expResult = new BigDecimal("10");
+        result = Math_BigDecimal.sqrt(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("10000");
+        expResult = new BigDecimal("100");
+        result = Math_BigDecimal.sqrt(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        oom = -1;
+        x = new BigDecimal("0.01");
+        expResult = new BigDecimal("0.1");
+        result = Math_BigDecimal.sqrt(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        oom = -7;
+        x = new BigDecimal("0.00000001");
+        result = Math_BigDecimal.sqrt(x, oom, rm);
+        MathContext mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom, rm);
+        //expResult = BigDecimalMath.sqrt(x, mc);
+        expResult = x.sqrt(mc);
+        //expResult = new BigDecimal("0.0001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        oom = -7;
+        x = new BigDecimal("0.000000001");
+        result = Math_BigDecimal.sqrt(x, oom, rm);
+        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom, rm);
+        //expResult = BigDecimalMath.sqrt(x, mc);
+        expResult = x.sqrt(mc);
+        //expResult = new BigDecimal("0.0000316");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        oom = -5;
+        x = new BigDecimal("2");
+        result = Math_BigDecimal.sqrt(x, oom, rm);
+        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom, rm);
+        //expResult = BigDecimalMath.sqrt(x, mc);
+        expResult = x.sqrt(mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        oom = -100;
+        x = new BigDecimal("2");
+        result = Math_BigDecimal.sqrt(x, oom, rm);
+        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom, rm);
+        //expResult = BigDecimalMath.sqrt(x, mc);
+        expResult = x.sqrt(mc);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -2191,42 +2418,42 @@ public class Math_BigDecimalTest {
         //System.out.println(result);
         //System.out.println(expResult);
         assertTrue(expResult.compareTo(result) == 0);
-        // Test 7
-        x = new BigDecimal("3000");
-        result = bd.ln(x, oom, rm);
-        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
-        expResult = BigDecimalMath.log(x, mc);
-        //expResult = new BigDecimal("");
-        //System.out.println(result);
-        //System.out.println(expResult);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 8
-        x = new BigDecimal("300000");
-        result = bd.ln(x, oom, rm);
-        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
-        expResult = BigDecimalMath.log(x, mc);
-        //expResult = new BigDecimal("");
-        System.out.println(result);
-        System.out.println(expResult);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 9
-        x = new BigDecimal("300000000000");
-        result = bd.ln(x, oom, rm);
-        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
-        expResult = BigDecimalMath.log(x, mc);
-        //expResult = new BigDecimal("");
-        System.out.println(result);
-        System.out.println(expResult);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 10
-        x = new BigDecimal("30000000000000000000");
-        result = bd.ln(x, oom, rm);
-        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
-        expResult = BigDecimalMath.log(x, mc);
-        //expResult = new BigDecimal("");
-        System.out.println(result);
-        System.out.println(expResult);
-        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 7
+//        x = new BigDecimal("3000");
+//        result = bd.ln(x, oom, rm);
+//        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
+//        expResult = BigDecimalMath.log(x, mc);
+//        //expResult = new BigDecimal("");
+//        //System.out.println(result);
+//        //System.out.println(expResult);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 8
+//        x = new BigDecimal("300000");
+//        result = bd.ln(x, oom, rm);
+//        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
+//        expResult = BigDecimalMath.log(x, mc);
+//        //expResult = new BigDecimal("");
+//        System.out.println(result);
+//        System.out.println(expResult);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 9
+//        x = new BigDecimal("300000000000");
+//        result = bd.ln(x, oom, rm);
+//        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
+//        expResult = BigDecimalMath.log(x, mc);
+//        //expResult = new BigDecimal("");
+//        System.out.println(result);
+//        System.out.println(expResult);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 10
+//        x = new BigDecimal("30000000000000000000");
+//        result = bd.ln(x, oom, rm);
+//        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
+//        expResult = BigDecimalMath.log(x, mc);
+//        //expResult = new BigDecimal("");
+//        System.out.println(result);
+//        System.out.println(expResult);
+//        assertTrue(expResult.compareTo(result) == 0);
         // Test 6
         oom = -100;
         x = new BigDecimal("0.5");
@@ -2662,7 +2889,7 @@ public class Math_BigDecimalTest {
         expResult = Math_BigDecimal.multiply(x, y, oom, rm);
         result = Math_BigDecimal.multiplyPriorRound(x, y, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
-        // Case 4: x >= 1, y < 1
+        // Case 4: x >= 1, y >= 1
         y = new BigDecimal("9900990099.0009999999994999999");
         x = new BigDecimal("9900990099.0009999999994999999");
         // Test 1
