@@ -196,6 +196,129 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
+     * Calculate and return {@code x} add {@code y} rounding to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * @param rm The {@link RoundingMode} used to round the final result if
+     * rounding is necessary.
+     * @return x add y rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
+     */
+    public static BigInteger add(BigInteger x, BigInteger y, int oom,
+            RoundingMode rm) {
+        return round(x.add(y), oom, rm);
+    }
+    
+    /**
+     * Calculate and return {@code x} add {@code y} rounding to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * @return x add y rounding to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
+     */
+    public static BigInteger add(BigInteger x, BigInteger y, int oom) {
+        return multiply(x, y, oom, RoundingMode.HALF_UP);
+    }
+    
+    /**
+     * Calculate and return {@code x} add {@code y} ({@code x*y})
+     * rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) {@code oom} using the
+     * {@link RoundingMode} {@code rm}. This method is appropriate when
+     * {@code x} and/or {@code y} are large and detailed, and the precision of 
+     * the result required is at an order of magnitude that is less detailed...
+     * If the OOM of the least most significant digits of {@code x} and
+     * {@code y} are close to {@code oom} then it may be
+     * computationally advantageous to simply use
+     * {@link #add(java.math.BigInteger, java.math.BigInteger, int)}.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * @param rm The {@link RoundingMode} used to round the final result if
+     * rounding is necessary.
+     * @return x multiplied by y rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
+     */
+    public static BigInteger addPriorRound(BigInteger x, BigInteger y,
+            int oom, RoundingMode rm) {
+        BigInteger xr = round(x, oom - 3, RoundingMode.DOWN);
+        BigInteger yr = round(x, oom - 3, RoundingMode.DOWN);
+        return add(xr, yr, oom, rm);
+    }
+
+    /**
+     * Calculate and return {@code x} add {@code y} ({@code x*y})
+     * rounded to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This method is appropriate when
+     * {@code x} and/or {@code y} are large and detailed, and the precision of 
+     * the result required is at an order of magnitude that is less detailed...
+     * If the OOM of the least most significant digits of {@code x} and
+     * {@code y} are close to {@code oom} then it may be
+     * computationally advantageous to simply use
+     * {@link #add(java.math.BigInteger, java.math.BigInteger, int)}.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to if rounding is needed.
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
+     * @return {@code x*y}
+     */
+    public static BigInteger addPriorRound(BigInteger x, BigInteger y, int oom) {
+        return addPriorRound(x, y, oom, RoundingMode.HALF_UP);
+    }
+    
+    /**
      * Calculate and return {@code x} multiplied by {@code y} rounding to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.

@@ -510,15 +510,45 @@ public class Math_BigDecimalTest {
     @Test
     public void testPower_4args_1() {
         System.out.println("power");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int dp = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.power(x, y, dp, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal x;
+        BigDecimal y;
+        int oom = -100;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        x = new BigDecimal("5.1");
+        y = new BigDecimal("0.0122");
+        expResult = new BigDecimal(
+                "1.020075592235233496296126665026067483207748617172583488021310"
+                + "8734138226078100585587805435645098947068");
+        result = Math_BigDecimal.power(x, y, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+//// Test taking too long!
+//        x = new BigDecimal("5.1");
+//        y = new BigDecimal("0.000122");
+//        expResult = new BigDecimal(
+//                "1.000198787101384878642452720694744868971170929418775037222019"
+//                + "2032254156701221277775377001688988217835");
+//        result = Math_BigDecimal.power(x, y, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 3
+//        x = new BigDecimal("5.1");
+//        y = new BigDecimal("-0.000122");
+//        expResult = new BigDecimal(
+//                "0.999801252407073026532411361647635459308346680589674812109435"
+//                + "6355033399665871513258400090997521879138");
+//        result = Math_BigDecimal.power(x, y, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 4
+//        x = new BigDecimal("5.1");
+//        y = new BigDecimal("-0.000122");
+//        expResult = new BigDecimal(
+//                "0.999801252407073026532411361647635459308346680589674812109435"
+//                + "6355033399665871513258400090997521879138");
+//        result = Math_BigDecimal.power(x, y, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -542,14 +572,14 @@ public class Math_BigDecimalTest {
         y = 20;
         expResult = new BigDecimal("141710986707530.43575626125424226001");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 3
         x = new BigDecimal("5.10");
         y = 20;
         expResult = new BigDecimal(
                 "141710986707530.4357562612542422600100000000000000000000");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 4
         x = new BigDecimal("5.10000000000000000000000000000000000000000000001");
         y = 20;
@@ -571,55 +601,55 @@ public class Math_BigDecimalTest {
                 + "000000000000000049419000000000000000000000000000000000000000"
                 + "000010200000000000000000000000000000000000000000000001");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 5
         x = new BigDecimal("5.2");
         y = 2;
         expResult = new BigDecimal("27.04");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 6
         x = new BigDecimal("5.3");
         y = 2;
         expResult = new BigDecimal("28.09");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 7
         x = new BigDecimal("5.4");
         y = 2;
         expResult = new BigDecimal("29.16");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 8
         x = new BigDecimal("5.5");
         y = 2;
         expResult = new BigDecimal("30.25");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 9
         x = new BigDecimal("5.6");
         y = 2;
         expResult = new BigDecimal("31.36");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 10
         x = new BigDecimal("5.7");
         y = 2;
         expResult = new BigDecimal("32.49");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 11
         x = new BigDecimal("5.8");
         y = 2;
         expResult = new BigDecimal("33.64");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 12
         x = new BigDecimal("5.9");
         y = 2;
         expResult = new BigDecimal("34.81");
         result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -648,13 +678,107 @@ public class Math_BigDecimalTest {
         BigDecimal x = null;
         int y = 0;
         int div = 0;
-        int dp = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.power(x, y, div, dp, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int oom = 0;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        oom = -10;
+        x = new BigDecimal("5.1");
+        y = 13;
+        div = 8;
+        expResult = new BigDecimal("1579109656.3156692196");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("5.1");
+        y = 13;
+        div = 12;
+        expResult = new BigDecimal("1579109656.3156692196");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("5.1");
+        y = 117;
+        div = 8;
+        expResult = new BigDecimal(
+                "61053505308866480538551405717028781301447815633741042337063285"
+                + "637565296816330773386.1309180477");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigDecimal("3.14159265");
+        y = 10;
+        div = 3;
+        expResult = new BigDecimal("93648.0464059980");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        oom = -20;
+        x = new BigDecimal("3.14159265");
+        y = 10;
+        div = 3;
+        expResult = new BigDecimal("93648.04640599799415742896");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        oom = -30;
+        x = new BigDecimal("3.14159265");
+        y = 10;
+        div = 3;
+        expResult = new BigDecimal("93648.046405997994157428955669854799");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        x = new BigDecimal("3");
+        y = -10;
+        div = 3;
+        expResult = new BigDecimal("0.000016935087808430286711036597");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        oom = -40;
+        x = new BigDecimal("3");
+        y = -10;
+        div = 3;
+        expResult = new BigDecimal(
+                "0.0000169350878084302867110365967247540178");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        rm = RoundingMode.HALF_UP;
+        oom = -40;
+        x = new BigDecimal("3.00001");
+        y = -10;
+        div = 3;
+        expResult = new BigDecimal("0.0000169345233158524213740774680469856220");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 10
+        oom = -130;
+        x = new BigDecimal("3.00001");
+        y = -178;
+        div = 3;
+        expResult = new BigDecimal("1.180752785902410385735038642706422321146970536E-85");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 11
+        oom = -30;
+        x = new BigDecimal("0.1");
+        y = -10;
+        div = 3;
+        expResult = new BigDecimal("10000000000");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 12
+        oom = -100;
+        x = new BigDecimal("0.99999999999999998");
+        y = -678;
+        div = 3;
+        expResult = new BigDecimal("1.00000000000001356000000000009207240000000"
+                + "04173948800000014212295664000038771142571392088268967920869");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -1326,15 +1450,15 @@ public class Math_BigDecimalTest {
         MathContext mc;
         BigDecimal expResult;
         BigDecimal result;
-//        // Test 1
-//        x = new BigDecimal("0.25");
-//        root = new BigInteger("42");
+        // Test 1
+        x = new BigDecimal("0.25");
+        root = new BigInteger("42");
         oom = -10;
-//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
-//        //expResult = new BigDecimal("0.9675317785");
-//        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result), rm);
-//        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-//        assertTrue(expResult.compareTo(result) == 0);
+        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
+        //expResult = new BigDecimal("0.9675317785");
+        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1, rm);
+        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         x = new BigDecimal("27");
         root = new BigInteger("3");
@@ -1345,7 +1469,7 @@ public class Math_BigDecimalTest {
         x = new BigDecimal("8904831940328.25");
         root = new BigInteger("10");
         result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
-        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result), rm);
+        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1, rm);
         expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
         //expResult = Math_BigDecimal.round(expResult, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
@@ -1353,71 +1477,66 @@ public class Math_BigDecimalTest {
         x = new BigDecimal("8904831940328.25");
         root = new BigInteger("100");
         result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
-        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result), rm);
+        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1, rm);
         expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 5 BigDecimalMath not returning a result in a reasonable time frame, but this does work!
         x = new BigDecimal("8904831940328.25");
         root = new BigInteger("500");
         result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
-        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result), rm);
+        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1, rm);
         expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
         assertTrue(expResult.compareTo(result) == 0);
-        // Test 6 BigDecimalMath not returning a result in a reasonable time frame!
-        x = new BigDecimal("8904831940328.25");
-        root = new BigInteger("1000");
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
-        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result), rm);
-        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 6 BigDecimalMath not returning a result in a reasonable time frame!
+//        x = new BigDecimal("8904831940328.25");
+//        root = new BigInteger("1000");
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
+//        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1, rm);
+//        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
+//        assertTrue(expResult.compareTo(result) == 0);
 //        // Test 7 BigDecimalMath not returning a result in a reasonable time frame!
-//        test++;
 //        x = new BigDecimal("8904831940328.25");
 //        root = new BigInteger("5000");
-//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
-//        mc = new MathContext(dp + result.precision() - result.scale(), rm);
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
+//        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1, rm);
 //        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-//        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-//        printFunctionTest(funcName, test, x, root, dp, rm, result);
 //        assertTrue(expResult.compareTo(result) == 0);
-        // Test 8 BigDecimalMath not returning a result in a reasonable time frame!
-        x = new BigDecimal("8904831940328.25");
-        root = new BigInteger("100023");
-//        expResult = new BigDecimal(
-//                "1.000298152025337254460647917046876546344432360719824792024188"
-//                + "0690659179835221951205476639783947640616");
-        expResult = new BigDecimal(
-                "1.030266611805795804264489192073413848983672673402710033743761"
-                + "0861616065195695465518119883185542521350");
-//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, dp, rm);
-//        mc = new MathContext(dp + result.precision() - result.scale(), rm);
+//        // Test 8 BigDecimalMath not returning a result in a reasonable time frame!
+//        x = new BigDecimal("8904831940328.25");
+//        root = new BigInteger("100023");
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
+//        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1, rm);
 //        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
-//        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 9
-        x = new BigDecimal("0.25");
-        root = new BigInteger("100023");
-        expResult = new BigDecimal(
-                "0.999986140340178623210350534074937443141133112706862977788610"
-                + "0664594081621639848435662325435814102018");
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 10
-        x = new BigDecimal("0.999");
-        root = new BigInteger("100023");
-        expResult = new BigDecimal(
-                "0.999999989997297335815964171495970213458904791728888003317236"
-                + "9473900240303824000659869633098129663322");
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 11
-        x = new BigDecimal("89048.25");
-        root = new BigInteger("100023");
-        expResult = new BigDecimal(
-                "1.000113949621211600391921935699344997726967851095980198127275"
-                + "8749782805563101995300728186461240097898");
-        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 9 BigDecimalMath not returning a result in a reasonable time frame!
+//        x = new BigDecimal("0.25");
+//        root = new BigInteger("100023");
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
+//        mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1, rm);
+//        expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 10
+//This test currently seems to get stuck. At least it does not return an answer 
+//in a reasonable time frame.
+//        x = new BigDecimal("0.999");
+//        root = new BigInteger("100023");
+//        expResult = new BigDecimal(
+//                "0.999999989997297335815964171495970213458904791728888003317236"
+//                + "9473900240303824000659869633098129663322");
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
+//        //mc = new MathContext(-oom + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1, rm);
+//        //expResult = BigDecimalMath.root(x, new BigDecimal(root), mc);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 11
+//This test currently seems to get stuck. At least it does not return an answer 
+//in a reasonable time frame.
+//        x = new BigDecimal("89048.25");
+//        root = new BigInteger("100023");
+//        expResult = new BigDecimal(
+//                "1.000113949621211600391921935699344997726967851095980198127275"
+//                + "8749782805563101995300728186461240097898");
+//        result = Math_BigDecimal.rootRoundIfNecessary(x, root, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
 //This test currently seems to get stuck. At least it does not return an answer 
 //in a reasonable time frame.
 //        // Test 12
@@ -2418,42 +2537,42 @@ public class Math_BigDecimalTest {
         //System.out.println(result);
         //System.out.println(expResult);
         assertTrue(expResult.compareTo(result) == 0);
-//        // Test 7
-//        x = new BigDecimal("3000");
-//        result = bd.ln(x, oom, rm);
-//        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
-//        expResult = BigDecimalMath.log(x, mc);
-//        //expResult = new BigDecimal("");
-//        //System.out.println(result);
-//        //System.out.println(expResult);
-//        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 8
-//        x = new BigDecimal("300000");
-//        result = bd.ln(x, oom, rm);
-//        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
-//        expResult = BigDecimalMath.log(x, mc);
-//        //expResult = new BigDecimal("");
-//        System.out.println(result);
-//        System.out.println(expResult);
-//        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 9
-//        x = new BigDecimal("300000000000");
-//        result = bd.ln(x, oom, rm);
-//        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
-//        expResult = BigDecimalMath.log(x, mc);
-//        //expResult = new BigDecimal("");
-//        System.out.println(result);
-//        System.out.println(expResult);
-//        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 10
-//        x = new BigDecimal("30000000000000000000");
-//        result = bd.ln(x, oom, rm);
-//        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
-//        expResult = BigDecimalMath.log(x, mc);
-//        //expResult = new BigDecimal("");
-//        System.out.println(result);
-//        System.out.println(expResult);
-//        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        x = new BigDecimal("3000");
+        result = bd.ln(x, oom, rm);
+        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
+        expResult = BigDecimalMath.log(x, mc);
+        //expResult = new BigDecimal("");
+        //System.out.println(result);
+        //System.out.println(expResult);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        x = new BigDecimal("300000");
+        result = bd.ln(x, oom, rm);
+        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
+        expResult = BigDecimalMath.log(x, mc);
+        //expResult = new BigDecimal("");
+        System.out.println(result);
+        System.out.println(expResult);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        x = new BigDecimal("300000000000");
+        result = bd.ln(x, oom, rm);
+        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
+        expResult = BigDecimalMath.log(x, mc);
+        //expResult = new BigDecimal("");
+        System.out.println(result);
+        System.out.println(expResult);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 10
+        x = new BigDecimal("30000000000000000000");
+        result = bd.ln(x, oom, rm);
+        mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom);
+        expResult = BigDecimalMath.log(x, mc);
+        //expResult = new BigDecimal("");
+        System.out.println(result);
+        System.out.println(expResult);
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 6
         oom = -100;
         x = new BigDecimal("0.5");
