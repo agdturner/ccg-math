@@ -245,7 +245,7 @@ public class Math_BigInteger extends Math_Number {
      * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
      */
     public static BigInteger add(BigInteger x, BigInteger y, int oom) {
-        return multiply(x, y, oom, RoundingMode.HALF_UP);
+        return add(x, y, oom, RoundingMode.HALF_UP);
     }
     
     /**
@@ -282,7 +282,7 @@ public class Math_BigInteger extends Math_Number {
     public static BigInteger addPriorRound(BigInteger x, BigInteger y,
             int oom, RoundingMode rm) {
         BigInteger xr = round(x, oom - 3, RoundingMode.DOWN);
-        BigInteger yr = round(x, oom - 3, RoundingMode.DOWN);
+        BigInteger yr = round(y, oom - 3, RoundingMode.DOWN);
         return add(xr, yr, oom, rm);
     }
 

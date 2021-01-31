@@ -570,6 +570,58 @@ public class Math_BigIntegerTest {
     }
 
     /**
+     * Test of getOrderOfMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
+     */
+    @Test
+    public void testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger() {
+        System.out.println("getOrderOfMagnitudeOfSmallestNonZeroDigit");
+        BigInteger x = BigInteger.valueOf(123456789);
+        int expResult = 0;
+        int result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
+        // Test 2
+        x = BigInteger.valueOf(-123456789);
+        expResult = 0;
+        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
+        // Test 3
+        x = new BigInteger("123456789000000000000000000000");
+        expResult = 21;
+        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
+        // Test 4
+        x = new BigInteger("-123456789000000000000000000000");
+        expResult = 21;
+        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
+        // Test 5
+        x = BigInteger.ZERO;
+        expResult = 0;
+        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of round method, of class Math_BigInteger.
+     * Test covered by {@link #testRound_3args()}.
+     */
+    @Test
+    public void testRound_BigInteger_int() {
+        System.out.println("round");
+        // No test.
+    }
+
+    /**
+     * Test of getOrderOfMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
+     * Test covered by {@link #testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger()}
+     */
+    @Test
+    public void testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger_int() {
+        System.out.println("getOrderOfMagnitudeOfSmallestNonZeroDigit");
+        // No test.
+    }
+
+    /**
      * Test of multiplyPriorRound method, of class Math_BigInteger.
      */
     @Test
@@ -633,59 +685,7 @@ public class Math_BigIntegerTest {
         result = Math_BigInteger.multiplyPriorRound(x, y, oom);
         assertTrue(expResult.compareTo(result) == 0);
     }
-
-    /**
-     * Test of getOrderOfMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
-     */
-    @Test
-    public void testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger() {
-        System.out.println("getOrderOfMagnitudeOfSmallestNonZeroDigit");
-        BigInteger x = BigInteger.valueOf(123456789);
-        int expResult = 0;
-        int result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
-        assertEquals(expResult, result);
-        // Test 2
-        x = BigInteger.valueOf(-123456789);
-        expResult = 0;
-        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
-        assertEquals(expResult, result);
-        // Test 3
-        x = new BigInteger("123456789000000000000000000000");
-        expResult = 21;
-        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
-        assertEquals(expResult, result);
-        // Test 4
-        x = new BigInteger("-123456789000000000000000000000");
-        expResult = 21;
-        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
-        assertEquals(expResult, result);
-        // Test 5
-        x = BigInteger.ZERO;
-        expResult = 0;
-        result = Math_BigInteger.getOrderOfMagnitudeOfSmallestNonZeroDigit(x);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of round method, of class Math_BigInteger.
-     * Test covered by {@link #testRound_3args()}.
-     */
-    @Test
-    public void testRound_BigInteger_int() {
-        System.out.println("round");
-        // No test.
-    }
-
-    /**
-     * Test of getOrderOfMagnitudeOfSmallestNonZeroDigit method, of class Math_BigInteger.
-     * Test covered by {@link #testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger()}
-     */
-    @Test
-    public void testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger_int() {
-        System.out.println("getOrderOfMagnitudeOfSmallestNonZeroDigit");
-        // No test.
-    }
-
+    
     /**
      * Test of multiply method, of class Math_BigInteger.
      * Test covered by {@link #testMultiply_3args()}.
@@ -706,5 +706,52 @@ public class Math_BigIntegerTest {
         // Not test.
     }
 
+    /**
+     * Test of multiplyPriorRound method, of class Math_BigInteger.
+     */
+    @Test
+    public void testAddPriorRound_3args() {
+        System.out.println("aaPriorRound");
+        System.out.println("multiply");
+        BigInteger x = null;
+        BigInteger y = null;
+        int oom = 9;
+        BigInteger expResult;
+        BigInteger result;
+        // Test 1
+        x = new BigInteger("123456789000000000000000000000");
+        y = new BigInteger("12345678900000000");
+        //System.out.println(x.add(y));
+        expResult = Math_BigInteger.add(x, y, oom);
+        //System.out.println(expResult);
+        result = Math_BigInteger.addPriorRound(x, y, oom);
+        //System.out.println(result);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        oom = 10;
+        //System.out.println(x.add(y));
+        expResult = Math_BigInteger.add(x, y, oom);
+        //System.out.println(expResult);
+        result = Math_BigInteger.addPriorRound(x, y, oom);
+        //System.out.println(result);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigInteger("123456789123456789123456789");
+        y = new BigInteger("123456789123456789");
+        //System.out.println(x.add(y));
+        expResult = Math_BigInteger.add(x, y, oom);
+        //System.out.println(expResult);
+        result = Math_BigInteger.addPriorRound(x, y, oom);
+        //System.out.println(result);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        oom = 0;
+        //System.out.println(x.add(y));
+        expResult = Math_BigInteger.add(x, y, oom);
+        //System.out.println(expResult);
+        result = Math_BigInteger.addPriorRound(x, y, oom);
+        //System.out.println(result);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
 
 }
