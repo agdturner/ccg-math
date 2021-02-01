@@ -747,7 +747,7 @@ public class Math_BigDecimal extends Math_Number {
                 return multiplyPriorRoundXLT1YGT1(y, ym, x, xm, oom, rm);
             } else {
                 // Case 1
-                return multiplyPriorRoundXLT1YLT1(x, y, oom, rm);
+                return multiplyPriorRoundXLT1YLT1(x, xm, y, ym, oom, rm);
             }
         }
     }
@@ -759,6 +759,7 @@ public class Math_BigDecimal extends Math_Number {
      * Magnitude</a> (OOM) {@code oom} using the
      * {@link RoundingMode} {@code rm}.
      * @param x A number to multiply {@code x < 1}.
+     * @param xm {@link #getOrderOfMagnitudeOfMostSignificantDigit(java.math.BigDecimal)} of {@code x}.
      * @param y A number to multiply {@code y < 1}.
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
@@ -770,16 +771,15 @@ public class Math_BigDecimal extends Math_Number {
      * <li>...</li>
      * </ul>
      * the result is rounded to if rounding is needed.
+     * @param ym {@link #getOrderOfMagnitudeOfMostSignificantDigit(java.math.BigDecimal)} of {@code y}.
      * @param rm The {@link RoundingMode} used to round the result.
      * @return ({@code x*y}) rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
      * {@code oom} using the {@link RoundingMode} {@code rm}.
      */
-    public static BigDecimal multiplyPriorRoundXLT1YLT1(BigDecimal x,
-            BigDecimal y, int oom, RoundingMode rm) {
-        int s = x.scale();
-        int xm = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, s);
-        int ym = getOrderOfMagnitudeOfMostSignificantDigit(y);
+    public static BigDecimal multiplyPriorRoundXLT1YLT1(BigDecimal x, int xm,
+            BigDecimal y, int ym, int oom, RoundingMode rm) {
+        //int xs = x.scale();
         BigDecimal xr;
         if (xm + 1 >= oom) {
             xr = Math_BigDecimal.round(x, oom + ym, rm);
@@ -820,8 +820,10 @@ public class Math_BigDecimal extends Math_Number {
      * Magnitude</a> (OOM) {@code oom} using the
      * {@link RoundingMode} {@code rm}.
      * @param x A number to multiply {@code x < 1}.
-     * @param y A number to multiply {@code y > 1}.
-     * @param oom The
+          * @param xm {@link #getOrderOfMagnitudeOfMostSignificantDigit(java.math.BigDecimal)} of {@code x}.
+* @param y A number to multiply {@code y > 1}.
+        * @param ym {@link #getOrderOfMagnitudeOfMostSignificantDigit(java.math.BigDecimal)} of {@code y}.
+  * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
      * <ul>
      * <li>...</li>
@@ -836,7 +838,7 @@ public class Math_BigDecimal extends Math_Number {
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
      * {@code oom} using the {@link RoundingMode} {@code rm}.
      */
-    private static BigDecimal multiplyPriorRoundXLT1YGT1(BigDecimal x,
+    public static BigDecimal multiplyPriorRoundXLT1YGT1(BigDecimal x,
             int xm, BigDecimal y, int ym, int oom, RoundingMode rm) {
         BigDecimal xr;
         if (xm + 1 >= oom) {
