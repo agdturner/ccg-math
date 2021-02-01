@@ -33,12 +33,12 @@ public class Math_Float extends Math_Number {
      * {@code Float.toString(Float.NaN)}.
      */
     public static final String SFNAN = Float.toString(Float.NaN);
-    
+
     /**
      * The number {@code Float.POSITIVE_INFINITY} for convenience.
      */
     public static final String POSITIVE_INFINITY = Float.toString(Float.POSITIVE_INFINITY);
-    
+
     /**
      * The number {@code Float.NEGATIVE_INFINITY} for convenience.
      */
@@ -159,12 +159,11 @@ public class Math_Float extends Math_Number {
 
     /**
      * @param x Number to be rounded up to the nearest int.
-     * @return An {@code int} which is equal to {@code x} rounded up to the 
+     * @return An {@code int} which is equal to {@code x} rounded up to the
      * nearest {@code int}.
      */
     public static int roundUpToNearestInt(float x) {
-        int r = Math_BigDecimal.roundStrippingTrailingZeros(
-                new BigDecimal(x), 0, RoundingMode.UP).intValue();
+        int r = Math_BigDecimal.round(new BigDecimal(x), 0, RoundingMode.UP).intValueExact();
         return r;
     }
 

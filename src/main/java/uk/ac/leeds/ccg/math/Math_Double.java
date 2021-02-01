@@ -182,7 +182,7 @@ public class Math_Double extends Math_Number {
      * @return d rounded up to the nearest int
      */
     public static int roundUpToNearestInt(double x) {
-        int r = Math_BigDecimal.roundStrippingTrailingZeros(
+        int r = Math_BigDecimal.round(
                 new BigDecimal(x), 0, RoundingMode.UP).intValue();
         return r;
     }

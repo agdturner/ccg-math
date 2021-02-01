@@ -126,7 +126,6 @@ public class Math_BigInteger extends Math_Number {
      * @return The largest OOM digit of {@code x}.
      */
     public static int getOrderOfMagnitudeOfMostSignificantDigit(BigInteger x) {
-        //return x.abs().toString().length();
         int xs = x.signum();
         switch (xs) {
             case -1:
