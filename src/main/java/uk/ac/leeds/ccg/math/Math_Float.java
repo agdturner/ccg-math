@@ -112,22 +112,32 @@ public class Math_Float extends Math_Number {
     }
 
     /**
-     * For testing if {@code s} can be parsed as a {@code float} and is precise
-     * to {@code dp} decimal places.
+    * For testing if s can be parsed as a {@code float} accurate to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) {@code oom} using RoundingMode {@code rm}.
      *
      * @param s The String to be tested as to whether it can be represented as a
-     * {@code float}.
-     * @param dp The number of decimal places the result must be accurate to.
+     * double.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
      * @return {@code true} iff {@code s} can be represented as a {@code float}.
      */
-    public static boolean isFloat(String s, int dp) {
+    public static boolean isFloat(String s, int oom) {
         try {
             float x = Float.parseFloat(s);
             BigDecimal bds = new BigDecimal(s);
             BigDecimal bdd = new BigDecimal(x);
             RoundingMode rm = RoundingMode.HALF_UP;
-            BigDecimal bdsr = Math_BigDecimal.roundIfNecessary(bds, dp, rm);
-            BigDecimal bddr = Math_BigDecimal.roundIfNecessary(bdd, dp, rm);
+            BigDecimal bdsr = Math_BigDecimal.round(bds, oom, rm);
+            BigDecimal bddr = Math_BigDecimal.round(bdd, oom, rm);
             return bdsr.compareTo(bddr) == 0;
         } catch (NumberFormatException e) {
             return isFloat(s);

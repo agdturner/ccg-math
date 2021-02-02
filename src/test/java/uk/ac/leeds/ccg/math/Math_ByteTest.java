@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Andy Turner
  * @version 1.0.0
  */
-public class Math_ByteTest extends Math_Test {
+public class Math_ByteTest {
     
     public Math_ByteTest() {
     }
@@ -53,19 +53,15 @@ public class Math_ByteTest extends Math_Test {
         System.out.println("Test " + funcName);
         boolean result;
         // Test 1
-        int test = 1;
         String s;
         byte x = Byte.MIN_VALUE;
         s = Byte.toString(x);
         result = Math_Byte.isByte(s);
-        printFunctionTest(funcName, test, x, result);
         assertFalse(result);
         // Test 2
-        test ++;
         x += 1;
         s = Byte.toString(x);
         result = Math_Byte.isByte(s);
-        printFunctionTest(funcName, test, x, result);
         assertTrue(result);
     }
     

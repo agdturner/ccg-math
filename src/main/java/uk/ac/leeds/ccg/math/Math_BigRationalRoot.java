@@ -241,7 +241,7 @@ public class Math_BigRationalRoot implements Serializable, Comparable<Math_BigRa
                 MC mcs = new MC(mps);
                 x.toBigDecimal(mcs.mcp6).sqrt(mcs.mc);
                 // Change the following
-                rootxapprox = Math_BigDecimal.rootRoundIfNecessary(
+                rootxapprox = Math_BigDecimal.root(
                         x.toBigDecimal(mcs.mcp6), n, mps, RoundingMode.HALF_UP);
             } else {
                 if (this.mps < mps) {

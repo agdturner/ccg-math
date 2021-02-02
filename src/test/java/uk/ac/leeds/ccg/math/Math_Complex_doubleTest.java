@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Andy Turner
  * @version 1.0.0
  */
-public class Math_Complex_doubleTest extends Math_Test {
+public class Math_Complex_doubleTest {
 
     public Math_Complex_doubleTest() {
     }
@@ -47,31 +47,6 @@ public class Math_Complex_doubleTest extends Math_Test {
     public void tearDown() {
     }
 
-    public void printTestAndC0(int test, Math_Complex_double c0) {
-        printTest(test);
-        System.out.println("c0 " + c0);
-    }
-
-    public void printFunctionTest(String funcName, int test,
-            Math_Complex_double c0, double result) {
-        printTestAndC0(test, c0);
-        System.out.println(funcName + "(c0) " + result);
-    }
-
-    public void printFunctionTest(String funcName, int test,
-            Math_Complex_double c0, Math_Complex_double result) {
-        printTestAndC0(test, c0);
-        System.out.println(funcName + "(c0,c1) " + result);
-    }
-
-    public void printFunctionTest(String funcName, int test,
-            Math_Complex_double c0, Math_Complex_double c1,
-            Math_Complex_double result) {
-        printTestAndC0(test, c0);
-        System.out.println("c1 " + c1);
-        System.out.println(funcName + "(c0,c1) " + result);
-    }
-
     @Test
     public void testAdd() {
         String funcName = "add";
@@ -81,12 +56,10 @@ public class Math_Complex_doubleTest extends Math_Test {
         Math_Complex_double c0;
         Math_Complex_double c1;
         // Test 1
-        int test = 1;
         c0 = new Math_Complex_double(2.0, 3.0);
         c1 = new Math_Complex_double(-3.0, 2.0);
         result = c0.add(c1);
         expResult = new Math_Complex_double(-1, 5);
-        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expResult, result);
     }
 
@@ -99,12 +72,10 @@ public class Math_Complex_doubleTest extends Math_Test {
         Math_Complex_double c0;
         Math_Complex_double c1;
         // Test 1
-        int test = 1;
         c0 = new Math_Complex_double(2.0, 3.0);
         c1 = new Math_Complex_double(-3.0, 2.0);
         result = c0.subtract(c1);
         expResult = new Math_Complex_double(5, 1);
-        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expResult, result);
     }
 
@@ -123,7 +94,6 @@ public class Math_Complex_doubleTest extends Math_Test {
         double expImaginary;
         double delta;
         // Test 1
-        int test = 1;
         delta = 0.0000001d;
         c0 = new Math_Complex_double(2.0, 3.0);
         c1 = new Math_Complex_double(-3.0, 2.0);
@@ -131,7 +101,6 @@ public class Math_Complex_doubleTest extends Math_Test {
         expResult = new Math_Complex_double(-12, -5);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
     }
@@ -147,11 +116,9 @@ public class Math_Complex_doubleTest extends Math_Test {
         double expResult;
         double result;
         // Test 1
-        int test = 1;
         c0 = new Math_Complex_double(2, 5);
         expResult = Math.sqrt(29.0d);
         result = c0.magnitude();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
     }
 
@@ -166,32 +133,24 @@ public class Math_Complex_doubleTest extends Math_Test {
         double expResult;
         double result;
         // Test 1
-        int test = 1;
         c0 = new Math_Complex_double(1, 1);
         expResult = Math.PI / 4.0d;
         result = c0.phase();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
         // Test 2
-        test++;
         c0 = new Math_Complex_double(1, -1);
         expResult = -Math.PI / 4.0d;
         result = c0.phase();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
         // Test 3
-        test++;
         c0 = new Math_Complex_double(1, 0);
         expResult = 0.0d;
         result = c0.phase();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
         // Test 4
-        test++;
         c0 = new Math_Complex_double(0, 1);
         expResult = Math.PI / 2.0d;
         result = c0.phase();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result, 0.0);
     }
 
@@ -210,7 +169,6 @@ public class Math_Complex_doubleTest extends Math_Test {
         double expImaginary;
         double delta;
         // Test 1
-        int test = 1;
         c0 = new Math_Complex_double(1, 1);
         c1 = new Math_Complex_double(1, 0);
         result = c0.divide(c1);
@@ -218,11 +176,9 @@ public class Math_Complex_doubleTest extends Math_Test {
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
         delta = 0.0000001d;
-        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 2
-        test++;
         c0 = new Math_Complex_double(3, 2);
         c1 = new Math_Complex_double(4, -3);
         result = c0.divide(c1);
@@ -230,11 +186,9 @@ public class Math_Complex_doubleTest extends Math_Test {
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
         delta = 0.0000001d;
-        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 3
-        test++;
         c0 = new Math_Complex_double(4, 5);
         c1 = new Math_Complex_double(2, 6);
         result = c0.divide(c1);
@@ -242,11 +196,9 @@ public class Math_Complex_doubleTest extends Math_Test {
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
         delta = 0.0000001d;
-        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 4
-        test++;
         c0 = new Math_Complex_double(2, -1);
         c1 = new Math_Complex_double(-3, 6);
         result = c0.divide(c1);
@@ -254,7 +206,6 @@ public class Math_Complex_doubleTest extends Math_Test {
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
         delta = 0.0000001d;
-        printFunctionTest(funcName, test, c0, c1, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
     }
@@ -270,10 +221,8 @@ public class Math_Complex_doubleTest extends Math_Test {
         Math_Complex_double expResult;
         Math_Complex_double result;
         // Test 1
-        int test = 1;
         c0 = new Math_Complex_double(1, 1);
         result = c0.conjugate();
-        printFunctionTest(funcName, test, c0, result);
         expResult = new Math_Complex_double(1, -1);
         assertEquals(expResult, result);
     }
@@ -290,83 +239,67 @@ public class Math_Complex_doubleTest extends Math_Test {
         double delta;
         delta = 0.000001d;
         // Test 1
-        int test = 1;
         c0 = new Math_Complex_double(1d, 1d);
         result = c0.reciprocal();
         expResult = new Math_Complex_double(0.5d, -0.5d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 2
-        test++;
         c0 = new Math_Complex_double(-1d, -1d);
         result = c0.reciprocal();
         expResult = new Math_Complex_double(-0.5d, 0.5d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 3
-        test++;
         c0 = new Math_Complex_double(1d, -1d);
         result = c0.reciprocal();
         expResult = new Math_Complex_double(0.5d, 0.5d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 4
-        test++;
         c0 = new Math_Complex_double(-1d, 1d);
         result = c0.reciprocal();
         expResult = new Math_Complex_double(-0.5d, -0.5d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 5
-        test++;
         c0 = new Math_Complex_double(0.5d, 0.5d);
         result = c0.reciprocal();
         expResult = new Math_Complex_double(1.0d, -1.0d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 6
-        test++;
         c0 = new Math_Complex_double(-0.5, -0.5);
         result = c0.reciprocal();
         expResult = new Math_Complex_double(-1, 1);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 7
-        test++;
         c0 = new Math_Complex_double(0.5, -0.5);
         result = c0.reciprocal();
         expResult = new Math_Complex_double(1, 1);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
         // Test 8
-        test++;
         c0 = new Math_Complex_double(-0.5, 0.5);
         result = c0.reciprocal();
         expResult = new Math_Complex_double(-1, -1);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
     }
@@ -385,14 +318,12 @@ public class Math_Complex_doubleTest extends Math_Test {
         double expImaginary;
         double delta;
         // Test 1
-        int test = 1;
         delta = 0.0000001d;
         c0 = new Math_Complex_double(0.0d, Math.PI);
         result = c0.exp();
         expResult = new Math_Complex_double(-1.0d, 0.0d);
         expReal = expResult.getReal();
         expImaginary = expResult.getImaginary();
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expReal, result.getReal(), delta);
         assertEquals(expImaginary, result.getImaginary(), delta);
     }
@@ -408,11 +339,9 @@ public class Math_Complex_doubleTest extends Math_Test {
         Math_Complex_double result;
         Math_Complex_double expResult;
         // Test 1
-        int test = 1;
         c = new Math_Complex_double(1, 1);
         result = c.sin();
         expResult = new Math_Complex_double(1.2984575814159773, 0.6349639147847361);
-        printFunctionTest(funcName, test, c, result);
         assertEquals(expResult, result);
     }
 
@@ -427,11 +356,9 @@ public class Math_Complex_doubleTest extends Math_Test {
         Math_Complex_double result;
         Math_Complex_double expResult;
         // Test 1
-        int test = 1;
         c = new Math_Complex_double(1, 1);
         result = c.sin();
         expResult = new Math_Complex_double(1.2984575814159773, 0.6349639147847361);
-        printFunctionTest(funcName, test, c, result);
         assertEquals(expResult, result);
     }
 
@@ -446,11 +373,9 @@ public class Math_Complex_doubleTest extends Math_Test {
         Math_Complex_double result;
         Math_Complex_double expResult;
         // Test 1
-        int test = 1;
         c = new Math_Complex_double(1, 1);
         result = c.sin();
         expResult = new Math_Complex_double(1.2984575814159773, 0.6349639147847361);
-        printFunctionTest(funcName, test, c, result);
         assertEquals(expResult, result);
     }
 
@@ -466,12 +391,10 @@ public class Math_Complex_doubleTest extends Math_Test {
         Math_Complex_double expResult;
         Math_Complex_double result;
         // Test 1;
-        int test = 1;
         alpha = 2.0;
         c0 = new Math_Complex_double(3, 5);
         result = c0.rescale(alpha);
         expResult = new Math_Complex_double(6, 10);
-        printFunctionTest(funcName, test, c0, result);
         assertEquals(expResult, result);
     }
 }

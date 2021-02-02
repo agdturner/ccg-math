@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Andy Turner
  * @version 1.0.0
  */
-public class Math_ShortTest  extends Math_Test {
+public class Math_ShortTest {
     
     public Math_ShortTest() {
     }
@@ -55,18 +55,14 @@ public class Math_ShortTest  extends Math_Test {
         String s;
         boolean result;
         // Test 1
-        int test = 1;
         x = Short.MIN_VALUE;
         s = Short.toString(x);
         result = Math_Short.isShort(s);
-        printFunctionTest(funcName, test, x, result);
         assertFalse(result);
         // Test 2
-        test ++;
         x += 1;
         s = Short.toString(x);
         result = Math_Short.isShort(s);
-        printFunctionTest(funcName, test, x, result);
         assertTrue(Math_Short.isShort(s));
     }
     

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Andy Turner
  * @version 1.0.0
  */
-public class Math_FloatTest  extends Math_Test {
+public class Math_FloatTest {
     
     public Math_FloatTest() {
     }
@@ -55,10 +55,8 @@ public class Math_FloatTest  extends Math_Test {
         String s;
         boolean result;
         // Test 1
-        int test = 1;
         s = "0.1";
         result = Math_Float.isFloat(s);
-        printFunctionTest(funcName, test, s, result);
         assertTrue(result);
     }
     
@@ -67,21 +65,17 @@ public class Math_FloatTest  extends Math_Test {
         String funcName = "IsFloat_String_int";
         System.out.println("Test " + funcName);
         String s;
-        int dp;
+        int oom;
         boolean result;
         // Test 1
-        int test = 1;
         s = "0.1";
-        dp = 3;
-        result = Math_Float.isFloat(s,dp);
-        printFunctionTest(funcName, test, s, result);
+        oom = -3;
+        result = Math_Float.isFloat(s,oom);
         assertTrue(result);
         // Test 2
-        test ++;
         s = "0.1";
-        dp = 9;
-        result = Math_Float.isFloat(s,dp);
-        printFunctionTest(funcName, test, s, result);
+        oom = -9;
+        result = Math_Float.isFloat(s,oom);
         assertFalse(result);
     }
     
@@ -92,10 +86,8 @@ public class Math_FloatTest  extends Math_Test {
         String s;
          boolean result;
         // Test 1
-        int test = 1;
         s = "0.1";
         result = Math_Float.isFloatExact(s);
-        printFunctionTest(funcName, test, s, result);
         assertFalse(result);
     }
 
@@ -107,18 +99,14 @@ public class Math_FloatTest  extends Math_Test {
         String expResult;
         String result;
         // Test 1
-        int test = 1;
         f = 0.0f;
         expResult = "0.0";
         result = Math_Float.toPlainString(f);
-        printFunctionTest(funcName, test, result, true);
         assertEquals(expResult, result);
         // Test 2
-        test ++;
         f = 0.1f;
         expResult = "0.1";
         result = Math_Float.toPlainString(f);
-        printFunctionTest(funcName, test, result, true);
         assertEquals(expResult, result);
     }
 
@@ -133,12 +121,10 @@ public class Math_FloatTest  extends Math_Test {
         float u;
         BigInteger expResult;
         // Test 1: 17 float values between 0.999999f and 1.0f
-        int test = 1;
         l = 0.999999f;
         u = 1.0f;
         expResult = new BigInteger("17");
         BigInteger result = Math_Float.getNumberOfFloatsInRange(l, u);
-        printFunctionTest(funcName, test, l, u, result);
         assertEquals(expResult, result);
     }
 
@@ -153,11 +139,9 @@ public class Math_FloatTest  extends Math_Test {
         int expResult;
         int result;
         // Test 1
-        int test = 1;
         f = 0.1F;
         expResult = 1;
         result = Math_Float.roundUpToNearestInt(f);
-        printFunctionTest(funcName, test, f, result);
         assertEquals(expResult, result);
     }
 
@@ -172,25 +156,19 @@ public class Math_FloatTest  extends Math_Test {
         double expResult;
         double result;
         // Test 1
-        int test = 1;
         s = "";
         expResult = Double.NaN;
         result = Math_Double.parseDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
         // Test 2
-        test ++;
         s = "-Infinity";
         expResult = Double.NEGATIVE_INFINITY;
         result = Math_Double.parseDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
         // Test 3
-        test ++;
         s = "+Infinity";
         expResult = Double.POSITIVE_INFINITY;
         result = Math_Double.parseDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
     }
 

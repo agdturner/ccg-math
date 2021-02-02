@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Andy Turner
  * @version 1.0.0
  */
-public class Math_DoubleTest extends Math_Test {
+public class Math_DoubleTest {
 
     public Math_DoubleTest() {
     }
@@ -55,46 +55,32 @@ public class Math_DoubleTest extends Math_Test {
         String s;
         boolean result;
         // Test 1
-        int test = 1;
         s = "0.1";
         result = Math_Double.isDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertTrue(result);
         // Test 2
-        test++;
         s = "";
         result = Math_Double.isDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertTrue(result);
         // Test 3
-        test++;
         s = "NaN";
         result = Math_Double.isDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertTrue(result);
         // Test 4
-        test++;
         s = "+Infinity";
         result = Math_Double.isDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertTrue(result);
         // Test 5
-        test++;
         s = "+Inf";
         result = Math_Double.isDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertFalse(result);
         // Test 6
-        test++;
         s = "-Infinity";
         result = Math_Double.isDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertTrue(result);
         // Test 7
-        test++;
         s = "-Inf";
         result = Math_Double.isDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertFalse(result);
 
     }
@@ -104,39 +90,29 @@ public class Math_DoubleTest extends Math_Test {
         String funcName = "isDouble(String,int)";
         System.out.println("Test " + funcName);
         String s;
-        int dp;
+        int oom;
         boolean result;
         // Test 1
-        int test = 1;
         s = "0.1";
-        dp = 3;
-        result = Math_Double.isDouble(s, dp);
-        printFunctionTest(funcName, test, s, dp, result);
+        oom = -3;
+        result = Math_Double.isDouble(s, oom);
         assertTrue(result);
         // Test 2
-        test++;
         s = "0.1";
-        dp = 17;
-        result = Math_Double.isDouble(s, dp);
-        printFunctionTest(funcName, test, s, dp, result);
+        oom = -17;
+        result = Math_Double.isDouble(s, oom);
         assertFalse(result);
         // Test 3
-        test++;
         s = "NAN";
-        result = Math_Double.isDouble(s, dp);
-        printFunctionTest(funcName, test, s, dp, result);
+        result = Math_Double.isDouble(s, oom);
         assertTrue(result);
         // Test 4
-        test++;
         s = "+Infinity";
-        result = Math_Double.isDouble(s, dp);
-        printFunctionTest(funcName, test, s, dp, result);
+        result = Math_Double.isDouble(s, oom);
         assertTrue(result);
         // Test 5
-        test++;
         s = "-Infinity";
-        result = Math_Double.isDouble(s, dp);
-        printFunctionTest(funcName, test, s, dp, result);
+        result = Math_Double.isDouble(s, oom);
         assertTrue(result);
     }
 
@@ -147,28 +123,20 @@ public class Math_DoubleTest extends Math_Test {
         String s;
         boolean result;
         // Test 1
-        int test = 1;
         s = "0.1";
         result = Math_Double.isDoubleExact(s);
-        printFunctionTest(funcName, test, s, result);
         assertFalse(result);
         // Test 2
-        test++;
         s = "NAN";
         result = Math_Double.isDoubleExact(s);
-        printFunctionTest(funcName, test, s, result);
         assertTrue(result);
         // Test 3
-        test++;
         s = "+Infinity";
         result = Math_Double.isDoubleExact(s);
-        printFunctionTest(funcName, test, s, result);
         assertTrue(result);
         // Test 4
-        test++;
         s = "-Infinity";
         result = Math_Double.isDoubleExact(s);
-        printFunctionTest(funcName, test, s, result);
         assertTrue(result);
     }
 
@@ -184,14 +152,12 @@ public class Math_DoubleTest extends Math_Test {
         d = 0.0d;
         expResult = "0";
         result = Math_Double.toPlainString(d);
-        printFunctionTest(funcName, test, d, result);
         assertEquals(expResult, result);
         // Test 2
         test++;
         d = 0.1d;
         expResult = "0.1000000000000000055511151231257827021181583404541015625";
         result = Math_Double.toPlainString(d);
-        printFunctionTest(funcName, test, d, result);
         assertEquals(expResult, result);
     }
 
@@ -213,13 +179,11 @@ public class Math_DoubleTest extends Math_Test {
         // 900719925 double values between 0.9999999 and 1.0
         // 9 double values between 0.999999999999999 and 1.0
         // Test 1
-        int test = 1;
         l = 0.999999999999999;
         u = 1.0;
         expResult = new BigInteger("9");
         // 858993460 double values between 1000000.2 and 1000000.3
         BigInteger result = Math_Double.getNumberOfDoublesInRange(l, u);
-        printFunctionTest(funcName, test, l, u, result);
         assertEquals(expResult, result);
     }
 
@@ -231,11 +195,9 @@ public class Math_DoubleTest extends Math_Test {
         int expResult;
         int result;
         // Test 1
-        int test = 1;
         x = 0.1;
         expResult = 1;
         result = Math_Double.roundUpToNearestInt(x);
-        printFunctionTest(funcName, test, x, result);
         assertEquals(expResult, result);
     }
 
@@ -247,25 +209,19 @@ public class Math_DoubleTest extends Math_Test {
         double expResult;
         double result;
         // Test 1
-        int test = 1;
         s = "";
         expResult = Double.NaN;
         result = Math_Double.parseDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
         // Test 2
-        test++;
         s = "-Infinity";
         expResult = Double.NEGATIVE_INFINITY;
         result = Math_Double.parseDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
         // Test 3
-        test++;
         s = "+Infinity";
         expResult = Double.POSITIVE_INFINITY;
         result = Math_Double.parseDouble(s);
-        printFunctionTest(funcName, test, s, result);
         assertEquals(expResult, result, 0.0d);
     }
 

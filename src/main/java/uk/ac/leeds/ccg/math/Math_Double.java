@@ -20,7 +20,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 
 /**
- * A class for {@code double} numbers. 
+ * A class for {@code double} numbers.
  *
  * @author Andy Turner
  * @version 1.0.0
@@ -33,12 +33,12 @@ public class Math_Double extends Math_Number {
      * The number {@code Double.POSITIVE_INFINITY} for convenience.
      */
     public static final String POSITIVE_INFINITY = Double.toString(Double.POSITIVE_INFINITY);
-    
+
     /**
      * The number {@code Double.NEGATIVE_INFINITY} for convenience.
      */
     public static final String NEGATIVE_INFINITY = Double.toString(Double.NEGATIVE_INFINITY);
-    
+
     /**
      * In most instances this behaves like
      * {@link java.lang.Double#parseDouble(java.lang.String)}, but if a
@@ -55,8 +55,8 @@ public class Math_Double extends Math_Number {
      * {@link java.lang.Double#NEGATIVE_INFINITY} is returned.</li>
      * </ul>
      *
-     * @param s The String to attempt to parse as a double. 
-     * @return {@code s} parsed as a double. 
+     * @param s The String to attempt to parse as a double.
+     * @return {@code s} parsed as a double.
      * @throws NumberFormatException If s cannot be parse as a double.
      */
     public static double parseDouble(String s) throws NumberFormatException {
@@ -107,24 +107,33 @@ public class Math_Double extends Math_Number {
     }
 
     /**
-     * For testing if s can be parsed as a double and is precise to {@code dp}
-     * decimal places using {@code rm} RoundingMode if necessary to round the
-     * parsed value.
+     * For testing if s can be parsed as a {@code double} accurate to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a> (OOM) {@code oom} using RoundingMode {@code rm}.
      *
      * @param s The String to be tested as to whether it can be represented as a
      * double.
-     * @param dp The number of decimal places the result must be accurate to.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
      * @return true iff s can be represented as a Double greater than
      * -Double.MAX_VALUE which is reserved for representing noDataValues.
      */
-    public static boolean isDouble(String s, int dp) {
+    public static boolean isDouble(String s, int oom) {
         try {
             double x = Double.parseDouble(s);
             BigDecimal bds = new BigDecimal(s);
             BigDecimal bdd = new BigDecimal(x);
             RoundingMode rm = RoundingMode.HALF_UP;
-            BigDecimal bdsr = Math_BigDecimal.roundIfNecessary(bds, dp, rm);
-            BigDecimal bddr = Math_BigDecimal.roundIfNecessary(bdd, dp, rm);
+            BigDecimal bdsr = Math_BigDecimal.round(bds, oom, rm);
+            BigDecimal bddr = Math_BigDecimal.round(bdd, oom, rm);
             return bdsr.compareTo(bddr) == 0;
         } catch (NumberFormatException e) {
             return isDouble(s);
