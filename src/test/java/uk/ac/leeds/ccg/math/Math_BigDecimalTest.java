@@ -1605,10 +1605,9 @@ public class Math_BigDecimalTest {
      * Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testGetE() {
         System.out.println("getEulerConstantToAFixedDecimalPlacePrecision");
-        int oom = 1;
+        int oom = 0;
         Math_BigDecimal instance = new Math_BigDecimal();
         BigDecimal expResult = BigDecimal.valueOf(3);
         RoundingMode rm = RoundingMode.HALF_UP;
@@ -3752,34 +3751,38 @@ public class Math_BigDecimalTest {
      * Test of getPi method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testGetPi() {
         System.out.println("getPi");
-        int oom = 0;
+        int oom = -100;
         RoundingMode rm = RoundingMode.HALF_UP;
         Math_BigDecimal instance = new Math_BigDecimal();
-        BigDecimal expResult = null;
         BigDecimal result = instance.getPi(oom, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //System.out.println(result);
+        BigDecimal expResult = new BigDecimal("3.141592653589793238462643383279"
+                + "502884197169399375105820974944592307816406286208998628034825"
+                + "342117068");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        assertThrows(RuntimeException.class, () -> {
+            instance.getPi(-10001, rm);
+        });
     }
 
     /**
      * Test of getPiBy2 method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testGetPiBy2() {
         System.out.println("getPiBy2");
-        int oom = 0;
+        int oom = -100;
         RoundingMode rm = RoundingMode.HALF_UP;
         Math_BigDecimal instance = new Math_BigDecimal();
-        BigDecimal expResult = null;
         BigDecimal result = instance.getPiBy2(oom, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println(result);
+        BigDecimal expResult = new BigDecimal("1.570796326794896619231321691639"
+                + "751442098584699687552910487472296153908203143104499314017412"
+                + "671058534");
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**

@@ -51,13 +51,13 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     /**
      * The number for which {@code this} is the square root representation.
      */
-    private final BigRational x;
+    public final BigRational x;
 
     /**
      * Stores the square root of {@link #x} if this can be stored exactly as a
      * BigRational, otherwise it is {@code null}.
      */
-    private final BigRational sqrtx;
+    public final BigRational sqrtx;
 
     /**
      * Stores the approximate square root of {@link #x} with a minimum precision
