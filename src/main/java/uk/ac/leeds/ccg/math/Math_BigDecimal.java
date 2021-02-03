@@ -31,7 +31,7 @@ import java.util.Random;
  * so it may become redundant.
  *
  * The aim is for accuracy to a given
- * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+ * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
  * Magnitude</a> and speed. By default if rounding is needed for results, then
  * {@link RoundingMode#HALF_UP} is used.
  *
@@ -52,7 +52,7 @@ public class Math_BigDecimal extends Math_Number {
      * For storing the
      * <a href="https://en.wikipedia.org/wiki/Euler%E2%80%93Mascheroni_constant">Euler
      * Mascheroni constant</a> rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@link #eOOM} rounded using {@link RoundingMode#HALF_UP}.
      * The first few digits of the number are:
      * {@code ~2.71828182845904523536028747135266249775724709369995}.
@@ -61,7 +61,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * For storing the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude that {@link #e} is rounded to.
      */
     private int eOOM;
@@ -69,7 +69,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * For storing the
      * <a href="https://en.wikipedia.org/wiki/Pi">Pi constant</a> rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@link #piOOM} rounded using {@link RoundingMode#HALF_UP}.
      * The first few digits of the number are
      * {@code 3.1415926535897932384626433...}.
@@ -138,8 +138,8 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Initialises {@link #e}.
      *
-    * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -147,9 +147,7 @@ public class Math_BigDecimal extends Math_Number {
      * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
      * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
-     * </ul>
-     * {@link #e} is initialised accurate
-     * to.
+     * </ul> {@link #e} is initialised accurate to.
      */
     private void initE(int oom) {
         bi.factorial(-oom);
@@ -159,9 +157,10 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Return the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) of the most significant digit of {@code x}. This
-     * works for all values of {@code x}. If it is known that {@code x < 1} use
+     * works for all values of {@code x}. If it is known that {@code -1 < x < 1}
+     * use
      * {@link #getOrderOfMagnitudeOfLeastSignificantDigit(java.math.BigDecimal, int)}
      * for more computational efficeincy. Examples:
      * <ul>
@@ -179,7 +178,7 @@ public class Math_BigDecimal extends Math_Number {
      * @return The largest OOM digit of {@code x}.
      */
     public static int getOrderOfMagnitudeOfMostSignificantDigit(BigDecimal x) {
-        if (x.compareTo(BigDecimal.ONE) != -1) {
+        if (x.abs().compareTo(BigDecimal.ONE) == 1) {
             return Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(x.toBigInteger());
         }
         int scale = x.scale();
@@ -188,9 +187,9 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Return the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) of the most significant digit. This only returns the
-     * expected answer for {@code x < 1}. If {@code x > 1} use
+     * expected answer for {@code -1 < x < 1}. For other values of {@code x} use
      * {@link #getOrderOfMagnitudeOfLeastSignificantDigit(java.math.BigDecimal)}.
      * Examples:
      * <ul>
@@ -204,14 +203,14 @@ public class Math_BigDecimal extends Math_Number {
      * @param scale The scale of {@code x}.
      * @return The largest OOM digit of {@code x}.
      */
-    public static int getOrderOfMagnitudeOfMostSignificantDigit(BigDecimal x, int scale) {
+    protected static int getOrderOfMagnitudeOfMostSignificantDigit(BigDecimal x, int scale) {
         int um = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(x.unscaledValue());
         return um - scale;
     }
 
     /**
      * Return the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) of the least significant digit of {@code x}. If the
      * scale of Examples:
      * <ul>
@@ -247,15 +246,44 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
+     * Return the scale of the most significant digit of {@code x}. This is the
+     * same as the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a> (OOM) for {@code 1 < x < -1} and {@code 1} greater than the
+     * OOM otherwise.
+     * <ul>
+     * <li>x=0.0001, result=-4</li>
+     * <li>x=0.0011, result=-3</li>
+     * <li>x=0.0101, result=-2</li>
+     * <li>x=0.1001, result=-1</li>
+     * <li>x=1.1001, result=1</li>
+     * <li>x=10.001, result=2</li>
+     * <li>x=101.01, result=3</li>
+     * <li>x=1001.1, result=4</li>
+     * </ul>
+     *
+     * @param x The number for which the largest OOM digit is returned.
+     * @return The largest OOM digit of {@code x}.
+     */
+    public static int getScaleOfMostSignificantDigit(BigDecimal x) {
+        int oommx = getOrderOfMagnitudeOfMostSignificantDigit(x);
+        if (oommx < 0) {
+            return oommx;
+        } else {
+            return oommx + 1;
+        }
+    }
+
+    /**
      * Calculate and return {@code x} add {@code y} ({@code x+y}) rounding to
      * the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      *
      * @param x A number to add.
      * @param y A number to add.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -268,7 +296,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
      * @return {@code x+y} rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigDecimal add(BigDecimal x, BigInteger y, int oom,
@@ -279,13 +307,13 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} add {@code y} ({@code x+y}) rounding to
      * the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      *
      * @param x A number to add.
      * @param y A number to add.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -298,7 +326,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
      * @return {@code x+y} rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigDecimal add(BigDecimal x, BigDecimal y, int oom,
@@ -309,13 +337,13 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} add {@code y} ({@code x+y}) rounding to
      * the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
      *
      * @param x A number to add.
      * @param y A number to add.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -326,7 +354,7 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      * the result is rounded to if rounding is needed.
      * @return {@code x+y} rounding to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
      */
     public static BigDecimal add(BigDecimal x, BigInteger y, int oom) {
@@ -336,13 +364,13 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} add {@code y} ({@code x+y}) rounding to
      * the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
      *
      * @param x A number to add.
      * @param y A number to add.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -353,7 +381,7 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      * the result is rounded to if rounding is needed.
      * @return {@code x+y} rounding to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
      */
     public static BigDecimal add(BigDecimal x, BigDecimal y, int oom) {
@@ -362,7 +390,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Calculate and return {@code x} add {@code y} ({@code x+y}) rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using the
      * {@link RoundingMode} {@code rm}. This method is appropriate when
      * {@code x} and/or {@code y} are large and detailed, and the precision of
@@ -375,7 +403,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x A number to add.
      * @param y A number to add.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -388,7 +416,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
      * @return {@code x+y} rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigDecimal addPriorRound(BigDecimal x, BigInteger y,
@@ -404,7 +432,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Calculate and return {@code x} add {@code y} ({@code x+y}) rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using the
      * {@link RoundingMode} {@code rm}. This method is appropriate when
      * {@code x} and/or {@code y} are large and detailed, and the precision of
@@ -417,7 +445,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x A number to add.
      * @param y A number to add.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -430,7 +458,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param rm The {@link RoundingMode} used to round the final result if
      * rounding is necessary.
      * @return {@code x+y} rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigDecimal addPriorRound(BigDecimal x, BigDecimal y,
@@ -442,7 +470,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Calculate and return {@code x} add {@code y} ({@code x+y}) rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This
      * method is appropriate when {@code x} and/or {@code y} are large and
      * detailed, and the precision of the result required is at an order of
@@ -454,7 +482,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x A number to add.
      * @param y A number to add.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -465,7 +493,7 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      * the result is rounded to if rounding is needed.
      * @return {@code x+y} rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
      */
     public static BigDecimal addPriorRound(BigDecimal x, BigInteger y, int oom) {
@@ -474,7 +502,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Calculate and return {@code x} add {@code y} ({@code x+y}) rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This
      * method is appropriate when {@code x} and/or {@code y} are large and
      * detailed, and the precision of the result required is at an order of
@@ -486,7 +514,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x A number to add.
      * @param y A number to add.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -497,7 +525,7 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      * the result is rounded to if rounding is needed.
      * @return {@code x+y} rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> {@code oom} using {@link RoundingMode#HALF_UP}.
      */
     public static BigDecimal addPriorRound(BigDecimal x, BigDecimal y, int oom) {
@@ -507,7 +535,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
      * rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This
      * method is appropriate when {@code x} and or {@code y} are very large, and
      * the precision of the result required is at an order of magnitude the
@@ -516,13 +544,13 @@ public class Math_BigDecimal extends Math_Number {
      * some computational advantage of prior rounding the numbers have to be
      * perhaps over 100 digits in length. (TODO test timings, maybe efficiency
      * is only gained once numbers have an
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) of over 1000 digits!)
      *
      * @param x A number to multiply.
      * @param y A number to multiply.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -545,7 +573,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
      * rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using the
      * {@link RoundingMode} {@code rm}. This method is appropriate when
      * {@code x} and/or {@code y} are very large, and the precision of the
@@ -563,7 +591,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x A number to multiply.
      * @param y A number to multiply.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * <ul>
      * <li>...</li>
      * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
@@ -574,7 +602,7 @@ public class Math_BigDecimal extends Math_Number {
      * the result is rounded to if rounding is needed.
      * @param rm The {@link RoundingMode} used to round the result.
      * @return {@code x*y} rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigDecimal multiplyPriorRound(BigDecimal x, BigInteger y,
@@ -596,7 +624,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
      * rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This
      * method is appropriate when {@code x} and/or {@code y} are very large, and
      * the precision of the result required is at an order of magnitude the
@@ -614,7 +642,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x A number to multiply.
      * @param y A number to multiply.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * <ul>
      * <li>...</li>
      * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
@@ -624,7 +652,7 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      * the result is rounded to if rounding is needed.
      * @return {@code x*y} rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * {@code oom} using {@link RoundingMode#HALF_UP}.
      */
     public static BigDecimal multiplyPriorRound(BigDecimal x, BigInteger y,
@@ -635,7 +663,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
      * rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> given by {@code oom} using the
      * {@link RoundingMode} {@code rm}. If {@code x} and {@code y} are both very
      * large and or very detailed then prior rounding may be computationally
@@ -645,7 +673,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x A number to multiply.
      * @param y A number to multiply.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -669,7 +697,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
      * rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using the
      * {@link RoundingMode} {@code rm}. This method is appropriate when
      * {@code x} and/or {@code y} are very large, and the precision of the
@@ -687,7 +715,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x A number to multiply.
      * @param y A number to multiply.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * <ul>
      * <li>...</li>
      * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
@@ -698,7 +726,7 @@ public class Math_BigDecimal extends Math_Number {
      * the result is rounded to if rounding is needed.
      * @param rm The {@link RoundingMode} used to round the result.
      * @return ({@code x*y}) rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigDecimal multiplyPriorRound(BigDecimal x, BigDecimal y,
@@ -737,7 +765,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
      * rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using the
      * {@link RoundingMode} {@code rm}.
      *
@@ -747,7 +775,7 @@ public class Math_BigDecimal extends Math_Number {
      * of {@code x}.
      * @param y A number to multiply {@code y < 1}.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * <ul>
      * <li>...</li>
      * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
@@ -761,7 +789,7 @@ public class Math_BigDecimal extends Math_Number {
      * of {@code y}.
      * @param rm The {@link RoundingMode} used to round the result.
      * @return ({@code x*y}) rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigDecimal multiplyPriorRoundXLT1YLT1(BigDecimal x, int xm,
@@ -803,7 +831,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
      * rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using the
      * {@link RoundingMode} {@code rm}.
      *
@@ -816,7 +844,7 @@ public class Math_BigDecimal extends Math_Number {
      * {@link #getOrderOfMagnitudeOfMostSignificantDigit(java.math.BigDecimal)}
      * of {@code y}.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * <ul>
      * <li>...</li>
      * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
@@ -827,7 +855,7 @@ public class Math_BigDecimal extends Math_Number {
      * the result is rounded to if rounding is needed.
      * @param rm The {@link RoundingMode} used to round the result.
      * @return ({@code x*y}) rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * {@code oom} using the {@link RoundingMode} {@code rm}.
      */
     public static BigDecimal multiplyPriorRoundXLT1YGT1(BigDecimal x,
@@ -873,7 +901,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
      * rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This
      * method is appropriate when {@code x} and/or {@code y} are very large, and
      * the precision of the result required is at an order of magnitude the
@@ -891,7 +919,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x A number to multiply.
      * @param y A number to multiply.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * <ul>
      * <li>...</li>
      * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
@@ -901,7 +929,7 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      * the result is rounded to if rounding is needed.
      * @return ({@code x*y}) rounded to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">OOM</a>
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">OOM</a>
      * {@code oom} using {@link RoundingMode#HALF_UP}.
      */
     public static BigDecimal multiplyPriorRound(BigDecimal x, BigDecimal y,
@@ -912,7 +940,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculates and returns {@code x} divided by {@code y} ({@code x/y})
      * rounded using {@link RoundingMode} {@code rm} to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) given by {@code oom}. If {@code y} is
      * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
      * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
@@ -921,7 +949,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The numerator of the division.
      * @param y The denominator of the division.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -988,7 +1016,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculates and returns {@code x} divided by {@code y} ({@code x/y})
      * rounded using {@link RoundingMode} {@code rm} to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) given by {@code oom}. If {@code y} is
      * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
      * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
@@ -997,7 +1025,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The numerator of the division.
      * @param y The denominator of the division.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1018,7 +1046,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculates and returns {@code x} divided by {@code y} ({@code x/y})
      * rounded using {@link RoundingMode} {@code rm} to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) given by {@code oom}. If {@code y} is
      * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
      * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
@@ -1027,7 +1055,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The numerator of the division.
      * @param y The denominator of the division.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1048,7 +1076,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculates and returns {@code x} divided by {@code y} ({@code x/y})
      * rounded using {@link RoundingMode} {@code rm} to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) given by {@code oom}. If {@code y} is
      * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
      * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
@@ -1057,7 +1085,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The numerator of the division.
      * @param y The denominator of the division.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1164,7 +1192,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The base.
      * @param y The exponent. Expected to be in the range (0,1).
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1379,7 +1407,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param y The exponent. Expected to be greater than {@code 1}.
      * @param div Optimisation parameter...
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1509,7 +1537,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param rm The {@link RoundingMode} used to round intermediate results and
      * the final result.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1653,7 +1681,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The base of the exponent.
      * @param y The exponent.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1684,7 +1712,7 @@ public class Math_BigDecimal extends Math_Number {
      * 256. div is used to divide the calculation up if y is less than div, it
      * is all done in one step. Otherwise it is broken into parts.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1746,7 +1774,7 @@ public class Math_BigDecimal extends Math_Number {
      * x.precision == 1.
      * @param root The root. Expected to be greater than {@code 0}.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1787,7 +1815,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param div An optimisation parameter... If div &lt; 2 it is set to 2. If
      * div &gt; 256 it is set to 256.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1893,16 +1921,17 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Calculates and returns x raised to the power of y accurate to
-     * decimalPlaces number of decimal places. The calculation is divided into
-     * parts...
+     * Calculates and returns {@code x} raised to the power of {@code y}
+     * ({@code x^y}) accurate to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a> (OOM) {@code oom} and RoundingMode {@code rm}.
      *
-     * @param x The base of the exponent.
-     * @param y The exponent.
-     * @param div An optimisation parameter... If div &lt; 2 it is set to 2. If
-     * div &gt; 256 it is set to 256.
+     * @param x The base of the exponent {@code x > 0 && x != 1}.
+     * @param y The exponent {@code y >= 3}.
+     * @param div An optimisation parameter. If {@code div < 2} it is set to
+     * {@code 2}. If {@code div > 256} it is set to {@code 256}.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -1911,9 +1940,9 @@ public class Math_BigDecimal extends Math_Number {
      * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
-     * @return x^y
+     * the result is rounded to.
+     * @param rm The {@link RoundingMode} used to round the final result.
+     * @return {@code x^y}
      */
     public static BigDecimal powerNoSpecialCaseCheck(BigDecimal x, BigInteger y,
             int div, int oom, RoundingMode rm) {
@@ -1956,67 +1985,121 @@ public class Math_BigDecimal extends Math_Number {
         r1 = power(x, remainingY, div, oom - remainingY.intValue() - 2, rm);
         return multiply(r0, r1, oom, rm);
     }
+    
+    /**
+     * Calculates and returns {@code x} raised to the power of {@code y}
+     * ({@code x^y}) accurate to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a> (OOM) {@code oom} and RoundingMode {@code rm}.
+     *
+     * @param x The base of the exponent {@code x > 0 && x != 1}.
+     * @param y The exponent {@code y >= 3}.
+     * @param div An optimisation parameter. If {@code div < 2} it is set to
+     * {@code 2}. If {@code div > 256} it is set to {@code 256}.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to.
+     * @param rm The {@link RoundingMode} used to round the final result.
+     * @return {@code x^y}
+     */
+    public static BigDecimal powerNoSpecialCaseCheck(BigDecimal x, int y,
+            int div, int oom, RoundingMode rm) {
+        div = parseDiv(div);
+        int divbi = div;
+        BigDecimal r0;
+        BigDecimal r1;
+        int y1 = y;
+        if (y1 <= divbi) {
+            while (y1 <= divbi) {
+                divbi = divbi / 2;
+                div = div / 2;
+            }
+        }
+        int quotient = y1 / divbi;
+        int remainder = y1 % divbi;
+        if (quotient == 1) {
+            if (remainder == 0) {
+                if (div < 6) {
+                    return power(x, y1, oom, rm);
+                } else {
+                    div /= 2;
+                    return power(x, y, div, oom, rm);
+                }
+            } else {
+                if (div < 4) {
+                    r0 = power(x, div, oom - div - 2, rm);
+                    r1 = power(x, remainder, oom - remainder - 2, rm);
+                    return multiply(r0, r1, oom, rm);
+                } else {
+                    r0 = power(x, divbi, div, oom - div - 2, rm);
+                    r1 = power(x, remainder, div, oom - remainder - 2, rm);
+                    return multiply(r0, r1, oom, rm);
+                }
+            }
+        }
+        r0 = power(x, divbi, div, oom - div - 2, rm);
+        r0 = power(r0, quotient, div, oom - quotient - 2, rm);
+        r1 = power(x, remainder, div, oom - remainder - 2, rm);
+        return multiply(r0, r1, oom, rm);
+    }
 
     /**
-     * Calculates and returns x raised to the power of y.
+     * Calculates and returns {@code x} raised to the power of {@code y}
+     * ({@code x^y}).
      *
-     * @param x The base of the exponent.
-     * @param y The exponent.
-     * @param div An optimisation parameter... Parsed using
-     * {@link #parseDiv(int)}.
-     * @return x^y
+     * @param x The base of the exponent {@code x > 0 && x != 1}.
+     * @param y The exponent {@code y >= 3}.
+     * @param div An optimisation parameter. If {@code div < 2} it is set to
+     * {@code 2}. If {@code div > 256} it is set to {@code 256}.
+     * @return {@code x^y}
      */
     public static BigDecimal powerNoSpecialCaseCheckNoRounding(BigDecimal x,
             BigInteger y, int div) {
         div = parseDiv(div);
-        BigInteger div_BigInteger = BigInteger.valueOf(div);
-        BigDecimal r;// = BigDecimal.ONE;
+        BigInteger divbi = BigInteger.valueOf(div);
         BigDecimal r0;
         BigDecimal r1;
         BigInteger y1 = new BigInteger(y.toString());
-        BigInteger[] yDivideAndRemainder;
-        if (y1.compareTo(div_BigInteger) != 1) {
-            while (y1.compareTo(div_BigInteger) != 1) {
-                div_BigInteger = div_BigInteger.divide(BigInteger.TWO);
+        if (y1.compareTo(divbi) != 1) {
+            while (y1.compareTo(divbi) != 1) {
+                divbi = divbi.divide(BigInteger.TWO);
                 div = div / 2;
             }
         }
-        yDivideAndRemainder = y1.divideAndRemainder(div_BigInteger);
-        if (yDivideAndRemainder[0].compareTo(BigInteger.ONE) == 0) {
-            if (yDivideAndRemainder[1].compareTo(BigInteger.ZERO) == 0) {
+        BigInteger[] yDAR = y1.divideAndRemainder(divbi);
+        if (yDAR[0].compareTo(BigInteger.ONE) == 0) {
+            if (yDAR[1].compareTo(BigInteger.ZERO) == 0) {
                 if (div < 6) {
-                    r = powerNoRounding(x, y1.intValue());
-                    return r;
+                    return powerNoRounding(x, y1.intValue());
                 } else {
                     div /= 2;
-                    r = powerNoRounding(x, y, div);
-                    return r;
+                    return powerNoRounding(x, y, div);
                 }
             } else {
                 if (div < 4) {
                     r0 = powerNoRounding(x, div);
-                    //BigInteger remainingY = y1.subtract(yDivideAndRemainder[0].multiply(div_BigInteger));
-                    BigInteger remainingY = yDivideAndRemainder[1];
-                    r1 = powerNoRounding(x, remainingY.intValue());
-                    r = r0.multiply(r1);
-                    return r;
+                    r1 = powerNoRounding(x, yDAR[1].intValue());
+                    return r0.multiply(r1);
                 } else {
-                    r0 = powerNoRounding(x, div_BigInteger, div);
-                    //BigInteger remainingY = y1.subtract(yDivideAndRemainder[0].multiply(div_BigInteger));
-                    BigInteger remainingY = yDivideAndRemainder[1];
-                    r1 = powerNoRounding(x, remainingY.intValue(), div);
-                    r = r0.multiply(r1);
-                    return r;
+                    r0 = powerNoRounding(x, divbi, div);
+                    r1 = powerNoRounding(x, yDAR[1].intValue(), div);
+                    return r0.multiply(r1);
                 }
             }
         }
-        r0 = powerNoRounding(x, div_BigInteger, div);
-        r0 = powerNoRounding(r0, yDivideAndRemainder[0], div);
-        //BigInteger remainingY = y1.subtract(yDivideAndRemainder[0].multiply(div_BigInteger));
-        BigInteger remainingY = yDivideAndRemainder[1];
+        r0 = powerNoRounding(x, divbi, div);
+        r0 = powerNoRounding(r0, yDAR[0], div);
+        BigInteger remainingY = yDAR[1];
         r1 = powerNoRounding(x, remainingY, div);
-        r = r0.multiply(r1);
-        return r;
+        return r0.multiply(r1);
     }
 
     /**
@@ -2028,7 +2111,7 @@ public class Math_BigDecimal extends Math_Number {
      * than 8 use {@link #power(java.math.BigDecimal, int, int, int, java.math.RoundingMode).
      * @param div An optimisation parameter... Parsed using {@link #parseDiv(int)}.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2091,7 +2174,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param y The exponent.
      * @param mc MathContext
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2104,11 +2187,12 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @return x^y
      */
-    private static BigDecimal power(BigDecimal x, int y, int oom, RoundingMode rm) {
+    public static BigDecimal power(BigDecimal x, int y, int oom, RoundingMode rm) {
+        // In Java6
         // x.pow(y) returned a mathematically incorrect result for
-        // x = 1.0000000000000000000000000001, y1 = 100
+        //x = 1.0000000000000000000000000001, y1 = 100
         // Is x a "supernormal" number in this context?
-        //BigDecimal result = x.pow(y1);// Don't attempt to support "supernormal" numbers.
+        // BigDecimal result = x.pow(y);
 
         // Deal with special cases
         // x = 0
@@ -2146,29 +2230,37 @@ public class Math_BigDecimal extends Math_Number {
             BigDecimal power = powerNoSpecialCaseCheck(x, -y, oom - 2, rm);
             return reciprocal(power, oom, rm);
         }
-        BigDecimal r = powerNoSpecialCaseCheck(x, y, oom, rm);
-        return r;
+        return powerNoSpecialCaseCheck(x, y, oom, rm);
     }
 
-    private static BigDecimal powerNoSpecialCaseCheck(BigDecimal x,
+    /**
+     * Calculates and returns {@code x} raised to the power of {@code y}
+     * ({@code x^y}) accurate to the
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a> (OOM) {@code oom} and RoundingMode {@code rm}.
+     *
+     * @param x The base of the exponent {@code x > 0 && x != 1}.
+     * @param y The exponent {@code y >= 3}.
+     * @param div An optimisation parameter. If {@code div < 2} it is set to
+     * {@code 2}. If {@code div > 256} it is set to {@code 256}.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * the result is rounded to.
+     * @param rm The {@link RoundingMode} used to round the final result.
+     * @return {@code x^y}
+     */
+    public static BigDecimal powerNoSpecialCaseCheck(BigDecimal x,
             int y, int oom, RoundingMode rm) {
-        // Find the integer part of x.
-        BigInteger xi = x.toBigInteger();
-        if (xi.compareTo(BigInteger.ZERO) == 0) {
-            BigDecimal r = new BigDecimal(x.toString());
-            for (int i = 1; i < y; i++) {
-                if (getOrderOfMagnitudeOfMostSignificantDigit(r) < oom) {
-                    break;
-                }
-                r = multiply(r, x, oom - 3, rm);
-            }
-            return round(r, oom, rm);
-        } else {
-            BigInteger ri = xi.pow(y);
-            BigDecimal xf = x.subtract(new BigDecimal(ri));
-            BigDecimal rf = powerNoSpecialCaseCheck(xf, y, oom, rm);
-            return multiply(rf, ri, oom, rm);
-        }
+        BigDecimal r = x.pow(y);
+        return round(r, oom, rm);
     }
 
     /**
@@ -2176,7 +2268,7 @@ public class Math_BigDecimal extends Math_Number {
      *
      * @param x The number to calculate the reciprocal of.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2199,12 +2291,12 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculates and returns the reciprocal of {@code x} ({@code 1/x}) rounded
      * to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> given by {@code oom} using {@link RoundingMode#HALF_UP}.
      *
      * @param x The base.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2222,13 +2314,13 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Calculates and returns the reciprocal {@code 1} divided by {@code x} ({@code 1/x}) iff the result
-     * can be stored as an integer, otherwise an {@link ArithmeticException} is
-     * thrown.
+     * Calculates and returns the reciprocal {@code 1} divided by {@code x}
+     * ({@code 1/x}) iff the result can be stored as an integer, otherwise an
+     * {@link ArithmeticException} is thrown.
      *
      * @param x The number to calculate the reciprocal of.
-     * @return {@code 1/x} if the result can be stored as an integer, otherwise an
-     * {@link ArithmeticException} is thrown.
+     * @return {@code 1/x} if the result can be stored as an integer, otherwise
+     * an {@link ArithmeticException} is thrown.
      */
     public static BigInteger reciprocalWillBeIntegerReturnBigInteger(
             BigDecimal x) {
@@ -2305,7 +2397,7 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @param x The number to calculate the logarithm of.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2384,7 +2476,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param base The base of the logarithm.
      * @param x The number to take the logarithm of.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2463,7 +2555,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * @param x The number to round.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2487,7 +2579,7 @@ public class Math_BigDecimal extends Math_Number {
      *
      * @param x The number to round
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2758,7 +2850,7 @@ public class Math_BigDecimal extends Math_Number {
      * returned.
      *
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2833,20 +2925,23 @@ public class Math_BigDecimal extends Math_Number {
             r = reciprocal(exp, oom - 3, RoundingMode.DOWN);
             return Math_BigDecimal.multiply(exp(xi, oom - 3, RoundingMode.DOWN), r, oom, rm);
         }
-        int oomm3 = oom - 3;
         r = BigDecimal.ONE.add(fract);
         BigDecimal dpxff;
-        BigDecimal tollerance = new BigDecimal(BigInteger.ONE, 1 - oom);
+        BigDecimal ex = exp(xi, oom - 3, RoundingMode.DOWN);
+        //int oomm3 = oom - 3 - Math_BigDecimal.getScaleOfMostSignificantDigit(x);
+        int oomm3 = oom - 3 - Math_BigDecimal.getScaleOfMostSignificantDigit(ex);
+        //int oomm3 = oom - 3 - (int) Math.sqrt(Math_BigDecimal.getScaleOfMostSignificantDigit(ex));
+        BigDecimal tollerance = new BigDecimal(BigInteger.ONE, 1 - oomm3);
         // Use Taylor Series
         BigInteger exponent = BigInteger.ONE;
-        Integer f = 1;
+        int f = 1;
         while (true) {
             exponent = exponent.add(BigInteger.ONE);
-            f = f + 1;
+            f++;
             BigDecimal ff = new BigDecimal(this.bi.factorial(f));
             /**
-             * May need dpd to be larger (even though the bottom of the Taylor
-             * series grows fast).
+             * May need oomm3 to be larger (even though the bottom of the Taylor
+             * series grows fast)!
              */
             BigDecimal px = power(fract, exponent, 64, oomm3, rm);
             dpxff = Math_BigDecimal.divide(px, ff, oomm3, rm);
@@ -2855,8 +2950,7 @@ public class Math_BigDecimal extends Math_Number {
                 break;
             }
         }
-        r = exp(xi, oom - 3, RoundingMode.DOWN).multiply(r);
-        return round(r, oom, rm);
+        return Math_BigDecimal.multiplyPriorRound(ex, r, oom, rm);
     }
 
     /**
@@ -2867,7 +2961,7 @@ public class Math_BigDecimal extends Math_Number {
      *
      * @param x The exponent.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -2892,7 +2986,9 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(BigInteger.valueOf(999999999)) != 1
                 && x.compareTo(BigInteger.ZERO) != -1) {
             int xi = x.intValueExact();
-            r = getE(oom - xi - 1, RoundingMode.DOWN).pow(xi);
+            BigDecimal e = getE(oom - xi - 1, RoundingMode.DOWN);
+            //r = e.pow(xi);
+            return power(e, xi, oom, rm);
         } else {
             ArrayList<BigDecimal> rp = new ArrayList<>();
             BigDecimal rpp = getE(oom - Math_BigInteger.log10(x), RoundingMode.DOWN);
@@ -2919,7 +3015,7 @@ public class Math_BigDecimal extends Math_Number {
 
             }
         }
-        return Math_BigDecimal.round(r, oom);
+        return Math_BigDecimal.round(r, oom, rm);
     }
 
 //    /**
@@ -2995,7 +3091,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param bd may be null. Passing a Math_BigDecimal in can save computation.
      * The Euler constant is used in most invocations.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -3087,7 +3183,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return the closer to negative infinity value of {@code x}
      * where the non-zero digit with the largest
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) is lowered by {@code 1}. Trailing zeros are stripped
      * from the result. Examples
      * <table>
@@ -3134,7 +3230,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Calculate and return the closer to positive infinity value of {@code x}
      * where the non-zero digit with the largest
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> (OOM) is increased by {@code 1}. Trailing zeros are
      * stripped from the result. Examples
      * <table>
@@ -3240,8 +3336,8 @@ public class Math_BigDecimal extends Math_Number {
             // x > 1
             //int safeDecimalPlaces = decimalPlaces + 5;
             //BigDecimal epsilon = new BigDecimal(BigInteger.ONE, oom);
-            BigDecimal epsilon = new BigDecimal(BigInteger.ONE,
-                    (oom * (int) Math.sqrt(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x))));
+            BigDecimal epsilon = new BigDecimal(BigInteger.ONE, -oom
+                    + Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x));
             // Check there is a root in the precision and return 0 if not
             BigDecimal comparator = BigDecimal.ONE.add(epsilon);
             boolean powerTest = powerTestAbove(x, comparator, root, 256, oom, RoundingMode.DOWN);
@@ -3564,7 +3660,7 @@ public class Math_BigDecimal extends Math_Number {
                 BigDecimal denominator = root(du, root,
                         oom - xscale - rootLength, // Can we cope with less or do we need more?
                         RoundingMode.DOWN);
-                return Math_BigDecimal.divide(                        num, denominator, oom, rm);
+                return Math_BigDecimal.divide(num, denominator, oom, rm);
             } else {
                 return rootLessThanOne(x, root, oom, rm);
             }
@@ -3645,7 +3741,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x {@code 0 < x < 1}
      * @param root
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -3656,8 +3752,7 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      * @param rm The {@link RoundingMode} used to round intermediate results and
      * the final result.
-     * @return The root root of x to
- decimalPlaces precision.
+     * @return The root root of x to decimalPlaces precision.
      */
     private static BigDecimal rootLessThanOne(BigDecimal x, int root, int oom,
             RoundingMode rm) {
@@ -3684,7 +3779,7 @@ public class Math_BigDecimal extends Math_Number {
      * {@code 0} and {@code 1}.
      * @param root The root to take.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -3739,7 +3834,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param epsilon Amount of difference deemed significant.
      * @param maxite The maximum number of iterations to iterate.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -3976,7 +4071,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param epsilon Amount of difference deemed significant.
      * @param maxite The maximum number of iterations to iterate.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -4080,8 +4175,9 @@ public class Math_BigDecimal extends Math_Number {
      * root of a number is irrational and cannot be precisely stored as a
      * decimal number. This method therefore rounds the result as necessary
      * using the RoundingMode to try to ensure the result is correct to
+     *
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -4197,10 +4293,8 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * Returns a pseudorandom number in the range [l, u].
      *
-     * @param bi this contains the random and the powers of two and is passed in
-     * for efficiency.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -4213,8 +4307,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param u The largest value to return.
      * @return A pseudorandom number in the range [l, u]
      */
-    public static BigDecimal getRandom(Math_BigInteger bi, int oom, BigDecimal l,
-            BigDecimal u) {
+    public BigDecimal getRandom(int oom, BigDecimal l, BigDecimal u) {
         //BigDecimal resolution = new BigDecimal(BigInteger.ONE,decimalPlaces);
         BigDecimal range = u.subtract(l);
         BigInteger rescaledRange = range.scaleByPowerOfTen(-oom).toBigInteger();
@@ -4228,7 +4321,7 @@ public class Math_BigDecimal extends Math_Number {
      *
      * @param gn A Math_Number
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -4240,13 +4333,12 @@ public class Math_BigDecimal extends Math_Number {
      * @return a random BigDecimal between 0 and 1 inclusive which can have up
      * to dp decimal places.
      */
-    public static BigDecimal getRandom(Math_Number gn, int oom) {
-        Random[] random = gn.getRandoms(-oom);
+    public BigDecimal getRandom(int oom) {
+        Random[] random = getRandoms(-oom);
         String value = "0.";
         int digit;
-        int ten_int = 10;
         for (int i = 0; i < -oom; i++) {
-            digit = random[i].nextInt(ten_int);
+            digit = random[i].nextInt(10);
             value += digit;
         }
         int length = value.length();
@@ -4279,7 +4371,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The value for which the cosine is returned.
      * @param bd An instance of {@link Math_BigDecimal}
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>
@@ -4307,8 +4399,7 @@ public class Math_BigDecimal extends Math_Number {
         while (true) {
             factorial = bi.factorial(factor);
             power = Math_BigDecimal.power(x, factor, oom - 2, rm);
-            BigDecimal division = Math_BigDecimal.divide(
-                    power, factorial, oom - 2, rm);
+            BigDecimal division = divide(power, factorial, oom - 2, rm);
             if (division.compareTo(precision) != -1) {
                 if (alternator) {
                     alternator = false;
@@ -4322,7 +4413,7 @@ public class Math_BigDecimal extends Math_Number {
             }
             factor += 2;
         }
-        cosx = Math_BigDecimal.round(cosx, oom, rm);
+        cosx = round(cosx, oom, rm);
         return cosx;
     }
 
@@ -4432,7 +4523,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param bd An instance of Math_BigDecimal.
      * @param x The value to calculate the tangent of.
      * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
      * <ul>
      * <li>...</li>

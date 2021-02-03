@@ -32,7 +32,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.function.Executable;
 
 /**
  *
@@ -65,12 +64,12 @@ public class Math_BigDecimalTest {
     @Test
     public void testMultiply_4args_1() {
         System.out.println("multiply");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int oom = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        BigDecimal x;
+        BigInteger y;
+        int oom;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
         // Test 1
         x = new BigDecimal("1.1");
         y = new BigInteger("1");
@@ -82,7 +81,6 @@ public class Math_BigDecimalTest {
         // Test 2
         x = new BigDecimal("1.123456789");
         y = new BigInteger("1234");
-        rm = RoundingMode.HALF_UP;
         oom = -9;
         expResult = new BigDecimal("1386.345677626");
         result = Math_BigDecimal.multiply(x, y, oom, rm);
@@ -91,7 +89,6 @@ public class Math_BigDecimalTest {
         // Test 3
         x = new BigDecimal("1.123456789");
         y = new BigInteger("1234");
-        rm = RoundingMode.HALF_UP;
         oom = -8;
         expResult = new BigDecimal("1386.34567763");
         result = Math_BigDecimal.multiply(x, y, oom, rm);
@@ -105,12 +102,12 @@ public class Math_BigDecimalTest {
     @Test
     public void testMultiply_4args_2() {
         System.out.println("multiply");
-        BigDecimal x = null;
-        BigDecimal y = null;
-        int oom = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = null;
+        BigDecimal x;
+        BigDecimal y;
+        int oom;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
         // Test 1
         x = new BigDecimal("1.1");
         y = new BigDecimal("1.1");
@@ -122,7 +119,6 @@ public class Math_BigDecimalTest {
         // Test 2
         x = new BigDecimal("1.123456789");
         y = new BigDecimal("1234.5678");
-        rm = RoundingMode.HALF_UP;
         oom = -13;
         expResult = new BigDecimal("1386.9835763907942");
         System.out.println(x.multiply(y));
@@ -131,7 +127,6 @@ public class Math_BigDecimalTest {
         // Test 3
         x = new BigDecimal("99999.99999");
         y = new BigDecimal("9999999.9999999");
-        rm = RoundingMode.HALF_UP;
         oom = -12;
         expResult = new BigDecimal("999999999899.990000000001");
         System.out.println(x.multiply(y));
@@ -1040,11 +1035,332 @@ public class Math_BigDecimalTest {
     @Test
     public void testPower_5args_2() {
         System.out.println("power");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int dp = 0;
-
+        BigDecimal x;
+        BigInteger y;
+        int div;
+        int oom;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        rm = RoundingMode.HALF_UP;
+        oom = -100;
+        x = new BigDecimal("1");
+        y = new BigInteger("2");
+        div = 2;
+        expResult = new BigDecimal("1");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("2");
+        y = new BigInteger("2");
+        div = 2;
+        expResult = new BigDecimal("4");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("2");
+        y = new BigInteger("2");
+        div = 8;
+        expResult = new BigDecimal("4");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigDecimal("2");
+        y = new BigInteger("3");
+        div = 2;
+        expResult = new BigDecimal("8");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = new BigDecimal("2");
+        y = new BigInteger("3");
+        div = 8;
+        expResult = new BigDecimal("8");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = new BigDecimal("2");
+        y = new BigInteger("4");
+        div = 4;
+        expResult = new BigDecimal("16");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        x = new BigDecimal("2");
+        y = new BigInteger("4");
+        div = 2;
+        expResult = new BigDecimal("16");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        x = new BigDecimal("2");
+        y = new BigInteger("4");
+        div = 3;
+        expResult = new BigDecimal("16");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        x = new BigDecimal("2");
+        y = new BigInteger("8");
+        div = 8;
+        expResult = new BigDecimal("256");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 10
+        x = new BigDecimal("2");
+        y = new BigInteger("10");
+        div = 64;
+        expResult = new BigDecimal("1024");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 11
+        x = new BigDecimal("2");
+        y = new BigInteger("11");
+        div = 64;
+        expResult = new BigDecimal("2048");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 12
+        x = new BigDecimal("2");
+        y = new BigInteger("65");
+        div = 32;
+        expResult = new BigDecimal("36893488147419103232");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 13
+        x = new BigDecimal("2");
+        y = new BigInteger("65");
+        div = 17;
+        expResult = new BigDecimal("36893488147419103232");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 14
+        x = new BigDecimal("5.1");
+        y = new BigInteger("117");
+        div = 8;
+        expResult = new BigDecimal(
+                "61053505308866480538551405717028781301447815633741042337063285"
+                + "637565092974889024013.95170173462077405598021935614839617008"
+                + "687986713833910778545970838802156925519570602363713165609193"
+                + "54");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 15
+        x = new BigDecimal("0.1122");
+        y = new BigInteger("10");
+        div = 8;
+        expResult = new BigDecimal("3.161757585765373988090713703424E-10");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 16
+        x = new BigDecimal("0.001122");
+        y = new BigInteger("1034");
+        div = 8;
+        expResult = new BigDecimal("0");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 17
+        oom = -10000;
+        x = new BigDecimal("0.001122");
+        y = new BigInteger("1034");
+        div = 8;
+        expResult = new BigDecimal(
+                "4.927357297629103147819324052152950275036601937850815403560445"
+                + "236083700295574927045053216349848466569243304082385070586331"
+                + "538839593433725186784660546994199784794405666417896880399734"
+                + "392822152057717524084020821246913991425766042466809293424533"
+                + "034972894114375629109690271014735839013650881281424404883404"
+                + "952627178442044469256079442076023740811913748135717170634334"
+                + "445973831766327749399479523802859361773136381923354508933461"
+                + "618023938839877142689146213275481918263220429948169622162364"
+                + "922337446992380378212665889994137343237617557677875626890254"
+                + "295259706779905218435234455553753174796971982647768423787118"
+                + "272807358331025975590389280878424837370222082758234244287706"
+                + "456396898801155129679937344396324435783061607404812097234868"
+                + "223924852041257089352428950170312134239367962109331109855790"
+                + "350671174934941334586824970429002651992224894052283952295809"
+                + "492316458272466319934117994496319511555952649951450177044090"
+                + "043910161446057619100938879513439717388717664624689258094857"
+                + "330731919006273181884439658027453268974869186067292641819566"
+                + "514956984747329303816033104406738539019781020532599948507727"
+                + "988529526687300872650069258742566120276271867340143033851056"
+                + "789292747869626164371979694745519442059826501796596482340361"
+                + "594017578274163660408966234284546668539961240874506432650150"
+                + "962204807023954584202461954563649423166017673746765136181101"
+                + "831836280153612589414848846170450328866059576479132229822554"
+                + "368961449058866258909507183670738364373401695108104036319657"
+                + "411787253318074758252059071601242090847802375207964848101217"
+                + "240762394670426166686940320598217178293910712816082566723018"
+                + "277853037528206089402413221557917916227355715767056870601127"
+                + "171796774936494333940602256515033485043086215408933562045459"
+                + "236127236363165656336833326716457246722275433533702177482434"
+                + "176687040511148125279215965350737478875515854849066442403789"
+                + "652291244024162928193197244590528924711755971667621792047252"
+                + "734277545494085654143191267754076377548548279266561650484126"
+                + "999279685602865864569540281127913486201906412912817807453099"
+                + "410562658382724925596828822866110767698571645903112559112400"
+                + "078560969490848054213197577561936787146926676157384475182508"
+                + "100587514117344003219530478249469418533026074576366867297461"
+                + "387290316061973897819596285809715456825028542616230425563570"
+                + "433524229591761963338129315616129109658611061754492874730583"
+                + "528968182186218155776892535845513654601365679547807926196958"
+                + "603519737159661537672735062412090435893226036152222921236129"
+                + "013231354189711006651658658781804723559652913654659746633325"
+                + "405103399891184766762208994172861736113917300597267029682915"
+                + "954208886059165634882109331499342718272753691056654173191966"
+                + "435899634973815441157597773782979741183717596828280117000116"
+                + "229752327279731633753836817650405027400452401990752146863213"
+                + "788033245337415675675000281001230106541302735966668688378528"
+                + "736203480118517708977302740545122325040451589429208511769945"
+                + "859450470074880842465140671770861465213884520202745850889929"
+                + "851209699075320366569240296373127293730488339784386301462443"
+                + "393273966477304719599878835469922158098817241892186876600894"
+                + "811711817735060315993183660630801180299388370977016001053753"
+                + "213675590341472292056479804429326923743981250071473193821515"
+                + "915066035479225636617768291794944E-3051");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 18
+        x = new BigDecimal("0.0012345678991622");
+        y = new BigInteger("1234");
+        div = 8;
+        expResult = new BigDecimal(
+                "8.501309043595503534858369295274746396278923131310551482437978"
+                + "961099991282995536024130634771054723737567510248365858917231"
+                + "808995514915177754278268538033054531901346973695941956769685"
+                + "729610800471300015155325762523212459304928882008541290136448"
+                + "164697202788344400871671423873916602607681361130208799214930"
+                + "190634832273692766016402172989257259574619028114555353482935"
+                + "885283201670178379414086061377809789063858635712731974532512"
+                + "430310980023129185818120757432867331649583134291701959195137"
+                + "729994754704454960784837427814154835399466742746222888199322"
+                + "185691398841244989033783917831898297087694127334821959823479"
+                + "560817125415700617393543446659425729143468979736023831630340"
+                + "291883200802015650903509389558971413332344895685883054561707"
+                + "854340007144964401666766582625306847399794811880488947288749"
+                + "500445957984619975261662034931894815609905146393901404336951"
+                + "726392362334745376069094901376259664138106029706873774338173"
+                + "998329612594142761937455247432615013087149603712001682535027"
+                + "487425695214888131492006015586387144812760140264885210350022"
+                + "385571183468262416433409054829313787356217286799499124417308"
+                + "643563055390840771184992546154685006868848737894861390391409"
+                + "652736342833892345333471166044356661607374015039399319274718"
+                + "629478937611112391808059758444081736104635530893031155401711"
+                + "673096847613763965152316408173575789911244622621569819962160"
+                + "974284289755137304410385414276774910129688662502430115684211"
+                + "305043916746636944858613978083992656812345045926463710124242"
+                + "872379317940073605025489112358266685006669123714884708927439"
+                + "575426947912616191851513190852767791448069336538448488951966"
+                + "436659843996475485313360233640553751372827806934551841424342"
+                + "157725009543570890223152253563288261584639816015870633616805"
+                + "683134344263615367388668849038519919346201987837309595807403"
+                + "718115617674167506300541837716501813908555972354625254540683"
+                + "928046281922405458446981053787881445368430905255377016518170"
+                + "113140563107615310054843269354650004168801318589079765801259"
+                + "842775168756959968188252335431745319932389096359454986676414"
+                + "011610028757894591810956706626561300829131209434392416569502"
+                + "141827755845524803576284528831533313691000225371337937565727"
+                + "416258357361247370778641312576571435906709049598433637869426"
+                + "245593194706827798900884879338116900931898068707334976831839"
+                + "215750020927621680289776239758865004682751232836834561154530"
+                + "197215226122620319389943412936769554657213178728950944501797"
+                + "039022570088560027217747633236633920979496320588682775057916"
+                + "009158350376537176872951520778371161324081739839202968670224"
+                + "229972959153366128266511727756008999699629586301651148690711"
+                + "371796038695569976090142721415725908235169696667844504772472"
+                + "736976544942017666534880236850216672807647363830166005657534"
+                + "171567373816577363431316616044039394078774589888717044488084"
+                + "644522676289533172266925566791315322656094992410632065645396"
+                + "380509305484786578772631063641740921733037857157400156071911"
+                + "020031521457831211857239554432678681664642838766003136008130"
+                + "129077927242892574138931736152628228463796956539174013954892"
+                + "792553892387483738547963113646915043658437009663206139368176"
+                + "159964357304162665535919759783652929030066644758752767833010"
+                + "410369287010756428079116908776272929715107491462040237349428"
+                + "684250204705736280788513376326532955500066049276222779281096"
+                + "096756928936140563456490724817027743722271023583886738488933"
+                + "061353838760233314417772662177147902966575423722023809984290"
+                + "392061646793078078814005028975430990216115523464876904124422"
+                + "223862890087913210798522753191413395243907996283739569642210"
+                + "244602147214777891517294936823722328014924206255329285478843"
+                + "242768703400460960231139714600064620770464936072766209246068"
+                + "001436415856197371778286474381782580916353234797514144983276"
+                + "211337188385353920068002449139542467912279400044121727926761"
+                + "803852730768611548931120161525698845041370421892412093778104"
+                + "745283421666724059788026496249189559093802977763691408091609"
+                + "142134121969282634573919857399828585560634031473179571643083"
+                + "783808705265238498624915950546029209543773191347021783369878"
+                + "064938930413118498634885015874247944667984191553912172650072"
+                + "707360380125285762521870414832881235235495810169441806505751"
+                + "410420427162949183602660804248108261697912973545722496566734"
+                + "031552691187532397080861867628983441089434386222107891651768"
+                + "009689455386050198483378408658051348635073517417074986893516"
+                + "809658468756417818261992978162100241689365042289910302048880"
+                + "668879802020609547163584043402329200170942940017537437036586"
+                + "839966336108968391846619896256151126487470606396269903867297"
+                + "906077328929013196940913689665108348787185943866272099058941"
+                + "901510264511251756607818028877192639267509937281747260532310"
+                + "944163987018930018783955113759662369114939078486137333961539"
+                + "526873631068991739648940494355858390232176614093384693622420"
+                + "011139723392319121907335218016788125567617837405231286280386"
+                + "694610492170510062764269879513345743770334391701759618750592"
+                + "095118260919871813035646088502264831152265077198437063338482"
+                + "130789544767815219698964668358168356688056592917908797647821"
+                + "705412172370423395311733554057242343877758435748283702730078"
+                + "242470967847669725871834821527137084885921073698664574920903"
+                + "530527792194811676429277067815580464712394558156962539394897"
+                + "059280295797315118741492881864032577951288182863069610930500"
+                + "059224365654476691962029610532184783002186573781854736492904"
+                + "565915933709278870064582939867368802415510056126011853717941"
+                + "064181885081220156682835784634844622353783970271341998461216"
+                + "475057645889401559331454188428301965249141374467473887220244"
+                + "934834282333506871494750086904041314916341348107129943354661"
+                + "625814231790475354074385012903967994878807059698070011985709"
+                + "961271426096489639456300191830839942172279156535627221475915"
+                + "573789110618901998835717141475677114720083752104740057253833"
+                + "190765965547964444608147838708615265918002739090946164599149"
+                + "408169445447456338009921249339171373172788937040615057462928"
+                + "972482269975680079544132583259441223009437283042950763862314"
+                + "391176503883320604664808288433482496178775762776512005388047"
+                + "410260111049601002224431547061166136239769725780929612481677"
+                + "155332655223655783365346890417816768355980483289894226077957"
+                + "044439824627196514323213427796618252575012014386085013928263"
+                + "834276287574437588709514610827522468792615834939104288133068"
+                + "375259673875098070501886720795065319174689340681481756754150"
+                + "297808463032191538533928197268662625849497992170965785935507"
+                + "140926152173690023441115066205059469854367305763215156748232"
+                + "703087457290093111633254634388438823165743886696298824349345"
+                + "656496377276196412103923039892904397552591077832462093232455"
+                + "91101586589950430363520701982464337600308855098521E-3590");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 19
+        oom = -1000;
+        x = new BigDecimal("-0.0012345678991622");
+        y = new BigInteger("12");
+        div = 8;
+        expResult = new BigDecimal(
+                "-1.25365998693568959676678134576311434191784180749571395739232"
+                + "878897951918031315109522890632250338730775085419737311675655"
+                + "57247684654582741706554500513064226816E-35");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 20
+        oom = -500;
+        x = new BigDecimal("-0.0012345678991622");
+        y = new BigInteger("43");
+        div = 8;
+        expResult = new BigDecimal(
+                "8.612795922579100431286467891265924977006154049807999513099100"
+                + "860398926168811375495791586088327052448905995372673275625194"
+                + "854714215437648883074238808406389133715622539770003076165360"
+                + "359498335943518537092852659172457402813915377353569315634343"
+                + "600751669994990651558870998167491502327268726540343541308219"
+                + "777136364418488951763650222930343714459852346095478286203471"
+                + "16113445581957E-126");
+        result = Math_BigDecimal.power(x, y, div, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -1287,37 +1603,264 @@ public class Math_BigDecimalTest {
      * Test of powerNoSpecialCaseCheck method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
-    public void testPowerNoSpecialCaseCheck() {
+    public void testPowerNoSpecialCaseCheck_4args() {
         System.out.println("powerNoSpecialCaseCheck");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        int dp = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, dp, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal x;
+        int y;
+        int oom;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        oom = -2;
+        x = new BigDecimal("1.1");
+        y = 2;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, oom, rm);
+        expResult = new BigDecimal("1.21");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        oom = -20;
+        x = new BigDecimal("10.01");
+        y = 10;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, oom, rm);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        oom = -5;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, oom, rm);
+        expResult = new BigDecimal("10100451202.10252");
+        assertTrue(expResult.compareTo(result) == 0);        
+        // Test 4
+        oom = -20;
+        x = new BigDecimal("10.01");
+        y = 100;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, oom, rm);
+        expResult = new BigDecimal("1105115697720767968379105237118840189434898"
+                + "8003480476139953393312528176774650687493588626299347803138.0"
+                + "7237216637643492045");
+        //System.out.println(result);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        oom = -5;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, oom, rm);
+        expResult = new BigDecimal("1105115697720767968379105237118840189434898"
+                + "8003480476139953393312528176774650687493588626299347803138.0"
+                + "7237");
+        //System.out.println(result);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        oom = -25;
+        x = new BigDecimal("0.01789");
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, oom, rm);
+        expResult = new BigDecimal("0.0000000000000000033581756");
+        //System.out.println(result.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        oom = -5;
+        x = new BigDecimal("0.01789");
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, oom, rm);
+        expResult = new BigDecimal("0");
+        //System.out.println(result.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        oom = -100;
+        x = new BigDecimal("0.01789");
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, oom, rm);
+        expResult = new BigDecimal("0.00000000000000000335817563008269544848251"
+                + "088786601");
+        //System.out.println(result.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+    
+    /**
+     * Test of powerNoSpecialCaseCheck method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerNoSpecialCaseCheck_5args_1() {
+        System.out.println("powerNoSpecialCaseCheck");
+        BigDecimal x;
+        BigInteger y;
+        int div;
+        int oom;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        oom = -2;
+        x = new BigDecimal("1.1");
+        y = new BigInteger("2");
+        div = 2;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("1.21");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        oom = -20;
+        x = new BigDecimal("10.01");
+        y = new BigInteger("10");
+        div = 16;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        div = 16;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        div = 3;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        div = 64;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        oom = -5;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        oom = -25;
+        x = new BigDecimal("0.01789");
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("0.0000000000000000033581756");
+        //System.out.println(result.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        oom = -5;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("0");
+        //System.out.println(result.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        oom = -100;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("0.00000000000000000335817563008269544848251"
+                + "088786601");
+        //System.out.println(result.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
+    /**
+     * Test of powerNoSpecialCaseCheck method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPowerNoSpecialCaseCheck_5args_2() {
+        System.out.println("powerNoSpecialCaseCheck");
+        BigDecimal x;
+        int y;
+        int div;
+        int oom;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        oom = -2;
+        x = new BigDecimal("1.1");
+        y = 2;
+        div = 2;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("1.21");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        oom = -20;
+        x = new BigDecimal("10.01");
+        y = 10;
+        div = 16;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        div = 16;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        div = 3;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        div = 64;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        oom = -5;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("10100451202.10252");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        oom = -25;
+        x = new BigDecimal("0.01789");
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("0.0000000000000000033581756");
+        //System.out.println(result.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        oom = -5;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("0");
+        //System.out.println(result.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        oom = -100;
+        result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        expResult = new BigDecimal("0.00000000000000000335817563008269544848251"
+                + "088786601");
+        //System.out.println(result.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+    
     /**
      * Test of powerNoSpecialCaseCheckNoRounding method, of class
      * Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testPowerNoSpecialCaseCheckNoRounding() {
         System.out.println("powerNoSpecialCaseCheckNoRounding");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int div = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.powerNoSpecialCaseCheckNoRounding(x, y, div);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal x;
+        BigInteger y;
+        int div;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        x = new BigDecimal("1.1");
+        y = new BigInteger("2");
+        div = 2;
+        result = Math_BigDecimal.powerNoSpecialCaseCheckNoRounding(x, y, div);
+        expResult = new BigDecimal("1.21");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("10.01");
+        y = new BigInteger("10");
+        div = 16;
+        result = Math_BigDecimal.powerNoSpecialCaseCheckNoRounding(x, y, div);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("10.01");
+        y = new BigInteger("10");
+        div = 16;
+        result = Math_BigDecimal.powerNoSpecialCaseCheckNoRounding(x, y, div);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigDecimal("10.01");
+        y = new BigInteger("10");
+        div = 3;
+        result = Math_BigDecimal.powerNoSpecialCaseCheckNoRounding(x, y, div);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = new BigDecimal("10.01");
+        y = new BigInteger("10");
+        div = 64;
+        result = Math_BigDecimal.powerNoSpecialCaseCheckNoRounding(x, y, div);
+        expResult = new BigDecimal("10100451202.10252210120045010001");
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -1795,8 +2338,8 @@ public class Math_BigDecimalTest {
      */
     @Test
     @Disabled
-    public void testRootRoundIfNecessary_4args_1() {
-        System.out.println("rootRoundIfNecessary");
+    public void testRoot_4args_1() {
+        System.out.println("root");
         BigDecimal x;
         BigInteger root;
         int oom;
@@ -1942,17 +2485,62 @@ public class Math_BigDecimalTest {
      */
     @Test
     @Disabled
-    public void testRootRoundIfNecessary_4args_2() {
-        System.out.println("rootRoundIfNecessary");
-        BigDecimal x = null;
-        int root = 0;
-        int dp = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.root(x, root, dp, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testRoot_4args_2() {
+        System.out.println("root");
+        BigDecimal x;
+        int root;
+        int oom;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        x = new BigDecimal("8904831940328.25");
+        root = 1000000000;
+        oom = -100;
+        rm = RoundingMode.HALF_UP;
+        expResult = new BigDecimal(
+                "1.000000029817615604530522955297464844042643450238720000794888"
+                + "829957679681379258243392341722104230672");
+               //1.000000029817615604530522955297...
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("0.25");
+        root = 1000000000;
+        expResult = new BigDecimal(
+                "0.999999998613705638454721047973532813135945294316465347162595"
+                + "0794816212223235738396849891311358363145");
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("0.999");
+        root = 1000000000;
+        expResult = new BigDecimal(
+                "0.999999999998999499665416466665732735126112562031740141406732"
+                + "3221950570597106160577635181243915018588");
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigDecimal("0.1");
+        root = 356;
+        oom = -3;
+        expResult = new BigDecimal("0.994");
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = new BigDecimal("0.1");
+        oom = -4;
+        expResult = new BigDecimal("0.9936");
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = new BigDecimal("0.1");
+        oom = -100;
+        expResult = new BigDecimal(
+                "0.993552936417354226471692858641777111504937855829958649327917"
+                + "9203022268144882986474329796822248724061");
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -2045,7 +2633,7 @@ public class Math_BigDecimalTest {
      * Test of randomUniformTest method, of class Math_BigDecimal.
      */
     @Test
-    public void testRandomUniformTest_4args() {
+    public void testRandomUniformTest() {
         System.out.println("randomUniformTest");
         Random rand;
         Math_BigDecimal bd = new Math_BigDecimal();
@@ -2105,12 +2693,11 @@ public class Math_BigDecimalTest {
         Math_BigDecimal bd = new Math_BigDecimal();
         // Test 1
         oom = -10;
-        System.out.println("Test 2");
         BigDecimal lowerBound = BigDecimal.ZERO;
         BigDecimal upperBound = BigDecimal.ONE;
         //expResult = new BigDecimal("0.4932604312");
         expResult = new BigDecimal("0.4106274901");
-        result = Math_BigDecimal.getRandom(bd.bi, oom, lowerBound, upperBound);
+        result = bd.getRandom(oom, lowerBound, upperBound);
         assertEquals(expResult, result);
     }
 
@@ -2118,16 +2705,46 @@ public class Math_BigDecimalTest {
      * Test of getRandom method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
-    public void testGetRandom_Math_Number_int() {
+    public void testGetRandom_int() {
         System.out.println("getRandom");
-        Math_Number gn = null;
-        int dp = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.getRandom(gn, dp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int oom;
+        BigDecimal expResult;
+        BigDecimal result;
+        long seed;
+        int numberOfRandomInstances;
+        Math_BigDecimal bd = new Math_BigDecimal();
+        // Test 1
+        seed = 0L;
+        numberOfRandomInstances = 1000;
+        bd.initRandoms(numberOfRandomInstances, seed, 1);
+        oom = -1000;
+        expResult = new BigDecimal(
+                "0.058427164938625116053827514073627362958427064938847316953827"
+                + "504950497261958417066150847306953817281750397261948349286150"
+                + "837206959584170649286150069538175049726172619483170639288372"
+                + "069528175039403972519483160561408372059428172716403962519473"
+                + "392851408362059494831605392851400594281740397251625194731605"
+                + "382783620594271640394938625184731695514073620584271627064938"
+                + "615084733827504973629584847316953827504905842716493862516150"
+                + "847306953817736295842706493849286150837206955049726195841706"
+                + "170639286140837228175039726194831706392851408372281740397261"
+                + "948394831605392851400594281740396251625184731605382773620594"
+                + "271640394938625184730695514073629584271616053827514073622716"
+                + "403962519473847306953827504905842716493862516150847306952817"
+                + "736295841706493839286150837206955049726195841706069538175049"
+                + "726127064938615084738372069528175039958417064928615061408372"
+                + "059428177261948317063928392851408362059440397251948316050594"
+                + "281740397251170639286140837283620594271640399483160539285140"
+                + "5140736205842716625194731605382738275049");
+//        BigDecimal smallProbability = new BigDecimal("0.0001");
+//        for (int i = 0; i < 10000; i ++) {
+//            result = Math_BigDecimal.getRandom(bd, dp);
+//            if (result.compareTo(smallProbability) == -1){
+//                System.out.println("result " + result.toPlainString());
+//            }
+//        }
+        result = bd.getRandom(oom);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -2223,409 +2840,6 @@ public class Math_BigDecimalTest {
         // Test 14
         s = "-0";
         assertTrue(Math_BigDecimal.isBigDecimal(s));
-    }
-
-    /**
-     * Test of exp method, of class Math_BigDecimal.
-     */
-    @Test
-    @Disabled
-    public void testExp_BigDecimal_int() {
-        System.out.println("exp");
-        Math_BigDecimal bd = new Math_BigDecimal();
-        BigDecimal x;
-        int oom;
-        RoundingMode rm = RoundingMode.HALF_UP;
-        BigDecimal expResult;
-        BigDecimal result;
-        MathContext mc;
-        // Test 1
-        int test = 1;
-        x = BigDecimal.valueOf(2);
-        oom = -10;
-        result = bd.exp(x, oom, rm);
-        //expResult = new BigDecimal("7.3890560989");
-        mc = new MathContext(-oom + result.precision() - result.scale());
-        expResult = BigDecimalMath.exp(x, mc);
-        expResult = Math_BigDecimal.round(expResult, oom);
-        //assertEquals(expResult, result);
-        //assertThat(expResult, Matchers.comparesEqualTo(result));
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 2
-        test++;
-        x = new BigDecimal("0.02");
-        oom = -10;
-        result = bd.exp(x, oom, rm);
-        //expResult = new BigDecimal("1.0202013400");
-        mc = new MathContext(-oom + result.precision() - result.scale());
-        expResult = BigDecimalMath.exp(x, mc);
-        expResult = Math_BigDecimal.round(expResult, oom);
-        //printFunctionTest(funcName, test, x, dp, rm, result);
-        //assertEquals(expResult, result);
-        //assertThat(expResult, Matchers.comparesEqualTo(result));
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 3
-        test++;
-        x = new BigDecimal("0.000000012");
-        oom = -10;
-        result = bd.exp(x, oom, rm);
-        int mr = Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(x);
-        if (mr > 0) {
-            mr++;
-        }
-        mc = new MathContext(-oom - mr);
-        expResult = BigDecimalMath.exp(x, mc);
-        //expResult = Math_BigDecimal.round(expResult, oom);
-        //printFunctionTest(funcName, test, x, dp, rm, result);
-        //assertEquals(expResult, result);
-        //assertThat(expResult, Matchers.comparesEqualTo(result));
-        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 4
-//        test++;
-//        x = new BigDecimal("0.000000012");
-//        dp = 100;
-//        rm = RoundingMode.HALF_UP;
-//        result = bd.exp(x, bd, dp, rm);
-////        expResult = new BigDecimal(
-////                "1.000000012000000072000000288000000864000002073600004147200007"
-////                + "1094857249499428713618285884913371614711");
-//        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-//        expResult = BigDecimalMath.exp(x, mc);
-//        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-//        //printFunctionTest(funcName, test, x, dp, rm, result);
-//        //assertEquals(expResult, result);
-//        assertThat(expResult, Matchers.comparesEqualTo(result));
-//        // Test 5
-//        test++;
-//        x = new BigDecimal("1234");
-//        dp = 100;
-//        rm = RoundingMode.HALF_UP;
-//        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        expResult = new BigDecimal(
-////                "83059759373617942182585212913113567351910010438992024991210999"
-////                + "5454923315008203249228622332287168900783807203236941"
-////                + "4902057190611503380339135282346122079463872568744812"
-////                + "9160282114608484850219955438665976430056110355929008"
-////                + "1568915299754172470903436740058467313053059744618822"
-////                + "7760213564550738008482852338833888837967092607345470"
-////                + "7870887762743415777162495569954964980646026647274941"
-////                + "9574313243340244466395229965260298922134183326397331"
-////                + "1296815702676888489308238510796136610049551587722092"
-////                + "6062479018036337690481712828521819397655551425938830"
-////                + "264837.973417052783657749759051806294126581414124375"
-////                + "6552569443184292961499614756472883606953172641990622"
-////                + "460");
-//        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-//        expResult = BigDecimalMath.exp(x, mc);
-//        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-//        printFunctionTest(funcName, test, x, dp, rm, result);
-//        //assertEquals(expResult, result);
-//        assertThat(expResult, Matchers.comparesEqualTo(result));
-//        // Test 6
-//        test++;
-//        x = new BigDecimal("0.5678");
-//        dp = 100;
-//        rm = RoundingMode.HALF_UP;
-//        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        expResult = new BigDecimal(
-////                "1.764381139990485997370555270712146080977921321938820437756994"
-////                7484665772482841560184819887244807497714");
-//        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-//        expResult = BigDecimalMath.exp(x, mc);
-//        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-//        printFunctionTest(funcName, test, x, dp, rm, result);
-//        assertEquals(expResult, result);
-////        // Test 7
-////        test++;
-////        x = new BigDecimal("1234.5678");
-////        dp = 100;
-////        rm = RoundingMode.HALF_UP;
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-//////        expResult = new BigDecimal(
-//////                "14654907293095947998348213850397980421762219967522365396627015"
-//////                + "7446954995433819741094410764947112047906012815540251"
-//////                + "0099496044260696725324177360570330992742045983853145"
-//////                + "9484650997562904686479876588810478907498492770961626"
-//////                + "1452461385220475510438783429614855364551372899974754"
-//////                + "9385827529882582456544414514903991140262837264067071"
-//////                + "5856383062081491926713908229300604276719403032558655"
-//////                + "8598102530989548975007326686244681359829698224824777"
-//////                + "2230516585207831661198442009726028544382751383530565"
-//////                + "3512991383291690403456444424125771608013650132825780"
-//////                + "7115515.06895420242229125976133533005718191453230212"
-//////                + "0267300236914758300188509653349524745461710911967049"
-//////                + "3253");
-////        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-////        expResult = BigDecimalMath.exp(x, mc);
-////        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result); // Test failing
-////        // Test 8
-////        test++;
-////        x = new BigDecimal("1");
-////        dp = 100;
-////        rm = RoundingMode.HALF_UP;
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-//////        expResult = new BigDecimal(
-//////                "2.718281828459045235360287471352662497757247093699959574966967"
-//////                + "6277240766303535475945713821785251664274");
-////        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-////        expResult = BigDecimalMath.exp(x, mc);
-////        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-////        // Test 9
-////        test++;
-////        x = new BigDecimal("1");
-////        dp = 1000;
-////        rm = RoundingMode.HALF_UP;
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-//////        expResult = new BigDecimal(
-//////                "2.718281828459045235360287471352662497757247093699959574966967"
-//////                + "627724076630353547594571382178525166427427466391932003059921"
-//////                + "817413596629043572900334295260595630738132328627943490763233"
-//////                + "829880753195251019011573834187930702154089149934884167509244"
-//////                + "761460668082264800168477411853742345442437107539077744992069"
-//////                + "551702761838606261331384583000752044933826560297606737113200"
-//////                + "709328709127443747047230696977209310141692836819025515108657"
-//////                + "463772111252389784425056953696770785449969967946864454905987"
-//////                + "931636889230098793127736178215424999229576351482208269895193"
-//////                + "668033182528869398496465105820939239829488793320362509443117"
-//////                + "301238197068416140397019837679320683282376464804295311802328"
-//////                + "782509819455815301756717361332069811250996181881593041690351"
-//////                + "598888519345807273866738589422879228499892086805825749279610"
-//////                + "484198444363463244968487560233624827041978623209002160990235"
-//////                + "304369941849146314093431738143640546253152096183690888707016"
-//////                + "768396424378140592714563549061303107208510383750510115747704"
-//////                + "1718986106873969655212671546889570350354");
-////        mc = new MathContext(dp + result.precision() - result.scale(), rm);
-////        expResult = BigDecimalMath.exp(x, mc);
-////        expResult = Math_BigDecimal.roundIfNecessary(expResult, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-//////        // Test 10
-//////        test++;
-//////        x = new BigDecimal("1");
-//////        dp = 1001;
-//////        rm = RoundingMode.HALF_UP;
-//////        expResult = new BigDecimal(
-//////                "2.718281828459045235360287471352662497757247093699959574966967"
-//////                + "627724076630353547594571382178525166427427466391932003059921"
-//////                + "817413596629043572900334295260595630738132328627943490763233"
-//////                + "829880753195251019011573834187930702154089149934884167509244"
-//////                + "761460668082264800168477411853742345442437107539077744992069"
-//////                + "551702761838606261331384583000752044933826560297606737113200"
-//////                + "709328709127443747047230696977209310141692836819025515108657"
-//////                + "463772111252389784425056953696770785449969967946864454905987"
-//////                + "931636889230098793127736178215424999229576351482208269895193"
-//////                + "668033182528869398496465105820939239829488793320362509443117"
-//////                + "301238197068416140397019837679320683282376464804295311802328"
-//////                + "782509819455815301756717361332069811250996181881593041690351"
-//////                + "598888519345807273866738589422879228499892086805825749279610"
-//////                + "484198444363463244968487560233624827041978623209002160990235"
-//////                + "304369941849146314093431738143640546253152096183690888707016"
-//////                + "768396424378140592714563549061303107208510383750510115747704"
-//////                + "17189861068739696552126715468895703503540");
-//////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-//////        printFunctionTest(funcName, test, x, dp, rm, result);
-//////        assertEquals(expResult, result);
-////        // Test 11
-////        test++;
-////        x = new BigDecimal("1");
-////        dp = 2000;
-////        rm = RoundingMode.HALF_UP;
-////        expResult = new BigDecimal(
-////                "2.718281828459045235360287471352662497757247093699959574966967"
-////                + "627724076630353547594571382178525166427427466391932003059921"
-////                + "817413596629043572900334295260595630738132328627943490763233"
-////                + "829880753195251019011573834187930702154089149934884167509244"
-////                + "761460668082264800168477411853742345442437107539077744992069"
-////                + "551702761838606261331384583000752044933826560297606737113200"
-////                + "709328709127443747047230696977209310141692836819025515108657"
-////                + "463772111252389784425056953696770785449969967946864454905987"
-////                + "931636889230098793127736178215424999229576351482208269895193"
-////                + "668033182528869398496465105820939239829488793320362509443117"
-////                + "301238197068416140397019837679320683282376464804295311802328"
-////                + "782509819455815301756717361332069811250996181881593041690351"
-////                + "598888519345807273866738589422879228499892086805825749279610"
-////                + "484198444363463244968487560233624827041978623209002160990235"
-////                + "304369941849146314093431738143640546253152096183690888707016"
-////                + "768396424378140592714563549061303107208510383750510115747704"
-////                + "171898610687396965521267154688957035035402123407849819334321"
-////                + "068170121005627880235193033224745015853904730419957777093503"
-////                + "660416997329725088687696640355570716226844716256079882651787"
-////                + "134195124665201030592123667719432527867539855894489697096409"
-////                + "754591856956380236370162112047742722836489613422516445078182"
-////                + "442352948636372141740238893441247963574370263755294448337998"
-////                + "016125492278509257782562092622648326277933386566481627725164"
-////                + "019105900491644998289315056604725802778631864155195653244258"
-////                + "698294695930801915298721172556347546396447910145904090586298"
-////                + "496791287406870504895858671747985466775757320568128845920541"
-////                + "334053922000113786300945560688166740016984205580403363795376"
-////                + "452030402432256613527836951177883863874439662532249850654995"
-////                + "886234281899707733276171783928034946501434558897071942586398"
-////                + "772754710962953741521115136835062752602326484728703920764310"
-////                + "059584116612054529703023647254929666938115137322753645098889"
-////                + "031360205724817658511806303644281231496550704751025446501172"
-////                + "721155519486685080036853228183152196003735625279449515828418"
-////                + "82947876108526398140");
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-////        // Test 12
-////        test++;
-////        x = new BigDecimal("2");
-////        dp = 5;
-////        rm = RoundingMode.HALF_UP;
-////        //expResult = new BigDecimal("7.38095");
-////        expResult = new BigDecimal("7.38906");
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-////        // Test 13
-////        test++;
-////        x = new BigDecimal("2");
-////        dp = 1001;
-////        rm = RoundingMode.HALF_UP;
-////        expResult = new BigDecimal(
-////                "7.389056098930650227230427460575007813180315570551847324087127"
-////                + "822522573796079057763384312485079121794773753161265478866123"
-////                + "884603692781273374478392213398077774900122895607410753702391"
-////                + "330947550682086581820269647868208404220982255234875742462541"
-////                + "414679928129331888070763301019337899740729986960095303307515"
-////                + "320818823684694793029913558771445683123923272764602588339996"
-////                + "461212849285209678905138824663987122813726861064735626379295"
-////                + "182227842948434586135287693866985752001549960148075071971293"
-////                + "369418851997228882636255971941095866191479871504328397693264"
-////                + "610235116312389990010513783406764498663892685615821864215577"
-////                + "248492011193531621171951731747269796829345199850541848631971"
-////                + "356859470229125573983561105149793681450277644807642985104182"
-////                + "117055944191787683471285276497809713462504140235242158740938"
-////                + "668254271570392645296404550628778001311092650138483345302646"
-////                + "363141560471888117657942786348599076704527119372958723995987"
-////                + "073310814961253109770593530099050329681075421090877626308572"
-////                + "48500382787227614486674505649873858771575");
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-////        // Test 14
-////        test++;
-////        x = new BigDecimal("2.1");
-////        dp = 10;
-////        rm = RoundingMode.HALF_UP;
-////        expResult = new BigDecimal("8.1661699126");
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-////        // Test 15
-////        test++;
-////        x = new BigDecimal("2.10111010101010101010101111");
-////        dp = 20;
-////        rm = RoundingMode.HALF_UP;
-////        expResult = new BigDecimal("8.17524021958327462764");
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-////        // Test 16
-////        test++;
-////        x = new BigDecimal("0.5");
-////        dp = 20;
-////        rm = RoundingMode.HALF_UP;
-////        expResult = new BigDecimal("1.64872127070012814685");
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-////        // Test 17
-////        test++;
-////        x = new BigDecimal("0.0000001");
-////        dp = 100;
-////        rm = RoundingMode.HALF_UP;
-////        expResult = new BigDecimal(
-////                "1.000000100000005000000166666670833333416666668055555575396825"
-////                + "6448412725970017912257498096039783583187");
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-////        // Test 18
-////        test++;
-////        x = new BigDecimal("-0.0000001");
-////        dp = 100;
-////        rm = RoundingMode.HALF_UP;
-////        expResult = new BigDecimal(
-////                "0.999999900000004999999833333337499999916666668055555535714285"
-////                + "9623015845458554067460314955106642650045");
-////        result = Math_BigDecimal.exp(x, bd, dp, rm);
-////        printFunctionTest(funcName, test, x, dp, rm, result);
-////        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of exp method, of class Math_BigDecimal.
-     */
-    @Test
-    public void testExp_BigInteger_int() {
-        System.out.println("exp");
-        BigInteger x = new BigInteger("10");
-        Math_BigDecimal bd = new Math_BigDecimal();
-        int oom = -1;
-        RoundingMode rm = RoundingMode.HALF_UP;
-        BigDecimal expResult = new BigDecimal("22026.5");
-        BigDecimal result = bd.exp(x, oom, rm);
-        assertEquals(expResult, result);
-        // Test 2
-        oom = -10;
-        expResult = new BigDecimal("22026.4657948067");
-        result = bd.exp(x, oom, rm);
-        assertEquals(expResult, result);
-        // Test 3
-        x = BigInteger.TWO;
-        oom = -20;
-        expResult = new BigDecimal("7.38905609893065022723");
-        result = bd.exp(x, oom, rm);
-        assertEquals(expResult, result);
-        // Test 4
-        x = BigInteger.valueOf(100);
-        oom = -20;
-        expResult = new BigDecimal("2688117141816135448412625551580013587361111"
-                + "8.77374192241519160862");
-        result = bd.exp(x, oom, rm);
-        //System.out.println(result);
-        assertEquals(expResult, result);
-        // Test 5
-        x = BigInteger.valueOf(1000);
-        oom = -20;
-        expResult = new BigDecimal("1970071114017046993888879352243323125316937"
-                + "985323845789952802991385063850782441193474978076563026889930"
-                + "963817987520226935982981730544612899232627836601528252323205"
-                + "351695845667561922715676027880714224668263140068551685086534"
-                + "979416603160453678179380929052997285801328699458564702865343"
-                + "759004565643555891562204223202605188261122886383583722487247"
-                + "252145061504188819374941008712642322484363157605603774399306"
-                + "23959705844189509050047074217568.22675780833081020707");
-        result = bd.exp(x, oom, rm);
-        //System.out.println(result);
-        assertEquals(expResult, result);
-        // Test 6
-        x = BigInteger.TWO;
-        oom = -200;
-        expResult = new BigDecimal("7.38905609893065022723042746057500781318031"
-                + "557055184732408712782252257379607905776338431248507912179477"
-                + "375316126547886612388460369278127337447839221339807777490012"
-                + "289560741075370239133094755068208658182");
-        result = bd.exp(x, oom, rm);
-        //System.out.println(result);
-        assertEquals(expResult, result);
-        // Test 7
-        x = BigInteger.valueOf(100);
-        oom = -200;
-        expResult = new BigDecimal("2688117141816135448412625551580013587361111"
-                + "8.7737419224151916086152802870349095649141588710972198457108"
-                + "116708791905760686975977097618682335484596389298719660896291"
-                + "336261200293809572765340329622698656680169177435144518460651"
-                + "6280444223775676229696");
-        result = bd.exp(x, oom, rm);
-        System.out.println(result);
-        assertEquals(expResult, result);
     }
 
     /**
@@ -2981,8 +3195,6 @@ public class Math_BigDecimalTest {
     @Test
     @Disabled
     public void testMultiplyPriorRound_3args_1() {
-        System.out.println("multiplyPriorRound");
-        // No test.
     }
 
     /**
@@ -3237,8 +3449,8 @@ public class Math_BigDecimalTest {
         oom = 10;
         expResult = Math_BigDecimal.multiply(x, y, oom, rm);
         result = Math_BigDecimal.multiplyPriorRound(x, y, oom, rm);
-        System.out.println(expResult.toPlainString());
-        System.out.println(result.toPlainString());
+        //System.out.println(expResult.toPlainString());
+        //System.out.println(result.toPlainString());
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         oom = 7;
@@ -3301,8 +3513,6 @@ public class Math_BigDecimalTest {
     @Test
     @Disabled
     public void testMultiplyPriorRound_3args_2() {
-        System.out.println("multiplyPriorRound");
-        // No test.
     }
 
     /**
@@ -3312,8 +3522,6 @@ public class Math_BigDecimalTest {
     @Test
     @Disabled
     public void testMultiplyPriorRoundXLT1YLT1() {
-        System.out.println("multiplyPriorRoundXLT1YLT1");
-        // No test.
     }
 
     /**
@@ -3323,8 +3531,6 @@ public class Math_BigDecimalTest {
     @Test
     @Disabled
     public void testMultiplyPriorRoundXLT1YGT1() {
-        System.out.println("multiplyPriorRoundXLT1YGT1");
-        // No test.
     }
 
     /**
@@ -3395,25 +3601,25 @@ public class Math_BigDecimalTest {
         //System.out.println(x.add(y)); // 123456789000012345678900000000.252802756679
         expResult = new BigDecimal("123456789000012345678900000000");
         result = Math_BigDecimal.add(x, y, oom);
-        System.out.println(result);
+        //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         oom = 10;
         expResult = new BigDecimal("123456789000012345680000000000");
         result = Math_BigDecimal.add(x, y, oom);
-        System.out.println(result);
+        //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
         oom = -2;
         expResult = new BigDecimal("123456789000012345678900000000.25");
         result = Math_BigDecimal.add(x, y, oom);
-        System.out.println(result);
+        //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
         oom = -5;
         expResult = new BigDecimal("123456789000012345678900000000.2528");
         result = Math_BigDecimal.add(x, y, oom);
-        System.out.println(result);
+        //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 5
         x = new BigDecimal("123456789123456789123456789.123456789");
@@ -3421,19 +3627,19 @@ public class Math_BigDecimalTest {
         //System.out.println(x.add(y)); // 123456789246913578246913578.252802756679
         expResult = new BigDecimal("123456789246913578246913578.2528");
         result = Math_BigDecimal.add(x, y, oom);
-        System.out.println(result);
+        //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 6
         oom = 0;
         expResult = new BigDecimal("123456789246913578246913578");
         result = Math_BigDecimal.add(x, y, oom);
-        System.out.println(result);
+        //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 7
         oom = 10;
         expResult = new BigDecimal("123456789246913580000000000");
         result = Math_BigDecimal.add(x, y, oom);
-        System.out.println(result);
+        //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
     }
 
@@ -3709,7 +3915,7 @@ public class Math_BigDecimalTest {
                 + "248608678869240874632067769163126799290634383673965707848596"
                 + "269730703248463");
         result = Math_BigDecimal.divide(x, y, oom, rm);
-        System.out.println(result.toPlainString());
+        //System.out.println(result.toPlainString());
         assertTrue(expResult.compareTo(result) == 0);
     }
 
@@ -3778,7 +3984,7 @@ public class Math_BigDecimalTest {
         RoundingMode rm = RoundingMode.HALF_UP;
         Math_BigDecimal instance = new Math_BigDecimal();
         BigDecimal result = instance.getPiBy2(oom, rm);
-        System.out.println(result);
+        //System.out.println(result);
         BigDecimal expResult = new BigDecimal("1.570796326794896619231321691639"
                 + "751442098584699687552910487472296153908203143104499314017412"
                 + "671058534");
@@ -3789,17 +3995,17 @@ public class Math_BigDecimalTest {
      * Test of getPi2 method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testGetPi2() {
         System.out.println("getPi2");
-        int oom = 0;
+        int oom = -100;
         RoundingMode rm = RoundingMode.HALF_UP;
         Math_BigDecimal instance = new Math_BigDecimal();
-        BigDecimal expResult = null;
         BigDecimal result = instance.getPi2(oom, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //System.out.println(result);
+        BigDecimal expResult = new BigDecimal("6.283185307179586476925286766559"
+                + "005768394338798750211641949889184615632812572417997256069650"
+                + "684234136");
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -4070,6 +4276,396 @@ public class Math_BigDecimalTest {
         RoundingMode rm = null;
         BigDecimal expResult = null;
         BigDecimal result = Math_BigDecimal.acos(x, pi, scale, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getScaleOfMostSignificantDigit method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetScaleOfMostSignificantDigit() {
+        System.out.println("getScaleOfMostSignificantDigit");
+        BigDecimal x = new BigDecimal("10001.1");
+        int expResult = 5;
+        int result = Math_BigDecimal.getScaleOfMostSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 2
+        x = new BigDecimal("0.1");
+        expResult = -1;
+        result = Math_BigDecimal.getScaleOfMostSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 3
+        x = new BigDecimal("0.0001");
+        expResult = -4;
+        result = Math_BigDecimal.getScaleOfMostSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 4
+        x = new BigDecimal("1.0001");
+        expResult = 1;
+        result = Math_BigDecimal.getScaleOfMostSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 5
+        x = new BigDecimal("10.0001");
+        expResult = 2;
+        result = Math_BigDecimal.getScaleOfMostSignificantDigit(x);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of exp method, of class Math_BigDecimal.
+     */
+    @Test
+    @Disabled
+    public void testExp_3args_1() {
+        System.out.println("exp");
+        int oom;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult;
+        BigDecimal result;
+        MathContext mc;
+        Math_BigDecimal bd = new Math_BigDecimal();
+        BigDecimal x;
+        // Test 1
+        x = BigDecimal.valueOf(2);
+        oom = -10;
+        result = bd.exp(x, oom, rm);
+        //expResult = new BigDecimal("7.3890560989");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("0.02");
+        result = bd.exp(x, oom, rm);
+        //expResult = new BigDecimal("1.0202013400");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("0.000000012");
+        result = bd.exp(x, oom, rm);
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigDecimal("0.000000012");
+        oom = -100;
+        result = bd.exp(x, oom, rm);
+//        expResult = new BigDecimal(
+//                "1.000000012000000072000000288000000864000002073600004147200007"
+//                + "1094857249499428713618285884913371614711");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = new BigDecimal("1234");
+        result = bd.exp(x, oom, rm);
+//        expResult = new BigDecimal(
+//                "83059759373617942182585212913113567351910010438992024991210999"
+//                + "5454923315008203249228622332287168900783807203236941"
+//                + "4902057190611503380339135282346122079463872568744812"
+//                + "9160282114608484850219955438665976430056110355929008"
+//                + "1568915299754172470903436740058467313053059744618822"
+//                + "7760213564550738008482852338833888837967092607345470"
+//                + "7870887762743415777162495569954964980646026647274941"
+//                + "9574313243340244466395229965260298922134183326397331"
+//                + "1296815702676888489308238510796136610049551587722092"
+//                + "6062479018036337690481712828521819397655551425938830"
+//                + "264837.973417052783657749759051806294126581414124375"
+//                + "6552569443184292961499614756472883606953172641990622"
+//                + "460");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = new BigDecimal("0.5678");
+        result = bd.exp(x, oom, rm);
+//        expResult = new BigDecimal(
+//                "1.764381139990485997370555270712146080977921321938820437756994"
+//                7484665772482841560184819887244807497714");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        x = new BigDecimal("1234.5678");
+        result = bd.exp(x, oom, rm);
+//        expResult = new BigDecimal(
+//                "14654907293095947998348213850397980421762219967522365396627015"
+//                + "7446954995433819741094410764947112047906012815540251"
+//                + "0099496044260696725324177360570330992742045983853145"
+//                + "9484650997562904686479876588810478907498492770961626"
+//                + "1452461385220475510438783429614855364551372899974754"
+//                + "9385827529882582456544414514903991140262837264067071"
+//                + "5856383062081491926713908229300604276719403032558655"
+//                + "8598102530989548975007326686244681359829698224824777"
+//                + "2230516585207831661198442009726028544382751383530565"
+//                + "3512991383291690403456444424125771608013650132825780"
+//                + "7115515.06895420242229125976133533005718191453230212"
+//                + "0267300236914758300188509653349524745461710911967049"
+//                + "3253");
+        // 1.4654907293095947998348213850398e+536
+        // 1.4654907293095947998348213850397980421762219967522365396627015
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        System.out.println("res=" + result.toPlainString());
+        System.out.println("exp=" + expResult.toPlainString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        x = new BigDecimal("1");
+        result = bd.exp(x, oom, rm);
+//        expResult = new BigDecimal(
+//                "2.718281828459045235360287471352662497757247093699959574966967"
+//                + "6277240766303535475945713821785251664274");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        x = new BigDecimal("1");
+        oom = -1000;
+        result = bd.exp(x, oom, rm);
+//        expResult = new BigDecimal(
+//                "2.718281828459045235360287471352662497757247093699959574966967"
+//                + "627724076630353547594571382178525166427427466391932003059921"
+//                + "817413596629043572900334295260595630738132328627943490763233"
+//                + "829880753195251019011573834187930702154089149934884167509244"
+//                + "761460668082264800168477411853742345442437107539077744992069"
+//                + "551702761838606261331384583000752044933826560297606737113200"
+//                + "709328709127443747047230696977209310141692836819025515108657"
+//                + "463772111252389784425056953696770785449969967946864454905987"
+//                + "931636889230098793127736178215424999229576351482208269895193"
+//                + "668033182528869398496465105820939239829488793320362509443117"
+//                + "301238197068416140397019837679320683282376464804295311802328"
+//                + "782509819455815301756717361332069811250996181881593041690351"
+//                + "598888519345807273866738589422879228499892086805825749279610"
+//                + "484198444363463244968487560233624827041978623209002160990235"
+//                + "304369941849146314093431738143640546253152096183690888707016"
+//                + "768396424378140592714563549061303107208510383750510115747704"
+//                + "1718986106873969655212671546889570350354");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 10
+        x = new BigDecimal("1");
+        oom = -1001;
+//        expResult = new BigDecimal(
+//                "2.718281828459045235360287471352662497757247093699959574966967"
+//                + "627724076630353547594571382178525166427427466391932003059921"
+//                + "817413596629043572900334295260595630738132328627943490763233"
+//                + "829880753195251019011573834187930702154089149934884167509244"
+//                + "761460668082264800168477411853742345442437107539077744992069"
+//                + "551702761838606261331384583000752044933826560297606737113200"
+//                + "709328709127443747047230696977209310141692836819025515108657"
+//                + "463772111252389784425056953696770785449969967946864454905987"
+//                + "931636889230098793127736178215424999229576351482208269895193"
+//                + "668033182528869398496465105820939239829488793320362509443117"
+//                + "301238197068416140397019837679320683282376464804295311802328"
+//                + "782509819455815301756717361332069811250996181881593041690351"
+//                + "598888519345807273866738589422879228499892086805825749279610"
+//                + "484198444363463244968487560233624827041978623209002160990235"
+//                + "304369941849146314093431738143640546253152096183690888707016"
+//                + "768396424378140592714563549061303107208510383750510115747704"
+//                + "17189861068739696552126715468895703503540");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 11
+        x = new BigDecimal("1");
+        oom = -2000;
+//        expResult = new BigDecimal(
+//                "2.718281828459045235360287471352662497757247093699959574966967"
+//                + "627724076630353547594571382178525166427427466391932003059921"
+//                + "817413596629043572900334295260595630738132328627943490763233"
+//                + "829880753195251019011573834187930702154089149934884167509244"
+//                + "761460668082264800168477411853742345442437107539077744992069"
+//                + "551702761838606261331384583000752044933826560297606737113200"
+//                + "709328709127443747047230696977209310141692836819025515108657"
+//                + "463772111252389784425056953696770785449969967946864454905987"
+//                + "931636889230098793127736178215424999229576351482208269895193"
+//                + "668033182528869398496465105820939239829488793320362509443117"
+//                + "301238197068416140397019837679320683282376464804295311802328"
+//                + "782509819455815301756717361332069811250996181881593041690351"
+//                + "598888519345807273866738589422879228499892086805825749279610"
+//                + "484198444363463244968487560233624827041978623209002160990235"
+//                + "304369941849146314093431738143640546253152096183690888707016"
+//                + "768396424378140592714563549061303107208510383750510115747704"
+//                + "171898610687396965521267154688957035035402123407849819334321"
+//                + "068170121005627880235193033224745015853904730419957777093503"
+//                + "660416997329725088687696640355570716226844716256079882651787"
+//                + "134195124665201030592123667719432527867539855894489697096409"
+//                + "754591856956380236370162112047742722836489613422516445078182"
+//                + "442352948636372141740238893441247963574370263755294448337998"
+//                + "016125492278509257782562092622648326277933386566481627725164"
+//                + "019105900491644998289315056604725802778631864155195653244258"
+//                + "698294695930801915298721172556347546396447910145904090586298"
+//                + "496791287406870504895858671747985466775757320568128845920541"
+//                + "334053922000113786300945560688166740016984205580403363795376"
+//                + "452030402432256613527836951177883863874439662532249850654995"
+//                + "886234281899707733276171783928034946501434558897071942586398"
+//                + "772754710962953741521115136835062752602326484728703920764310"
+//                + "059584116612054529703023647254929666938115137322753645098889"
+//                + "031360205724817658511806303644281231496550704751025446501172"
+//                + "721155519486685080036853228183152196003735625279449515828418"
+//                + "82947876108526398140");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 12
+        x = new BigDecimal("2");
+        oom = -5;
+        //expResult = new BigDecimal("7.38095");
+//        expResult = new BigDecimal("7.38906");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 13
+        x = new BigDecimal("2");
+        oom = -1001;
+//        expResult = new BigDecimal(
+//                "7.389056098930650227230427460575007813180315570551847324087127"
+//                + "822522573796079057763384312485079121794773753161265478866123"
+//                + "884603692781273374478392213398077774900122895607410753702391"
+//                + "330947550682086581820269647868208404220982255234875742462541"
+//                + "414679928129331888070763301019337899740729986960095303307515"
+//                + "320818823684694793029913558771445683123923272764602588339996"
+//                + "461212849285209678905138824663987122813726861064735626379295"
+//                + "182227842948434586135287693866985752001549960148075071971293"
+//                + "369418851997228882636255971941095866191479871504328397693264"
+//                + "610235116312389990010513783406764498663892685615821864215577"
+//                + "248492011193531621171951731747269796829345199850541848631971"
+//                + "356859470229125573983561105149793681450277644807642985104182"
+//                + "117055944191787683471285276497809713462504140235242158740938"
+//                + "668254271570392645296404550628778001311092650138483345302646"
+//                + "363141560471888117657942786348599076704527119372958723995987"
+//                + "073310814961253109770593530099050329681075421090877626308572"
+//                + "48500382787227614486674505649873858771575");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 14
+        x = new BigDecimal("2.1");
+        oom = -10;
+//        expResult = new BigDecimal("8.1661699126");
+        result = bd.exp(x, oom, rm);
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 15
+        x = new BigDecimal("2.10111010101010101010101111");
+        oom = -20;
+//        expResult = new BigDecimal("8.17524021958327462764");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 16
+        x = new BigDecimal("0.5");
+        oom = -20;
+//        expResult = new BigDecimal("1.64872127070012814685");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 17
+        x = new BigDecimal("0.0000001");
+        oom = -100;
+//        expResult = new BigDecimal(
+//                "1.000000100000005000000166666670833333416666668055555575396825"
+//                + "6448412725970017912257498096039783583187");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 18
+        x = new BigDecimal("-0.0000001");
+//        expResult = new BigDecimal(
+//                "0.999999900000004999999833333337499999916666668055555535714285"
+//                + "9623015845458554067460314955106642650045");
+        mc = new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) - oom);
+        expResult = BigDecimalMath.exp(x, mc);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of exp method, of class Math_BigDecimal.
+     */
+    @Test
+    @Disabled
+    public void testExp_3args_2() {
+        System.out.println("exp");
+        BigInteger x = new BigInteger("10");
+        Math_BigDecimal bd = new Math_BigDecimal();
+        int oom = -1;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult = new BigDecimal("22026.5");
+        BigDecimal result = bd.exp(x, oom, rm);
+        assertEquals(expResult, result);
+        // Test 2
+        oom = -10;
+        expResult = new BigDecimal("22026.4657948067");
+        result = bd.exp(x, oom, rm);
+        assertEquals(expResult, result);
+        // Test 3
+        x = BigInteger.TWO;
+        oom = -20;
+        expResult = new BigDecimal("7.38905609893065022723");
+        result = bd.exp(x, oom, rm);
+        assertEquals(expResult, result);
+        // Test 4
+        x = BigInteger.valueOf(100);
+        oom = -20;
+        expResult = new BigDecimal("2688117141816135448412625551580013587361111"
+                + "8.77374192241519160862");
+        result = bd.exp(x, oom, rm);
+        //System.out.println(result);
+        assertEquals(expResult, result);
+        // Test 5
+        x = BigInteger.valueOf(1000);
+        oom = -20;
+        expResult = new BigDecimal("1970071114017046993888879352243323125316937"
+                + "985323845789952802991385063850782441193474978076563026889930"
+                + "963817987520226935982981730544612899232627836601528252323205"
+                + "351695845667561922715676027880714224668263140068551685086534"
+                + "979416603160453678179380929052997285801328699458564702865343"
+                + "759004565643555891562204223202605188261122886383583722487247"
+                + "252145061504188819374941008712642322484363157605603774399306"
+                + "23959705844189509050047074217568.22675780833081020707");
+        result = bd.exp(x, oom, rm);
+        //System.out.println(result);
+        assertEquals(expResult, result);
+        // Test 6
+        x = BigInteger.TWO;
+        oom = -200;
+        expResult = new BigDecimal("7.38905609893065022723042746057500781318031"
+                + "557055184732408712782252257379607905776338431248507912179477"
+                + "375316126547886612388460369278127337447839221339807777490012"
+                + "289560741075370239133094755068208658182");
+        result = bd.exp(x, oom, rm);
+        //System.out.println(result);
+        assertEquals(expResult, result);
+        // Test 7
+        x = BigInteger.valueOf(100);
+        oom = -200;
+        expResult = new BigDecimal("2688117141816135448412625551580013587361111"
+                + "8.7737419224151916086152802870349095649141588710972198457108"
+                + "116708791905760686975977097618682335484596389298719660896291"
+                + "336261200293809572765340329622698656680169177435144518460651"
+                + "6280444223775676229696");
+        result = bd.exp(x, oom, rm);
+        //System.out.println(result);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of power method, of class Math_BigDecimal.
+     */
+    @Test
+    @Disabled
+    public void testPower_4args_3() {
+        System.out.println("power");
+        BigDecimal x = null;
+        int y = 0;
+        int oom = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.power(x, y, oom, rm);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
