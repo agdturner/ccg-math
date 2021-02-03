@@ -24,6 +24,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,14 +59,17 @@ public class Math_BigRationalSqrtTest {
     @Test
     public void testGetSqrtRational() {
         System.out.println("getSqrtRational");
-        BigRational x = BigRational.valueOf(2);
-        BigRational expResult = null;
-        BigRational result = Math_BigRationalSqrt.getSqrtRational(x);
+        BigRational x;
+        BigRational result;
+        BigRational expResult;
+        // Test 1
+        x = BigRational.valueOf(2);
+        result = new Math_BigRationalSqrt(x).getSqrtRational();
         assertNull(result);
         // Test 2
         x = BigRational.valueOf(4);
         expResult = BigRational.valueOf(2);
-        result = Math_BigRationalSqrt.getSqrtRational(x);
+        result = new Math_BigRationalSqrt(x).getSqrtRational();
         assertTrue(expResult.compareTo(result) == 0);
     }
 
@@ -147,7 +151,7 @@ public class Math_BigRationalSqrtTest {
         BigInteger[] expResult = new BigInteger[2];
         expResult[0] = BigInteger.valueOf(4);
         expResult[1] = BigInteger.valueOf(1);
-        BigInteger[] result = Math_BigRationalSqrt.getNumeratorAndDenominator(x);
+        BigInteger[] result = new Math_BigRationalSqrt(x).getNumeratorAndDenominator();
         for (int i = 0; i < result.length; i++) {
             assertThat(result[i], Matchers.comparesEqualTo(expResult[i]));
         }
@@ -275,6 +279,7 @@ public class Math_BigRationalSqrtTest {
      * Test of hashCode method, of class Math_BigRationalSqrt.
      */
     @Test
+    @Disabled
     public void testHashCode() {
         System.out.println("hashCode");
         // No test.

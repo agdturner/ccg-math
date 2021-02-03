@@ -51,13 +51,13 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     /**
      * The number for which {@code this} is the square root representation.
      */
-    public final BigRational x;
+    private final BigRational x;
 
     /**
      * Stores the square root of {@link #x} if this can be stored exactly as a
      * BigRational, otherwise it is {@code null}.
      */
-    public final BigRational sqrtx;
+    private final BigRational sqrtx;
 
     /**
      * Stores the approximate square root of {@link #x} with a minimum precision
@@ -76,7 +76,12 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      * approximate calculation of {@link #sqrtxapprox}.
      */
     public MathContext mpsmc;
-
+    
+    public Math_BigRationalSqrt(){
+        x = null;
+        sqrtx = null;
+    }
+    
     /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
      * {@link #getSqrtRational(ch.obermuhlner.math.big.BigRational)} with
@@ -86,7 +91,7 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      */
     public Math_BigRationalSqrt(BigRational x) {
         this.x = x;
-        sqrtx = getSqrtRational(x);
+        sqrtx = getSqrtRational();
     }
 
     /**
@@ -98,7 +103,7 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      */
     public Math_BigRationalSqrt(BigInteger x) {
         this.x = BigRational.valueOf(x);
-        sqrtx = getSqrtRational(this.x);
+        sqrtx = getSqrtRational();
     }
 
     /**
@@ -110,7 +115,7 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      */
     public Math_BigRationalSqrt(long x) {
         this.x = BigRational.valueOf(x);
-        sqrtx = getSqrtRational(this.x);
+        sqrtx = getSqrtRational();
     }
 
     /**
@@ -179,9 +184,12 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      * @return The square root of x if that square root is rational and
      * {@code null} otherwise.
      */
-    public static BigRational getSqrtRational(BigRational x) {
-        BigInteger[] numden = getNumeratorAndDenominator(x);
+    public final BigRational getSqrtRational() {
+        BigInteger[] numden = getNumeratorAndDenominator();
         BigInteger nums = Math_BigInteger.sqrt(numden[0]);
+        if (nums == null) {
+            return null;
+        }
         if (nums.signum() != -1) {
             BigInteger dens = Math_BigInteger.sqrt(numden[1]);
             if (dens.signum() != -1) {
@@ -256,7 +264,7 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      * @param x The value for which the numerator and denominator are returned.
      * @return The numerator and denominator of {@code x}
      */
-    public static BigInteger[] getNumeratorAndDenominator(BigRational x) {
+    public BigInteger[] getNumeratorAndDenominator() {
         BigInteger[] r = new BigInteger[2];
         r[0] = x.getNumeratorBigInteger();
         r[1] = x.getDenominatorBigInteger();

@@ -2793,10 +2793,6 @@ public class Math_BigDecimal extends Math_Number {
             BigDecimal f = new BigDecimal(bi.factorials.get(i));
             BigDecimal rf = divide(BigDecimal.ONE, f, oom - 3, RoundingMode.DOWN);
             e = e.add(rf);
-            System.out.println(i);
-            if (i == 458) {
-             int debug = 1;   
-            }
             if (rf.compareTo(tollerance) != 1) {
                 break;
             }
