@@ -1651,6 +1651,7 @@ public class Math_BigDecimalTest {
         // Test 6
         oom = -25;
         x = new BigDecimal("0.01789");
+        y = 10;
         result = Math_BigDecimal.powerNoSpecialCaseCheck(x, y, oom, rm);
         expResult = new BigDecimal("0.0000000000000000033581756");
         //System.out.println(result.toPlainString());
