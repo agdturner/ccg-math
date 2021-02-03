@@ -1365,10 +1365,29 @@ public class Math_BigDecimalTest {
         result = Math_BigDecimal.reciprocal(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
-        oom = -95;
+        oom = -100;
         x = new BigDecimal("1000000000000000000000000.00000000000000000000001");
         expResult = new BigDecimal("9.99999999999999999999999999999999999999999"
-                + "9999900000000000000000000000000000000000000000000001E-25");
+                + "9999900000000000000000000000000000E-25");
+        result = Math_BigDecimal.reciprocal(x, oom, rm);
+        //System.out.println(result);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        oom = -150;
+        x = new BigDecimal("1000000000000000000000000.00000000000000000000001");
+        expResult = new BigDecimal("9.99999999999999999999999999999999999999999"
+                + "999990000000000000000000000000000000000000000000000100000000"
+                + "000000000000000000000000E-25");
+        result = Math_BigDecimal.reciprocal(x, oom, rm);
+        //System.out.println(result);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        oom = -200;
+        x = new BigDecimal("1000000000000000000000000.00000000000000000000001");
+        expResult = new BigDecimal("9.99999999999999999999999999999999999999999"
+                + "999990000000000000000000000000000000000000000000000099999999"
+                + "999999999999999999999999999999999999999000000000000000000000"
+                + "00000000000000E-25");
         result = Math_BigDecimal.reciprocal(x, oom, rm);
         //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
@@ -2081,19 +2100,18 @@ public class Math_BigDecimalTest {
     @Test
     public void testGetRandom_4args() {
         System.out.println("getRandom");
-        int dp;
+        int oom;
         BigDecimal expResult;
         BigDecimal result;
         Math_BigDecimal bd = new Math_BigDecimal();
         // Test 1
-        int test = 1;
-        dp = 10;
+        oom = -10;
         System.out.println("Test 2");
         BigDecimal lowerBound = BigDecimal.ZERO;
         BigDecimal upperBound = BigDecimal.ONE;
         //expResult = new BigDecimal("0.4932604312");
         expResult = new BigDecimal("0.4106274901");
-        result = Math_BigDecimal.getRandom(bd.bi, dp, lowerBound, upperBound);
+        result = Math_BigDecimal.getRandom(bd.bi, oom, lowerBound, upperBound);
         assertEquals(expResult, result);
     }
 
@@ -3359,8 +3377,6 @@ public class Math_BigDecimalTest {
     @Test
     @Disabled
     public void testAdd_3args_1() {
-        System.out.println("add");
-        // No Test.
     }
 
     /**
@@ -3692,8 +3708,9 @@ public class Math_BigDecimalTest {
         expResult = new BigDecimal(
                 "0.000000000000000000000000000000000000000000000024398012439801"
                 + "248608678869240874632067769163126799290634383673965707848596"
-                + "2697307032484628");
+                + "269730703248463");
         result = Math_BigDecimal.divide(x, y, oom, rm);
+        System.out.println(result.toPlainString());
         assertTrue(expResult.compareTo(result) == 0);
     }
 

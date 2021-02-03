@@ -959,12 +959,27 @@ public class Math_BigDecimal extends Math_Number {
 
     private static BigDecimal divideNoCaseCheck(BigDecimal x, BigDecimal y,
             int oom, RoundingMode rm) {
-        BigDecimal xdtiy = x.divideToIntegralValue(y);
+        BigDecimal[] xDARy = x.divideAndRemainder(y);
         int p;
-        if (xdtiy.compareTo(BigDecimal.ZERO) == 0) {
+        if (xDARy[0].compareTo(BigDecimal.ZERO) == 0) {
+            int oommx = getOrderOfMagnitudeOfMostSignificantDigit(x);
             p = -oom;
+            if (oommx >= 0) {
+                p += oommx - 1;
+            } else {
+                p += oommx;
+            }
+            int oommy = getOrderOfMagnitudeOfMostSignificantDigit(y);
+            if (oommy >= 0) {
+                p -= oommy - 1;
+            } else {
+                p -= oommy;
+            }
+            if (p < 1) {
+                p = 1;
+            }
         } else {
-            p = xdtiy.precision() - oom;
+            p = xDARy[0].precision() - oom;
         }
         MathContext mc = new MathContext(p, rm);
         return x.divide(y, mc);
@@ -2778,7 +2793,11 @@ public class Math_BigDecimal extends Math_Number {
             BigDecimal f = new BigDecimal(bi.factorials.get(i));
             BigDecimal rf = divide(BigDecimal.ONE, f, oom - 3, RoundingMode.DOWN);
             e = e.add(rf);
-            if (rf.compareTo(tollerance) == -1) {
+            System.out.println(i);
+            if (i == 458) {
+             int debug = 1;   
+            }
+            if (rf.compareTo(tollerance) != 1) {
                 break;
             }
         }
@@ -2877,7 +2896,7 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(BigInteger.valueOf(999999999)) != 1
                 && x.compareTo(BigInteger.ZERO) != -1) {
             int xi = x.intValueExact();
-            r = getE(oom - xi, RoundingMode.DOWN).pow(xi);
+            r = getE(oom - xi - 1, RoundingMode.DOWN).pow(xi);
         } else {
             ArrayList<BigDecimal> rp = new ArrayList<>();
             BigDecimal rpp = getE(oom - Math_BigInteger.log10(x), RoundingMode.DOWN);
