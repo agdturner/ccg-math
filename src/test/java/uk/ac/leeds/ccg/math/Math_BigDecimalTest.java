@@ -1995,7 +1995,6 @@ public class Math_BigDecimalTest {
      * Test of log method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testLog_4args_1() {
         System.out.println("log");
         int base;
@@ -2007,7 +2006,7 @@ public class Math_BigDecimalTest {
         // Test 1
         base = 10;
         x = new BigDecimal("10");
-        oom = 10;
+        oom = -10;
         expResult = new BigDecimal("1");
         result = Math_BigDecimal.log(base, x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
@@ -2019,7 +2018,6 @@ public class Math_BigDecimalTest {
         // Test 3
         base = 10;
         x = new BigDecimal("100100.1");
-        oom = 10;
         rm = RoundingMode.HALF_UP;
         expResult = new BigDecimal("5.0004345113");
         result = Math_BigDecimal.log(base, x, oom, rm);
@@ -2030,18 +2028,40 @@ public class Math_BigDecimalTest {
      * Test of log method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testLog_4args_2() {
         System.out.println("log");
-        BigDecimal base = null;
-        BigDecimal x = null;
-        int dp = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.log(base, x, dp, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BigDecimal base;
+        BigDecimal x;
+        int oom;
+        RoundingMode rm;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        oom = -10;
+        rm = RoundingMode.HALF_UP;
+        base = new BigDecimal("10");
+        x = new BigDecimal("10");
+        result = Math_BigDecimal.log(base, x, oom, rm);
+        expResult = BigDecimalMath.log10(x, new MathContext(result.scale() - oom));
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        base = new BigDecimal("10");
+        x = new BigDecimal("1");
+        result = Math_BigDecimal.log(base, x, oom, rm);
+        expResult = BigDecimalMath.log10(x, new MathContext(result.scale() - oom));
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        base = new BigDecimal("11");
+        x = new BigDecimal("10");
+        result = Math_BigDecimal.log(base, x, oom, rm);
+        expResult = new BigDecimal("0.9602525678");
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        base = new BigDecimal("10.5");
+        x = new BigDecimal("10");
+        result = Math_BigDecimal.log(base, x, oom, rm);
+        expResult = new BigDecimal("0.979250371");
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**

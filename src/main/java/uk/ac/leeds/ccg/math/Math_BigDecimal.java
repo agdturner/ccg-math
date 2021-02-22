@@ -2425,46 +2425,45 @@ public class Math_BigDecimal extends Math_Number {
             return logRX.negate();
         }
         BigDecimal r = BigDecimal.ZERO;
-        BigDecimal input = new BigDecimal(x.toString());
-        int scale = input.precision() - oom;
-        int maxite = Math.max(b, 10000);
+        BigDecimal x0 = new BigDecimal(x.toString());
+        int scale = x0.precision() - oom;
+        //int maxite = Math.max(b, 10000);
         int ite = 0;
-        BigDecimal maxErrorBD = new BigDecimal(BigInteger.ONE, 1 - oom);
+        BigDecimal epsilon = new BigDecimal(BigInteger.ONE, 1 - oom);
         //System.out.println("epsilon_BigDecimal " + epsilon_BigDecimal);
         //System.out.println("scale " + scale);
         BigDecimal baseBD = new BigDecimal(b);
-        while (input.compareTo(baseBD) == 1) {
+        while (x0.compareTo(baseBD) == 1) {
             r = r.add(BigDecimal.ONE);
-            input = input.divide(baseBD, scale, rm);
+            x0 = x0.divide(baseBD, scale, rm);
         }
         BigDecimal f = new BigDecimal("0.5");
-        input = input.multiply(input);
-        int ooms = Math.max(oom * 2, 10 - oom); // Not sure this is safe enough, maybe log(base,maxite,0) would be?
+        x0 = x0.multiply(x0);
+        int ooms = Math.max(oom * 2, oom - 10); // Not sure this is safe enough, maybe log(base,maxite,0) would be?
 
         boolean condition;
         do {
 //        while (((resultplusfraction).compareTo(result) == 1)
 //                && (input.compareTo(BigDecimal.ONE) == 1)) {
-            if (input.compareTo(baseBD) == 1) {
-                input = input.divide(baseBD, scale, rm);
+            if (x0.compareTo(baseBD) == 1) {
+                x0 = x0.divide(baseBD, scale, rm);
                 r = r.add(f);
             }
-            input = multiply(input, input, ooms, rm);
+            x0 = multiply(x0, x0, ooms, rm);
             f = f.divide(TWO, scale, rm);
             BigDecimal raf = r.add(f);
-            if (f.abs().compareTo(maxErrorBD) == -1) {
+            if (f.abs().compareTo(epsilon) == -1) {
                 break;
             }
-            if (maxite == ite) {
-                System.out.println("Warning: maxite reached in "
-                        + Math_BigDecimal.class.getSimpleName()
-                        + ".log(int,BigDecimal,int,RoundingMode)");
-                break;
-            }
+//            if (maxite == ite) {
+//                System.out.println("Warning: maxite reached in "
+//                        + Math_BigDecimal.class.getSimpleName()
+//                        + ".log(int,BigDecimal,int,RoundingMode)");
+//                break;
+//            }
             ite++;
             condition = ((raf).compareTo(r) == 1)
-                    && (input.compareTo(BigDecimal.ONE) == 1);
-
+                    && (x0.compareTo(BigDecimal.ONE) == 1);
         } while (condition);
         return round(r, oom, rm);
     }
@@ -2514,41 +2513,42 @@ public class Math_BigDecimal extends Math_Number {
             return round(r, oom);
         }
         r = BigDecimal.ZERO;
-        BigDecimal input = new BigDecimal(x.toString());
-        int scale = input.precision() - oom;
-        BigInteger maxite = x.toBigInteger().max(BigInteger.valueOf(10000));
+        BigDecimal x0 = new BigDecimal(x.toString());
+        int scale = x0.precision() - oom;
+        //BigInteger maxite = x.toBigInteger().max(BigInteger.valueOf(10000));
         BigInteger ite = BigInteger.ZERO;
-        BigDecimal epsilon = new BigDecimal(BigInteger.ONE, oom - 1);
+        BigDecimal epsilon = new BigDecimal(BigInteger.ONE, 1 - oom);
         //System.out.println("epsilon " + epsilon);
         //System.out.println("scale " + scale);
-        while (input.compareTo(base) == 1) {
+        while (x0.compareTo(base) == 1) {
             r = r.add(BigDecimal.ONE);
-            input = input.divide(base, scale, rm);
+            x0 = x0.divide(base, scale, rm);
         }
         BigDecimal f = new BigDecimal("0.5");
-        input = input.multiply(input);
-        BigDecimal raf = r.add(f);
-        int dps = Math.max(oom * 2, oom - 10); // Safe in terms of precision? Maybe log(base_int,maxite,0) would be more appropriate?
-        while (((raf).compareTo(r) == 1)
-                && (input.compareTo(BigDecimal.ONE) == 1)) {
-            if (input.compareTo(base) == 1) {
-                input = input.divide(base, scale, rm);
+        x0 = x0.multiply(x0);
+        int ooms = Math.max(oom * 2, oom - 10); // Not sure this is safe enough, maybe log(base,maxite,0) would be?
+        boolean condition;
+        do {
+            if (x0.compareTo(base) == 1) {
+                x0 = x0.divide(base, scale, rm);
                 r = r.add(f);
             }
-            input = multiply(input, input, dps, rm);
+            x0 = multiply(x0, x0, ooms, rm);
             f = f.divide(TWO, scale, rm);
-            raf = r.add(f);
+            BigDecimal raf = r.add(f);
             if (f.abs().compareTo(epsilon) == -1) {
                 break;
             }
-            if (maxite.compareTo(ite) == 0) {
-                System.out.println("Warning: maxite reached in "
-                        + Math_BigDecimal.class.getName()
-                        + ".log(BigDecimal,BigDecimal,int,RoundingMode)");
-                break;
-            }
+//            if (maxite.compareTo(ite) == 0) {
+//                System.out.println("Warning: maxite reached in "
+//                        + Math_BigDecimal.class.getName()
+//                        + ".log(BigDecimal,BigDecimal,int,RoundingMode)");
+//                break;
+//            }
             ite = ite.add(BigInteger.ONE);
-        }
+            condition = ((raf).compareTo(r) == 1)
+                    && (x0.compareTo(BigDecimal.ONE) == 1);
+        } while (condition);
         return round(r, oom, rm);
     }
 
