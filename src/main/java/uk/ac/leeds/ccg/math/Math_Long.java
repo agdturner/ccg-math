@@ -87,4 +87,82 @@ public class Math_Long extends Math_Number {
     public static boolean isEven(long x) {
         return x % 2 == 0;
     }
+    
+    /**
+     * Returns the x + y checking for overflows.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @return x + y
+     * @throws ArithmeticException if the result overflows.
+     */
+    @Deprecated
+    public static long add(long x, long y) {
+        return Math.addExact(x, y);
+    }
+    
+    /**
+     * Returns the x + y checking for overflows.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @return x + y
+     * @throws ArithmeticException if the result overflows.
+     */
+    @Deprecated
+    public static long add(long x, int y) {
+        return Math.addExact(x, y);
+    }
+    
+    /**
+     * Returns the x - y checking for overflows.
+     *
+     * @param x The number to subtract from.
+     * @param y The number to subtract.
+     * @return x - y
+     * @throws ArithmeticException if the result overflows.
+     */
+    @Deprecated
+    public static long subtract(long x, long y) {
+        return Math.subtractExact(x, y);
+    }
+    
+    /**
+     * Returns the x - y checking for overflows.
+     *
+     * @param x The number to subtract from.
+     * @param y The number to subtract.
+     * @return x - y
+     * @throws ArithmeticException if the result overflows.
+     */
+    @Deprecated
+    public static long subtract(long x, int y) {
+        return Math.subtractExact(x, y);
+    }
+    
+    /**
+     * Returns the x * y checking for overflows.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @return x * y
+     * @throws ArithmeticException if the result overflows.
+     */
+    @Deprecated
+    public static long multiply(long x, long y) {
+        return Math.multiplyExact(x, y);
+    }
+    
+    /**
+     * Returns the x * y checking for overflows.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @return x * y
+     * @throws ArithmeticException if the result overflows.
+     */
+    @Deprecated
+    public static long multiply(long x, int y) {
+        return Math.multiplyExact(x, y);
+    }
 }

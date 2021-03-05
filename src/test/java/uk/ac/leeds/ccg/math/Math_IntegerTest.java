@@ -187,4 +187,58 @@ public class Math_IntegerTest {
         result = Math_Integer.isEven(x);
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of parseInt method, of class Math_Integer.
+     */
+    @Test
+    public void testParseInt() {
+        System.out.println("parseInt");
+        String s;
+        int expResult;
+        int result;
+        // Test 1
+        s = "0";
+        expResult = 0;
+        result = Math_Integer.parseInt(s);
+        assertEquals(expResult, result);
+        // Test 2
+        assertThrows(NumberFormatException.class, () -> {
+            Math_Integer.parseInt("1E+10");
+        });        
+        // Test 3
+        assertThrows(NumberFormatException.class, () -> {
+            Math_Integer.parseInt("1E10");
+        });
+    }
+
+    /**
+     * Test of parseInt method, of class Math_Integer.
+     */
+    @Test
+    public void testAdd() {
+        System.out.println("add");
+        int x;
+        int y;
+        int expResult;
+        int result;
+        // Test 1
+        x = 0;
+        y = 0;
+        result = Math_Integer.add(x, y);
+        expResult = 0;
+        assertEquals(expResult, result);
+        // Test 2
+        x = Integer.MAX_VALUE;
+        y = 0;
+        result = Math_Integer.add(x, y);
+        expResult = Integer.MAX_VALUE;
+        assertEquals(expResult, result);
+        // Test 3
+        x = Integer.MAX_VALUE;
+        y = 1;
+        result = Math_Integer.add(x, y);
+        expResult = Integer.MAX_VALUE;
+        assertEquals(expResult, result);
+    }
 }

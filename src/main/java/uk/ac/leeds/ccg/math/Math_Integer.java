@@ -89,4 +89,43 @@ public class Math_Integer extends Math_Number {
     public static boolean isEven(int x) {
         return x % 2 == 0;
     }
+
+    /**
+     * Returns the x + y checking for overflows.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @return x + y
+     * @throws ArithmeticException if the result overflows.
+     */
+    @Deprecated
+    public static int add(int x, int y) {
+        return Math.addExact(x, y);
+    }
+    
+    /**
+     * Returns the x - y checking for overflows.
+     *
+     * @param x The number to subtract from.
+     * @param y The number to subtract.
+     * @return x - y
+     * @throws ArithmeticException if the result overflows.
+     */
+    @Deprecated
+    public static int subtract(int x, int y) {
+        return Math.subtractExact(x, y);
+    }
+    
+    /**
+     * Returns the x * y checking for overflows.
+     *
+     * @param x A number to add.
+     * @param y A number to add.
+     * @return x * y
+     * @throws ArithmeticException if the result overflows.
+     */
+    @Deprecated
+    public static int multiply(int x, int y) {
+        return Math.multiplyExact(x, y);
+    }
 }
