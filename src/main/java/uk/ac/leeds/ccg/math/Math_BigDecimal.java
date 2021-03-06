@@ -41,7 +41,7 @@ import java.util.Random;
 public class Math_BigDecimal extends Math_Number {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * A {@link Math_BigInteger} is often wanted (such as in Taylor Series
      * calculations).
@@ -1226,9 +1226,9 @@ public class Math_BigDecimal extends Math_Number {
                 }
                 //System.out.println("element " + element + " elementUnscaled " + elementUnscaled);
                 elementOneReciprocal = reciprocalWillBeIntegerReturnBigInteger(elementOne);
-                root = Math_BigDecimal.root(x, elementOneReciprocal.intValueExact(), oom - 3, RoundingMode.DOWN); //1.0164258503622629770491309951254
+                root = Math_BigDecimal.root(x, elementOneReciprocal.intValueExact(), oom - 3, RoundingMode.DOWN);
                 if (root.compareTo(BigDecimal.ZERO) == 1) {
-                    rootMultiple = power(root, elementUnscaled, 64, oom - 3, RoundingMode.DOWN);
+                    rootMultiple = power(root, elementUnscaled, oom - 3, RoundingMode.DOWN);
                     //r = multiplyRoundIfNecessary(r, rootMultiple, oom, rm);
                     //r = r.multiply(rootMultiple);
                     r = multiply(r, rootMultiple, oom - 3, RoundingMode.DOWN);
@@ -1264,7 +1264,7 @@ public class Math_BigDecimal extends Math_Number {
                 elementOneReciprocal = reciprocalWillBeIntegerReturnBigInteger(elementOne);
                 root = rootNoRounding(x, elementOneReciprocal.intValueExact());
                 if (root.compareTo(BigDecimal.ZERO) == 1) {
-                    rootMultiple = powerNoRounding(root, elementUnscaled, 64);
+                    rootMultiple = powerNoRounding(root, elementUnscaled);
                     r = r.multiply(rootMultiple);
                 }
             }
@@ -1280,23 +1280,31 @@ public class Math_BigDecimal extends Math_Number {
     private static int getDiv(BigDecimal x, BigInteger y) {
         BigDecimal ylog2x = Math_BigDecimal.multiply(
                 log(2, x, 0, RoundingMode.UP), y, 0, RoundingMode.UP);
-        BigDecimal log2ylog2x = log(2, ylog2x,  0, RoundingMode.UP);
-        int r = TWO.pow(log2ylog2x.intValueExact()).intValueExact();
-        if (r < 2) {
-            r = 2;
+        if (ylog2x.compareTo(BigDecimal.ZERO) == 0) {
+            return 2;
+        } else {
+            BigDecimal log2ylog2x = log(2, ylog2x, 0, RoundingMode.UP);
+            int r = TWO.pow(log2ylog2x.intValueExact()).intValueExact();
+            if (r < 2) {
+                r = 2;
+            }
+            return r;
         }
-        return r;
     }
-    
+
+    private static int getDiv(BigDecimal x, long y) {
+        return getDiv(x, BigInteger.valueOf(y));
+    }
+
     private static int getDiv2(BigDecimal x) {
         BigDecimal log2x = log(2, x, 0, RoundingMode.UP);
         return log2x.intValueExact();
     }
-    
+
     private static int parseDiv(int div) {
         int r = 2;
         while (r < div) {
-            r *=2;
+            r *= 2;
         }
         return r;
     }
@@ -1314,31 +1322,31 @@ public class Math_BigDecimal extends Math_Number {
      * @return true iff x^y {@code compare}.
      */
     public static boolean powerTestAbove(BigDecimal compare, BigDecimal x,
-            BigInteger y, int div, int oom, RoundingMode rm) {
-        div = parseDiv(div);
+            BigInteger y, int oom, RoundingMode rm) {
+        int div = getDiv(x, y);
         BigInteger divbi = BigInteger.valueOf(div);
         BigDecimal c = BigDecimal.ONE;
         BigDecimal c0;
         // Deal with special case
         if (y.compareTo(divbi) == -1) {
-            return power(x, y, div, oom - 1, rm).compareTo(compare) == 1;
+            return power(x, y, oom - 1, rm).compareTo(compare) == 1;
         }
         BigInteger y1 = new BigInteger(y.toString());
         while (y1.compareTo(BigInteger.ONE) == 1) {
             if (y1.compareTo(divbi) == -1) {
-                c0 = power(x, y1, div, oom - 1, rm);
+                c0 = power(x, y1, oom - 1, rm);
             } else {
                 BigInteger[] yDAR = y1.divideAndRemainder(divbi);
-                if (powerTestAbove(compare, x, yDAR[0], div, oom - 1, rm)) {
+                if (powerTestAbove(compare, x, yDAR[0], oom - 1, rm)) {
                     return true;
                 } else {
-                    c0 = power(x, yDAR[0], div, oom - 1, rm);
+                    c0 = power(x, yDAR[0], oom - 1, rm);
                 }
                 if (c.compareTo(compare) == 1) {
                     return true;
                 }
                 if (yDAR[1].compareTo(BigInteger.ONE) == 1) {
-                    BigDecimal rr = power(x, yDAR[1], div, oom, rm);
+                    BigDecimal rr = power(x, yDAR[1], oom, rm);
                     if (rr.compareTo(compare) == 1) {
                         return true;
                     }
@@ -1370,30 +1378,30 @@ public class Math_BigDecimal extends Math_Number {
      * @return true iff x^y {@code compare}.
      */
     public static boolean powerTestAbove(BigDecimal compare, BigDecimal x,
-            int y, int div, int oom, RoundingMode rm) {
-        div = parseDiv(div);
+            int y, int oom, RoundingMode rm) {
+        int div = getDiv(x, y);
         BigDecimal c = BigDecimal.ONE;
         BigDecimal c0;
         // Deal with special case
         if (y < div) {
-            return power(x, y, div, oom - 1, rm).compareTo(compare) == 1;
+            return power(x, y, oom - 1, rm).compareTo(compare) == 1;
         }
         while (y > 1) {
             if (y < div) {
-                c0 = power(x, y, div, oom - 1, rm);
+                c0 = power(x, y, oom - 1, rm);
             } else {
                 int yDAR0 = y / div;
                 int yDAR1 = y % div;
-                if (powerTestAbove(compare, x, yDAR0, div, oom - 1, rm)) {
+                if (powerTestAbove(compare, x, yDAR0, oom - 1, rm)) {
                     return true;
                 } else {
-                    c0 = power(x, yDAR0, div, oom - 1, rm);
+                    c0 = power(x, yDAR0, oom - 1, rm);
                 }
                 if (c.compareTo(compare) == 1) {
                     return true;
                 }
                 if (yDAR1 > 1) {
-                    BigDecimal rr = power(x, yDAR1, div, oom, rm);
+                    BigDecimal rr = power(x, yDAR1, oom, rm);
                     if (rr.compareTo(compare) == 1) {
                         return true;
                     }
@@ -1430,24 +1438,24 @@ public class Math_BigDecimal extends Math_Number {
         BigDecimal c0;
         // Deal with special case
         if (y.compareTo(divbi) == -1) {
-            return powerNoRounding(x, y, div).compareTo(compare) == 1;
+            return powerNoRounding(x, y).compareTo(compare) == 1;
         }
         BigInteger y1 = new BigInteger(y.toString());
         while (y1.compareTo(BigInteger.ONE) == 1) {
             if (y1.compareTo(divbi) == -1) {
-                c0 = powerNoRounding(x, y1, div);
+                c0 = powerNoRounding(x, y1);
             } else {
                 BigInteger[] yDAR = y1.divideAndRemainder(divbi);
                 if (powerTestAboveNoRounding(compare, x, yDAR[0], div)) {
                     return true;
                 } else {
-                    c0 = powerNoRounding(x, yDAR[0], div);
+                    c0 = powerNoRounding(x, yDAR[0]);
                 }
                 if (c.compareTo(compare) == 1) {
                     return true;
                 }
                 if (yDAR[1].compareTo(BigInteger.ONE) == 1) {
-                    BigDecimal rr = powerNoRounding(x, yDAR[1], div);
+                    BigDecimal rr = powerNoRounding(x, yDAR[1]);
                     if (rr.compareTo(compare) == 1) {
                         return true;
                     }
@@ -1488,32 +1496,32 @@ public class Math_BigDecimal extends Math_Number {
      * @return true iff x^y {@code <} compare
      */
     public static boolean powerTestBelow(BigDecimal compare, BigDecimal x,
-            BigInteger y, int div, int oom, RoundingMode rm) {
-        div = parseDiv(div);
+            BigInteger y, int oom, RoundingMode rm) {
+        int div = getDiv(x, y);
         BigInteger divbi = BigInteger.valueOf(div);
         BigDecimal c = BigDecimal.ONE;
         BigDecimal c0;
         // Deal with special case
         if (y.compareTo(divbi) == -1) {
-            return power(x, y, div, oom, rm).compareTo(compare) == -1;
+            return power(x, y, oom, rm).compareTo(compare) == -1;
         }
         BigInteger y1 = new BigInteger(y.toString());
         while (y1.compareTo(BigInteger.ONE) == 1) {
             if (y1.compareTo(divbi) == -1) {
-                c0 = power(x, y1, div, oom, rm);
+                c0 = power(x, y1, oom, rm);
             } else {
                 BigInteger[] yDAR = y1.divideAndRemainder(divbi);
-                if (powerTestAbove(compare, x, yDAR[0], div, oom, rm)) {
+                if (powerTestAbove(compare, x, yDAR[0], oom, rm)) {
                     return true;
                 } else {
-                    c0 = power(x, yDAR[0], div, oom, rm);
+                    c0 = power(x, yDAR[0], oom, rm);
                 }
-                c0 = power(c0, div, oom);
+                c0 = power(c0, div, oom, rm);
                 if (c.compareTo(compare) == -1) {
                     return true;
                 }
                 if (yDAR[1].compareTo(BigInteger.ONE) == 1) {
-                    BigDecimal rr = power(x, yDAR[1], div, oom, rm);
+                    BigDecimal rr = power(x, yDAR[1], oom, rm);
                     if (rr.compareTo(compare) == -1) {
                         return true;
                     }
@@ -1550,13 +1558,13 @@ public class Math_BigDecimal extends Math_Number {
         BigDecimal c0;
         // Deal with special case
         if (y.compareTo(divbi) == -1) {
-            return powerNoRounding(x, y, div).compareTo(compare) == -1;
+            return powerNoRounding(x, y).compareTo(compare) == -1;
         }
         BigInteger y1 = new BigInteger(y.toString());
         BigInteger[] yDAR;
         while (y1.compareTo(BigInteger.ONE) == 1) {
             if (y1.compareTo(divbi) == -1) {
-                c0 = powerNoRounding(x, y1, div);
+                c0 = powerNoRounding(x, y1);
             } else {
                 yDAR = y1.divideAndRemainder(divbi);
                 boolean powerTest0 = powerTestAboveNoRounding(compare, x,
@@ -1564,14 +1572,14 @@ public class Math_BigDecimal extends Math_Number {
                 if (powerTest0) {
                     return true;
                 } else {
-                    c0 = powerNoRounding(x, yDAR[0], div);
+                    c0 = powerNoRounding(x, yDAR[0]);
                 }
                 c0 = powerNoRounding(c0, div);
                 if (c.compareTo(compare) == -1) {
                     return true;
                 }
                 if (yDAR[1].compareTo(BigInteger.ONE) == 1) {
-                    BigDecimal rr = powerNoRounding(x, yDAR[1], div);
+                    BigDecimal rr = powerNoRounding(x, yDAR[1]);
                     if (rr.compareTo(compare) == -1) {
                         return true;
                     }
@@ -1643,7 +1651,7 @@ public class Math_BigDecimal extends Math_Number {
             return reciprocal(power, oom, rm);
         }
         if (y.scale() <= 0) {
-            return power(x, y.toBigIntegerExact(), 64, oom, rm);
+            return power(x, y.toBigIntegerExact(), oom, rm);
         }
         if (x.compareTo(TWO) == -1) {
             if (y.compareTo(BigDecimal.ONE) == -1) {
@@ -1660,7 +1668,7 @@ public class Math_BigDecimal extends Math_Number {
             } else {
                 // x > 2 && y > 1
                 BigInteger ybi = y.toBigInteger();
-                BigDecimal ri = power(x, ybi, 256, oom, RoundingMode.DOWN);
+                BigDecimal ri = power(x, ybi, oom, RoundingMode.DOWN);
                 BigDecimal rf = power(x,
                         y.subtract(new BigDecimal(ybi)), oom - 3, RoundingMode.DOWN);
                 return multiply(ri, rf, oom, rm);
@@ -1710,7 +1718,7 @@ public class Math_BigDecimal extends Math_Number {
             return r;
         }
         if (y.scale() <= 0) {
-            return powerNoRounding(x, y.toBigIntegerExact(), 64);
+            return powerNoRounding(x, y.toBigIntegerExact());
         }
         if (x.compareTo(TWO) == -1) {
             if (y.compareTo(BigDecimal.ONE) == -1) {
@@ -1729,7 +1737,7 @@ public class Math_BigDecimal extends Math_Number {
                 // x > 2 && y > 1
                 BigInteger ybi = y.toBigInteger();
                 // Integer part result ipr
-                BigDecimal ipr = powerNoRounding(x, ybi, 256);
+                BigDecimal ipr = powerNoRounding(x, ybi);
                 // Fractional part result fpr
                 BigDecimal fpr = powerNoRounding(x, y.subtract(new BigDecimal(ybi)));
                 BigDecimal r = ipr.multiply(fpr);
@@ -1763,7 +1771,7 @@ public class Math_BigDecimal extends Math_Number {
      * @return x^y
      */
     public static BigDecimal power(BigDecimal x, long y, int oom, RoundingMode rm) {
-        return power(x, BigInteger.valueOf(y), oom, 256, rm);
+        return power(x, BigInteger.valueOf(y), oom, rm);
     }
 
     /**
@@ -1793,8 +1801,8 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @return x^y accurate to decimalPlaces
      */
-    public static BigDecimal power(BigDecimal x, int y, int div, int oom, RoundingMode rm) {
-        return power(x, BigInteger.valueOf(y), div, oom, rm);
+    public static BigDecimal power(BigDecimal x, int y, int oom, RoundingMode rm) {
+        return power(x, BigInteger.valueOf(y), oom, rm);
     }
 
     /**
@@ -1809,8 +1817,8 @@ public class Math_BigDecimal extends Math_Number {
      * is all done in one step. Otherwise it is broken into parts.
      * @return x^y accurate to decimalPlaces
      */
-    public static BigDecimal powerNoRounding(BigDecimal x, int y, int div) {
-        return powerNoRounding(x, BigInteger.valueOf(y), div);
+    public static BigDecimal powerNoRounding(BigDecimal x, int y) {
+        return powerNoRounding(x, BigInteger.valueOf(y));
     }
 
     /**
@@ -1894,7 +1902,7 @@ public class Math_BigDecimal extends Math_Number {
      * </ul>
      * @return x^y accurate to decimalPlaces
      */
-    public static BigDecimal power(BigDecimal x, BigInteger y, int div, int oom,
+    public static BigDecimal power(BigDecimal x, BigInteger y, int oom,
             RoundingMode rm) {
         // Deal with special cases
         // x = 0
@@ -1919,7 +1927,7 @@ public class Math_BigDecimal extends Math_Number {
         }
         // x < 0
         if (x.compareTo(BigDecimal.ZERO) == -1) {
-            BigDecimal r = power(x.negate(), y, div, oom, rm);
+            BigDecimal r = power(x.negate(), y, oom, rm);
             if (Math_BigInteger.isEven(y)) {
                 return r.negate();
             } else {
@@ -1928,11 +1936,11 @@ public class Math_BigDecimal extends Math_Number {
         }
         // y < 0
         if (y.compareTo(BigInteger.ZERO) == -1) {
-            BigDecimal power = powerNoSpecialCaseCheck(x, y.negate(), div,
+            BigDecimal power = powerNoSpecialCaseCheck(x, y.negate(),
                     oom - 2, rm);
             return reciprocal(power, oom, rm);
         }
-        return powerNoSpecialCaseCheck(x, y, div, oom, rm);
+        return powerNoSpecialCaseCheck(x, y, oom, rm);
     }
 
     /**
@@ -1943,9 +1951,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param div An optimisation parameter...
      * @return x^y
      */
-    public static BigDecimal powerNoRounding(BigDecimal x, BigInteger y, int div) {
-        //int div = getDiv(x, y);
-        //div = getDiv(x, y);
+    public static BigDecimal powerNoRounding(BigDecimal x, BigInteger y) {
         // Deal with special cases
         // x = 0
         if (x.compareTo(BigDecimal.ZERO) == 0) {
@@ -1970,7 +1976,7 @@ public class Math_BigDecimal extends Math_Number {
         }
         // x < 0
         if (x.compareTo(BigDecimal.ZERO) == -1) {
-            BigDecimal r = powerNoRounding(x.negate(), y, div);
+            BigDecimal r = powerNoRounding(x.negate(), y);
             if (Math_BigInteger.isEven(y)) {
                 return r.negate();
             } else {
@@ -1979,10 +1985,10 @@ public class Math_BigDecimal extends Math_Number {
         }
         // y < 0
         if (y.compareTo(BigInteger.ZERO) == -1) {
-            BigDecimal power = powerNoSpecialCaseCheckNoRounding(x, y.negate(), div);
+            BigDecimal power = powerNoSpecialCaseCheckNoRounding(x, y.negate());
             return new BigDecimal(reciprocalWillBeIntegerReturnBigInteger(power));
         }
-        return powerNoSpecialCaseCheckNoRounding(x, y, div);
+        return powerNoSpecialCaseCheckNoRounding(x, y);
     }
 
     /**
@@ -2010,8 +2016,8 @@ public class Math_BigDecimal extends Math_Number {
      * @return {@code x^y}
      */
     public static BigDecimal powerNoSpecialCaseCheck(BigDecimal x, BigInteger y,
-            int div, int oom, RoundingMode rm) {
-        div = parseDiv(div);
+            int oom, RoundingMode rm) {
+        int div = getDiv(x, y);
         BigInteger divbi = BigInteger.valueOf(div);
         BigDecimal r0;
         BigDecimal r1;
@@ -2029,7 +2035,7 @@ public class Math_BigDecimal extends Math_Number {
                     return power(x, y1.intValue(), oom, rm);
                 } else {
                     div /= 2;
-                    return power(x, y, div, oom, rm);
+                    return power(x, y, oom, rm);
                 }
             } else {
                 int remainingY = yDAR[1].intValue();
@@ -2038,16 +2044,16 @@ public class Math_BigDecimal extends Math_Number {
                     r1 = power(x, remainingY, oom - remainingY - 2, rm);
                     return multiply(r0, r1, oom, rm);
                 } else {
-                    r0 = power(x, divbi, div, oom - div - 2, rm);
-                    r1 = power(x, remainingY, div, oom - remainingY - 2, rm);
+                    r0 = power(x, divbi, oom - div - 2, rm);
+                    r1 = power(x, remainingY, oom - remainingY - 2, rm);
                     return multiply(r0, r1, oom, rm);
                 }
             }
         }
-        r0 = power(x, divbi, div, oom - div - 2, rm);
-        r0 = power(r0, yDAR[0], div, oom - yDAR[0].intValue() - 2, rm);
+        r0 = power(x, divbi, oom - div - 2, rm);
+        r0 = power(r0, yDAR[0], oom - yDAR[0].intValue() - 2, rm);
         BigInteger remainingY = yDAR[1];
-        r1 = power(x, remainingY, div, oom - remainingY.intValue() - 2, rm);
+        r1 = power(x, remainingY, oom - remainingY.intValue() - 2, rm);
         return multiply(r0, r1, oom, rm);
     }
 
@@ -2076,8 +2082,8 @@ public class Math_BigDecimal extends Math_Number {
      * @return {@code x^y}
      */
     public static BigDecimal powerNoSpecialCaseCheck(BigDecimal x, int y,
-            int div, int oom, RoundingMode rm) {
-        //div = parseDiv(.pow(x.intValue().pow(y));
+            int oom, RoundingMode rm) {
+        int div = getDiv(x, y);
         int divbi = div;
         BigDecimal r0;
         BigDecimal r1;
@@ -2095,8 +2101,7 @@ public class Math_BigDecimal extends Math_Number {
                 if (div < 6) {
                     return power(x, y1, oom, rm);
                 } else {
-                    div /= 2;
-                    return power(x, y, div, oom, rm);
+                    return power(x, y, oom, rm);
                 }
             } else {
                 if (div < 4) {
@@ -2104,15 +2109,15 @@ public class Math_BigDecimal extends Math_Number {
                     r1 = power(x, remainder, oom - remainder - 2, rm);
                     return multiply(r0, r1, oom, rm);
                 } else {
-                    r0 = power(x, divbi, div, oom - div - 2, rm);
-                    r1 = power(x, remainder, div, oom - remainder - 2, rm);
+                    r0 = power(x, divbi, oom - div - 2, rm);
+                    r1 = power(x, remainder, oom - remainder - 2, rm);
                     return multiply(r0, r1, oom, rm);
                 }
             }
         }
-        r0 = power(x, divbi, div, oom - div - 2, rm);
-        r0 = power(r0, quotient, div, oom - quotient - 2, rm);
-        r1 = power(x, remainder, div, oom - remainder - 2, rm);
+        r0 = power(x, divbi, oom - div - 2, rm);
+        r0 = power(r0, quotient, oom - quotient - 2, rm);
+        r1 = power(x, remainder, oom - remainder - 2, rm);
         return multiply(r0, r1, oom, rm);
     }
 
@@ -2122,15 +2127,11 @@ public class Math_BigDecimal extends Math_Number {
      *
      * @param x The base of the exponent {@code x > 0 && x != 1}.
      * @param y The exponent {@code y >= 3}.
-     * @param div An optimisation parameter. If {@code div < 2} it is set to
-     * {@code 2}. If {@code div > 256} it is set to {@code 256}.
      * @return {@code x^y}
      */
     public static BigDecimal powerNoSpecialCaseCheckNoRounding(BigDecimal x,
-            BigInteger y, int div) {
-        div = parseDiv(div);
-//        int div = getDiv2(x);
-//        int div = getDiv(x, y);
+            BigInteger y) {
+        int div = getDiv(x, y);
         BigInteger divbi = BigInteger.valueOf(div);
         BigDecimal r0;
         BigDecimal r1;
@@ -2147,8 +2148,8 @@ public class Math_BigDecimal extends Math_Number {
                 if (div < 6) {
                     return powerNoRounding(x, y1.intValue());
                 } else {
-                    div /= 2;
-                    return powerNoRounding(x, y, div);
+                    //div /= 2;
+                    return powerNoRounding(x, y);
                 }
             } else {
                 if (div < 4) {
@@ -2156,178 +2157,17 @@ public class Math_BigDecimal extends Math_Number {
                     r1 = powerNoRounding(x, yDAR[1].intValue());
                     return r0.multiply(r1);
                 } else {
-                    r0 = powerNoRounding(x, divbi, div);
-                    r1 = powerNoRounding(x, yDAR[1].intValue(), div);
+                    r0 = powerNoRounding(x, divbi);
+                    r1 = powerNoRounding(x, yDAR[1].intValue());
                     return r0.multiply(r1);
                 }
             }
         }
-        r0 = powerNoRounding(x, divbi, div);
-        r0 = powerNoRounding(r0, yDAR[0], div);
+        r0 = powerNoRounding(x, divbi);
+        r0 = powerNoRounding(r0, yDAR[0]);
         BigInteger remainingY = yDAR[1];
-        r1 = powerNoRounding(x, remainingY, div);
+        r1 = powerNoRounding(x, remainingY);
         return r0.multiply(r1);
-    }
-
-    /**
-     * Calculates and returns x raised to the power of y. The result is computed
-     * exactly
-     *
-     * @param x The base of the exponent.
-     * @param y The exponent. Expected to be between 1 and 100. For y greater
-     * than 8 use {@link #power(java.math.BigDecimal, int, int, int, java.math.RoundingMode).
-     * @param div An optimisation parameter... Parsed using {@link #parseDiv(int)}.
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a>
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
-     * @return x^y correct to {@code dp} number of decimal places using
-     *  {@link RoundingMode} {@code rm} to round the result. For y &lt 2 this will return
-     * a copy of x which is probably not what is wanted, so this method should not
-     * be used for such calculations. No check is made for efficiency reasons.
-     */
-    private static BigDecimal power(BigDecimal x, int y, int oom) {
-        BigDecimal r = new BigDecimal(x.toString());
-        for (int i = 1; i < y; i++) {
-            r = r.multiply(x);
-        }
-        return round(r, oom);
-    }
-
-    /**
-     * Calculates and returns an accurate representation of x^y. The method as
-     * implemented duplicates x and multiplies this duplicate by x y times. For
-     * large values of y this can be slow. A method which divides the
-     * multiplication into more parts is provided by
-     * {@link #powerNoRounding(java.math.BigDecimal, int, int)}. Values of x
-     * that are greater than one and have a scale greater than will have a both
-     * increased scale and magnitude and the result gets effectively increments
-     * the scale and magnitude with each multiplication. Consequently, this may
-     * not be the most appropriate multiplication method to use. If the
-     * precision of the result required in terms of significant digits or
-     * decimal places can be specified then these parameters can be passed to
-     * other methods will return the result faster albeit it rounded to the
-     * specified precision using either a default or input RoundingMode. The
-     * scale of the result is y times the scale of x.
-     *
-     * @param x The base.
-     * @param y The exponent.
-     * @return x^y
-     */
-    public static BigDecimal powerNoRounding(BigDecimal x, int y) {
-        // x.pow(y) returned a mathematically incorrect result for
-        // x = 1.0000000000000000000000000001, y1 = 100
-        // Is x a "supernormal" number in this context?
-        //BigDecimal result = x.pow(y1);// Don't attempt to support "supernormal" numbers.
-        BigDecimal r = new BigDecimal(x.toString());
-        for (int i = 1; i < y; i++) {
-            r = r.multiply(x);
-        }
-        return r;
-    }
-
-    /**
-     * x^(a+b) = x^a * x^b
-     *
-     * @param x The base.
-     * @param y The exponent.
-     * @param mc MathContext
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a>
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * @param rm The {@link RoundingMode} used to round intermediate results and
-     * the final result.
-     * @return x^y
-     */
-    public static BigDecimal power(BigDecimal x, int y, int oom, RoundingMode rm) {
-        // In Java6
-        // x.pow(y) returned a mathematically incorrect result for
-        //x = 1.0000000000000000000000000001, y1 = 100
-        // Is x a "supernormal" number in this context?
-        // BigDecimal result = x.pow(y);
-
-        // Deal with special cases
-        // x = 0
-        if (x.compareTo(BigDecimal.ZERO) == 0) {
-            return BigDecimal.ZERO;
-        }
-        // x = 1
-        if (x.compareTo(BigDecimal.ONE) == 0) {
-            return BigDecimal.ONE;
-        }
-        // y = 0
-        if (y == 0) {
-            return BigDecimal.ONE;
-        }
-        // y = 1
-        if (y == 1) {
-            return round(x, oom, rm);
-        }
-        // y = 2
-        if (y == 2) {
-            //return multiplyRoundIfNecessary(x, x, mc, dp, rm);
-            return x.multiply(x);
-        }
-        // x < 0
-        if (x.compareTo(BigDecimal.ZERO) == -1) {
-            BigDecimal r = power(x.negate(), y, oom, rm);
-            if ((double) y / 2.0d > y / 2) {
-                return r;
-            } else {
-                return r.negate();
-            }
-        }
-        // y < 0
-        if (y < 0) {
-            BigDecimal power = powerNoSpecialCaseCheck(x, -y, oom - 2, rm);
-            return reciprocal(power, oom, rm);
-        }
-        return powerNoSpecialCaseCheck(x, y, oom, rm);
-    }
-
-    /**
-     * Calculates and returns {@code x} raised to the power of {@code y}
-     * ({@code x^y}) accurate to the
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a> (OOM) {@code oom} and RoundingMode {@code rm}.
-     *
-     * @param x The base of the exponent {@code x > 0 && x != 1}.
-     * @param y The exponent {@code y >= 3}.
-     * @param div An optimisation parameter. If {@code div < 2} it is set to
-     * {@code 2}. If {@code div > 256} it is set to {@code 256}.
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a>
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * the result is rounded to.
-     * @param rm The {@link RoundingMode} used to round the final result.
-     * @return {@code x^y}
-     */
-    public static BigDecimal powerNoSpecialCaseCheck(BigDecimal x,
-            int y, int oom, RoundingMode rm) {
-        BigDecimal r = x.pow(y);
-        return round(r, oom, rm);
     }
 
     /**
@@ -2957,7 +2797,7 @@ public class Math_BigDecimal extends Math_Number {
              * May need oomm3 to be larger (even though the bottom of the Taylor
              * series grows fast)!
              */
-            BigDecimal px = power(fract, exponent, 64, oomm3, rm);
+            BigDecimal px = power(fract, exponent, oomm3, rm);
             dpxff = Math_BigDecimal.divide(px, ff, oomm3, rm);
             r = r.add(dpxff);
             if (dpxff.compareTo(tollerance) == -1) {
@@ -3366,7 +3206,7 @@ public class Math_BigDecimal extends Math_Number {
         BigDecimal comparator = BigDecimal.ONE.subtract(epsilon);
         // Check for root in precision and return 1 if not.
         BigInteger rootbi = BigInteger.valueOf(root);
-        boolean powerTest = powerTestAbove(x, comparator, rootbi, 256, oom, rm);
+        boolean powerTest = powerTestAbove(x, comparator, rootbi, oom, rm);
         if (powerTest) {
             System.out.println("No root in the precision... ");
             //return BigDecimal.ZERO;
@@ -3475,8 +3315,8 @@ public class Math_BigDecimal extends Math_Number {
             BigDecimal divbd = BigDecimal.valueOf(div);
             // Newton Raphson
             while (true) {
-                rpowroot = power(r, root, div, oomp, rmdou);
-                rpowrootsub1 = power(r, rootsub1, div, oomp, rmdou);
+                rpowroot = power(r, root, oomp, rmdou);
+                rpowrootsub1 = power(r, rootsub1, oomp, rmdou);
                 divisor = rpowrootsub1.multiply(rootbd);
                 if (divisor.compareTo(BigDecimal.ZERO) == 0) {
                     break;
@@ -3519,8 +3359,8 @@ public class Math_BigDecimal extends Math_Number {
         BigInteger rootsub1 = n.subtract(BigInteger.ONE);
         // Newton Raphson
         while (true) {
-            rpowroot = powerNoRounding(r, n, 64);
-            rpowrootsub1 = powerNoRounding(r, rootsub1, 64);
+            rpowroot = powerNoRounding(r, n);
+            rpowrootsub1 = powerNoRounding(r, rootsub1);
             divisor = rpowrootsub1.multiply(rootbd);
             if (divisor.compareTo(BigDecimal.ZERO) == 0) {
                 break;
@@ -3537,7 +3377,6 @@ public class Math_BigDecimal extends Math_Number {
     private static BigDecimal rootInitialisation(BigDecimal x, int root,
             BigDecimal epsilon, int maxite, int oom, RoundingMode rm) {
         BigDecimal r;
-        int div = 64;
         // Initialise toCompare and previousResult_BigDecimal
         if (x.compareTo(BigDecimal.ONE) == -1) {
             return rootInitialisationLessThanOne(x, root, epsilon,
@@ -3545,7 +3384,7 @@ public class Math_BigDecimal extends Math_Number {
         } else {
             int i = 0;
             r = BigDecimal.ONE.add(epsilon);
-            boolean powerTestAbove = powerTestAbove(x, r, root, 64, oom, RoundingMode.DOWN);
+            boolean powerTestAbove = powerTestAbove(x, r, root, oom, RoundingMode.DOWN);
             if (powerTestAbove) {
                 // Root cannot be found within current precision...
                 return BigDecimal.ONE; // Debug...
@@ -3560,7 +3399,7 @@ public class Math_BigDecimal extends Math_Number {
                 // Disect
                 c = divide(a.subtract(b), BigInteger.valueOf(root), oom - 1, RoundingMode.DOWN);
                 c = b.add(c);
-                powerTestAbove = powerTestAbove(x, c, root, div, oom, RoundingMode.DOWN);
+                powerTestAbove = powerTestAbove(x, c, root, oom, RoundingMode.DOWN);
                 if (powerTestAbove) {
                     a = c;
                 } else {
@@ -3570,7 +3409,7 @@ public class Math_BigDecimal extends Math_Number {
                 // Bisect
                 c = divide(a.subtract(b), TWO, oom - 1, RoundingMode.DOWN);
                 c = c.add(b);
-                powerTestAbove = powerTestAbove(x, c, root, div, oom, RoundingMode.DOWN);
+                powerTestAbove = powerTestAbove(x, c, root, oom, RoundingMode.DOWN);
                 if (powerTestAbove) {
                     a = c;
                 } else {
@@ -4035,7 +3874,7 @@ public class Math_BigDecimal extends Math_Number {
             BigDecimal bsa = b.subtract(a);
             c = divide(bsa, rootbi, oom - 1, rm);
             c = b.subtract(c);
-            boolean powerTestBelow = powerTestBelow(x, c, rootbi, 64, oom, rm);
+            boolean powerTestBelow = powerTestBelow(x, c, rootbi, oom, rm);
             if (powerTestBelow) {
                 a = c;
             } else {
@@ -4046,7 +3885,7 @@ public class Math_BigDecimal extends Math_Number {
             // Bisect;
             c = divide(b.subtract(a), TWO, oom - 1, rm);
             c = b.subtract(c);
-            powerTestBelow = powerTestBelow(x, c, rootbi, 64, oom, rm);
+            powerTestBelow = powerTestBelow(x, c, rootbi, oom, rm);
             if (powerTestBelow) {
                 a = c;
             } else {
@@ -4127,7 +3966,7 @@ public class Math_BigDecimal extends Math_Number {
      * @return Square root of {@code x} rounded if necessary.
      */
     public static BigDecimal sqrt(BigDecimal x, int oom, RoundingMode rm) {
-        return power(x, new BigDecimal("0.5"), oom, rm);
+        return power(x, HALF, oom, rm);
     }
 
     /**
@@ -4428,7 +4267,7 @@ public class Math_BigDecimal extends Math_Number {
             boolean alternator = true;
             while (true) {
                 factorial = bi.factorial(factor);
-                power = Math_BigDecimal.power(x, factor, oom - 2);
+                power = Math_BigDecimal.power(x, factor, oom - 2, rm);
                 BigDecimal division = Math_BigDecimal.divide(
                         power, factorial, oom - 2, rm);
                 if (division.compareTo(precision) != -1) {
