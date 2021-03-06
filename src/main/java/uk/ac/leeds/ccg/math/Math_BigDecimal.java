@@ -1296,19 +1296,6 @@ public class Math_BigDecimal extends Math_Number {
         return getDiv(x, BigInteger.valueOf(y));
     }
 
-    private static int getDiv2(BigDecimal x) {
-        BigDecimal log2x = log(2, x, 0, RoundingMode.UP);
-        return log2x.intValueExact();
-    }
-
-    private static int parseDiv(int div) {
-        int r = 2;
-        while (r < div) {
-            r *= 2;
-        }
-        return r;
-    }
-
     /**
      * Test to see if x raised to the power of y (x^y) is greater than
      * {@code compare}.
@@ -1431,8 +1418,8 @@ public class Math_BigDecimal extends Math_Number {
      * @return true iff x^y {@code >} compare.
      */
     public static boolean powerTestAboveNoRounding(BigDecimal compare,
-            BigDecimal x, BigInteger y, int div) {
-        div = parseDiv(div);
+            BigDecimal x, BigInteger y) {
+        int div = getDiv(x, y);
         BigInteger divbi = BigInteger.valueOf(div);
         BigDecimal c = BigDecimal.ONE;
         BigDecimal c0;
@@ -1446,7 +1433,7 @@ public class Math_BigDecimal extends Math_Number {
                 c0 = powerNoRounding(x, y1);
             } else {
                 BigInteger[] yDAR = y1.divideAndRemainder(divbi);
-                if (powerTestAboveNoRounding(compare, x, yDAR[0], div)) {
+                if (powerTestAboveNoRounding(compare, x, yDAR[0])) {
                     return true;
                 } else {
                     c0 = powerNoRounding(x, yDAR[0]);
@@ -1551,8 +1538,8 @@ public class Math_BigDecimal extends Math_Number {
      * @return true iff x^y {@code <} compare
      */
     public static boolean powerTestBelowNoRounding(BigDecimal compare,
-            BigDecimal x, BigInteger y, int div) {
-        div = parseDiv(div);
+            BigDecimal x, BigInteger y) {
+        int div = getDiv(x, y);
         BigInteger divbi = BigInteger.valueOf(div);
         BigDecimal c = BigDecimal.ONE;
         BigDecimal c0;
@@ -1567,9 +1554,7 @@ public class Math_BigDecimal extends Math_Number {
                 c0 = powerNoRounding(x, y1);
             } else {
                 yDAR = y1.divideAndRemainder(divbi);
-                boolean powerTest0 = powerTestAboveNoRounding(compare, x,
-                        yDAR[0], div);
-                if (powerTest0) {
+                if (powerTestAboveNoRounding(compare, x, yDAR[0])) {
                     return true;
                 } else {
                     c0 = powerNoRounding(x, yDAR[0]);
@@ -3433,8 +3418,7 @@ public class Math_BigDecimal extends Math_Number {
             int i = 0;
             r = BigDecimal.ONE;
             BigInteger rootbi = BigInteger.valueOf(root);
-            boolean powerTestAbove = powerTestAboveNoRounding(x, r, rootbi, 64);
-            if (powerTestAbove) {
+            if (powerTestAboveNoRounding(x, r, rootbi)) {
                 // Root cannot be found within current precision...
                 return BigDecimal.ONE; // Debug...
             }
@@ -3445,8 +3429,7 @@ public class Math_BigDecimal extends Math_Number {
                 // Disect
                 c = divideNoRounding(a.subtract(b), rootbi);
                 c = b.add(c);
-                powerTestAbove = powerTestAboveNoRounding(x, c, rootbi, div);
-                if (powerTestAbove) {
+                if (powerTestAboveNoRounding(x, c, rootbi)) {
                     a = c;
                 } else {
                     b = c;
@@ -3456,8 +3439,7 @@ public class Math_BigDecimal extends Math_Number {
                 // Bisect
                 c = divideNoRounding(a.subtract(b), TWO);
                 c = c.add(b);
-                powerTestAbove = powerTestAboveNoRounding(x, c, rootbi, div);
-                if (powerTestAbove) {
+                if (powerTestAboveNoRounding(x, c, rootbi)) {
                     a = c;
                 } else {
                     b = c;
@@ -3909,7 +3891,6 @@ public class Math_BigDecimal extends Math_Number {
             BigDecimal x, int root, int maxite) {
         BigDecimal b;// = BigDecimal.ONE;
         BigDecimal r = BigDecimal.ONE;
-        boolean powerTestBelow;
         BigDecimal a = new BigDecimal(x.toString());
         b = r;
         BigDecimal c;
@@ -3921,8 +3902,7 @@ public class Math_BigDecimal extends Math_Number {
             BigDecimal bsubtracta = b.subtract(a);
             c = divideNoRounding(bsubtracta, root0);
             c = b.subtract(c);
-            powerTestBelow = powerTestBelowNoRounding(x, c, root0, 64);
-            if (powerTestBelow) {
+            if (powerTestBelowNoRounding(x, c, root0)) {
                 a = c;
             } else {
                 b = c;
@@ -3932,8 +3912,7 @@ public class Math_BigDecimal extends Math_Number {
             // Bisect;
             c = divideNoRounding(b.subtract(a), TWO);
             c = b.subtract(c);
-            powerTestBelow = powerTestBelowNoRounding(x, c, root0, 64);
-            if (powerTestBelow) {
+            if (powerTestBelowNoRounding(x, c, root0)) {
                 a = c;
             } else {
                 b = c;

@@ -445,17 +445,16 @@ public class Math_BigDecimalTest {
         BigDecimal compare;
         BigDecimal x;
         BigInteger y;
-        int div = 64;
         // Test 1
         compare = new BigDecimal("100");
         x = new BigDecimal("9.99999999999999999999999999999999999999999999999");
         y = new BigInteger("2");
-        assertFalse(Math_BigDecimal.powerTestAboveNoRounding(compare, x, y, div));
+        assertFalse(Math_BigDecimal.powerTestAboveNoRounding(compare, x, y));
         // Test 2
         compare = new BigDecimal("100");
         x = new BigDecimal("10.0000000000000000000000000000000000000000000001");
         y = new BigInteger("2");
-        assertTrue(Math_BigDecimal.powerTestAboveNoRounding(compare, x, y, div));
+        assertTrue(Math_BigDecimal.powerTestAboveNoRounding(compare, x, y));
     }
 
     /**
@@ -490,17 +489,16 @@ public class Math_BigDecimalTest {
         BigDecimal compare;
         BigDecimal x;
         BigInteger y;
-        int div = 64;
         // Test 1
         compare = new BigDecimal("100");
         x = new BigDecimal("9.99999999999999999999999999999999999999999999999");
         y = new BigInteger("2");
-        assertTrue(Math_BigDecimal.powerTestBelowNoRounding(compare, x, y, div));
+        assertTrue(Math_BigDecimal.powerTestBelowNoRounding(compare, x, y));
         // Test 2
         compare = new BigDecimal("100");
         x = new BigDecimal("10.0000000000000000000000000000000000000000000001");
         y = new BigInteger("2");
-        assertFalse(Math_BigDecimal.powerTestBelowNoRounding(compare, x, y, div));
+        assertFalse(Math_BigDecimal.powerTestBelowNoRounding(compare, x, y));
     }
 
     /**
