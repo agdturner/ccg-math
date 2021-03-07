@@ -34,12 +34,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
  * @author Andy Turner
  */
 public class Math_BigDecimalTest {
 
     public Math_BigDecimalTest() {
+    }
+    
+    public static void main(String[] args) {
+        new Math_BigDecimalTest().testPowerNoSpecialCaseCheckNoRounding();
     }
 
     @BeforeAll
@@ -579,13 +582,13 @@ public class Math_BigDecimalTest {
         expResult = new BigDecimal("1.01950096232366887641");
         result = Math_BigDecimal.power(x, y, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
-//        // Test 14 Why does it take a long time?
-//        x = new BigDecimal("5");
-//        y = new BigDecimal("0.0012");
-//        expResult = new BigDecimal("1.00193319170523105054");
-//        result = Math_BigDecimal.power(x, y, oom, rm);
-//        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 15: Why does it take a long time?
+        // Test 14 Why does it take a long time?
+        x = new BigDecimal("5");
+        y = new BigDecimal("0.0012");
+        expResult = new BigDecimal("1.00193319170523105054");
+        result = Math_BigDecimal.power(x, y, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 15: Why does it take a long time?
 //        x = new BigDecimal("5");
 //        y = new BigDecimal("0.00012");
 //        expResult = new BigDecimal("1.00019315120078363320");
@@ -975,22 +978,6 @@ public class Math_BigDecimalTest {
 //                + "04173948800000014212295664000038771142571392088268967920869");
 //        result = Math_BigDecimal.power(x, y, div, oom, rm);
 //        assertTrue(expResult.compareTo(result) == 0);
-    }
-
-    /**
-     * Test of powerNoRounding method, of class Math_BigDecimal.
-     */
-    @Test
-    @Disabled
-    public void testPowerNoRounding_2args_1() {
-        System.out.println("powerNoRounding");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -1385,7 +1372,7 @@ public class Math_BigDecimalTest {
      * Test of powerNoRounding method, of class Math_BigDecimal.
      */
     @Test
-    public void testPowerNoRounding_2args_2() {
+    public void testPowerNoRounding_BigDecimal_BigInteger() {
         System.out.println("powerNoRounding");
         BigDecimal x;
         BigInteger y;

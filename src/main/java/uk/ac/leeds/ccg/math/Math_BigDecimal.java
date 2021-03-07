@@ -1791,16 +1791,13 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Calculates and returns x raised to the power of y accurate to
-     * decimalPlaces number of decimal places. If y is negative and a precise
-     * answer cannot be given an exception will be thrown.
+     * Calculates and returns {@code x} raised to the power of {@code y} 
+     * ({@code x^y}). If y is negative and a precise answer cannot be given an 
+     * ArtithmeticException will be thrown.
      *
      * @param x The base of the exponent.
      * @param y The exponent.
-     * @param div If div &lt; 2 it is set to 2. If div &gt; 256 it is set to
-     * 256. div is used to divide the calculation up if y is less than div, it
-     * is all done in one step. Otherwise it is broken into parts.
-     * @return x^y accurate to decimalPlaces
+     * @return x^y
      */
     public static BigDecimal powerNoRounding(BigDecimal x, int y) {
         return powerNoRounding(x, BigInteger.valueOf(y));
