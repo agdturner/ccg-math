@@ -2016,7 +2016,7 @@ public class Math_BigDecimal extends Math_Number {
                 if (div < 6) {
                     return power(x, y1.intValue(), oom, rm);
                 } else {
-                    div /= 2;
+                    //div /= 2;
                     return power(x, y, oom, rm);
                 }
             } else {
@@ -2822,9 +2822,7 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(BigInteger.valueOf(999999999)) != 1
                 && x.compareTo(BigInteger.ZERO) != -1) {
             int xi = x.intValueExact();
-            BigDecimal e = getE(oom - xi - 1, RoundingMode.DOWN);
-            //r = e.pow(xi);
-            return power(e, xi, oom, rm);
+            return power(getE(oom - xi - 1, RoundingMode.DOWN), xi, oom, rm);
         } else {
             ArrayList<BigDecimal> rp = new ArrayList<>();
             BigDecimal rpp = getE(oom - Math_BigInteger.log10(x), RoundingMode.DOWN);
@@ -3407,7 +3405,6 @@ public class Math_BigDecimal extends Math_Number {
     private static BigDecimal rootInitialisationNoRounding(BigDecimal x,
             int root, int maxite) {
         BigDecimal r;
-        int div = 64;
         // Initialise toCompare and previousResult_BigDecimal
         if (x.compareTo(BigDecimal.ONE) == -1) {
             return rootInitialisationLessThanOneNoRounding(x, root, maxite);
