@@ -40,11 +40,10 @@ public class Math_BigDecimalTest {
 
     public Math_BigDecimalTest() {
     }
-    
+
 //    public static void main(String[] args) {
 //        new Math_BigDecimalTest().testPowerNoSpecialCaseCheckNoRounding();
 //    }
-
     @BeforeAll
     public static void setUpClass() {
     }
@@ -438,7 +437,7 @@ public class Math_BigDecimalTest {
         y = new BigInteger("2");
         assertTrue(Math_BigDecimal.powerTestAbove(compare, x, y, oom, rm));
     }
-    
+
     /**
      * Test of powerTestAbove method, of class Math_BigDecimal.
      */
@@ -902,7 +901,6 @@ public class Math_BigDecimalTest {
      * Test of power method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testPower_4args_3() {
         System.out.println("power");
         BigDecimal x = null;
@@ -924,40 +922,40 @@ public class Math_BigDecimalTest {
         expResult = new BigDecimal("1579109656.3156692196");
         result = Math_BigDecimal.power(x, y, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
-        // Test 3
-        x = new BigDecimal("5.1");
-        y = 117;
-        expResult = new BigDecimal(
-                "61053505308866480538551405717028781301447815633741042337063285"
-                + "637565296816330773386.1309180477");
-        result = Math_BigDecimal.power(x, y, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 4
-        x = new BigDecimal("3.14159265");
-        y = 10;
-        expResult = new BigDecimal("93648.0464059980");
-        result = Math_BigDecimal.power(x, y, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 5
-        oom = -20;
-        x = new BigDecimal("3.14159265");
-        y = 10;
-        expResult = new BigDecimal("93648.04640599799415742896");
-        result = Math_BigDecimal.power(x, y, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 6
-        oom = -30;
-        x = new BigDecimal("3.14159265");
-        y = 10;
-        expResult = new BigDecimal("93648.046405997994157428955669854799");
-        result = Math_BigDecimal.power(x, y, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 7
-        x = new BigDecimal("3");
-        y = -10;
-        expResult = new BigDecimal("0.000016935087808430286711036597");
-        result = Math_BigDecimal.power(x, y, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 3
+//        x = new BigDecimal("5.1");
+//        y = 117;
+//        expResult = new BigDecimal(
+//                "61053505308866480538551405717028781301447815633741042337063285"
+//                + "637565296816330773386.1309180477");
+//        result = Math_BigDecimal.power(x, y, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 4
+//        x = new BigDecimal("3.14159265");
+//        y = 10;
+//        expResult = new BigDecimal("93648.0464059980");
+//        result = Math_BigDecimal.power(x, y, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 5
+//        oom = -20;
+//        x = new BigDecimal("3.14159265");
+//        y = 10;
+//        expResult = new BigDecimal("93648.04640599799415742896");
+//        result = Math_BigDecimal.power(x, y, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 6
+//        oom = -30;
+//        x = new BigDecimal("3.14159265");
+//        y = 10;
+//        expResult = new BigDecimal("93648.046405997994157428955669854799");
+//        result = Math_BigDecimal.power(x, y, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 7
+//        x = new BigDecimal("3");
+//        y = -10;
+//        expResult = new BigDecimal("0.000016935087808430286711036597");
+//        result = Math_BigDecimal.power(x, y, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
 //        // Test 8
 //        oom = -40;
 //        x = new BigDecimal("3");
@@ -1107,7 +1105,7 @@ public class Math_BigDecimalTest {
         x = new BigDecimal("2");
         y = new BigInteger("2");
         expResult = new BigDecimal("4");
-        result = Math_BigDecimal.power(x, y,  oom, rm);
+        result = Math_BigDecimal.power(x, y, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
         x = new BigDecimal("2");
@@ -2342,16 +2340,70 @@ public class Math_BigDecimalTest {
      * Test of root method, of class Math_BigDecimal.
      */
     @Test
-    public void testRoot_4args_1() {
+    public void testRoot() {
         System.out.println("root");
         BigDecimal x;
         int root;
         int oom;
         RoundingMode rm = RoundingMode.HALF_UP;
-        MathContext mc;
         BigDecimal expResult;
         BigDecimal result;
+        MathContext mc;
         // Test 1
+        x = new BigDecimal("27");
+        root = 3;
+        oom = -3;
+        expResult = new BigDecimal("3");
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = new BigDecimal("0.1");
+        root = 356;
+        oom = -3;
+        expResult = new BigDecimal("0.994");
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("0.1");
+        oom = -4;
+        expResult = new BigDecimal("0.9936");
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigDecimal("0.1");
+        oom = -100;
+        expResult = new BigDecimal(
+                "0.993552936417354226471692858641777111504937855829958649327917"
+                + "9203022268144882986474329796822248724061");
+        result = Math_BigDecimal.root(x, root, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 5
+//        x = new BigDecimal("8904831940328.25");
+//        root = 1000000000;
+//        oom = -100;
+//        expResult = new BigDecimal(
+//                "1.000000029817615604530522955297464844042643450238720000794888"
+//                + "829957679681379258243392341722104230672");
+//        //1.000000029817615604530522955297...
+//        result = Math_BigDecimal.root(x, root, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 6
+//        x = new BigDecimal("0.25");
+//        root = 1000000000;
+//        expResult = new BigDecimal(
+//                "0.999999998613705638454721047973532813135945294316465347162595"
+//                + "0794816212223235738396849891311358363145");
+//        result = Math_BigDecimal.root(x, root, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
+//        // Test 7
+//        x = new BigDecimal("0.999");
+//        root = 1000000000;
+//        expResult = new BigDecimal(
+//                "0.999999999998999499665416466665732735126112562031740141406732"
+//                + "3221950570597106160577635181243915018588");
+//        result = Math_BigDecimal.root(x, root, oom, rm);
+//        assertTrue(expResult.compareTo(result) == 0);
+// Test 1
         x = new BigDecimal("0.25");
         root = 42;
         oom = -10;
@@ -2466,75 +2518,6 @@ public class Math_BigDecimalTest {
 //                + "7363152842107633912159255642659280381426");
 //        result = Math_BigDecimal.root(x, root, dp, rm);
 //        assertTrue(expResult.compareTo(result) == 0);
-    }
-
-    /**
-     * Test of root method, of class Math_BigDecimal.
-     */
-    @Test
-    public void testRoot_4args_2() {
-        System.out.println("root");
-        BigDecimal x;
-        int root;
-        int oom;
-        RoundingMode rm = RoundingMode.HALF_UP;
-        BigDecimal expResult;
-        BigDecimal result;
-        // Test 1
-        x = new BigDecimal("27");
-        root = 3;
-        oom = -3;
-        expResult = new BigDecimal("3");
-        result = Math_BigDecimal.root(x, root, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 2
-        x = new BigDecimal("0.1");
-        root = 356;
-        oom = -3;
-        expResult = new BigDecimal("0.994");
-        result = Math_BigDecimal.root(x, root, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 3
-        x = new BigDecimal("0.1");
-        oom = -4;
-        expResult = new BigDecimal("0.9936");
-        result = Math_BigDecimal.root(x, root, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 4
-        x = new BigDecimal("0.1");
-        oom = -100;
-        expResult = new BigDecimal(
-                "0.993552936417354226471692858641777111504937855829958649327917"
-                + "9203022268144882986474329796822248724061");
-        result = Math_BigDecimal.root(x, root, oom, rm);
-        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 5
-//        x = new BigDecimal("8904831940328.25");
-//        root = 1000000000;
-//        oom = -100;
-//        expResult = new BigDecimal(
-//                "1.000000029817615604530522955297464844042643450238720000794888"
-//                + "829957679681379258243392341722104230672");
-//        //1.000000029817615604530522955297...
-//        result = Math_BigDecimal.root(x, root, oom, rm);
-//        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 6
-//        x = new BigDecimal("0.25");
-//        root = 1000000000;
-//        expResult = new BigDecimal(
-//                "0.999999998613705638454721047973532813135945294316465347162595"
-//                + "0794816212223235738396849891311358363145");
-//        result = Math_BigDecimal.root(x, root, oom, rm);
-//        assertTrue(expResult.compareTo(result) == 0);
-//        // Test 7
-//        x = new BigDecimal("0.999");
-//        root = 1000000000;
-//        expResult = new BigDecimal(
-//                "0.999999999998999499665416466665732735126112562031740141406732"
-//                + "3221950570597106160577635181243915018588");
-//        result = Math_BigDecimal.root(x, root, oom, rm);
-//        assertTrue(expResult.compareTo(result) == 0);
-
     }
 
     /**
@@ -4713,37 +4696,4 @@ public class Math_BigDecimalTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of power method, of class Math_BigDecimal.
-     */
-    @Test
-    public void testPower_4args_4() {
-        System.out.println("power");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int oom = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.power(x, y, oom, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of root method, of class Math_BigDecimal.
-     */
-    @Test
-    public void testRoot() {
-        System.out.println("root");
-        BigDecimal x = null;
-        int root = 0;
-        int oom = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.root(x, root, oom, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 }
