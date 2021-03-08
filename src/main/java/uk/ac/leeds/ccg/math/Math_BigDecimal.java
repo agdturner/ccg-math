@@ -3939,7 +3939,21 @@ public class Math_BigDecimal extends Math_Number {
      * @return Square root of {@code x} rounded if necessary.
      */
     public static BigDecimal sqrt(BigDecimal x, int oom, RoundingMode rm) {
-        return power(x, HALF, oom, rm);
+        return root(x, 2, oom, rm);
+//        int c = x.compareTo(BigDecimal.ONE);
+//        switch (c) {
+//            case 0:
+//                return BigDecimal.ONE;
+//            case -1:
+//                if (oom >= 0) {
+//                    return BigDecimal.ZERO;
+//                } else {
+//                    int p = Math.max(x.scale(), -oom);
+//                    return round(x.sqrt(new MathContext(p, rm)), oom, rm);
+//                }
+//            default:
+//                return round(x.sqrt(new MathContext(x.scale() - oom, rm)), oom, rm);
+//        }
     }
 
     /**
