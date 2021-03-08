@@ -1660,7 +1660,7 @@ public class Math_BigDecimal extends Math_Number {
             }
         }
     }
-
+    
     /**
      * Calculates and returns x raised to the power of y (x^y). This may employ
      * the following:
@@ -1758,7 +1758,7 @@ public class Math_BigDecimal extends Math_Number {
     public static BigDecimal power(BigDecimal x, long y, int oom, RoundingMode rm) {
         return power(x, BigInteger.valueOf(y), oom, rm);
     }
-
+    
     /**
      * Calculates and returns x raised to the power of y (x^y). This may employ
      * the following:
@@ -1789,7 +1789,7 @@ public class Math_BigDecimal extends Math_Number {
     public static BigDecimal power(BigDecimal x, int y, int oom, RoundingMode rm) {
         return power(x, BigInteger.valueOf(y), oom, rm);
     }
-
+    
     /**
      * Calculates and returns {@code x} raised to the power of {@code y} 
      * ({@code x^y}). If y is negative and a precise answer cannot be given an 
@@ -3182,7 +3182,7 @@ public class Math_BigDecimal extends Math_Number {
             }
         }
         // x > 1
-        BigDecimal epsilon = new BigDecimal(BigInteger.ONE, -oom);
+        BigDecimal epsilon = new BigDecimal(BigInteger.ONE, 1 - oom);
         BigDecimal comparator = BigDecimal.ONE.subtract(epsilon);
         // Check for root in precision and return 1 if not.
         BigInteger rootbi = BigInteger.valueOf(root);
@@ -4132,10 +4132,6 @@ public class Math_BigDecimal extends Math_Number {
      * @return The cosine of x.
      */
     public BigDecimal cos(BigDecimal x, int oom, RoundingMode rm) {
-//        //BigDecimal aPIBy2 = bd.getPiBy2(dp + 2, rm);
-//        //BigDecimal r = sin(x.add(aPIBy2), bd, dp + 1, rm);
-//        return Math_BigDecimal.roundToAndSetDecimalPlaces(r, dp, rm);
-        //BigDecimal aPI1000 = bd.getPi(1000, rm);
         // cosx = 1-(x^2)/(2!)+(x^4)/(4!)-(x^6)/(6!)+...
         BigDecimal precision = new BigDecimal(BigInteger.ONE, oom - 2);
         BigDecimal cosx = BigDecimal.ONE;
@@ -4304,7 +4300,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param rm RoundingMode
      * @return atan(x)
      */
-    public static BigDecimal atan(BigDecimal x, int oom, RoundingMode rm) {
+    public BigDecimal atan(BigDecimal x, int oom, RoundingMode rm) {
         int oomn8 = oom - 8; // Is 8 sufficient?
         BigDecimal xdivsqrt1px2 = divide(x,
                 sqrt(BigDecimal.ONE.add(x.multiply(x)), oomn8, RoundingMode.DOWN),
@@ -4318,14 +4314,13 @@ public class Math_BigDecimal extends Math_Number {
      *
      * @param x the value
      * @param pi A value of Pi
-     * @param scale scale
+     * @param oom 
      * @param rm RoundingMode
      * @return acos(x)
      */
-    public static BigDecimal acos(BigDecimal x, BigDecimal pi, int scale, RoundingMode rm) {
-        BigDecimal r = divide(pi, TWO, scale + 1, rm)
-                .subtract(asin(x, scale + 1, rm));
-        return round(r, scale, rm);
+    public BigDecimal acos(BigDecimal x, int oom, RoundingMode rm) {
+        BigDecimal r = getPiBy2(oom - 2, rm).subtract(asin(x, oom - 2, rm));
+        return round(r, oom, rm);
     }
 
     /**
