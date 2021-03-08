@@ -952,9 +952,6 @@ public class Math_BigInteger extends Math_Number {
      */
     public static boolean isDivisibleBy(BigInteger x, BigInteger y) {
         BigInteger d = x.divide(y);
-        if (d.multiply(y).compareTo(x) == 0) {
-            return true;
-        }
-        return false;
+        return d.multiply(y).compareTo(x) == 0;
     }
 }

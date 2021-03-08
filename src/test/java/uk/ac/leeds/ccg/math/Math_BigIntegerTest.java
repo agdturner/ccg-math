@@ -24,6 +24,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -752,6 +753,59 @@ public class Math_BigIntegerTest {
         result = Math_BigInteger.addPriorRound(x, y, oom);
         //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of add method, of class Math_BigInteger.
+     */
+    @Test
+    @Disabled
+    public void testAdd_4args() {
+        System.out.println("add");
+        BigInteger x = null;
+        BigInteger y = null;
+        int oom = 0;
+        RoundingMode rm = null;
+        BigInteger expResult = null;
+        BigInteger result = Math_BigInteger.add(x, y, oom, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of add method, of class Math_BigInteger.
+     */
+    @Test
+    @Disabled
+    public void testAdd_3args() {
+        System.out.println("add");
+        BigInteger x = null;
+        BigInteger y = null;
+        int oom = 0;
+        BigInteger expResult = null;
+        BigInteger result = Math_BigInteger.add(x, y, oom);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of addPriorRound method, of class Math_BigInteger.
+     */
+    @Test
+    @Disabled
+    public void testAddPriorRound_4args() {
+        System.out.println("addPriorRound");
+        BigInteger x = null;
+        BigInteger y = null;
+        int oom = 0;
+        RoundingMode rm = null;
+        BigInteger expResult = null;
+        BigInteger result = Math_BigInteger.addPriorRound(x, y, oom, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
 }

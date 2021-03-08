@@ -205,7 +205,7 @@ public class Math_IntegerTest {
         // Test 2
         assertThrows(NumberFormatException.class, () -> {
             Math_Integer.parseInt("1E+10");
-        });        
+        });
         // Test 3
         assertThrows(NumberFormatException.class, () -> {
             Math_Integer.parseInt("1E10");
@@ -235,10 +235,8 @@ public class Math_IntegerTest {
         expResult = Integer.MAX_VALUE;
         assertEquals(expResult, result);
         // Test 3
-        x = Integer.MAX_VALUE;
-        y = 1;
-        result = Math_Integer.add(x, y);
-        expResult = Integer.MAX_VALUE;
-        assertEquals(expResult, result);
+        assertThrows(ArithmeticException.class, () -> {
+            Math_Integer.add(Integer.MAX_VALUE, 1);
+        });
     }
 }

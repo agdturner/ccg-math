@@ -41,9 +41,9 @@ public class Math_BigDecimalTest {
     public Math_BigDecimalTest() {
     }
     
-    public static void main(String[] args) {
-        new Math_BigDecimalTest().testPowerNoSpecialCaseCheckNoRounding();
-    }
+//    public static void main(String[] args) {
+//        new Math_BigDecimalTest().testPowerNoSpecialCaseCheckNoRounding();
+//    }
 
     @BeforeAll
     public static void setUpClass() {
@@ -124,7 +124,7 @@ public class Math_BigDecimalTest {
         y = new BigDecimal("1234.5678");
         oom = -13;
         expResult = new BigDecimal("1386.9835763907942");
-        System.out.println(x.multiply(y));
+        //System.out.println(x.multiply(y));
         result = Math_BigDecimal.multiply(x, y, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
@@ -132,7 +132,7 @@ public class Math_BigDecimalTest {
         y = new BigDecimal("9999999.9999999");
         oom = -12;
         expResult = new BigDecimal("999999999899.990000000001");
-        System.out.println(x.multiply(y));
+        //System.out.println(x.multiply(y));
         result = Math_BigDecimal.multiply(x, y, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
     }
@@ -1901,7 +1901,7 @@ public class Math_BigDecimalTest {
                 + "974624897375629756945230282156346757431325906601608952112277"
                 + "920484487599886411493051606391032435933190384304006946732416"
                 + "7490917499501000001");
-        System.out.println(result);
+        //System.out.println(result);
         assertTrue(expResult.compareTo(result) == 0);
     }
 
@@ -4708,6 +4708,40 @@ public class Math_BigDecimalTest {
         Math_BigDecimal instance = new Math_BigDecimal();
         BigDecimal expResult = null;
         BigDecimal result = instance.acos(x, oom, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of power method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testPower_4args_4() {
+        System.out.println("power");
+        BigDecimal x = null;
+        BigInteger y = null;
+        int oom = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.power(x, y, oom, rm);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of root method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRoot() {
+        System.out.println("root");
+        BigDecimal x = null;
+        int root = 0;
+        int oom = 0;
+        RoundingMode rm = null;
+        BigDecimal expResult = null;
+        BigDecimal result = Math_BigDecimal.root(x, root, oom, rm);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
