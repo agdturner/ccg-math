@@ -4033,6 +4033,9 @@ public class Math_BigDecimalTest {
         assertTrue(expResult.compareTo(result) == 0);
     }
 
+    public MathContext getMathContext(BigDecimal result, int oom, RoundingMode rm) {
+        return new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) + 1 - oom, rm);
+    }
     /**
      * Test of cos method, of class Math_BigDecimal.
      */
@@ -4059,7 +4062,7 @@ public class Math_BigDecimalTest {
         x = Math_BigDecimal.divide(pi, BigInteger.valueOf(4),
                 oom - 2, rm);
         result = bd.cos(x, oom, rm);
-        mc = new MathContext(-oom, rm);
+        mc = getMathContext(result, oom, rm);
         expResult = BigDecimalMath.cos(x, mc);
         assertTrue(result.compareTo(expResult) == 0);
         // Test 3: 87*PI/180
@@ -4067,7 +4070,7 @@ public class Math_BigDecimalTest {
                 pi.multiply(BigDecimal.valueOf(87)),
                 BigInteger.valueOf(180), oom - 10, rm);
         result = bd.cos(x, oom, rm);
-        mc = new MathContext(-oom, rm);
+        mc = getMathContext(result, oom, rm);
         expResult = BigDecimalMath.cos(x, mc);
         assertTrue(result.compareTo(expResult) == 0);
         // Test 4: 81*PI/180
@@ -4075,7 +4078,7 @@ public class Math_BigDecimalTest {
                 pi.multiply(BigDecimal.valueOf(81)),
                 BigInteger.valueOf(180), oom - 10, rm);
         result = bd.cos(x, oom, rm);
-        mc = new MathContext(-oom, rm);
+        mc = getMathContext(result, oom, rm);
         expResult = BigDecimalMath.cos(x, mc);
         assertTrue(result.compareTo(expResult) == 0);
         // Test 5: 75*PI/180
@@ -4083,7 +4086,7 @@ public class Math_BigDecimalTest {
                 pi.multiply(BigDecimal.valueOf(75)),
                 BigInteger.valueOf(180), oom - 10, rm);
         result = bd.cos(x, oom, rm);
-        mc = new MathContext(-oom, rm);
+        mc = getMathContext(result, oom, rm);
         expResult = BigDecimalMath.cos(x, mc);
         assertTrue(result.compareTo(expResult) == 0);
         // Test 6: 72*PI/180
@@ -4091,7 +4094,7 @@ public class Math_BigDecimalTest {
                 pi.multiply(BigDecimal.valueOf(72)), BigInteger.valueOf(180),
                 oom - 10, rm);
         result = bd.cos(x, oom, rm);
-        mc = new MathContext(-oom, rm);
+        mc = getMathContext(result, oom, rm);
         expResult = BigDecimalMath.cos(x, mc);
         assertTrue(result.compareTo(expResult) == 0);
         // Test 7: 54*PI/180
@@ -4099,7 +4102,7 @@ public class Math_BigDecimalTest {
                 pi.multiply(BigDecimal.valueOf(54)),
                 BigInteger.valueOf(180), oom - 10, rm);
         result = bd.cos(x, oom, rm);
-        mc = new MathContext(-oom, rm);
+        mc = getMathContext(result, oom, rm);
         expResult = BigDecimalMath.cos(x, mc);
         assertTrue(result.compareTo(expResult) == 0);
     }
