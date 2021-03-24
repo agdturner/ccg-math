@@ -3939,21 +3939,22 @@ public class Math_BigDecimal extends Math_Number {
      * @return Square root of {@code x} rounded if necessary.
      */
     public static BigDecimal sqrt(BigDecimal x, int oom, RoundingMode rm) {
-        return root(x, 2, oom, rm);
-//        int c = x.compareTo(BigDecimal.ONE);
-//        switch (c) {
-//            case 0:
-//                return BigDecimal.ONE;
-//            case -1:
-//                if (oom >= 0) {
-//                    return BigDecimal.ZERO;
-//                } else {
-//                    int p = Math.max(x.scale(), -oom);
-//                    return round(x.sqrt(new MathContext(p, rm)), oom, rm);
-//                }
-//            default:
-//                return round(x.sqrt(new MathContext(x.scale() - oom, rm)), oom, rm);
-//        }
+        //return root(x, 2, oom, rm);
+        int c = x.compareTo(BigDecimal.ONE);
+        switch (c) {
+            case 0:
+                return BigDecimal.ONE;
+            case -1:
+                if (oom >= 0) {
+                    return BigDecimal.ZERO;
+                } else {
+                    int p = Math.max(x.scale(), -oom);
+                    return round(x.sqrt(new MathContext(p, rm)), oom, rm);
+                }
+            default:
+                return round(x.sqrt(new MathContext(x.scale() + 1 - oom, rm)), 
+                        oom, rm);
+        }
     }
 
     /**
@@ -4147,7 +4148,7 @@ public class Math_BigDecimal extends Math_Number {
      */
     public BigDecimal cos(BigDecimal x, int oom, RoundingMode rm) {
         // cosx = 1-(x^2)/(2!)+(x^4)/(4!)-(x^6)/(6!)+...
-        BigDecimal precision = new BigDecimal(BigInteger.ONE, oom - 2);
+        BigDecimal precision = new BigDecimal(BigInteger.ONE, 2 - oom);
         BigDecimal cosx = BigDecimal.ONE;
         int factor = 2;
         BigInteger factorial;
@@ -4170,8 +4171,7 @@ public class Math_BigDecimal extends Math_Number {
             }
             factor += 2;
         }
-        cosx = round(cosx, oom, rm);
-        return cosx;
+        return round(cosx, oom, rm);
     }
 
     /**

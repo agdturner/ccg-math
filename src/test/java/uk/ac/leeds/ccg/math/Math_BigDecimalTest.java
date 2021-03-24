@@ -4037,7 +4037,6 @@ public class Math_BigDecimalTest {
      * Test of cos method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testCos() {
         System.out.println("cos");
         BigDecimal x;
