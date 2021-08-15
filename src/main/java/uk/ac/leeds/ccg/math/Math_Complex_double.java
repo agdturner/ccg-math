@@ -19,11 +19,11 @@ package uk.ac.leeds.ccg.math;
  * https://en.wikipedia.org/wiki/Complex_number
  *
  * It is almost certainly better to use org.apache.commons.math.complex.Complex
- * instead of this. This however is perhaps worthwhile background if using
- * BigDecimal instead of double to represent Real and Imaginary parts of a
- * complex number.
+ * instead of this. This however, could help when implementing a version using
+ * BigDecimal or BigRational instead of double to represent Real and Imaginary
+ * parts of a complex number.
  *
- * @author geoagdt
+ * @author Andy Turner
  */
 public class Math_Complex_double {
 
@@ -183,7 +183,7 @@ public class Math_Complex_double {
 
     /**
      * Divide by taking the reciprocal of c and multiplying with this.
-     * 
+     *
      * @param c The number to multiply with this.
      * @return A new complex number which is this / c.
      */

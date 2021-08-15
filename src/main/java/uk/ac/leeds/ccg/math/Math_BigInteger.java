@@ -72,6 +72,12 @@ public class Math_BigInteger extends Math_Number {
      */
     protected transient List<BigInteger> powersOfTwo;
 
+    private static final BigInteger ZERO = BigInteger.ZERO;
+    private static final BigInteger ONE = BigInteger.ONE;
+    private static final BigInteger TWO = BigInteger.TWO;
+    private static final BigInteger THREE = BigInteger.valueOf(3);
+    private static final BigInteger FIVE = BigInteger.valueOf(5);
+
     /**
      * Creates a new instance.
      */
@@ -94,9 +100,9 @@ public class Math_BigInteger extends Math_Number {
      */
     protected void initFactorials() {
         factorials = new ArrayList<>();
-        factorials.add(BigInteger.ONE); // 0! = 1
-        factorials.add(BigInteger.ONE); // 1! = 1
-        factorials.add(BigInteger.TWO); // 2! = 2
+        factorials.add(ONE); // 0! = 1
+        factorials.add(ONE); // 1! = 1
+        factorials.add(TWO); // 2! = 2
     }
 
     /**
@@ -104,9 +110,9 @@ public class Math_BigInteger extends Math_Number {
      */
     protected void initPowersOfTwo() {
         powersOfTwo = new ArrayList<>();
-        powersOfTwo.add(BigInteger.ONE);
-        powersOfTwo.add(BigInteger.TWO);
-        powersOfTwo.add(BigInteger.TWO.multiply(BigInteger.TWO));
+        powersOfTwo.add(ONE);
+        powersOfTwo.add(TWO);
+        powersOfTwo.add(TWO.multiply(TWO));
     }
 
     /**
@@ -170,8 +176,8 @@ public class Math_BigInteger extends Math_Number {
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> (OOM) of the smallest non-zero digit of {@code x}. This is
      * computationally more efficient than
-     * {@link #getOrderOfMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger)}. No
-     * checking is done to ensure that {@code m} is correct. Examples:
+     * {@link #getOrderOfMagnitudeOfSmallestNonZeroDigit(java.math.BigInteger)}.
+     * No checking is done to ensure that {@code m} is correct. Examples:
      * <ul>
      * <li>x=0, result=0</li>
      * <li>x=1, result=0</li>
@@ -221,7 +227,7 @@ public class Math_BigInteger extends Math_Number {
             RoundingMode rm) {
         return round(x.add(y), oom, rm);
     }
-    
+
     /**
      * Calculate and return {@code x} add {@code y} rounding to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
@@ -246,18 +252,17 @@ public class Math_BigInteger extends Math_Number {
     public static BigInteger add(BigInteger x, BigInteger y, int oom) {
         return add(x, y, oom, RoundingMode.HALF_UP);
     }
-    
+
     /**
-     * Calculate and return {@code x} add {@code y} ({@code x*y})
-     * rounded to the
+     * Calculate and return {@code x} add {@code y} ({@code x*y}) rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> (OOM) {@code oom} using the
      * {@link RoundingMode} {@code rm}. This method is appropriate when
-     * {@code x} and/or {@code y} are large and detailed, and the precision of 
+     * {@code x} and/or {@code y} are large and detailed, and the precision of
      * the result required is at an order of magnitude that is less detailed...
      * If the OOM of the least most significant digits of {@code x} and
-     * {@code y} are close to {@code oom} then it may be
-     * computationally advantageous to simply use
+     * {@code y} are close to {@code oom} then it may be computationally
+     * advantageous to simply use
      * {@link #add(java.math.BigInteger, java.math.BigInteger, int)}.
      *
      * @param x A number to add.
@@ -286,15 +291,14 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
-     * Calculate and return {@code x} add {@code y} ({@code x*y})
-     * rounded to the
+     * Calculate and return {@code x} add {@code y} ({@code x*y}) rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
-     * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This method is appropriate when
-     * {@code x} and/or {@code y} are large and detailed, and the precision of 
-     * the result required is at an order of magnitude that is less detailed...
-     * If the OOM of the least most significant digits of {@code x} and
-     * {@code y} are close to {@code oom} then it may be
-     * computationally advantageous to simply use
+     * Magnitude</a> (OOM) {@code oom} using {@link RoundingMode#HALF_UP}. This
+     * method is appropriate when {@code x} and/or {@code y} are large and
+     * detailed, and the precision of the result required is at an order of
+     * magnitude that is less detailed... If the OOM of the least most
+     * significant digits of {@code x} and {@code y} are close to {@code oom}
+     * then it may be computationally advantageous to simply use
      * {@link #add(java.math.BigInteger, java.math.BigInteger, int)}.
      *
      * @param x A number to add.
@@ -316,7 +320,7 @@ public class Math_BigInteger extends Math_Number {
     public static BigInteger addPriorRound(BigInteger x, BigInteger y, int oom) {
         return addPriorRound(x, y, oom, RoundingMode.HALF_UP);
     }
-    
+
     /**
      * Calculate and return {@code x} multiplied by {@code y} rounding to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
@@ -536,7 +540,7 @@ public class Math_BigInteger extends Math_Number {
         if (new BigDecimal(r).compareTo(x) == 0) {
             return r;
         } else {
-            return r.add(BigInteger.ONE);
+            return r.add(ONE);
         }
     }
 
@@ -601,7 +605,7 @@ public class Math_BigInteger extends Math_Number {
         }
         BigInteger r = powersOfTwo.get(size - 1);
         for (int i = size; i <= x; i++) {
-            r = BigInteger.TWO.multiply(r);
+            r = TWO.multiply(r);
             powersOfTwo.add(r);
         }
         return r;
@@ -618,7 +622,7 @@ public class Math_BigInteger extends Math_Number {
             initPowersOfTwo();
         }
         int size = powersOfTwo.size();
-        BigInteger r = BigInteger.TWO.multiply(powersOfTwo.get(size - 1));
+        BigInteger r = TWO.multiply(powersOfTwo.get(size - 1));
         powersOfTwo.add(r);
         return r;
     }
@@ -653,7 +657,7 @@ public class Math_BigInteger extends Math_Number {
         BigInteger p = powersOfTwo.get(size - 1);
         if (x.compareTo(p) != -1) {
             while (x.compareTo(p) == 1) {
-                p = p.multiply(BigInteger.TWO);
+                p = p.multiply(TWO);
                 powersOfTwo.add(p);
             }
             return powersOfTwo.subList(0, powersOfTwo.size() - 1);
@@ -692,11 +696,11 @@ public class Math_BigInteger extends Math_Number {
      */
     public TreeMap<Integer, Integer> getPowersOfTwoDecomposition(BigInteger x) {
         // Special Cases
-        if (x.compareTo(BigInteger.ZERO) == 0) {
+        if (x.compareTo(ZERO) == 0) {
             return null;
         }
         TreeMap<Integer, Integer> r = new TreeMap<>();
-        if (x.compareTo(BigInteger.ONE) == 0) {
+        if (x.compareTo(ONE) == 0) {
             r.put(0, 1);
             return r;
         }
@@ -706,7 +710,7 @@ public class Math_BigInteger extends Math_Number {
         BigInteger remainder = new BigInteger(x.toString());
         for (int index = i; index >= 0; index--) {
             p = xP.get(index);
-            if (remainder.compareTo(BigInteger.ZERO) == 1) {
+            if (remainder.compareTo(ZERO) == 1) {
                 int c = 0;
                 while (p.compareTo(remainder) != 1) {
                     remainder = remainder.subtract(p);
@@ -720,13 +724,58 @@ public class Math_BigInteger extends Math_Number {
                 break;
             }
         }
-        if (remainder.compareTo(BigInteger.ZERO) == 1) {
+        if (remainder.compareTo(ZERO) == 1) {
             //Generic_Collections.addToMapInteger(r,
             //       getPowersOfTwoDecomposition(remainder));
             Generic_Collections.addToCount(r,
                     getPowersOfTwoDecomposition(remainder));
         }
         return r;
+    }
+
+    /**
+     * Adapted from https://rosettacode.org/wiki/Prime_decomposition#Java
+     *
+     * @param x The number to get the prime decomposition of.
+     * @return 12 = 2 × 2 × 3 has a prime decomposition of {2, 2, 3}
+     */
+    public static ArrayList<BigInteger> getPrimeDecomposition(BigInteger x) {
+        if (x.compareTo(TWO) < 0) {
+            return null;
+        }
+        ArrayList<BigInteger> factors = new ArrayList<>();
+
+        // Handle even values.
+        while (x.and(ONE).equals(ZERO)) {
+            x = x.shiftRight(1);
+            factors.add(TWO);
+        }
+
+        // Handle values divisible by three.
+        while (x.mod(THREE).equals(ZERO)) {
+            factors.add(THREE);
+            x = x.divide(THREE);
+        }
+
+        // Handle values divisible by five.
+        while (x.mod(FIVE).equals(ZERO)) {
+            factors.add(FIVE);
+            x = x.divide(FIVE);
+        }
+
+        // Skip multiples of two, three and five.
+        int[] pattern = {4, 2, 4, 2, 4, 6, 2, 6};
+        int pi = 0;
+        BigInteger t = BigInteger.valueOf(7);
+        while (!x.equals(ONE)) {
+            while (x.mod(t).equals(ZERO)) {
+                factors.add(t);
+                x = x.divide(t);
+            }
+            t = t.add(BigInteger.valueOf(pattern[pi]));
+            pi = (pi + 1) & 7;
+        }
+        return factors;
     }
 
     /**
@@ -808,8 +857,8 @@ public class Math_BigInteger extends Math_Number {
          * and so on. For any range of numbers this distribution is different.
          */
         // Special cases
-        if (upperLimit.compareTo(BigInteger.ZERO) == 0) {
-            return BigInteger.ZERO;
+        if (upperLimit.compareTo(ZERO) == 0) {
+            return ZERO;
         }
         if (upperLimit.compareTo(BigInteger.valueOf(Integer.MAX_VALUE - 1)) == -1) {
             int randomInt = getRandoms()[0].nextInt(upperLimit.intValue() + 1);
@@ -817,7 +866,7 @@ public class Math_BigInteger extends Math_Number {
         }
         TreeMap<Integer, Integer> upperLimit_PowersOfTwoDecomposition = getPowersOfTwoDecomposition(upperLimit);
         //Random[] random = this.getRandomsMinLength(1);
-        BigInteger r = BigInteger.ZERO;
+        BigInteger r = ZERO;
         Integer key;
         BigInteger powerOfTwo;
         Integer multiples;
@@ -832,7 +881,7 @@ public class Math_BigInteger extends Math_Number {
 //                }
             }
 //            if (random[0].nextBoolean()){
-//                r = r.add(BigInteger.ONE);
+//                r = r.add(ONE);
 //            }
         }
         return r;
@@ -853,15 +902,15 @@ public class Math_BigInteger extends Math_Number {
         if (!powersOfTwo.contains(powerOf2)) {
             int size = powersOfTwo.size();
             BigInteger lastPower = powersOfTwo.get(size - 1);
-            BigInteger power = lastPower.multiply(BigInteger.TWO);
+            BigInteger power = lastPower.multiply(TWO);
             powersOfTwo.add(power);
             while (power.compareTo(powerOf2) == -1) {
-                power = lastPower.multiply(BigInteger.TWO);
+                power = lastPower.multiply(TWO);
                 powersOfTwo.add(power);
             }
         }
         int i0 = powersOfTwo.indexOf(powerOf2);
-        BigInteger r = BigInteger.ZERO;
+        BigInteger r = ZERO;
         int randomLength = random.length;
         int i;
         for (i = 0; i < i0; i++) {
@@ -879,7 +928,7 @@ public class Math_BigInteger extends Math_Number {
             ri -= randomLength;
         }
         if (random[ri].nextBoolean()) {
-            r = r.add(BigInteger.ONE);
+            r = r.add(ONE);
         }
         return r;
     }
@@ -891,7 +940,7 @@ public class Math_BigInteger extends Math_Number {
      * @return {@code true} iff {@code x} is even (ends in 0,2,4,6,8)
      */
     public static boolean isEven(BigInteger x) {
-        return x.remainder(BigInteger.TWO).compareTo(BigInteger.ZERO) == 0;
+        return x.remainder(TWO).compareTo(ZERO) == 0;
     }
 
     /**
@@ -930,7 +979,7 @@ public class Math_BigInteger extends Math_Number {
      * </ul>
      */
     public static BigInteger sqrt(BigInteger x) {
-        if (x.compareTo(BigInteger.ZERO) != 1) {
+        if (x.compareTo(ZERO) != 1) {
             return null;
         }
         BigInteger xs = x.sqrt();

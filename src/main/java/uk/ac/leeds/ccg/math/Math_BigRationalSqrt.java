@@ -32,9 +32,10 @@ import java.util.Objects;
  * has application in geometry for calculating distances, areas and volumes.
  *
  * @author Andy Turner
- * @version 1.1.0
+ * @version 1.1
  */
-public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRationalSqrt> {
+public class Math_BigRationalSqrt implements Serializable,
+        Comparable<Math_BigRationalSqrt> {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,8 +55,13 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     public final BigRational x;
 
     /**
-     * Stores the square root of {@link #x} if this can be stored exactly as a
-     * BigRational, otherwise it is {@code null}.
+     * {@link #x} squared.
+     */
+    public final BigRational xsquared;
+
+    /**
+     * Square root of {@link #x} if this can be stored exactly as a BigRational,
+     * otherwise it is {@code null}.
      */
     public final BigRational sqrtx;
 
@@ -66,22 +72,16 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     public BigDecimal sqrtxapprox;
 
     /**
-     * Stores the minimum precision scale used for the approximate calculation
+     * Stores the Order Of Magnitude for the approximate calculation
      * of {@link #sqrtxapprox}.
      */
-    public int mps;
+    public int oom;
 
     /**
-     * Stores the MathContext of the minimum precision scale used for the
-     * approximate calculation of {@link #sqrtxapprox}.
+     * Stores the MathContext for {@link #oom}.
      */
-    public MathContext mpsmc;
-    
-    public Math_BigRationalSqrt(){
-        x = null;
-        sqrtx = null;
-    }
-    
+    public MathContext oommc;
+
     /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
      * {@link #getSqrtRational(ch.obermuhlner.math.big.BigRational)} with
@@ -91,6 +91,7 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      */
     public Math_BigRationalSqrt(BigRational x) {
         this.x = x;
+        xsquared = x.pow(2);
         sqrtx = getSqrtRational();
     }
 
@@ -102,8 +103,7 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      * @param x What {@link #x} is set to.
      */
     public Math_BigRationalSqrt(BigInteger x) {
-        this.x = BigRational.valueOf(x);
-        sqrtx = getSqrtRational();
+        this(BigRational.valueOf(x));
     }
 
     /**
@@ -114,8 +114,7 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      * @param x What {@link #x} is set to.
      */
     public Math_BigRationalSqrt(long x) {
-        this.x = BigRational.valueOf(x);
-        sqrtx = getSqrtRational();
+        this(BigRational.valueOf(x));
     }
 
     /**
@@ -132,6 +131,7 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     public Math_BigRationalSqrt(BigRational x, BigRational sqrtx) {
         this.x = x;
         this.sqrtx = sqrtx;
+        xsquared = x.pow(2);
     }
 
     /**
@@ -145,18 +145,18 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to.
      * @param sqrtxapprox What {@link #sqrtxapprox} is set to.
-     * @param mps What {@link #mps} is set to. This should be the minimum
+     * @param oom What {@link #mps} is set to. This should be the minimum
      * precision scale for the calculation of {@code sqrtxapprox}.
      * @param mpsmc What {@link #mpsmc} is set to. This should be the
      * MathContext for {@link #mps}.
      */
     public Math_BigRationalSqrt(BigRational x, BigRational sqrtx,
-            BigDecimal sqrtxapprox, int mps, MathContext mpsmc) {
+            BigDecimal sqrtxapprox, int oom) {
         this.x = x;
         this.sqrtx = sqrtx;
         this.sqrtxapprox = sqrtxapprox;
-        this.mps = mps;
-        this.mpsmc = mpsmc;
+        xsquared = x.pow(2);
+        init(oom);
     }
 
     /**
@@ -168,19 +168,18 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
         this.x = i.x;
         this.sqrtx = i.sqrtx;
         this.sqrtxapprox = i.sqrtxapprox;
-        this.mps = i.mps;
-        this.mpsmc = i.mpsmc;
+        xsquared = x.pow(2);
+        this.oom = i.oom;
+        this.oommc = i.oommc;
     }
 
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "(x=" + x + ", sqrtx="
-                + sqrtx + ", sqrtxapprox=" + sqrtxapprox + ", mps=" + mps + ")";
+                + sqrtx + ", sqrtxapprox=" + sqrtxapprox + ", oom=" + oom + ")";
     }
 
     /**
-     * @param x The number to return the square root of (if the result is
-     * rational).
      * @return The square root of x if that square root is rational and
      * {@code null} otherwise.
      */
@@ -203,24 +202,26 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
      * Initialises {@link #mps} and {@link #mpsmc}. {@link #mpsmc} is
      * initialised as {@code new MathContext(mps)}.
      *
-     * @param mps What {@link #mps} is set to.
+     * @param mps What {@link #oom} is set to.
      */
-    private void init(int mps) {
-        this.mps = mps;
-        if (mps < 0) {
-            mpsmc = new MathContext(0);
+    private void init(int oom) {
+        this.oom = oom;
+        if (oom > 0) {
+            oommc = new MathContext(0);
         } else {
-            mpsmc = new MathContext(mps);
+            oommc = new MathContext(-oom);
         }
     }
-    
+
     /**
      * A POJO class for code brevity.
      */
     private class MC {
+
         MathContext mc;
         MathContext mcp6;
-        MC(int mps){
+
+        MC(int mps) {
             int precision = (int) Math.ceil(
                     x.integerPart().toBigDecimal().precision() / (double) 2)
                     + mps;
@@ -228,36 +229,36 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
             mcp6 = new MathContext(precision + 6);
         }
     }
-
+    
     /**
-     * @param mps minimum precision scale for approximating the result.
+     * @param oom The order of magnitude for approximating the result.
      * @return The square root of x approximated as a BigDecimal.
      */
-    public BigDecimal toBigDecimal(int mps) {
+    public BigDecimal toBigDecimal(int oom) {
         if (sqrtx == null) {
             if (sqrtxapprox == null) {
-                init(mps);
-                MC mcs = new MC(mps);
+                init(oom);
+                MC mcs = new MC(-oom);
                 sqrtxapprox = x.toBigDecimal(mcs.mcp6).sqrt(mcs.mc);
             } else {
-                if (this.mps < mps) {
-                    init(mps);
-                    MC mcs = new MC(mps);
+                if (this.oom > oom) {
+                    init(oom);
+                    MC mcs = new MC(-oom);
                     sqrtxapprox = x.toBigDecimal(mcs.mcp6).sqrt(mcs.mc);
                 }
             }
         } else {
             if (sqrtxapprox == null) {
-                init(mps);
-                sqrtxapprox = sqrtx.toBigDecimal(mpsmc);
+                init(oom);
+                sqrtxapprox = sqrtx.toBigDecimal(oommc);
             } else {
-                if (this.mps < mps) {
-                    init(mps);
-                    sqrtxapprox = sqrtx.toBigDecimal(mpsmc);
+                if (this.oom > oom) {
+                    init(oom);
+                    sqrtxapprox = sqrtx.toBigDecimal(oommc);
                 }
             }
         }
-        return sqrtxapprox;
+        return Math_BigDecimal.round(sqrtxapprox, oom);
     }
 
     /**
@@ -276,31 +277,57 @@ public class Math_BigRationalSqrt implements Serializable, Comparable<Math_BigRa
     }
 
     /**
-     * @param y The other number to multiply.
-     * @return {@code y.x} multiplied by {@link #x} if this can be expressed
-     * exactly as a {@code BigRational} and {@code null} otherwise.
+     * Adding two square roots sometimes produces a number that can be stored 
+     * precisely as a square root or more simply as a rational number, but 
+     * sometimes it can only be stored with a more complicated Surd like
+     * expression. This method returns a non null result only in the cases where
+     * the result can be expressed exactly as a square root.
+     *
+     * @param y The number to add.
+     * @return {@code new Math_BigRationalSqrt(x.add(y.x))}.
      */
-    public Math_BigRationalSqrt multiply(Math_BigRationalSqrt y) {
-        int c = y.x.compareTo(x);
-        if (y.x.compareTo(x) == 0) {
-            return new Math_BigRationalSqrt(x.multiply(y.x), x);
-        } else {
-            return new Math_BigRationalSqrt(x.multiply(y.x));
+    public Math_BigRationalSqrt add(Math_BigRationalSqrt y) {
+        BigRational cf = Math_BigRational.getCommonFactor(x, y.x);
+        BigRational r = x.divide(cf);
+        BigRational ry = y.x.divide(cf);
+        BigRational d;
+        d = r.divide(ry);
+        if (d.isInteger()) {
+            Math_BigRationalSqrt rr = new Math_BigRationalSqrt(r);
+            Math_BigRationalSqrt ryr = new Math_BigRationalSqrt(ry);
+            if (ryr.sqrtx == null) {
+                return null;
+            } else {
+                return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)));
+            }
         }
+        d = ry.divide(r);
+        if (d.isInteger()) {
+            Math_BigRationalSqrt rr = new Math_BigRationalSqrt(r);
+            Math_BigRationalSqrt ryr = new Math_BigRationalSqrt(ry);
+            if (ryr.sqrtx == null) {
+                return null;
+            } else {
+                return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)));
+            }
+        }
+        return null;
     }
 
     /**
-     * @param y The divisor.
-     * @return {@code y.x} multiplied by {@link #x} if this can be expressed
-     * exactly as a {@code BigRational} and {@code null} otherwise.
+     * @param y The number to multiply by.
+     * @return {@code new Math_BigRationalSqrt(x.multiply(y.x))}.
+     */
+    public Math_BigRationalSqrt multiply(Math_BigRationalSqrt y) {
+        return new Math_BigRationalSqrt(x.multiply(y.x));
+    }
+
+    /**
+     * @param y The number to divide by.
+     * @return {@code new Math_BigRationalSqrt(x.divide(y.x))}.
      */
     public Math_BigRationalSqrt divide(Math_BigRationalSqrt y) {
-        int c = y.x.compareTo(x);
-        if (y.x.compareTo(x) == 0) {
-            return new Math_BigRationalSqrt(BigRational.ONE, BigRational.ONE);
-        } else {
-            return new Math_BigRationalSqrt(x.divide(y.x));
-        }
+        return new Math_BigRationalSqrt(x.divide(y.x));
     }
 
     @Override

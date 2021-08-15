@@ -26,7 +26,7 @@ module uk.ac.leeds.ccg.math {
      * rational numbers as {@link ch.obermuhlner.math.big.BigRational}. It is
      * also for some functions that work on {@link java.math.BigDecimal}.
      */
-    requires ch.obermuhlner.math.big;
+    requires transitive ch.obermuhlner.math.big;
 
     /**
      * The agdt-java-generic library is used for some general functionality.

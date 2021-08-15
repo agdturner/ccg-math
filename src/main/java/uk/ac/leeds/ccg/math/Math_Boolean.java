@@ -25,6 +25,8 @@ import uk.ac.leeds.ccg.generic.core.Generic_Strings;
  */
 public class Math_Boolean extends Math_Number {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * {@code if (isTrue(s)) {return true;} return isFalse(s);}
      *
