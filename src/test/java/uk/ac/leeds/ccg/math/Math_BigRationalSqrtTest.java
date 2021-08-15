@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.1
  */
 public class Math_BigRationalSqrtTest {
 
@@ -165,13 +165,13 @@ public class Math_BigRationalSqrtTest {
         System.out.println("toString");
         Math_BigRationalSqrt instance = new Math_BigRationalSqrt(2);
         String expResult = "Math_BigRationalSqrt(x=2, sqrtx=null, "
-                + "sqrtxapprox=null, mps=0)";
+                + "sqrtxapprox=null, oom=0)";
         String result = instance.toString();
         assertEquals(expResult, result);
         // Test 2
-        instance.toBigDecimal(2);
+        instance.toBigDecimal(-2);
         expResult = "Math_BigRationalSqrt(x=2, sqrtx=null, "
-                + "sqrtxapprox=1.41, mps=2)";
+                + "sqrtxapprox=1.41, oom=-2)";
         result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -182,46 +182,74 @@ public class Math_BigRationalSqrtTest {
     @Test
     public void testToBigDecimal() {
         System.out.println("toBigDecimal");
-        int mps = 2;
+        int oom = -2;
         Math_BigRationalSqrt instance = new Math_BigRationalSqrt(2);
         BigDecimal expResult = new BigDecimal("1.41");
-        BigDecimal result = instance.toBigDecimal(mps);
+        BigDecimal result = instance.toBigDecimal(oom);
         assertEquals(expResult, result);
         // Test 2
-        mps = 2;
+        oom = -2;
         instance = new Math_BigRationalSqrt(16);
         expResult = new BigDecimal("4");
-        result = instance.toBigDecimal(mps);
+        result = instance.toBigDecimal(oom);
         assertEquals(expResult, result);
         // Test 3
-        mps = 2;
+        oom = -2;
         instance = new Math_BigRationalSqrt(256);
         expResult = new BigDecimal("16");
-        result = instance.toBigDecimal(mps);
+        result = instance.toBigDecimal(oom);
         assertEquals(expResult, result);
         // Test 4
-        mps = 0;
+        oom = 0;
         instance = new Math_BigRationalSqrt(257);
         expResult = new BigDecimal("16");
-        result = instance.toBigDecimal(mps);
+        result = instance.toBigDecimal(oom);
         assertEquals(expResult, result);
         // Test 5
-        mps = -1;
+        oom = 1;
         instance = new Math_BigRationalSqrt(257);
         expResult = new BigDecimal("20");
-        result = instance.toBigDecimal(mps);
+        result = instance.toBigDecimal(oom);
         assertThat(expResult, Matchers.comparesEqualTo(result));
         // Test 6
-        mps = 1;
+        oom = -1;
         instance = new Math_BigRationalSqrt(257);
         expResult = new BigDecimal("16.0");
-        result = instance.toBigDecimal(mps);
+        result = instance.toBigDecimal(oom);
         assertThat(expResult, Matchers.comparesEqualTo(result));
         // Test 7
-        mps = 20;
+        oom = -20;
         instance = new Math_BigRationalSqrt(257);
         expResult = new BigDecimal("16.03121954188139736487");
-        result = instance.toBigDecimal(mps);
+        result = instance.toBigDecimal(oom);
+        assertThat(expResult, Matchers.comparesEqualTo(result));
+        // Test 8
+        oom = -20;
+        instance = new Math_BigRationalSqrt(256 * 256 + 1);
+        expResult = new BigDecimal("256.00195311754947624595");
+        result = instance.toBigDecimal(oom);
+        //System.out.println(result.toString());
+        assertThat(expResult, Matchers.comparesEqualTo(result));
+        // Test 9
+        oom = -20;
+        instance = new Math_BigRationalSqrt(new BigInteger("4294967297"));
+        expResult = new BigDecimal("65536.00000762939453080591");
+        result = instance.toBigDecimal(oom);
+        System.out.println(result.toString());
+        assertThat(expResult, Matchers.comparesEqualTo(result));
+        // Test 9
+        oom = -20;
+        instance = new Math_BigRationalSqrt(new BigInteger("18446744073709551617"));
+        expResult = new BigDecimal("4294967296.00000000011641532183");
+        result = instance.toBigDecimal(oom);
+        System.out.println(result.toString());
+        assertThat(expResult, Matchers.comparesEqualTo(result));
+        // Test 10
+        oom = -11;
+        instance = new Math_BigRationalSqrt(new BigInteger("18446744073709551617"));
+        expResult = new BigDecimal("4294967296.00000000012");
+        result = instance.toBigDecimal(oom);
+        System.out.println(result.toString());
         assertThat(expResult, Matchers.comparesEqualTo(result));
     }
 
@@ -258,6 +286,50 @@ public class Math_BigRationalSqrtTest {
         instance = new Math_BigRationalSqrt(cod);
         expResult = new Math_BigRationalSqrt(BigRational.valueOf(4));
         result = y.divide(instance);
+        assertTrue(expResult.equals(result));
+    }
+
+    /**
+     * Test of add method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testAdd() {
+        System.out.println("add");
+        Math_BigRationalSqrt x = new Math_BigRationalSqrt(8);
+        Math_BigRationalSqrt y = new Math_BigRationalSqrt(2);
+        Math_BigRationalSqrt expResult = new Math_BigRationalSqrt(18);
+        //System.out.println("expResult=" + expResult);
+        Math_BigRationalSqrt result = x.add(y);
+        //System.out.println("result=" + result);
+        assertTrue(expResult.equals(result));
+        // Test 2
+        x = new Math_BigRationalSqrt(16);
+        y = new Math_BigRationalSqrt(4);
+        expResult = new Math_BigRationalSqrt(36);
+        //System.out.println("expResult=" + expResult);
+        result = x.add(y);
+        //System.out.println("result=" + result);
+        assertTrue(expResult.equals(result));
+        // Test 3
+        x = new Math_BigRationalSqrt(3);
+        y = new Math_BigRationalSqrt(4);
+        result = x.add(y);
+        assertNull(result);
+        // Test 4
+        x = new Math_BigRationalSqrt(4);
+        y = new Math_BigRationalSqrt(16);
+        expResult = new Math_BigRationalSqrt(36);
+        //System.out.println("expResult=" + expResult);
+        result = x.add(y);
+        //System.out.println("result=" + result);
+        assertTrue(expResult.equals(result));
+        // Test 4
+        x = new Math_BigRationalSqrt(2);
+        y = new Math_BigRationalSqrt(8);
+        expResult = new Math_BigRationalSqrt(18);
+        System.out.println("expResult=" + expResult);
+        result = x.add(y);
+        System.out.println("result=" + result);
         assertTrue(expResult.equals(result));
     }
 
