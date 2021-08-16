@@ -80,8 +80,8 @@ public class Math_PrimeNumbers extends Math_Object {
     /**
      * Creates a load of prime numbers and stores them in the data directory.
      * 
-     * @throws IOException
-     * @throws ClassNotFoundException 
+     * @throws IOException If encountered.
+     * @throws ClassNotFoundException If encountered.
      */
     public void run() throws IOException, ClassNotFoundException {
         Math_Files files = new Math_Files(defaults);
