@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-math</artifactId>
-    <version>1.10-SNAPSHOT</version>
+    <version>1.10</version>
     <packaging>jar</packaging>
 
     <name>agdt-java-math</name>
@@ -15,7 +14,8 @@
         <url>git@github.com:agdturner/agdt-java-math.git</url>
         <connection>scm:git:git@github.com:agdturner/agdt-java-math.git</connection>
         <developerConnection>scm:git:git@github.com:agdturner/agdt-java-math</developerConnection>
-    </scm>
+      <tag>agdt-java-math-1.10</tag>
+  </scm>
     <licenses>
         <license>
             <name>APACHE LICENSE, VERSION 2.0</name>
