@@ -25,6 +25,9 @@ public class Math_Long extends Math_Number {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * {@code INTEGER_MAX_VALUE = Integer.MAX_VALUE}
+     */
     public static final long INTEGER_MAX_VALUE = Integer.MAX_VALUE;
 
     /**

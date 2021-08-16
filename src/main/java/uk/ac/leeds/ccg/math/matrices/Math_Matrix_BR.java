@@ -22,7 +22,7 @@ import java.util.Arrays;
  * For processing matrices holding BigRational numbers.
  * 
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.0
  */
 public class Math_Matrix_BR {
 
@@ -42,6 +42,8 @@ public class Math_Matrix_BR {
     protected final BigRational[][] m;
 
     /**
+     * Create a new instance.
+     * 
      * @param nr What {@link #nr} is set to.
      * @param nc What {@link #nc} is set to.
      */
@@ -177,10 +179,9 @@ public class Math_Matrix_BR {
         int len2 = len - 1;
         int col2 = col + 1;
         int r = 0;
-        int c = 0;
         BigRational[][] res = new BigRational[len2][len2];
         for (int i = 1; i < len; i++) {
-            c = 0;
+            int c = 0;
             for (int j = 0; j < col; j++) {
                 res[r][c] = m[i][j];
                 c ++;
@@ -255,6 +256,10 @@ public class Math_Matrix_BR {
         return hash;
     }
 
+    /**
+     * @param m The Math_Matrix_BR to test for equality with this.
+     * @return {@code true} iff this is equal to {@code m}
+     */
     public boolean equals(Math_Matrix_BR m) {
         if (nr == m.nr && nc == m.nc) {
             for (int r = 0; r < nr; r++) {

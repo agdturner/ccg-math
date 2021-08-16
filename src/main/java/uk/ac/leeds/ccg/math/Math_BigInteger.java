@@ -164,9 +164,10 @@ public class Math_BigInteger extends Math_Number {
      * @param x The number for which the smallest non-zero OOM digit is
      * returned.
      * @return The smallest non-zero OOM digit of {@code x}.
-     * @throws {@link ArithmeticException} if {@code x=0}.
+     * @throws ArithmeticException if {@code x=0}.
      */
-    public static int getOrderOfMagnitudeOfSmallestNonZeroDigit(BigInteger x) {
+    public static int getOrderOfMagnitudeOfSmallestNonZeroDigit(BigInteger x)
+            throws ArithmeticException {
         return getOrderOfMagnitudeOfSmallestNonZeroDigit(x,
                 getOrderOfMagnitudeOfMostSignificantDigit(x));
     }
@@ -812,10 +813,10 @@ public class Math_BigInteger extends Math_Number {
      *
      * @param x The number to log. This should be positive.
      * @return The number of digits in x.
-     * @throws {@link ArithmeticException} if {@code x} is not greater than
+     * @throws ArithmeticException if {@code x} is not greater than
      * {@code 0}.
      */
-    public static int log10(BigInteger x) {
+    public static int log10(BigInteger x) throws ArithmeticException {
         int xs = x.signum();
         if (xs == 1) {
             int digits = 0;
@@ -967,7 +968,7 @@ public class Math_BigInteger extends Math_Number {
      * necessary.)
      *
      * @param x The number to calculate and return the square root of.
-     * @return:
+     * @return
      * <ul>
      * <li>{@code null} if {@code x} is negative</li>
      * <li>the square root of {@code x} if {@code x} is a

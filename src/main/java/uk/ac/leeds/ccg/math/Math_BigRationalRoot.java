@@ -62,7 +62,7 @@ public class Math_BigRationalRoot implements Serializable,
 
     /**
      * Stores the approximate {@link #n}-th root of {@link #x} with a minimum
-     * precision scale of {@link #mps}.
+     * precision scale of {@link #oom}.
      */
     public BigDecimal rootxapprox;
 
@@ -70,13 +70,13 @@ public class Math_BigRationalRoot implements Serializable,
      * Stores the minimum precision scale used for the approximate calculation
      * of {@link #rootxapprox}.
      */
-    public int mps;
+    public int oom;
 
     /**
      * Stores the MathContext of the minimum precision scale used for the
      * approximate calculation of {@link #rootxapprox}.
      */
-    public MathContext mpsmc;
+    public MathContext oommc;
 
     /**
      * Creates a new instance attempting to calculate the {@code n}th root of
@@ -135,7 +135,7 @@ public class Math_BigRationalRoot implements Serializable,
      * returned from
      * {@link #getRootRational(ch.obermuhlner.math.big.BigRational, int)} with
      * {@code x} and {@code n} input. This is preferred for efficiency reasons
-     * over {@link #Math_Surd(ch.obermuhlner.math.big.BigRational, int)} if the
+     * over {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int)} if the
      * {@code n}th root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
@@ -154,22 +154,22 @@ public class Math_BigRationalRoot implements Serializable,
      * returned from
      * {@link #getRootRational(ch.obermuhlner.math.big.BigRational, int)} with
      * {@code x} as input. This is preferred for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational)} if it
+     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int)} if it
      * is known what the square root of {@code x} is.
      *
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
      * @param rootx What {@link #rootx} is set to.
      * @param rootxapprox What {@link #rootxapprox} is set to.
-     * @param mps What {@link #mps} is set to.
+     * @param oom What {@link #oom} is set to.
      */
     public Math_BigRationalRoot(BigRational x, int n, BigRational rootx,
-            BigDecimal rootxapprox, int mps) {
+            BigDecimal rootxapprox, int oom) {
         this.x = x;
         this.n = n;
         this.rootx = rootx;
         this.rootxapprox = rootxapprox;
-        this.mps = mps;
+        this.oom = oom;
     }
 
     /**
@@ -181,7 +181,7 @@ public class Math_BigRationalRoot implements Serializable,
         this.x = i.x;
         this.n = i.n;
         this.rootx = i.rootx;
-        this.mps = i.mps;
+        this.oom = i.oom;
         this.rootxapprox = i.rootxapprox;
     }
 
@@ -189,7 +189,7 @@ public class Math_BigRationalRoot implements Serializable,
     public String toString() {
         return this.getClass().getSimpleName() + "(x=" + x + ", n=" + n
                 + ", rootx=" + rootx + ", rootxapprox=" + rootxapprox
-                + ", mps=" + mps + ")";
+                + ", oom=" + oom + ")";
     }
     
     /**
@@ -224,6 +224,7 @@ public class Math_BigRationalRoot implements Serializable,
 
     /**
      * @param x The number to return the root of (if the result is rational).
+     * @param n The root i.e. 3 for a cube root etc.
      * @return The root of x if that root is rational and {@code null} otherwise.
      */
     public static BigRational getRootRational(BigRational x, int n) {
@@ -240,17 +241,17 @@ public class Math_BigRationalRoot implements Serializable,
     }
 
     /**
-     * Initialises {@link #mps} and {@link #mpsmc}. {@link #mpsmc} is
-     * initialised as {@code new MathContext(mps)}.
+     * Initialises {@link #oom} and {@link #oommc}. {@link #oommc} is
+     * initialised as {@code new MathContext(oom)}.
      *
-     * @param mps What {@link #mps} is set to.
+     * @param oom What {@link #oom} is set to.
      */
-    private void init(int mps) {
-        this.mps = mps;
-        if (mps < 0) {
-            mpsmc = new MathContext(0);
+    private void init(int oom) {
+        this.oom = oom;
+        if (oom < 0) {
+            oommc = new MathContext(0);
         } else {
-            mpsmc = new MathContext(mps);
+            oommc = new MathContext(oom);
         }
     }
     
@@ -260,43 +261,43 @@ public class Math_BigRationalRoot implements Serializable,
     private class MC {
         MathContext mc;
         MathContext mcp6;
-        MC(int mps){
+        MC(int oom){
             int precision = (int) Math.ceil(
                     x.integerPart().toBigDecimal().precision() / (double) 2)
-                    + mps;
+                    - oom;
             mc = new MathContext(precision);
             mcp6 = new MathContext(precision + 6);
         }
     }
 
     /**
-     * @param mps The minimum precision scale for approximating the result.
+     * @param oom The minimum precision scale for approximating the result.
      * @return The square root of x approximated as a BigDecimal.
      */
-    public BigDecimal toBigDecimal(int mps) {
+    public BigDecimal toBigDecimal(int oom) {
         if (rootx == null) {
             if (rootxapprox == null) {
-                init(mps);
-                MC mcs = new MC(mps);
+                init(oom);
+                MC mcs = new MC(oom);
                 x.toBigDecimal(mcs.mcp6).sqrt(mcs.mc);
                 // Change the following
                 rootxapprox = Math_BigDecimal.root(
-                        x.toBigDecimal(mcs.mcp6), n, mps, RoundingMode.HALF_UP);
+                        x.toBigDecimal(mcs.mcp6), n, oom, RoundingMode.HALF_UP);
             } else {
-                if (this.mps < mps) {
-                    this.mps = mps;
+                if (this.oom < oom) {
+                    this.oom = oom;
                     rootxapprox = Math_BigDecimal.rootNoRounding(
-                            x.toBigDecimal(new MathContext(mps + 6)), n);
+                            x.toBigDecimal(new MathContext(oom + 6)), n);
                 }
             }
         } else {
             if (rootxapprox == null) {
-                this.mps = mps;
-                rootxapprox = rootx.toBigDecimal(new MathContext(mps));
+                this.oom = oom;
+                rootxapprox = rootx.toBigDecimal(new MathContext(oom));
             } else {
-                int precision = (int) Math.ceil(x.integerPart().toBigDecimal().precision() / (double) 2) + mps;
-                if (this.mps < mps) {
-                    this.mps = mps;
+                int precision = (int) Math.ceil(x.integerPart().toBigDecimal().precision() / (double) 2) + oom;
+                if (this.oom < oom) {
+                    this.oom = oom;
                     rootxapprox = rootx.toBigDecimal(new MathContext(precision));
                 }
             }
@@ -370,6 +371,10 @@ public class Math_BigRationalRoot implements Serializable,
         return hash;
     }
 
+    /**
+     * @param x The Math_BigRationalRoot to test for equality with this.
+     * @return {@code true} iff this is equal to {@code x}
+     */
     public boolean equals(Math_BigRationalRoot x) {
         return x.x.compareTo(this.x) == 0;
     }

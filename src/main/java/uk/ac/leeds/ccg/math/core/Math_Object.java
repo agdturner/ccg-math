@@ -19,14 +19,20 @@ package uk.ac.leeds.ccg.math.core;
  * Math Object.
  * 
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.0
  */
 public class Math_Object {
     
+    /**
+     * The Math_Environment.
+     */
     public Math_Environment env;
     
-    private Math_Object(){}
-    
+    /**
+     * Create a new instance.
+     * 
+     * @param e What {@link #env} is set to.
+     */
     public Math_Object(Math_Environment e) {
         env = e;
     }

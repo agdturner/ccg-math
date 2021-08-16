@@ -24,14 +24,17 @@ import java.math.BigInteger;
  */
 public class Math_BigRational {
     
+    /**
+     * Create a new instance.
+     */
     public Math_BigRational() {
     }
     
     /**
      * Calculate and return the common factor of two rational numbers.
-     * @param x
-     * @param y
-     * @return The common factor of two rational numbers.
+     * @param x One number.
+     * @param y Another number.
+     * @return The common factor of the two numbers x and y.
      */
     public static BigRational getCommonFactor(BigRational x, BigRational y) {
         BigRational xr = x.reduce();

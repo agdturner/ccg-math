@@ -19,7 +19,7 @@
  */
 module uk.ac.leeds.ccg.math {
     requires transitive java.logging;
-    requires java.desktop;
+    requires transitive java.desktop;
     
     /**
      * The big-math library is mostly used for representing and computing with
@@ -31,7 +31,7 @@ module uk.ac.leeds.ccg.math {
     /**
      * The agdt-java-generic library is used for some general functionality.
      */
-    requires uk.ac.leeds.ccg.generic;
+    requires transitive uk.ac.leeds.ccg.generic;
     
     /**
      * Exports.

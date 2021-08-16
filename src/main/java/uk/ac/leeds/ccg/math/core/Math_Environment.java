@@ -21,12 +21,20 @@ import uk.ac.leeds.ccg.generic.core.Generic_Environment;
  * Math Environment.
  * 
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.0
  */
 public class Math_Environment  {
     
+    /**
+     * The Generic_Environment.
+     */
     public transient final Generic_Environment env;
 
+    /**
+     * Create a new instance.
+     * 
+     * @param e What {@link #env} is set to.
+     */
     public Math_Environment(Generic_Environment e) {
         this.env = e;
     }

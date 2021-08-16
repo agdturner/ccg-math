@@ -21,13 +21,23 @@ import uk.ac.leeds.ccg.generic.core.Generic_Strings;
  * Math String.
  * 
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.0
  */
 public class Math_Strings extends Generic_Strings {
     
-    public static final String s_math = "math";
+    /**
+     * "Math"
+     */
     public static final String s_Math = "Math";
     
+    /**
+     * "math"
+     */
+    public static final String s_math = "math";
+
+    /**
+     * Create a new instance.
+     */
     public Math_Strings() {
         super();
     }

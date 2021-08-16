@@ -40,26 +40,34 @@ import uk.ac.leeds.ccg.math.io.Math_Files;
  * https://codereview.stackexchange.com/questions/10823/yet-another-prime-number-generator/54942#54942
  *
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.0
  */
 public class Math_PrimeNumbers extends Math_Object {
 
+    /**
+     * Generic_Defaults
+     */
     Generic_Defaults defaults;
-    
+
+    /**
+     * Create a new instance.
+     *
+     * @param e What {@link #env} is set to.
+     * @param defaults What {@link #defaults} is set to.
+     */
     public Math_PrimeNumbers(Math_Environment e, Generic_Defaults defaults) {
         super(e);
         this.defaults = defaults;
     }
-    
+
     /**
      * @param args Ignored.
      */
     public static void main(String[] args) {
         try {
-            Generic_Defaults defaults = new Generic_Defaults(
-                    Paths.get(System.getProperty("user.home"), 
-                            Generic_Strings.s_data,
-                            "agdt-java=generic-math"));
+            Generic_Defaults defaults = new Generic_Defaults(Paths.get(
+                    System.getProperty("user.dir"), Generic_Strings.s_data,
+                    Math_PrimeNumbers.class.getName()));
             Math_Environment env = new Math_Environment(new Generic_Environment(
                     new Generic_Files(defaults)));
             Math_PrimeNumbers p = new Math_PrimeNumbers(env, defaults);
@@ -68,9 +76,9 @@ public class Math_PrimeNumbers extends Math_Object {
             ex.printStackTrace(System.err);
         }
     }
-    
+
     public void run() throws IOException, ClassNotFoundException {
-        
+
         /**
          * Prime numbers are incredibly useful for IDs when you want to be able
          * to trace something when IDs are combined. So for example for
