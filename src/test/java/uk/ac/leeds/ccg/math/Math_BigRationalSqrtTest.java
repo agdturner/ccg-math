@@ -54,25 +54,25 @@ public class Math_BigRationalSqrtTest {
     }
 
     /**
-     * Test of getSqrtRational method, of class Math_BigRationalSqrt.
+     * Test of initSqrt method, of class Math_BigRationalSqrt.
      */
     @Test
-    public void testGetSqrtRational() {
-        System.out.println("getSqrtRational");
+    public void testGetSqrt() {
+        System.out.println("getSqrt");
         BigRational x;
         BigRational result;
         BigRational expResult;
         // Test 1
         x = BigRational.valueOf(2);
-        result = new Math_BigRationalSqrt(x).getSqrtRational();
+        result = new Math_BigRationalSqrt(x).getSqrt();
         assertNull(result);
         // Test 2
         x = BigRational.valueOf(4);
         expResult = BigRational.valueOf(2);
-        result = new Math_BigRationalSqrt(x).getSqrtRational();
+        result = new Math_BigRationalSqrt(x).getSqrt();
         assertTrue(expResult.compareTo(result) == 0);
     }
-
+    
     /**
      * Test of multiply method, of class Math_BigRationalSqrt.
      */
@@ -387,5 +387,21 @@ public class Math_BigRationalSqrtTest {
         instance = Math_BigRationalSqrt.ZERO;
         assertTrue(o.compareTo(instance) == 1);
     }
+
+    /**
+     * Test of initSqrt method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testInitSqrt() {
+        // No Test
+//        System.out.println("initSqrt");
+//        Math_BigRationalSqrt instance = null;
+//        BigRational expResult = null;
+//        BigRational result = instance.initSqrt();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
 
 }
