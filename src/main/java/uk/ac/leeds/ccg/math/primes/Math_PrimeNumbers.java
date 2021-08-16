@@ -77,45 +77,13 @@ public class Math_PrimeNumbers extends Math_Object {
         }
     }
 
+    /**
+     * Creates a load of prime numbers and stores them in the data directory.
+     * 
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public void run() throws IOException, ClassNotFoundException {
-
-        /**
-         * Prime numbers are incredibly useful for IDs when you want to be able
-         * to trace something when IDs are combined. So for example for
-         * inheritance each new individual can be assigned their own unique
-         * prime number as an ID. They can then also have an inherited ID which
-         * is the multiplication of their parents inherited IDs and their
-         * parents unique prime number ID. After a number of generating it may
-         * then be possible to quickly see how related any two children are
-         * based on the factorisation of these IDs. There may be a completely
-         * different and better way to do this!
-         *
-         * Consider the application of Godel numbering to keeping track of
-         * research publications and who working in what organisations has
-         * played a part in the evolution of science:
-         * https://en.wikipedia.org/wiki/G%C3%B6del_numbering
-         *
-         * Let's reserve the first 1000 prime numbers in case we later think of
-         * a special use for them. The 1st prime is 2, the 1000th prime is 7933.
-         * Let's reserve the next 999000 prime numbers for roles. The 1001st
-         * prime is 7937, the 100000th prime is 1299743. What are roles? Well,
-         * I'm thinking things like "author", "data contributor", "reviewer".
-         * That might seem like a lot of roles, but we might want to get fine
-         * grained with them, there might be lots of different types of author
-         * contributions and indeed lots of different types of reviewer. Let's
-         * reserve the next 9900000 prime numbers for organisation IDs. The
-         * 100001st prime is 1299763, the 10000000th prime is 179424697. Let us
-         * assume that all individual people are either working independently or
-         * for an organisation. Let us say that a number of these work together
-         * to produce a research output which is given an ID. That research
-         * output can also be given another number which is the product of all
-         * the inputs that have gone into it. That number is kind of like the
-         * Godel number of the work. For any two works, it should be possible to
-         * find out if they have something in common by factorising the Godel
-         * numbers. The more factors they share, the more common they are. How
-         * common different factor are can be summarised and analysed.
-         *
-         */
         Math_Files files = new Math_Files(defaults);
         Generic_Path dir = files.getGeneratedDir();
         Files.createDirectories(dir.getPath());

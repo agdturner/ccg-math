@@ -62,7 +62,7 @@ public class Math_BigDecimal extends Math_Number {
     /**
      * For storing the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude that {@link #e} is rounded to.
+     * Magnitude</a> that {@link #e} is rounded to.
      */
     private int eOOM;
 
@@ -70,7 +70,7 @@ public class Math_BigDecimal extends Math_Number {
      * For storing the
      * <a href="https://en.wikipedia.org/wiki/Pi">Pi constant</a> rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a> {@link #piOOM} rounded using {@link RoundingMode#HALF_UP}.
+     * Magnitude</a> {@link #pi} rounded using {@link RoundingMode#HALF_UP}.
      * The first few digits of the number are
      * {@code 3.1415926535897932384626433...}.
      */
