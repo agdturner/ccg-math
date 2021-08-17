@@ -183,6 +183,13 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@code null} otherwise.
      */
     protected final BigRational initSqrt() {
+        // Special cases
+        if (x.compareTo(BigRational.ZERO) == 0) {
+            return BigRational.ZERO;
+        }
+        if (x.compareTo(BigRational.ONE) == 0) {
+            return BigRational.ONE;
+        }
         BigInteger[] numden = getNumeratorAndDenominator();
         BigInteger nums = Math_BigInteger.sqrt(numden[0]);
         if (nums == null) {
