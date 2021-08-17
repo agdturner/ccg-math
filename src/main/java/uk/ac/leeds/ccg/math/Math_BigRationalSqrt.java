@@ -42,13 +42,15 @@ public class Math_BigRationalSqrt implements Serializable,
     /**
      * ZERO
      */
-    public static final Math_BigRationalSqrt ZERO = new Math_BigRationalSqrt(0);
+    public static final Math_BigRationalSqrt ZERO = new Math_BigRationalSqrt(
+            BigRational.ZERO, BigRational.ZERO, null, 0);
 
     /**
      * ONE
      */
-    public static final Math_BigRationalSqrt ONE = new Math_BigRationalSqrt(1);
-
+    public static final Math_BigRationalSqrt ONE = new Math_BigRationalSqrt(
+            BigRational.ONE, BigRational.ONE, null, 0);
+    
     /**
      * The number for which {@code this} is the square root representation.
      */
