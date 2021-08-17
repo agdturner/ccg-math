@@ -375,4 +375,18 @@ public class Math_BigRationalSqrt implements Serializable,
     public int compareTo(Math_BigRationalSqrt o) {
         return x.compareTo(o.x);
     }
+    
+    /**
+     * For getting the Order of Magnitude needed for a square root calculation 
+     * so that the result can be returned with the precision given by {@code oom}. 
+     * @param v The number for which the square root is wanted.
+     * @param oom The Order of Magnitude for the precision desired.
+     * @return The Order of Magnitude of the most significant digit of the resulting square root.
+     */
+    public static int getOOM(BigRational v, int oom) {
+        return Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(
+                v.toBigDecimal(new MathContext(2 - oom)).toBigInteger().sqrt()) + 1;
+    }
+
+    
 }
