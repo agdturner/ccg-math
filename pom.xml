@@ -4,7 +4,7 @@
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-math</artifactId>
-    <version>1.11</version>
+    <version>1.12-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>agdt-java-math</name>
@@ -14,7 +14,7 @@
         <url>git@github.com:agdturner/agdt-java-math.git</url>
         <connection>scm:git:git@github.com:agdturner/agdt-java-math.git</connection>
         <developerConnection>scm:git:git@github.com:agdturner/agdt-java-math</developerConnection>
-      <tag>agdt-java-math-1.11</tag>
+      <tag>HEAD</tag>
   </scm>
     <licenses>
         <license>
