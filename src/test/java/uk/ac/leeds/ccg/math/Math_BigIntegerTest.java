@@ -227,6 +227,7 @@ public class Math_BigIntegerTest {
      * Test of initFactorials method, of class Math_BigInteger.
      */
     @Test
+    @Disabled
     public void testInitFactorials() {
         System.out.println("initFactorials");
         // No test.
@@ -236,6 +237,7 @@ public class Math_BigIntegerTest {
      * Test of initPowersOfTwo method, of class Math_BigInteger.
      */
     @Test
+    @Disabled
     public void testInitPowersOfTwo() {
         System.out.println("initPowersOfTwo");
         // No test.
@@ -245,6 +247,7 @@ public class Math_BigIntegerTest {
      * Test of powerOfTwo method, of class Math_BigInteger.
      */
     @Test
+    @Disabled
     public void testPowerOfTwo() {
         System.out.println("powerOfTwo");
         // No test.
@@ -254,6 +257,7 @@ public class Math_BigIntegerTest {
      * Test of addPowerOfTwo method, of class Math_BigInteger.
      */
     @Test
+    @Disabled
     public void testAddPowerOfTwo() {
         System.out.println("addPowerOfTwo");
         // No test.
@@ -263,6 +267,7 @@ public class Math_BigIntegerTest {
      * Test of getPowersOfTwo method, of class Math_BigInteger.
      */
     @Test
+    @Disabled
     public void testGetPowersOfTwo_0args() {
         System.out.println("getPowersOfTwo");
         // No test.
@@ -272,6 +277,7 @@ public class Math_BigIntegerTest {
      * Test of getPowersOfTwo method, of class Math_BigInteger.
      */
     @Test
+    @Disabled
     public void testGetPowersOfTwo_BigInteger() {
         System.out.println("getPowersOfTwo");
         // No test.
@@ -281,6 +287,7 @@ public class Math_BigIntegerTest {
      * Test of getPowersOfTwoDecomposition method, of class Math_BigInteger.
      */
     @Test
+    @Disabled
     public void testGetPowersOfTwoDecomposition() {
         System.out.println("getPowersOfTwoDecomposition");
         // No test.
@@ -607,6 +614,7 @@ public class Math_BigIntegerTest {
      * Test covered by {@link #testRound_3args()}.
      */
     @Test
+    @Disabled
     public void testRound_BigInteger_int() {
         System.out.println("round");
         // No test.
@@ -617,6 +625,7 @@ public class Math_BigIntegerTest {
      * Test covered by {@link #testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger()}
      */
     @Test
+    @Disabled
     public void testGetOrderOfMagnitudeOfSmallestNonZeroDigit_BigInteger_int() {
         System.out.println("getOrderOfMagnitudeOfSmallestNonZeroDigit");
         // No test.
@@ -692,6 +701,7 @@ public class Math_BigIntegerTest {
      * Test covered by {@link #testMultiply_3args()}.
      */
     @Test
+    @Disabled
     public void testMultiply_4args() {
         System.out.println("multiply");
         // No test.

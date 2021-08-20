@@ -22,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
 
 /**
  *
@@ -65,6 +66,7 @@ public class Math_Matrix_BRTest {
      * Test of hashCode method, of class Math_Matrix_BR.
      */
     @Test
+    @Disabled
     public void testHashCode() {
         System.out.println("hashCode");
         // No test.
@@ -105,6 +107,7 @@ public class Math_Matrix_BRTest {
      * Test of getM method, of class Math_Matrix_BR.
      */
     @Test
+    @Disabled
     public void testGetM() {
         System.out.println("getM");
         // No test.
@@ -114,6 +117,7 @@ public class Math_Matrix_BRTest {
      * Test of getNr method, of class Math_Matrix_BR.
      */
     @Test
+    @Disabled
     public void testGetNr() {
         System.out.println("getNr");
         // No test.
@@ -123,6 +127,7 @@ public class Math_Matrix_BRTest {
      * Test of getNc method, of class Math_Matrix_BR.
      */
     @Test
+    @Disabled
     public void testGetNc() {
         System.out.println("getNc");
         // No test.
@@ -210,6 +215,7 @@ public class Math_Matrix_BRTest {
      * Test of multiply method, of class Math_Matrix_BR.
      */
     @Test
+    @Disabled
     public void testMultiply_Math_Matrix_BR_Math_Matrix_BR() {
         System.out.println("multiply");
         // No test as testMultiply_Math_Matrix_BR() covers it.
@@ -350,6 +356,7 @@ public class Math_Matrix_BRTest {
      * Test of transpose method, of class Math_Matrix_BR.
      */
     @Test
+    @Disabled
     public void testTranspose_Math_Matrix_BR() {
         System.out.println("transpose");
         // No test as testTranspose_0args() covers it.

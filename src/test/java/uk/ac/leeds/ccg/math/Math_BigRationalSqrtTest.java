@@ -73,73 +73,73 @@ public class Math_BigRationalSqrtTest {
         assertTrue(expResult.compareTo(result) == 0);
     }
     
-    /**
-     * Test of multiply method, of class Math_BigRationalSqrt.
-     */
-    @Test
-    public void testMultiply() {
-        System.out.println("multiply");
-        int a = 2;
-        int b = 1;
-        int c = 2;
-        int d = 1;
-        BigRational aob = BigRational.valueOf(a);
-        BigRational cod = BigRational.valueOf(c);
-        Math_BigRationalSqrt y = new Math_BigRationalSqrt(aob);
-        Math_BigRationalSqrt instance = new Math_BigRationalSqrt(cod);
-        Math_BigRationalSqrt expResult = new Math_BigRationalSqrt(BigRational
-                .valueOf(4));
-        Math_BigRationalSqrt result = instance.multiply(y);
-        assertTrue(expResult.equals(result));
-        // Test 2
-        a = 2;
-        b = 1;
-        c = 8;
-        d = 1;
-        aob = BigRational.valueOf(a);
-        cod = BigRational.valueOf(c);
-        y = new Math_BigRationalSqrt(aob);
-        instance = new Math_BigRationalSqrt(cod);
-        expResult = new Math_BigRationalSqrt(BigRational.valueOf(16));
-        result = instance.multiply(y);
-        assertTrue(expResult.equals(result));
-        // Test 3
-        a = 8;
-        b = 1;
-        c = 2;
-        d = 1;
-        aob = BigRational.valueOf(a);
-        cod = BigRational.valueOf(c);
-        y = new Math_BigRationalSqrt(aob);
-        instance = new Math_BigRationalSqrt(cod);
-        expResult = new Math_BigRationalSqrt(BigRational.valueOf(16));
-        result = instance.multiply(y);
-        assertTrue(expResult.equals(result));
-        // Test 4
-        a = 12;
-        b = 1;
-        c = 3;
-        d = 1;
-        aob = BigRational.valueOf(a);
-        cod = BigRational.valueOf(c);
-        y = new Math_BigRationalSqrt(aob);
-        instance = new Math_BigRationalSqrt(cod);
-        expResult = new Math_BigRationalSqrt(BigRational.valueOf(36));
-        result = instance.multiply(y);
-        assertTrue(expResult.equals(result));
-        // Test 5
-        a = 10;
-        b = 3;
-        c = 15;
-        d = 4;
-        aob = BigRational.valueOf(a).divide(BigRational.valueOf(b));
-        cod = BigRational.valueOf(c).divide(BigRational.valueOf(d));
-        y = new Math_BigRationalSqrt(aob);
-        instance = new Math_BigRationalSqrt(cod);
-        expResult = new Math_BigRationalSqrt(BigRational.valueOf(25).divide(2));
-        result = instance.multiply(y);
-        assertTrue(expResult.equals(result));
-    }
+//    /**
+//     * Test of multiply method, of class Math_BigRationalSqrt.
+//     */
+//    @Test
+//    public void testMultiply() {
+//        System.out.println("multiply");
+//        int a = 2;
+//        int b = 1;
+//        int c = 2;
+//        int d = 1;
+//        BigRational aob = BigRational.valueOf(a);
+//        BigRational cod = BigRational.valueOf(c);
+//        Math_BigRationalSqrt y = new Math_BigRationalSqrt(aob);
+//        Math_BigRationalSqrt instance = new Math_BigRationalSqrt(cod);
+//        Math_BigRationalSqrt expResult = new Math_BigRationalSqrt(BigRational
+//                .valueOf(4));
+//        Math_BigRationalSqrt result = instance.multiply(y);
+//        assertTrue(expResult.equals(result));
+//        // Test 2
+//        a = 2;
+//        b = 1;
+//        c = 8;
+//        d = 1;
+//        aob = BigRational.valueOf(a);
+//        cod = BigRational.valueOf(c);
+//        y = new Math_BigRationalSqrt(aob);
+//        instance = new Math_BigRationalSqrt(cod);
+//        expResult = new Math_BigRationalSqrt(BigRational.valueOf(16));
+//        result = instance.multiply(y);
+//        assertTrue(expResult.equals(result));
+//        // Test 3
+//        a = 8;
+//        b = 1;
+//        c = 2;
+//        d = 1;
+//        aob = BigRational.valueOf(a);
+//        cod = BigRational.valueOf(c);
+//        y = new Math_BigRationalSqrt(aob);
+//        instance = new Math_BigRationalSqrt(cod);
+//        expResult = new Math_BigRationalSqrt(BigRational.valueOf(16));
+//        result = instance.multiply(y);
+//        assertTrue(expResult.equals(result));
+//        // Test 4
+//        a = 12;
+//        b = 1;
+//        c = 3;
+//        d = 1;
+//        aob = BigRational.valueOf(a);
+//        cod = BigRational.valueOf(c);
+//        y = new Math_BigRationalSqrt(aob);
+//        instance = new Math_BigRationalSqrt(cod);
+//        expResult = new Math_BigRationalSqrt(BigRational.valueOf(36));
+//        result = instance.multiply(y);
+//        assertTrue(expResult.equals(result));
+//        // Test 5
+//        a = 10;
+//        b = 3;
+//        c = 15;
+//        d = 4;
+//        aob = BigRational.valueOf(a).divide(BigRational.valueOf(b));
+//        cod = BigRational.valueOf(c).divide(BigRational.valueOf(d));
+//        y = new Math_BigRationalSqrt(aob);
+//        instance = new Math_BigRationalSqrt(cod);
+//        expResult = new Math_BigRationalSqrt(BigRational.valueOf(25).divide(2));
+//        result = instance.multiply(y);
+//        assertTrue(expResult.equals(result));
+//    }
 
     /**
      * Test of getNumeratorAndDenominator method, of class Math_BigRationalSqrt.
@@ -253,41 +253,41 @@ public class Math_BigRationalSqrtTest {
         assertThat(expResult, Matchers.comparesEqualTo(result));
     }
 
-    /**
-     * Test of divide method, of class Math_BigRationalSqrt.
-     */
-    @Test
-    public void testDivide() {
-        System.out.println("divide");
-        int a = 2;
-        int b = 1;
-        int c = 2;
-        int d = 1;
-        BigRational aob = BigRational.valueOf(a);
-        BigRational cod = BigRational.valueOf(c);
-        Math_BigRationalSqrt y = new Math_BigRationalSqrt(aob);
-        Math_BigRationalSqrt instance = new Math_BigRationalSqrt(cod);
-        Math_BigRationalSqrt expResult = Math_BigRationalSqrt.ONE;
-        Math_BigRationalSqrt result = instance.divide(y);
-        assertTrue(expResult.equals(result));
-        // Test 2
-        a = 8;
-        b = 1;
-        c = 2;
-        d = 1;
-        aob = BigRational.valueOf(a);
-        cod = BigRational.valueOf(c);
-        y = new Math_BigRationalSqrt(aob);
-        instance = new Math_BigRationalSqrt(cod);
-        expResult = new Math_BigRationalSqrt(BigRational.valueOf("0.25"));
-        result = instance.divide(y);
-        assertTrue(expResult.equals(result));
-        // Test 3
-        instance = new Math_BigRationalSqrt(cod);
-        expResult = new Math_BigRationalSqrt(BigRational.valueOf(4));
-        result = y.divide(instance);
-        assertTrue(expResult.equals(result));
-    }
+//    /**
+//     * Test of divide method, of class Math_BigRationalSqrt.
+//     */
+//    @Test
+//    public void testDivide() {
+//        System.out.println("divide");
+//        int a = 2;
+//        int b = 1;
+//        int c = 2;
+//        int d = 1;
+//        BigRational aob = BigRational.valueOf(a);
+//        BigRational cod = BigRational.valueOf(c);
+//        Math_BigRationalSqrt y = new Math_BigRationalSqrt(aob);
+//        Math_BigRationalSqrt instance = new Math_BigRationalSqrt(cod);
+//        Math_BigRationalSqrt expResult = Math_BigRationalSqrt.ONE;
+//        Math_BigRationalSqrt result = instance.divide(y);
+//        assertTrue(expResult.equals(result));
+//        // Test 2
+//        a = 8;
+//        b = 1;
+//        c = 2;
+//        d = 1;
+//        aob = BigRational.valueOf(a);
+//        cod = BigRational.valueOf(c);
+//        y = new Math_BigRationalSqrt(aob);
+//        instance = new Math_BigRationalSqrt(cod);
+//        expResult = new Math_BigRationalSqrt(BigRational.valueOf("0.25"));
+//        result = instance.divide(y);
+//        assertTrue(expResult.equals(result));
+//        // Test 3
+//        instance = new Math_BigRationalSqrt(cod);
+//        expResult = new Math_BigRationalSqrt(BigRational.valueOf(4));
+//        result = y.divide(instance);
+//        assertTrue(expResult.equals(result));
+//    }
 
     /**
      * Test of add method, of class Math_BigRationalSqrt.
@@ -392,6 +392,7 @@ public class Math_BigRationalSqrtTest {
      * Test of initSqrt method, of class Math_BigRationalSqrt.
      */
     @Test
+    @Disabled
     public void testInitSqrt() {
         // No Test
 //        System.out.println("initSqrt");
