@@ -19,6 +19,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -1003,5 +1005,50 @@ public class Math_BigInteger extends Math_Number {
     public static boolean isDivisibleBy(BigInteger x, BigInteger y) {
         BigInteger d = x.divide(y);
         return d.multiply(y).compareTo(x) == 0;
+    }
+    
+    /**
+     * @param x The values.
+     * @return The minimum of all the values.
+     */
+    public static BigInteger min(BigInteger... x) {
+        BigInteger r = x[0];
+        for (BigInteger b : x) {
+            r = r.min(b);
+        }
+        return r;
+    }
+    
+    /**
+     * Find the maximum in {@code c}.
+     *
+     * @param c A collection the maximum in which is returned.
+     * @return The maximum in {@code c}.
+     */
+    public static BigInteger min(Collection<BigInteger> c) {
+        return c.parallelStream().min(Comparator.comparing(i -> i)).get();
+    }
+    
+    /**
+     * 
+     * @param x The values.
+     * @return The maximum of all the values.
+     */
+    public static BigInteger max(BigInteger... x) {
+        BigInteger r = x[0];
+        for (BigInteger b : x) {
+            r = r.max(b);
+        }
+        return r;
+    }
+    
+    /**
+     * Find the maximum in {@code c}.
+     *
+     * @param c A collection the maximum in which is returned.
+     * @return The maximum in {@code c}.
+     */
+    public static BigInteger max(Collection<BigInteger> c) {
+        return c.parallelStream().max(Comparator.comparing(i -> i)).get();
     }
 }

@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -424,5 +426,52 @@ public class Math_BigRationalSqrt implements Serializable,
                 v.toBigDecimal(new MathContext(2 - oom)).toBigInteger().sqrt()) + 1;
     }
 
+    /**
+     * @param x The values.
+     * @return The minimum of all the values.
+     */
+    public static Math_BigRationalSqrt min(Math_BigRationalSqrt... x) {
+        Math_BigRationalSqrt r = x[0];
+        for (Math_BigRationalSqrt b : x) {
+            if (b.compareTo(r) == -1) {
+                r = b;
+            }
+        }
+        return r;
+    }
     
+    /**
+     * Find the maximum in {@code c}.
+     *
+     * @param c A collection the maximum in which is returned.
+     * @return The maximum in {@code c}.
+     */
+    public static Math_BigRationalSqrt min(Collection<Math_BigRationalSqrt> c) {
+        return c.parallelStream().min(Comparator.comparing(i -> i)).get();
+    }
+    
+    /**
+     * 
+     * @param x The values.
+     * @return The maximum of all the values.
+     */
+    public static Math_BigRationalSqrt max(Math_BigRationalSqrt... x) {
+        Math_BigRationalSqrt r = x[0];
+        for (Math_BigRationalSqrt b : x) {
+            if (b.compareTo(r) == 1) {
+                r = b;
+            }
+        }
+        return r;
+    }
+    
+    /**
+     * Find the maximum in {@code c}.
+     *
+     * @param c A collection the maximum in which is returned.
+     * @return The maximum in {@code c}.
+     */
+    public static Math_BigRationalSqrt max(Collection<Math_BigRationalSqrt> c) {
+        return c.parallelStream().max(Comparator.comparing(i -> i)).get();
+    }
 }

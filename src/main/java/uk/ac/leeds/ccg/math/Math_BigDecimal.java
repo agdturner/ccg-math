@@ -3003,23 +3003,48 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
+     * @param x The values.
+     * @return The minimum of all the values.
+     */
+    public static BigDecimal min(BigDecimal... x) {
+        BigDecimal r = x[0];
+        for (BigDecimal b : x) {
+            r = r.min(b);
+        }
+        return r;
+    }
+    
+    /**
+     * Find the maximum in {@code c}.
+     *
+     * @param c A collection the maximum in which is returned.
+     * @return The maximum in {@code c}.
+     */
+    public static BigDecimal min(Collection<BigDecimal> c) {
+        return c.parallelStream().min(Comparator.comparing(i -> i)).get();
+    }
+    
+    /**
+     * 
+     * @param x The values.
+     * @return The maximum of all the values.
+     */
+    public static BigDecimal max(BigDecimal... x) {
+        BigDecimal r = x[0];
+        for (BigDecimal b : x) {
+            r = r.max(b);
+        }
+        return r;
+    }
+    
+    /**
      * Find the maximum in {@code c}.
      *
      * @param c A collection the maximum in which is returned.
      * @return The maximum in {@code c}.
      */
     public static BigDecimal max(Collection<BigDecimal> c) {
-        // Using lambda expression
         return c.parallelStream().max(Comparator.comparing(i -> i)).get();
-//        Iterator<BigDecimal> ite = c.iterator();
-//        BigDecimal r = null;
-//        if (ite.hasNext()) {
-//            r = ite.next();
-//        }
-//        while (ite.hasNext()) {
-//            r = r.max(ite.next());
-//        }
-//        return r;
     }
 
     /**
