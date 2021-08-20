@@ -342,20 +342,47 @@ public class Math_BigRationalSqrt implements Serializable,
     }
 
     /**
-     * @param y The number to multiply by.
-     * @return {@code new Math_BigRationalSqrt(x.multiply(y.x))}.
+     * This method returns a non null result only in the cases where
+     * the result can be expressed exactly as a square root.
+     * 
+     * @param y The number to be added.
+     * @return {@code this} add {@code y}.
      */
-    public Math_BigRationalSqrt multiply(Math_BigRationalSqrt y) {
-        return new Math_BigRationalSqrt(x.multiply(y.x));
+    public Math_BigRationalSqrt add(BigRational y) {
+        return add(new Math_BigRationalSqrt(y.pow(2)));
     }
-
-    /**
-     * @param y The number to divide by.
-     * @return {@code new Math_BigRationalSqrt(x.divide(y.x))}.
-     */
-    public Math_BigRationalSqrt divide(Math_BigRationalSqrt y) {
-        return new Math_BigRationalSqrt(x.divide(y.x));
-    }
+    
+//    /**
+//     * @param y The number to multiply by.
+//     * @return {@code this} multiplied by {@code y}.
+//     */
+//    public Math_BigRationalSqrt multiply(Math_BigRationalSqrt y) {
+//        return new Math_BigRationalSqrt(x.multiply(y.x));
+//    }
+//
+//    /**
+//     * @param y The number to multiply by.
+//     * @return {@code this} multiplied by {@code y}.
+//     */
+//    public Math_BigRationalSqrt multiply(BigRational y) {
+//        return multiply(new Math_BigRationalSqrt(y.pow(2)));
+//    }
+//
+//    /**
+//     * @param y The number to divide by.
+//     * @return {@code this} divided by {@code y}.
+//     */
+//    public Math_BigRationalSqrt divide(Math_BigRationalSqrt y) {
+//        return new Math_BigRationalSqrt(x.divide(y.x));
+//    }
+//
+//    /**
+//     * @param y The number to divide by.
+//     * @return {@code this} divided by {@code y}.
+//     */
+//    public Math_BigRationalSqrt divide(BigRational y) {
+//        return divide(new Math_BigRationalSqrt(y.pow(2)));
+//    }
 
     @Override
     public boolean equals(Object o) {
