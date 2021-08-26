@@ -355,13 +355,15 @@ public class Math_BigRationalSqrt implements Serializable,
     }
     
 //    /**
+//     * Return null if there is no common multiple of x and y.x. Otherwise the 
+//     * roots either cancel completely, or the result can be expressed as a Math_BigRationalSqrt.
 //     * @param y The number to multiply by.
 //     * @return {@code this} multiplied by {@code y}.
 //     */
 //    public Math_BigRationalSqrt multiply(Math_BigRationalSqrt y) {
 //        return new Math_BigRationalSqrt(x.multiply(y.x));
 //    }
-//
+
 //    /**
 //     * @param y The number to multiply by.
 //     * @return {@code this} multiplied by {@code y}.
