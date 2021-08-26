@@ -33,7 +33,7 @@ import java.util.Comparator;
  * {@code sqrt(3/2) * sqrt(2) * sqrt(6)} is {@code 12}. This has application in
  * geometry for storing distances, areas and volumes precisely and allowing the 
  * user to later determine the Order of Magnitude of precision wanted if another 
- * form of number is wanted. This builds on {@link #Math_BigRationalSqrt} and 
+ * form of number is wanted. This builds on Math_BigRationalSqrt and 
  * may be a component for a more general algebraic number. 
  *
  * @author Andy Turner
