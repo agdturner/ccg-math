@@ -18,10 +18,10 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 <dependency>
     <groupId>io.github.agdturner</groupId>
     <artifactId>agdt-java-math</artifactId>
-    <version>1.9</version>
+    <version>1.14</version>
 </dependency>
 ```
-[JAR](https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.9/agdt-java-math-1.9.jar)
+[JAR](https://repo1.maven.org/maven2/io/github/agdturner/agdt-java-math/1.14/agdt-java-math-1.14.jar)
 
 ## Development plans/ideas
 - Do some computational comparison, e.g. compare Math_BigDecimal.sqrt(BigDecimal, int, RoundingMode), BigDecimal.sqrt(MathContext) and BigDecimalMath.sqrt().
