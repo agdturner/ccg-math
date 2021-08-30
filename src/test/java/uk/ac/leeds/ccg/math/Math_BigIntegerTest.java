@@ -18,6 +18,9 @@ package uk.ac.leeds.ccg.math;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import org.junit.jupiter.api.AfterEach;
@@ -26,13 +29,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
+//import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.0
  */
 public class Math_BigIntegerTest {
 
@@ -816,6 +819,99 @@ public class Math_BigIntegerTest {
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPrimeDecomposition method, of class Math_BigInteger.
+     */
+    @Test
+    public void testGetPrimeDecomposition() {
+        System.out.println("getPrimeDecomposition");
+        BigInteger x = BigInteger.valueOf(2*3*4*5*6*7);
+        ArrayList<BigInteger> expResult = new ArrayList<>();
+        expResult.add(BigInteger.valueOf(2));
+        expResult.add(BigInteger.valueOf(3));
+        expResult.add(BigInteger.valueOf(4));
+        expResult.add(BigInteger.valueOf(5));
+        expResult.add(BigInteger.valueOf(6));
+        expResult.add(BigInteger.valueOf(7));
+        ArrayList<BigInteger> result = Math_BigInteger.getPrimeDecomposition(x);
+        assertTrue(result.size() == expResult.size());
+        for (int i = 0; i < result.size(); i ++) {
+            assertTrue(expResult.get(i).compareTo(result.get(i)) == 0);
+        }
+    }
+
+    /**
+     * Test of min method, of class Math_BigInteger.
+     */
+    @Test
+    public void testMin_BigIntegerArr() {
+        System.out.println("min");
+        int exp = 100;
+        BigInteger[] x = new BigInteger[exp];
+        x[0] = BigInteger.TWO;
+        for (int i = 0; i < (exp / 2) - 1; i ++) {
+            x[i + 1] = x[i].multiply(x[i]);
+        }
+        BigInteger expResult = BigInteger.TWO;
+        BigInteger result = Math_BigInteger.min(x);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of min method, of class Math_BigInteger.
+     */
+    @Test
+    public void testMin_Collection() {
+        System.out.println("min");
+        Collection<BigInteger> c = new HashSet<>();
+        BigInteger x = BigInteger.TWO;
+        int exp = 100;
+        for (int i = 0; i < exp; i ++) {
+            x = x.multiply(x);
+            c.add(x);
+            c.add(x.negate());
+        }
+        BigInteger expResult = BigInteger.TWO.pow(exp).negate();
+        BigInteger result = Math_BigInteger.min(c);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of max method, of class Math_BigInteger.
+     */
+    @Test
+    public void testMax_BigIntegerArr() {
+        System.out.println("max");
+        int exp = 100;
+        BigInteger[] x = new BigInteger[exp];
+        x[0] = BigInteger.TWO;
+        for (int i = 0; i < (exp / 2) - 1; i ++) {
+            x[i + 1] = x[i].multiply(x[i]);
+        }
+        BigInteger expResult = BigInteger.TWO.pow(exp / 2);
+        BigInteger result = Math_BigInteger.max(x);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of max method, of class Math_BigInteger.
+     */
+    @Test
+    public void testMax_Collection() {
+        System.out.println("max");
+        Collection<BigInteger> c = new HashSet<>();
+        BigInteger x = BigInteger.TWO;
+        int exp = 100;
+        for (int i = 0; i < exp; i ++) {
+            x = x.multiply(x);
+            c.add(x);
+            c.add(x.negate());
+        }
+        BigInteger expResult = BigInteger.TWO.pow(exp);
+        BigInteger result = Math_BigInteger.max(c);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
 }
