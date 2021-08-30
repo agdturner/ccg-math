@@ -830,10 +830,12 @@ public class Math_BigIntegerTest {
         BigInteger x = BigInteger.valueOf(2*3*4*5*6*7);
         ArrayList<BigInteger> expResult = new ArrayList<>();
         expResult.add(BigInteger.valueOf(2));
+        expResult.add(BigInteger.valueOf(2));
+        expResult.add(BigInteger.valueOf(2));
+        expResult.add(BigInteger.valueOf(2));
         expResult.add(BigInteger.valueOf(3));
-        expResult.add(BigInteger.valueOf(4));
+        expResult.add(BigInteger.valueOf(3));
         expResult.add(BigInteger.valueOf(5));
-        expResult.add(BigInteger.valueOf(6));
         expResult.add(BigInteger.valueOf(7));
         ArrayList<BigInteger> result = Math_BigInteger.getPrimeDecomposition(x);
         assertTrue(result.size() == expResult.size());
@@ -848,11 +850,11 @@ public class Math_BigIntegerTest {
     @Test
     public void testMin_BigIntegerArr() {
         System.out.println("min");
-        int exp = 100;
+        int exp = 10;
         BigInteger[] x = new BigInteger[exp];
         x[0] = BigInteger.TWO;
-        for (int i = 0; i < (exp / 2) - 1; i ++) {
-            x[i + 1] = x[i].multiply(x[i]);
+        for (int i = 0; i < exp - 1; i ++) {
+            x[i + 1] = x[i].add(x[i]);
         }
         BigInteger expResult = BigInteger.TWO;
         BigInteger result = Math_BigInteger.min(x);
@@ -867,13 +869,13 @@ public class Math_BigIntegerTest {
         System.out.println("min");
         Collection<BigInteger> c = new HashSet<>();
         BigInteger x = BigInteger.TWO;
-        int exp = 100;
+        int exp = 10;
         for (int i = 0; i < exp; i ++) {
-            x = x.multiply(x);
+            x = x.add(x);
             c.add(x);
             c.add(x.negate());
         }
-        BigInteger expResult = BigInteger.TWO.pow(exp).negate();
+        BigInteger expResult = BigInteger.TWO.pow(exp + 1).negate();
         BigInteger result = Math_BigInteger.min(c);
         assertTrue(expResult.compareTo(result) == 0);
     }
@@ -884,13 +886,13 @@ public class Math_BigIntegerTest {
     @Test
     public void testMax_BigIntegerArr() {
         System.out.println("max");
-        int exp = 100;
+        int exp = 10;
         BigInteger[] x = new BigInteger[exp];
         x[0] = BigInteger.TWO;
-        for (int i = 0; i < (exp / 2) - 1; i ++) {
-            x[i + 1] = x[i].multiply(x[i]);
+        for (int i = 0; i < exp - 1; i ++) {
+            x[i + 1] = x[i].add(x[i]);
         }
-        BigInteger expResult = BigInteger.TWO.pow(exp / 2);
+        BigInteger expResult = BigInteger.TWO.pow(exp);
         BigInteger result = Math_BigInteger.max(x);
         assertTrue(expResult.compareTo(result) == 0);
     }
@@ -903,13 +905,13 @@ public class Math_BigIntegerTest {
         System.out.println("max");
         Collection<BigInteger> c = new HashSet<>();
         BigInteger x = BigInteger.TWO;
-        int exp = 100;
+        int exp = 10;
         for (int i = 0; i < exp; i ++) {
-            x = x.multiply(x);
+            x = x.add(x);
             c.add(x);
             c.add(x.negate());
         }
-        BigInteger expResult = BigInteger.TWO.pow(exp);
+        BigInteger expResult = BigInteger.TWO.pow(exp + 1);
         BigInteger result = Math_BigInteger.max(c);
         assertTrue(expResult.compareTo(result) == 0);
     }
