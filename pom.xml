@@ -72,10 +72,6 @@
             <artifactId>big-math</artifactId>
             <version>${big-math.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.jscience/jscience -->
-        <!-- https://mvnrepository.com/artifact/org.apfloat/apfloat -->
-        <!-- https://mvnrepository.com/artifact/org.apfloat/apfloat-jscience -->
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -89,68 +85,13 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-library</artifactId>
-            <version>${hamcrest.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-        <!--
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <scope>test</scope>
-            <version>${selenium.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.opera</groupId>
-            <artifactId>operadriver</artifactId>
-            <scope>test</scope>
-            <version>1.5</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium</groupId>
-                    <artifactId>selenium-remote-driver</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        -->
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <version>5.6.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <scope>test</scope>
-            <version>2.44.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.opera</groupId>
-            <artifactId>operadriver</artifactId>
-            <scope>test</scope>
-            <version>1.5</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.seleniumhq.selenium</groupId>
-                    <artifactId>selenium-remote-driver</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
     </dependencies>
     
-    <!--
-    <repositories>
-        <repository>
-          <id>OpenMind</id>
-          <name>OpenMind Repository for Getting JScience 4.3.3</name>
-          <url>http://repository.openmindonline.it/</url>
-        </repository>
-    </repositories>
-    -->
-  
     <build>
         <plugins>
             <plugin>
@@ -282,16 +223,22 @@
             <url>file://${project.build.directory}/mvn-repo</url>
         </repository>
         -->
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
         <!--
         <repository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
         -->
+        <!--
         <repository>
             <id>github</id>
-            <name>GitHub OWNER Apache Maven Packages</name>
+            <name>GitHub agdturner Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/agdturner/agdt-java-math</url>
         </repository>
+        -->
     </distributionManagement>
 </project>
