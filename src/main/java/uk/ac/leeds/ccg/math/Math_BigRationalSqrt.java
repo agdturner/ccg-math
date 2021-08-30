@@ -52,7 +52,13 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public static final Math_BigRationalSqrt ONE = new Math_BigRationalSqrt(
             BigRational.ONE, BigRational.ONE, null, 0);
-    
+
+    /**
+     * TWO
+     */
+    public static final Math_BigRationalSqrt TWO = new Math_BigRationalSqrt(
+            BigRational.TWO);
+
     /**
      * The number for which {@code this} is the square root representation.
      */
@@ -344,49 +350,47 @@ public class Math_BigRationalSqrt implements Serializable,
     }
 
     /**
-     * This method returns a non null result only in the cases where
-     * the result can be expressed exactly as a square root.
-     * 
+     * This method returns a non null result only in the cases where the result
+     * can be expressed exactly as a square root.
+     *
      * @param y The number to be added.
      * @return {@code this} add {@code y}.
      */
     public Math_BigRationalSqrt add(BigRational y) {
         return add(new Math_BigRationalSqrt(y.pow(2)));
     }
-    
-//    /**
-//     * Return null if there is no common multiple of x and y.x. Otherwise the 
-//     * roots either cancel completely, or the result can be expressed as a Math_BigRationalSqrt.
-//     * @param y The number to multiply by.
-//     * @return {@code this} multiplied by {@code y}.
-//     */
-//    public Math_BigRationalSqrt multiply(Math_BigRationalSqrt y) {
-//        return new Math_BigRationalSqrt(x.multiply(y.x));
-//    }
 
-//    /**
-//     * @param y The number to multiply by.
-//     * @return {@code this} multiplied by {@code y}.
-//     */
-//    public Math_BigRationalSqrt multiply(BigRational y) {
-//        return multiply(new Math_BigRationalSqrt(y.pow(2)));
-//    }
-//
-//    /**
-//     * @param y The number to divide by.
-//     * @return {@code this} divided by {@code y}.
-//     */
-//    public Math_BigRationalSqrt divide(Math_BigRationalSqrt y) {
-//        return new Math_BigRationalSqrt(x.divide(y.x));
-//    }
-//
-//    /**
-//     * @param y The number to divide by.
-//     * @return {@code this} divided by {@code y}.
-//     */
-//    public Math_BigRationalSqrt divide(BigRational y) {
-//        return divide(new Math_BigRationalSqrt(y.pow(2)));
-//    }
+    /**
+     * @param y The number to multiply by.
+     * @return {@code this} multiplied by {@code y}.
+     */
+    public Math_BigRationalSqrt multiply(Math_BigRationalSqrt y) {
+        return new Math_BigRationalSqrt(x.multiply(y.x));
+    }
+
+    /**
+     * @param y The number to multiply by.
+     * @return {@code this} multiplied by {@code y}.
+     */
+    public Math_BigRationalSqrt multiply(BigRational y) {
+        return multiply(new Math_BigRationalSqrt(y.pow(2)));
+    }
+
+    /**
+     * @param y The number to divide by.
+     * @return {@code this} divided by {@code y}.
+     */
+    public Math_BigRationalSqrt divide(Math_BigRationalSqrt y) {
+        return new Math_BigRationalSqrt(x.divide(y.x));
+    }
+
+    /**
+     * @param y The number to divide by.
+     * @return {@code this} divided by {@code y}.
+     */
+    public Math_BigRationalSqrt divide(BigRational y) {
+        return divide(new Math_BigRationalSqrt(y.pow(2)));
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -415,17 +419,27 @@ public class Math_BigRationalSqrt implements Serializable,
     public int compareTo(Math_BigRationalSqrt o) {
         return x.compareTo(o.x);
     }
-    
+
     /**
-     * For getting the Order of Magnitude needed for a square root calculation 
-     * so that the result can be returned with the precision given by {@code oom}. 
+     * For getting the Order of Magnitude needed for a square root calculation
+     * so that the result can be returned with the precision given by
+     * {@code oom}.
+     *
      * @param v The number for which the square root is wanted.
      * @param oom The Order of Magnitude for the precision desired.
-     * @return The Order of Magnitude of the most significant digit of the resulting square root.
+     * @return The Order of Magnitude of the most significant digit of the
+     * resulting square root.
      */
     public static int getOOM(BigRational v, int oom) {
-        return Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(
-                v.toBigDecimal(new MathContext(2 - oom)).toBigInteger().sqrt()) + 1;
+        int oomn = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(v.getNumeratorBigInteger());
+        int oomd = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(v.getDenominatorBigInteger());
+        int oom2 = oomn - oomd;
+        int oom3 = 2 * (oom + 1);
+        if (oom2 < oom3) {
+            return Math.max(oom2, oom3);
+        } else {
+            return oom3;
+        }
     }
 
     /**
@@ -441,7 +455,7 @@ public class Math_BigRationalSqrt implements Serializable,
         }
         return r;
     }
-    
+
     /**
      * Find the maximum in {@code c}.
      *
@@ -451,9 +465,9 @@ public class Math_BigRationalSqrt implements Serializable,
     public static Math_BigRationalSqrt min(Collection<Math_BigRationalSqrt> c) {
         return c.parallelStream().min(Comparator.comparing(i -> i)).get();
     }
-    
+
     /**
-     * 
+     *
      * @param x The values.
      * @return The maximum of all the values.
      */
@@ -466,7 +480,7 @@ public class Math_BigRationalSqrt implements Serializable,
         }
         return r;
     }
-    
+
     /**
      * Find the maximum in {@code c}.
      *

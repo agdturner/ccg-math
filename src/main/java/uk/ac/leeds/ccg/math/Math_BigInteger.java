@@ -947,6 +947,16 @@ public class Math_BigInteger extends Math_Number {
     }
 
     /**
+     * Test if {@code} is square.
+     *
+     * @param x The number to test whether it is a square.
+     * @return {@code true} iff {@code x} is a square number.
+     */
+    public static boolean isSquare(BigInteger x) {
+        return x.sqrtAndRemainder()[1].compareTo(BigInteger.ZERO) == 0;
+    }
+
+    /**
      * For testing if {@code s} can be parsed as a {@link BigInteger}.
      *
      * @param s The String to be tested as to whether it can be represented as a
