@@ -980,6 +980,7 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(y) == 0) {
             return round(BigDecimal.ONE, oom, rm);
         }
+        //return divideNoCaseCheck(x, y, oom, rm);
         return divideNoCaseCheck(x, y, oom, rm);
     }
 
@@ -1008,7 +1009,8 @@ public class Math_BigDecimal extends Math_Number {
             p = xDARy[0].precision() - oom;
         }
         MathContext mc = new MathContext(p, rm);
-        return x.divide(y, mc);
+        //return x.divide(y, mc);
+        return round(x.divide(y, mc), oom, rm);
     }
 
     /**
@@ -3380,6 +3382,9 @@ public class Math_BigDecimal extends Math_Number {
         BigDecimal divisor;
         BigDecimal rpowrootsubx;
         BigInteger rootsub1 = n.subtract(BigInteger.ONE);
+        int oomx = Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(x);
+        int oomxN2 = oomx - 2;
+        int oomxN3 = oomx - 3;
         // Newton Raphson
         while (true) {
             rpowroot = powerNoRounding(r, n);
@@ -3392,7 +3397,18 @@ public class Math_BigDecimal extends Math_Number {
             if (rpowrootsubx.compareTo(BigDecimal.ZERO) == 0) {
                 break;
             }
-            r = r.subtract(rpowrootsubx.divide(divisor));
+            r = round(r.subtract(divide(rpowrootsubx, divisor, oomxN3,
+                    RoundingMode.DOWN)), oomxN2, RoundingMode.DOWN);
+            //r = r.subtract(divide(rpowrootsubx, divisor, -1, RoundingMode.UP));
+            //r = r.subtract(rpowrootsubx.divide(divisor));
+            if (r0.compareTo(r) == 0) {
+                if (rpowroot.compareTo(x) != 0) {
+                    return null;
+                } else {
+                    return r;
+                }
+            }
+            r0 = r;
         }
         return r;
     }
@@ -3464,7 +3480,12 @@ public class Math_BigDecimal extends Math_Number {
             BigDecimal c;
             while (i < maxite) {
                 // Disect
-                c = divideNoRounding(a.subtract(b), rootbi);
+                //c = divideNoRounding(a.subtract(b), rootbi);
+                if (rootbi.compareTo(BigInteger.ZERO) == 0) {
+                    return r;
+                }
+                c = divide(a.subtract(b), rootbi, 0, RoundingMode.DOWN);
+                //c = divide(a.subtract(b), rootbi, 0, RoundingMode.UP);
                 c = b.add(c);
                 if (powerTestAboveNoRounding(x, c, rootbi)) {
                     a = c;

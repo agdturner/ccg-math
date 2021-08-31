@@ -323,30 +323,34 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public Math_BigRationalSqrt add(Math_BigRationalSqrt y) {
         BigRational cf = Math_BigRational.getCommonFactor(x, y.x);
-        BigRational r = x.divide(cf);
-        BigRational ry = y.x.divide(cf);
-        BigRational d;
-        d = r.divide(ry);
-        if (d.isInteger()) {
-            Math_BigRationalSqrt rr = new Math_BigRationalSqrt(r);
-            Math_BigRationalSqrt ryr = new Math_BigRationalSqrt(ry);
-            if (ryr.sqrtx == null) {
-                return null;
-            } else {
-                return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)));
+        if (cf.compareTo(BigRational.ONE) == 0) {
+            return null;
+        } else {
+            BigRational r = x.divide(cf);
+            BigRational ry = y.x.divide(cf);
+            BigRational d;
+            d = r.divide(ry);
+            if (d.isInteger()) {
+                Math_BigRationalSqrt rr = new Math_BigRationalSqrt(r);
+                Math_BigRationalSqrt ryr = new Math_BigRationalSqrt(ry);
+                if (ryr.sqrtx == null) {
+                    return null;
+                } else {
+                    return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)));
+                }
             }
-        }
-        d = ry.divide(r);
-        if (d.isInteger()) {
-            Math_BigRationalSqrt rr = new Math_BigRationalSqrt(r);
-            Math_BigRationalSqrt ryr = new Math_BigRationalSqrt(ry);
-            if (ryr.sqrtx == null) {
-                return null;
-            } else {
-                return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)));
+            d = ry.divide(r);
+            if (d.isInteger()) {
+                Math_BigRationalSqrt rr = new Math_BigRationalSqrt(r);
+                Math_BigRationalSqrt ryr = new Math_BigRationalSqrt(ry);
+                if (ryr.sqrtx == null) {
+                    return null;
+                } else {
+                    return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)));
+                }
             }
+            return null;
         }
-        return null;
     }
 
     /**

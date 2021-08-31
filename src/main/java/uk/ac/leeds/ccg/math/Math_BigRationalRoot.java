@@ -26,21 +26,40 @@ import java.util.Objects;
 /**
  * This is a class to help with the storage and arithmetic of numbers that are
  * roots. Many roots are irrational and so it is best not to compute them to a
- * precision and store them as a rational unless necessary. Often calculations 
+ * precision and store them as a rational unless necessary. Often calculations
  * can be simplified without needing to calculate component terms. For instance:
  * any root of a number multiplied by itself that root number of times is simply
  * that number.
- * 
- * This class is being adapted from Math_BigRationalSqrt which just handles 
- * square roots and the refactoring is incomplete.
+ *
+ * This class is being adapted from Math_BigRationalSqrt which just handles
+ * square roots. The code development is incomplete... Use with extreme caution
+ * and develop the unit tests!
  *
  * @author Andy Turner
  * @version 0.2
  */
-public class Math_BigRationalRoot implements Serializable, 
+public class Math_BigRationalRoot implements Serializable,
         Comparable<Math_BigRationalRoot> {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * ZERO
+     */
+    public static final Math_BigRationalRoot ZERO = new Math_BigRationalRoot(
+            BigRational.ZERO, 1, BigRational.ZERO);
+
+    /**
+     * ONE
+     */
+    public static final Math_BigRationalRoot ONE = new Math_BigRationalRoot(
+            BigRational.ONE, 1, BigRational.ONE);
+
+    /**
+     * TWO
+     */
+    public static final Math_BigRationalRoot TWO = new Math_BigRationalRoot(
+            BigRational.TWO, 1, BigRational.TWO);
 
     /**
      * The number for which {@code this} is the {@link #n}-th root
@@ -88,9 +107,9 @@ public class Math_BigRationalRoot implements Serializable,
     public Math_BigRationalRoot(BigRational x, int n) {
         this.x = x;
         this.n = n;
-        rootx = getRootRational(x, n);
+        rootx = getRoot(x, n);
     }
-    
+
     /**
      * Creates a new instance attempting to calculate the {@code n}th root of
      * {@code x} and store this as {@link #rootx}.
@@ -101,7 +120,7 @@ public class Math_BigRationalRoot implements Serializable,
     public Math_BigRationalRoot(BigDecimal x, int n) {
         this.x = BigRational.valueOf(x);
         this.n = n;
-        rootx = getRootRational(this.x, n);
+        rootx = getRoot(this.x, n);
     }
 
     /**
@@ -114,7 +133,7 @@ public class Math_BigRationalRoot implements Serializable,
     public Math_BigRationalRoot(BigInteger x, int n) {
         this.x = BigRational.valueOf(x);
         this.n = n;
-        rootx = getRootRational(this.x, n);
+        rootx = getRoot(this.x, n);
     }
 
     /**
@@ -127,7 +146,7 @@ public class Math_BigRationalRoot implements Serializable,
     public Math_BigRationalRoot(long x, int n) {
         this.x = BigRational.valueOf(x);
         this.n = n;
-        rootx = getRootRational(this.x, n);
+        rootx = getRoot(this.x, n);
     }
 
     /**
@@ -135,8 +154,9 @@ public class Math_BigRationalRoot implements Serializable,
      * returned from
      * {@link #getRootRational(ch.obermuhlner.math.big.BigRational, int)} with
      * {@code x} and {@code n} input. This is preferred for efficiency reasons
-     * over {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int)} if the
-     * {@code n}th root of {@code x} is known about.
+     * over
+     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int)}
+     * if the {@code n}th root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
@@ -154,8 +174,8 @@ public class Math_BigRationalRoot implements Serializable,
      * returned from
      * {@link #getRootRational(ch.obermuhlner.math.big.BigRational, int)} with
      * {@code x} as input. This is preferred for efficiency reasons over
-     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int)} if it
-     * is known what the square root of {@code x} is.
+     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int)}
+     * if it is known what the square root of {@code x} is.
      *
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
@@ -173,9 +193,9 @@ public class Math_BigRationalRoot implements Serializable,
     }
 
     /**
-     * Creates a copy of {@code i}.
+     * Creates a new instance as a copy of {@code i}.
      *
-     * @param i The surd to copy.
+     * @param i The instance to duplicate.
      */
     public Math_BigRationalRoot(Math_BigRationalRoot i) {
         this.x = i.x;
@@ -191,53 +211,56 @@ public class Math_BigRationalRoot implements Serializable,
                 + ", rootx=" + rootx + ", rootxapprox=" + rootxapprox
                 + ", oom=" + oom + ")";
     }
-    
+
     /**
-     * Convenience method for getting a new Math_BigRationalRoot from a 
+     * Convenience method for getting a new Math_BigRationalRoot from a
      * BigInteger.
+     *
      * @param v The BigInteger to construct from.
-     * @return {@code new Math_BigRationalRoot(v, 1)} 
+     * @return {@code new Math_BigRationalRoot(v, 1)}
      */
     public static Math_BigRationalRoot valueOf(BigInteger v) {
         return new Math_BigRationalRoot(v, 1);
     }
 
     /**
-     * Convenience method for getting a new Math_BigRationalRoot from a 
+     * Convenience method for getting a new Math_BigRationalRoot from a
      * BigRational.
+     *
      * @param v The BigDecimal to construct from.
-     * @return {@code new Math_BigRationalRoot(v, 1)} 
+     * @return {@code new Math_BigRationalRoot(v, 1)}
      */
     public static Math_BigRationalRoot valueOf(BigDecimal v) {
         return new Math_BigRationalRoot(v, 1);
     }
 
     /**
-     * Convenience method for getting a new Math_BigRationalRoot from a 
+     * Convenience method for getting a new Math_BigRationalRoot from a
      * BigRational.
+     *
      * @param v The BigRational to construct from.
-     * @return {@code new Math_BigRationalRoot(v, 1)} 
+     * @return {@code new Math_BigRationalRoot(v, 1)}
      */
     public static Math_BigRationalRoot valueOf(BigRational v) {
         return new Math_BigRationalRoot(v, 1);
     }
 
     /**
-     * @param x The number to return the root of (if the result is rational).
+     * This method will only return a root for numbers that can be perfectly
+     * converted to a BigDecimal and where the root of that number can also be
+     * perfectly represented as a BigDecimal.
+     *
+     * @param x The number to return the root of.
      * @param n The root i.e. 3 for a cube root etc.
-     * @return The root of x if that root is rational and {@code null} otherwise.
+     * @return The root of x rounded using {@code oom} and {@code rm}.
      */
-    public static BigRational getRootRational(BigRational x, int n) {
-        
-        BigInteger[] numden = getNumeratorAndDenominator(x);
-        BigInteger nums = Math_BigInteger.sqrt(numden[0]);
-        if (nums.signum() != -1) {
-            BigInteger dens = Math_BigInteger.sqrt(numden[1]);
-            if (dens.signum() != -1) {
-                return BigRational.valueOf(nums).divide(BigRational.valueOf(dens));
-            }
+    public static BigRational getRoot(BigRational x, int n) {
+        BigDecimal r = Math_BigDecimal.rootNoRounding(x.toBigDecimal(), n);
+        if (r == null) {
+            return null;
+        } else {
+            return BigRational.valueOf(r);
         }
-        return null;
     }
 
     /**
@@ -254,14 +277,16 @@ public class Math_BigRationalRoot implements Serializable,
             oommc = new MathContext(oom);
         }
     }
-    
+
     /**
      * A POJO class for code brevity.
      */
     private class MC {
+
         MathContext mc;
         MathContext mcp6;
-        MC(int oom){
+
+        MC(int oom) {
             int precision = (int) Math.ceil(
                     x.integerPart().toBigDecimal().precision() / (double) 2)
                     - oom;
@@ -310,50 +335,84 @@ public class Math_BigRationalRoot implements Serializable,
      * @return The numerator and denominator of {@code x}
      */
     public static BigInteger[] getNumeratorAndDenominator(BigRational x) {
+        BigRational xr = x.reduce();
         BigInteger[] r = new BigInteger[2];
-        r[0] = x.getNumeratorBigInteger();
-        r[1] = x.getDenominatorBigInteger();
-        if (Math_BigInteger.isDivisibleBy(r[0], r[1])) {
-            r[0] = r[0].divide(r[1]);
-            r[1] = BigInteger.ONE;
-        }
+        r[0] = xr.getNumeratorBigInteger();
+        r[1] = xr.getDenominatorBigInteger();
+//        if (r[1].compareTo(BigInteger.ONE) != 0) {
+//            if (Math_BigInteger.isDivisibleBy(r[0], r[1])) {
+//                r[0] = r[0].divide(r[1]);
+//                r[1] = BigInteger.ONE;
+//            }
+//        }
         return r;
     }
 
     /**
      * @param y The other number to multiply.
      * @return {@code y.x} multiplied by {@link #x} if this can be expressed
-     * exactly as a {@code BigRational} and {@code null} otherwise.
+     * exactly as a Math_BigRationalRoot and {@code null} otherwise.
      */
     public Math_BigRationalRoot multiply(Math_BigRationalRoot y) {
-        if (y.x.compareTo(x) == 0) {
-            if (y.n == this.n) {
-                return new Math_BigRationalRoot(x.multiply(y.x), n, x);
+        // Special cases
+        if (y.compareTo(Math_BigRationalRoot.ZERO) == 0) {
+            return Math_BigRationalRoot.ZERO;
+        }
+        if (this.compareTo(Math_BigRationalRoot.ZERO) == 0) {
+            return Math_BigRationalRoot.ZERO;
+        }
+        if (y.compareTo(Math_BigRationalRoot.ONE) == 0) {
+            return this;
+        }
+        if (this.compareTo(Math_BigRationalRoot.ONE) == 0) {
+            return y;
+        }
+        if (this.rootx == null) {
+            if (y.rootx == null) {
+                return null;
+            } else {
+                return new Math_BigRationalRoot(y.rootx.pow(y.n).multiply(this.x), y.n);
             }
         } else {
-            if (y.n == this.n) {
-                return new Math_BigRationalRoot(x.multiply(y.x), n);
+            if (y.rootx == null) {
+                return new Math_BigRationalRoot(rootx.pow(n).multiply(y.x), n);
+            } else {
+                return new Math_BigRationalRoot(rootx.multiply(y.rootx), 1);
             }
         }
-        return null; // Remove after testing and dealing with more complicated cases.
     }
 
     /**
      * @param y The divisor.
      * @return {@code y.x} multiplied by {@link #x} if this can be expressed
-     * exactly as a {@code BigRational} and {@code null} otherwise.
+     * exactly as a Math_BigRationalRoot and {@code null} otherwise.
      */
     public Math_BigRationalRoot divide(Math_BigRationalRoot y) {
-        if (y.x.compareTo(x) == 0) {
-            if (y.n == n) {
-                return new Math_BigRationalRoot(BigRational.ONE, n, BigRational.ONE);
+        if (y.compareTo(Math_BigRationalRoot.ONE) == 0) {
+            return this;
+        }
+        if (y.compareTo(Math_BigRationalRoot.ZERO) == 0) {
+            return null;
+        }
+        if (this.compareTo(y) == 0) {
+            return Math_BigRationalRoot.ONE;
+        }
+        if (this.rootx == null) {
+            if (y.rootx == null) {
+                return null;
+            } else {
+                if (x.compareTo(BigRational.ZERO) == 0) {
+                    return null;
+                }
+                return new Math_BigRationalRoot(y.rootx.pow(y.n).divide(x), y.n);
             }
         } else {
-            if (y.n == n) {
-                return new Math_BigRationalRoot(x.divide(y.x), n);
+            if (y.rootx == null) {
+                return new Math_BigRationalRoot(rootx.pow(n).divide(y.x), n);
+            } else {
+                return new Math_BigRationalRoot(rootx.divide(y.rootx), 1);
             }
         }
-        return null; // Remove after testing and dealing with more complicated cases.
     }
 
     @Override
