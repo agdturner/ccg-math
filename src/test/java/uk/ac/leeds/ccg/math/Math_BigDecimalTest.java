@@ -2524,16 +2524,19 @@ public class Math_BigDecimalTest {
      * Test of rootNoRounding method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testRootNoRounding() {
         System.out.println("rootNoRounding");
-        BigDecimal x = null;
-        int root = 0;
-        BigDecimal expResult = null;
+        BigDecimal x = BigDecimal.valueOf(27);
+        int root = 3;
+        BigDecimal expResult = BigDecimal.valueOf(3);
         BigDecimal result = Math_BigDecimal.rootNoRounding(x, root);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // Test 2
+        x = BigDecimal.valueOf(125);
+        root = 3;
+        expResult = BigDecimal.valueOf(5);
+        result = Math_BigDecimal.rootNoRounding(x, root);
+        assertEquals(expResult, result);
     }
 
     /**

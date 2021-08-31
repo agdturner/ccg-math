@@ -26,7 +26,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.function.Executable;
 
 /**
  * @author Andy Turner
@@ -493,27 +492,27 @@ public class Math_BigRationalSqrtTest {
         int expResult = -18;
         int result = Math_BigRationalSqrt.getOOM(v, oom);
         assertTrue(expResult == result);
-        BigDecimal sqrt0 = new Math_BigRationalSqrt(v).toBigDecimal(result);
+        //BigDecimal sqrt0 = new Math_BigRationalSqrt(v).toBigDecimal(result);
         // Test 2
         oom = -5;
         expResult = -8;
         result = Math_BigRationalSqrt.getOOM(v, oom);
         assertTrue(expResult == result);
-        BigDecimal sqrt1 = new Math_BigRationalSqrt(v).toBigDecimal(result);
+        //BigDecimal sqrt1 = new Math_BigRationalSqrt(v).toBigDecimal(result);
         // Test 3
         v = BigRational.valueOf(BigInteger.ONE, BigInteger.valueOf(3)).divide(100);
         oom = -5;
         expResult = -8;
         result = Math_BigRationalSqrt.getOOM(v, oom);
         assertTrue(expResult == result);
-        BigDecimal sqrt2 = new Math_BigRationalSqrt(v).toBigDecimal(result);
+        //BigDecimal sqrt2 = new Math_BigRationalSqrt(v).toBigDecimal(result);
         // Test 3
         v = BigRational.valueOf(BigInteger.valueOf(33333), BigInteger.valueOf(5));
         oom = -5;
         expResult = -8;
         result = Math_BigRationalSqrt.getOOM(v, oom);
         assertTrue(expResult == result);
-        BigDecimal sqrt3 = new Math_BigRationalSqrt(v).toBigDecimal(result);
+        //BigDecimal sqrt3 = new Math_BigRationalSqrt(v).toBigDecimal(result);
     }
 
     /**
