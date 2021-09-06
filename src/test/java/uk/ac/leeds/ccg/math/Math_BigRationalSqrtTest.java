@@ -163,14 +163,14 @@ public class Math_BigRationalSqrtTest {
     public void testToString() {
         System.out.println("toString");
         Math_BigRationalSqrt instance = new Math_BigRationalSqrt(2);
-        String expResult = "Math_BigRationalSqrt(x=2, sqrtx=null, "
-                + "sqrtxapprox=null, oom=0)";
+        String expResult = "Math_BigRationalSqrt(x=2, negative=false, "
+                + "sqrtx=null, sqrtxapprox=null, oom=0)";
         String result = instance.toString();
         assertEquals(expResult, result);
         // Test 2
         instance.toBigDecimal(-2);
-        expResult = "Math_BigRationalSqrt(x=2, sqrtx=null, "
-                + "sqrtxapprox=1.41, oom=-2)";
+        expResult = "Math_BigRationalSqrt(x=2, negative=false, "
+                + "sqrtx=null, sqrtxapprox=1.41, oom=-2)";
         result = instance.toString();
         assertEquals(expResult, result);
     }

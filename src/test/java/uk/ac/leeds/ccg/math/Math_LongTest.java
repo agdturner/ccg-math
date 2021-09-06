@@ -16,6 +16,8 @@
 package uk.ac.leeds.ccg.math;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.TreeMap;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.1
  */
 public class Math_LongTest {
 
@@ -50,9 +52,9 @@ public class Math_LongTest {
 
     @Test
     public void testIsLong() {
-       String funcName = "isLong";
+        String funcName = "isLong";
         System.out.println("Test " + funcName);
-       long x;
+        long x;
         String s;
         boolean result;
         // Test 1
@@ -71,7 +73,7 @@ public class Math_LongTest {
         result = Math_Long.isLong(s);
         assertFalse(result);
     }
-    
+
     @Test
     public void testIsEven() {
         String funcName = "isEven";
@@ -115,7 +117,7 @@ public class Math_LongTest {
         result = Math_Long.isEven(x);
         assertEquals(expResult, result);
         // Test 8
-         x = 8L;
+        x = 8L;
         expResult = true;
         result = Math_Long.isEven(x);
         assertEquals(expResult, result);
@@ -194,5 +196,132 @@ public class Math_LongTest {
         expResult = true;
         result = Math_Long.isEven(x);
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of parseLong method, of class Math_Long.
+     */
+    @Test
+    public void testParseLong() {
+        System.out.println("parseLong");
+        String s = "123456789";
+        long expResult = 123456789L;
+        long result = Math_Long.parseLong(s);
+        assertTrue(expResult == result);
+        // Test2
+        assertThrows(NumberFormatException.class, () -> {
+            BigInteger v = Math_BigInteger.LONG_MAX_VALUE.add(BigInteger.ONE);
+            Math_Long.parseLong(v.toString());
+        });
+    }
+
+    /**
+     * Test of add method, of class Math_Long.
+     */
+    @Test
+    public void testAdd_long_long() {
+        System.out.println("add");
+        long x = 123456789L;
+        long y = 1L;
+        long expResult = 123456790L;
+        long result = Math_Long.add(x, y);
+        assertTrue(expResult == result);
+        // Test 2
+        assertThrows(ArithmeticException.class, () -> {
+            Math_Long.add(Long.MAX_VALUE, 1L);
+        });
+    }
+
+    /**
+     * Test of add method, of class Math_Long.
+     */
+    @Test
+    public void testAdd_long_int() {
+        System.out.println("add");
+        long x = 123456789L;
+        int y = 1;
+        long expResult = 123456790L;
+        long result = Math_Long.add(x, y);
+        assertTrue(expResult == result);
+        // Test 2
+        assertThrows(ArithmeticException.class, () -> {
+            Math_Long.add(Long.MAX_VALUE, 1);
+        });
+    }
+
+    /**
+     * Test of subtract method, of class Math_Long.
+     */
+    @Test
+    public void testSubtract_long_long() {
+        System.out.println("subtract");
+        long x = 123456789L;
+        long y = 1L;
+        long expResult = 123456788L;
+        long result = Math_Long.subtract(x, y);
+        assertTrue(expResult == result);
+        // Test 2
+        assertThrows(ArithmeticException.class, () -> {
+            Math_Long.subtract(-Long.MAX_VALUE, 2L);
+        });
+    }
+
+    /**
+     * Test of subtract method, of class Math_Long.
+     */
+    @Test
+    public void testSubtract_long_int() {
+        System.out.println("subtract");
+        long x = 123456789L;
+        int y = 1;
+        long expResult = 123456788L;
+        long result = Math_Long.subtract(x, y);
+        assertTrue(expResult == result);
+        // Test 2
+        assertThrows(ArithmeticException.class, () -> {
+            Math_Long.subtract(-Long.MAX_VALUE, 2);
+        });
+    }
+
+    /**
+     * Test of multiply method, of class Math_Long.
+     */
+    @Test
+    public void testMultiply_long_long() {
+        System.out.println("multiply");
+        // Test
+        assertThrows(ArithmeticException.class, () -> {
+            Math_Long.multiply(Long.MAX_VALUE, 2L);
+        });
+    }
+
+    /**
+     * Test of multiply method, of class Math_Long.
+     */
+    @Test
+    public void testMultiply_long_int() {
+        System.out.println("multiply");
+        // Test
+        assertThrows(ArithmeticException.class, () -> {
+            Math_Long.multiply(Long.MAX_VALUE, 2);
+        });
+    }
+
+    /**
+     * Test of factors method, of class Math_Long.
+     */
+    @Test
+    public void testGetPrimeFactors() {
+        System.out.println("getPrimeFactors");
+        long n = 123456789L;
+        TreeMap<Long, Long> expResult = new TreeMap<>();
+        expResult.put(3L, 2L);
+        expResult.put(3607L, 1L);
+        expResult.put(3803L, 1L);
+        TreeMap<Long, Long> result = Math_Long.getPrimeFactors(n);
+        assertTrue(result.size() == expResult.size());
+        for (Long v : result.keySet()) {
+            assertTrue(expResult.get(v).compareTo(result.get(v)) == 0);
+        }
     }
 }

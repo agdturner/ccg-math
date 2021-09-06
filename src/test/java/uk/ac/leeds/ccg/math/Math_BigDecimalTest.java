@@ -1044,38 +1044,6 @@ public class Math_BigDecimalTest {
     }
 
     /**
-     * Test of rootUnscaled1Precision1 method, of class Math_BigDecimal.
-     */
-    @Test
-    @Disabled
-    public void testRootUnscaled1Precision1() {
-        System.out.println("rootUnscaled1Precision1");
-        BigDecimal x;
-        int y;
-        BigDecimal expResult;
-        BigDecimal result;
-        // Test 1
-        int test = 1;
-        x = new BigDecimal("100");
-        y = 2;
-        int oom;
-        oom = -10;
-        expResult = new BigDecimal(BigInteger.TEN);
-        expResult = expResult.setScale(oom);
-        result = Math_BigDecimal.rootUnscaled1Precision1(x, y, oom);
-        assertEquals(expResult, result);
-        // Test 2
-        test++;
-        x = new BigDecimal("125");
-        y = 3;
-        oom = -1;
-        expResult = new BigDecimal(BigInteger.valueOf(5));
-        expResult = expResult.setScale(oom);
-        result = Math_BigDecimal.rootUnscaled1Precision1(x, y, oom);
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of power method, of class Math_BigDecimal.
      */
     @Test

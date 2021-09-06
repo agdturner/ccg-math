@@ -239,4 +239,28 @@ public class Math_IntegerTest {
             Math_Integer.add(Integer.MAX_VALUE, 1);
         });
     }
+
+    /**
+     * Test of subtract method, of class Math_Integer.
+     */
+    @Test
+    public void testSubtract() {
+        System.out.println("subtract");
+        // Test
+        assertThrows(ArithmeticException.class, () -> {
+            Math_Integer.subtract(-Integer.MAX_VALUE, 2);
+        });
+    }
+
+    /**
+     * Test of multiply method, of class Math_Integer.
+     */
+    @Test
+    public void testMultiply() {
+        System.out.println("multiply");
+        // Test
+        assertThrows(ArithmeticException.class, () -> {
+            Math_Integer.multiply(Integer.MAX_VALUE, 2);
+        });
+    }
 }
