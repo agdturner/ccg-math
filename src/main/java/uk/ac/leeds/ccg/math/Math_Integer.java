@@ -15,11 +15,16 @@
  */
 package uk.ac.leeds.ccg.math;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.TreeMap;
+import uk.ac.leeds.ccg.generic.util.Generic_Collections;
+
 /**
  * A class for {@code int} numbers.
  *
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.1
  */
 public class Math_Integer extends Math_Number {
 
@@ -127,5 +132,27 @@ public class Math_Integer extends Math_Number {
     @Deprecated
     public static int multiply(int x, int y) {
         return Math.multiplyExact(x, y);
+    }
+    
+    /**
+     * Multiplying by all the prime factors returns the original number. 1 and 
+     * the number itself are not included.
+     * @param n The number for which the prime factors are returned.
+     * @return The prime factors of {@code n} in ascending order. 
+     */
+    public static TreeMap<Integer, Integer> getPrimeFactors(int n) {
+        TreeMap<Integer, Integer> r = new TreeMap<>();
+        int n2 = n;
+        for (int i = 2; i <= n2/2; i++) {
+            if (n2 % i == 0) {
+                Generic_Collections.addToCount(r, i, 1);
+                n2 = n2 / i;
+                i = 2;
+            }
+        }
+        if (!r.isEmpty()) {
+            Generic_Collections.addToCount(r, n2, 1);
+        }
+        return r;
     }
 }

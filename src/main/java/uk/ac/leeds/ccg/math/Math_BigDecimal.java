@@ -1818,43 +1818,6 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Calculates and returns the root-th root of x.
-     *
-     * @param x The value to root. Expected that: x.unscaledValue() == 1;
-     * x.precision == 1.
-     * @param root The root. Expected to be greater than {@code 0}.
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a>
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * @return The root-th root of x.
-     */
-    public static BigDecimal rootUnscaled1Precision1(BigDecimal x,
-            int root, int oom) {
-        // Is there a need for precision?
-        BigDecimal r;
-        //int decimalPrecision = 10;
-        int xscale = x.scale();
-        int xprecision = x.precision();
-        if (xscale == 0) {
-            if (xprecision - root > 1) {
-                r = x.movePointLeft(xprecision - root);
-            } else {
-                r = root(x, root, oom, RoundingMode.UP);
-            }
-        } else {
-            r = x.movePointRight((root - 1) * xscale);
-        }
-        return r;
-    }
-
-    /**
      * Calculates and returns x raised to the power of y (x^y) accurate to
      * {@code oom} number of decimal places. The calculation is divided into
      * parts... In this implementation {@code 0^0 = 1}
@@ -3151,19 +3114,36 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
+     * Calculates and returns the n-th root of x.
+     *
+     * @param x The value to be rooted.
+     * @param n The root (2 is for a square root, 3 is for a cube root etc.).
+     * @param oom The order of magnitude that the result is calculated to.
+     * @return The nth root of x calculated to the oom 
+     * level of precision.
+     */
+    public static BigDecimal root(BigDecimal x, int root,
+            int oom) {
+        return root(x, root, oom, RoundingMode.HALF_UP);
+    }
+    
+    /**
      * Calculates and returns the root-th root of x.
      *
      * @param x The value to be rooted.
-     * @param root The nth root (2 is square root, 3 is cube root etc.).
-     * @param oom .
+     * @param n The root (2 is for a square root, 3 is for a cube root etc.).
+     * @param oom The order of magnitude that the result is calculated to.
      * @param rm The {@link RoundingMode} used to round the final result.
-     * @return The nth root of x.
+     * @return The nth root of x which is either exact or rounded to the oom 
+     * level of precision.
      */
-    public static BigDecimal root(BigDecimal x, int root,
+    public static BigDecimal root(BigDecimal x, int n,
             int oom, RoundingMode rm) {
         // Deal with special cases
-        // x <= 0
-        if (x.compareTo(BigDecimal.ZERO) != 1) {
+        if (x.compareTo(BigDecimal.ZERO) == 0) {
+            return BigDecimal.ZERO;
+        }
+        if (x.compareTo(BigDecimal.ZERO) == -1) {
             // Complex roots are not handled!
             throw new IllegalArgumentException(
                     "x <= 0 in " + Math_BigDecimal.class
@@ -3174,7 +3154,7 @@ public class Math_BigDecimal extends Math_Number {
             return BigDecimal.ONE;
         }
         // root = 1
-        if (root == 1) {
+        if (n == 1) {
             BigDecimal r = new BigDecimal(x.toString());
             if (r.scale() > -oom) {
                 return round(r, oom, rm);
@@ -3185,7 +3165,7 @@ public class Math_BigDecimal extends Math_Number {
         if (x.compareTo(BigDecimal.ONE) == -1) {
             int xscale = x.scale();
             // Optimisation (untested if it is faster) for a large x.scale()
-            int rootLength = Integer.toString(root).length();
+            int rootLength = Integer.toString(n).length();
             if (xscale < 10) {
                 BigDecimal numeratorUnrooted = new BigDecimal(x.unscaledValue());
                 BigDecimal denominatorUnrooted = new BigDecimal(BigInteger.ONE, (-1 * xscale));
@@ -3193,17 +3173,17 @@ public class Math_BigDecimal extends Math_Number {
                 // be close to a value of 1, a large number of decimal 
                 // places for both numerator and denominator are required!
                 BigDecimal denominator = Math_BigDecimal.root(
-                        denominatorUnrooted, root,
+                        denominatorUnrooted, n,
                         oom - xscale - rootLength, // Can we cope with less or do we need more?
                         RoundingMode.DOWN);
                 //int denominatorScale = denominator.scale();
                 BigDecimal numerator = Math_BigDecimal.root(
-                        numeratorUnrooted, root,
+                        numeratorUnrooted, n,
                         oom - xscale - rootLength, // Can we cope with less or do we need more?
                         RoundingMode.DOWN);
                 return Math_BigDecimal.divide(numerator, denominator, oom, rm);
             } else {
-                return rootLessThanOne(x, root, oom, rm);
+                return rootLessThanOne(x, n, oom, rm);
             }
         }
         if (x.compareTo(BigDecimal.ONE) == -1) {
@@ -3211,34 +3191,34 @@ public class Math_BigDecimal extends Math_Number {
             // This is thought to be an optimisation for a large x.scale()
             // a faster way is needed! This may generally be generally 
             // faster anyway but some tests are needed to be sure.
-            int rootLength = Integer.toString(root).length();
+            int rootLength = Integer.toString(n).length();
             if (xscale < 10) {
                 BigDecimal xu = new BigDecimal(x.unscaledValue());
                 BigDecimal du = new BigDecimal(BigInteger.ONE, (-1 * xscale));
-                BigDecimal num = root(xu, root,
+                BigDecimal num = root(xu, n,
                         oom - xscale - rootLength, // Can we cope with less or do we need more?
                         RoundingMode.DOWN);
-                BigDecimal denominator = root(du, root,
+                BigDecimal denominator = root(du, n,
                         oom - xscale - rootLength, // Can we cope with less or do we need more?
                         RoundingMode.DOWN);
                 return Math_BigDecimal.divide(num, denominator, oom, rm);
             } else {
-                return rootLessThanOne(x, root, oom, rm);
+                return rootLessThanOne(x, n, oom, rm);
             }
         }
         // x > 1
         BigDecimal epsilon = new BigDecimal(BigInteger.ONE, 1 - oom);
         BigDecimal comparator = BigDecimal.ONE.subtract(epsilon);
         // Check for root in precision and return 1 if not.
-        BigInteger rootbi = BigInteger.valueOf(root);
+        BigInteger rootbi = BigInteger.valueOf(n);
         boolean powerTest = powerTestAbove(x, comparator, rootbi, oom, rm);
         if (powerTest) {
             System.out.println("No root in the precision... ");
             //return BigDecimal.ZERO;
             return BigDecimal.ONE;
         }
-        BigDecimal r = rootInitialisation(x, root, epsilon, 10, oom, RoundingMode.DOWN);
-        return newtonRaphson(x, r, root, epsilon, oom, rm);
+        BigDecimal r = rootInitialisation(x, n, epsilon, 10, oom, RoundingMode.DOWN);
+        return newtonRaphson(x, r, n, epsilon, oom, rm);
     }
 
 //    /**
@@ -3366,7 +3346,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Calculates and returns the {@code n}th root of {@code x} without
-     * rounding.
+     * rounding. The problem here is that 
      *
      * @param x The number to calculate and return the {@code n}th root of.
      * @param r0 A potential answer to use to begin an iterative approximation.
@@ -3461,6 +3441,17 @@ public class Math_BigDecimal extends Math_Number {
         return r;
     }
 
+    /**
+     * This has been deprecated as for many inputs, the result is irrational or 
+     * cannot be expressed as a BigDecimal exactly and so this enters an 
+     * infinite loop. 
+     * 
+     * @param x The number to root.
+     * @param root The root.
+     * @param maxite The maximum number of iterations.
+     * @return Either an exact or approximate root of x.
+     */
+    @Deprecated
     private static BigDecimal rootInitialisationNoRounding(BigDecimal x,
             int root, int maxite) {
         BigDecimal r;
@@ -3510,12 +3501,17 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
+     * This has been deprecated as for many inputs, the result is irrational or 
+     * cannot be expressed as a BigDecimal exactly and so this enters an 
+     * infinite loop. 
+     * 
      * For calculating the {@code root}th root of {@code x} without rounding.
-     *
+     *  
      * @param x The value to calculate and return the root for.
      * @param root The root.
      * @return The {@code root}th root of {@code x}
      */
+    @Deprecated
     public static BigDecimal rootNoRounding(BigDecimal x, int root) {
         // Deal with special cases
         if (x.compareTo(BigDecimal.ZERO) == -1) {
@@ -3568,6 +3564,10 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
+     * This has been deprecated as for many inputs, the result is irrational or 
+     * cannot be expressed as a BigDecimal exactly and so this enters an 
+     * infinite loop.
+     * 
      * @param x {@code 0 < x < 1}
      * @param root
      * @param oom The
@@ -3584,6 +3584,7 @@ public class Math_BigDecimal extends Math_Number {
      * the final result.
      * @return The root root of x to decimalPlaces precision.
      */
+    @Deprecated
     private static BigDecimal rootLessThanOneNoRounding(BigDecimal x, int root) {
         BigDecimal r = rootInitialisationLessThanOneNoRounding(x, root, 10);
         return newtonRaphsonLessThanOneNoRounding(x, r, root);
@@ -3938,13 +3939,16 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * Produces an intiale Initialises
+     * This has been deprecated as for many inputs, the result is irrational or 
+     * cannot be expressed as a BigDecimal exactly and so this enters an 
+     * infinite loop. 
      *
      * @param x 0 < x < 1
      * @param root_BigDecimal
      * @param maxite
      * @return
      */
+    @Deprecated
     private static BigDecimal rootInitialisationLessThanOneNoRounding(
             BigDecimal x, int root, int maxite) {
         BigDecimal b;// = BigDecimal.ONE;

@@ -22,12 +22,17 @@ import java.math.BigInteger;
 /**
  * @author Andy Turner
  */
-public class Math_BigRational {
+public class Math_BigRational extends Math_Number {
+
+    private static final long serialVersionUID = 1L;
+    
+    protected final BigRational x;
     
     /**
      * Create a new instance.
      */
-    public Math_BigRational() {
+    public Math_BigRational(BigRational x) {
+        this.x = x;
     }
     
     /**

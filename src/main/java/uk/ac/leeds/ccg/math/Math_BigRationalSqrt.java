@@ -26,12 +26,13 @@ import java.util.Objects;
 
 /**
  * This is a class to help with the storage and arithmetic of numbers that are
- * square roots. Many square roots are irrational and so it is best not to
- * compute them to a precision unless necessary. Sometimes calculations can be
- * simplified without needing to calculate component terms. For instance: the
- * square root of 2 ({@code sqrt(2)}) multiplied by {@code sqrt(2)} is
- * {@code 2}; and {@code sqrt(2)} divided by {@code sqrt(2)} is {@code 1}. This
- * has application in geometry for calculating distances, areas and volumes.
+ * square roots of positive numbers. Many such square roots are irrational and
+ * so it is best not to compute them to a precision unless necessary. Sometimes
+ * calculations can be simplified by realising that component terms cancel out.
+ * For instance: the square root of 2 ({@code sqrt(2)}) multiplied by
+ * {@code sqrt(2)} is {@code 2}; and {@code sqrt(2)} divided by {@code sqrt(2)}
+ * is {@code 1}. This has application in geometry for calculating distances,
+ * areas and volumes.
  *
  * @author Andy Turner
  * @version 1.1
@@ -76,6 +77,12 @@ public class Math_BigRationalSqrt implements Serializable,
     protected final BigRational sqrtx;
 
     /**
+     * If true then this is negative irrespective of whether {@link #x} is
+     * negative.
+     */
+    protected final boolean negative;
+
+    /**
      * For storing the approximate square root of {@link #x}.
      */
     protected BigDecimal sqrtxapprox;
@@ -100,6 +107,7 @@ public class Math_BigRationalSqrt implements Serializable,
         this.x = x.reduce();
         xsquared = x.pow(2);
         sqrtx = initSqrt();
+        negative = x.compareTo(BigRational.ZERO) == -1;
     }
 
     /**
@@ -136,6 +144,7 @@ public class Math_BigRationalSqrt implements Serializable,
         this.x = x.reduce();
         this.sqrtx = sqrtx;
         xsquared = x.pow(2);
+        negative = x.compareTo(BigRational.ZERO) == -1;
     }
 
     /**
@@ -157,6 +166,7 @@ public class Math_BigRationalSqrt implements Serializable,
         this.sqrtxapprox = sqrtxapprox;
         xsquared = x.pow(2);
         init(oom);
+        negative = x.compareTo(BigRational.ZERO) == -1;
     }
 
     /**
@@ -171,19 +181,35 @@ public class Math_BigRationalSqrt implements Serializable,
         xsquared = x.pow(2);
         this.oom = i.oom;
         this.oommc = i.oommc;
+        this.negative = i.negative;
     }
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "(x=" + x + ", sqrtx="
-                + sqrtx + ", sqrtxapprox=" + sqrtxapprox + ", oom=" + oom + ")";
+        return this.getClass().getSimpleName()
+                + "(x=" + x
+                + ", negative=" + negative
+                + ", sqrtx=" + sqrtx
+                + ", sqrtxapprox=" + sqrtxapprox
+                + ", oom=" + oom + ")";
     }
 
     /**
      * @return {@link #x}.
      */
     public BigRational getX() {
-        return x;
+        if (negative) {
+            return x.abs().negate();
+        } else {
+            return x;
+        }
+    }
+
+    /**
+     * @return {@link #xsquared}.
+     */
+    public BigRational getXSquared() {
+        return xsquared;
     }
 
     /**
@@ -362,6 +388,19 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public Math_BigRationalSqrt add(BigRational y) {
         return add(new Math_BigRationalSqrt(y.pow(2)));
+    }
+
+    /**
+     * Complex!
+     *
+     * @return
+     */
+    public Math_BigRationalSqrt negate() {
+        if (negative) {
+            return new Math_BigRationalSqrt(this.x.abs());
+        } else {
+            return new Math_BigRationalSqrt(this.x.negate());
+        }
     }
 
     /**

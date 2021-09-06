@@ -19,7 +19,7 @@ package uk.ac.leeds.ccg.math;
  * A class for {@code short} numbers.
  *
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.1
  */
 public class Math_Short extends Math_Number {
 

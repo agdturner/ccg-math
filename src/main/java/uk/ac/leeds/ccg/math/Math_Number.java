@@ -22,7 +22,7 @@ import java.util.Random;
  * For dealing with numbers.
  * 
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.0
  */
 public abstract class Math_Number implements Serializable {
 

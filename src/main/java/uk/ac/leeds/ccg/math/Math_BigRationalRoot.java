@@ -22,6 +22,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Objects;
+import java.util.TreeMap;
 
 /**
  * This is a class to help with the storage and arithmetic of numbers that are
@@ -99,15 +100,19 @@ public class Math_BigRationalRoot implements Serializable,
 
     /**
      * Creates a new instance attempting to calculate the {@code n}th root of
-     * {@code x} and store this as {@link #rootx}.
+     * {@code x}. If the root can be calculated exactly within oom precision,
+     * then {@link #rootx} is set.
      *
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
+     * @param oom The Order of Magnitude of the precision of the root
+     * calculation.
+     * @param rm The RoundingMode used for the calculation of the root.
      */
-    public Math_BigRationalRoot(BigRational x, int n) {
+    public Math_BigRationalRoot(BigRational x, int n, int oom) {
         this.x = x;
         this.n = n;
-        rootx = getRoot(x, n);
+        rootx = getRoot(n, oom);
     }
 
     /**
@@ -117,10 +122,8 @@ public class Math_BigRationalRoot implements Serializable,
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
      */
-    public Math_BigRationalRoot(BigDecimal x, int n) {
-        this.x = BigRational.valueOf(x);
-        this.n = n;
-        rootx = getRoot(this.x, n);
+    public Math_BigRationalRoot(BigDecimal x, int n, int oom) {
+        this(BigRational.valueOf(x), n, oom);
     }
 
     /**
@@ -130,10 +133,8 @@ public class Math_BigRationalRoot implements Serializable,
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
      */
-    public Math_BigRationalRoot(BigInteger x, int n) {
-        this.x = BigRational.valueOf(x);
-        this.n = n;
-        rootx = getRoot(this.x, n);
+    public Math_BigRationalRoot(BigInteger x, int n, int oom) {
+        this(BigRational.valueOf(x), n, oom);
     }
 
     /**
@@ -143,10 +144,8 @@ public class Math_BigRationalRoot implements Serializable,
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
      */
-    public Math_BigRationalRoot(long x, int n) {
-        this.x = BigRational.valueOf(x);
-        this.n = n;
-        rootx = getRoot(this.x, n);
+    public Math_BigRationalRoot(long x, int n, int oom) {
+        this(BigRational.valueOf(x), n, oom);
     }
 
     /**
@@ -220,7 +219,7 @@ public class Math_BigRationalRoot implements Serializable,
      * @return {@code new Math_BigRationalRoot(v, 1)}
      */
     public static Math_BigRationalRoot valueOf(BigInteger v) {
-        return new Math_BigRationalRoot(v, 1);
+        return new Math_BigRationalRoot(v, 1, -3);
     }
 
     /**
@@ -231,7 +230,8 @@ public class Math_BigRationalRoot implements Serializable,
      * @return {@code new Math_BigRationalRoot(v, 1)}
      */
     public static Math_BigRationalRoot valueOf(BigDecimal v) {
-        return new Math_BigRationalRoot(v, 1);
+        return new Math_BigRationalRoot(v, 1,
+                Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(v));
     }
 
     /**
@@ -241,25 +241,81 @@ public class Math_BigRationalRoot implements Serializable,
      * @param v The BigRational to construct from.
      * @return {@code new Math_BigRationalRoot(v, 1)}
      */
-    public static Math_BigRationalRoot valueOf(BigRational v) {
-        return new Math_BigRationalRoot(v, 1);
+    public static Math_BigRationalRoot valueOf(BigRational v, int oom) {
+        return new Math_BigRationalRoot(v, 1, oom);
     }
 
     /**
-     * This method will only return a root for numbers that can be perfectly
-     * converted to a BigDecimal and where the root of that number can also be
-     * perfectly represented as a BigDecimal.
+     * This method will only return an exact root if it can be represented as a
+     * BigRational and null otherwise.
      *
      * @param x The number to return the root of.
-     * @param n The root i.e. 3 for a cube root etc.
+     * @param root The root i.e. 3 for a cube root etc.
+     * @param oom The order of magnitude of precision for calculating the root.
+     * If the root is rounded to this resolution then null is returned.
+     * @return The root of {@code x} or {@code null} if a precise root is not
+     * found at the oom.
+     */
+    public final BigRational getRoot(int root, int oom) {
+        BigRational x0 = x.reduce();
+        TreeMap<Integer, Integer> f = Math_Integer.getPrimeFactors(root);
+        BigDecimal num = x0.getNumerator();
+        BigDecimal den = x0.getDenominator();
+        if (f.isEmpty()) {
+            BigDecimal rn = Math_BigDecimal.root(num, root, oom);
+            if (rn.pow(root).compareTo(num) != 0) {
+                return null;
+            }
+            BigDecimal rd = Math_BigDecimal.root(den, root, oom);
+            if (rn.pow(root).compareTo(num) != 0) {
+                return null;
+            }
+            return BigRational.valueOf(rn, rd);
+        } else {
+            BigDecimal rn = BigDecimal.ONE;
+            BigDecimal rd = BigDecimal.ONE;
+            int oomN6 = oom - 6;
+            for (Integer p : f.keySet()) {
+                for (int i = 0; i < f.get(p); i++) {
+                    rn = rn.multiply(Math_BigDecimal.root(num, p, oomN6));
+                    rd = rd.multiply(Math_BigDecimal.root(den, p, oomN6));
+                }
+            }
+            return BigRational.valueOf(rn).divide(BigRational.valueOf(rd));
+        }
+    }
+
+    /**
+     * This method may return an exact or an approximate root. If the root is
+     * approximate, then the result should be accurate to the given Order of
+     * Magnitude {@code oom}.
+     *
+     * @param x The number to return the root of.
+     * @param root The root i.e. 3 for a cube root etc.
+     * @param oom The Order of Magnitude the result is to be accurate to.
+     * @param rm The RoundingMode for any rounding.
      * @return The root of x rounded using {@code oom} and {@code rm}.
      */
-    public static BigRational getRoot(BigRational x, int n) {
-        BigDecimal r = Math_BigDecimal.rootNoRounding(x.toBigDecimal(), n);
-        if (r == null) {
-            return null;
+    public static BigDecimal getRoot(BigRational x, int root, int oom, RoundingMode rm) {
+        BigRational x0 = x.reduce();
+        int oomN6 = oom - 6;
+        TreeMap<Integer, Integer> f = Math_Integer.getPrimeFactors(root);
+        BigDecimal num = x0.getNumerator();
+        BigDecimal den = x0.getDenominator();
+        if (f.isEmpty()) {
+            BigDecimal rn = Math_BigDecimal.root(num, root, oom, rm);
+            BigDecimal rd = Math_BigDecimal.root(den, root, oom, rm);
+            return Math_BigDecimal.divide(rn, rd, oom, rm);
         } else {
-            return BigRational.valueOf(r);
+            BigDecimal rn = BigDecimal.ONE;
+            BigDecimal rd = BigDecimal.ONE;
+            for (Integer p : f.keySet()) {
+                for (int i = 0; i < f.get(p); i++) {
+                    rn = rn.multiply(Math_BigDecimal.root(num, p, oomN6, rm));
+                    rd = rd.multiply(Math_BigDecimal.root(den, p, oomN6, rm));
+                }
+            }
+            return Math_BigDecimal.divide(rn, rd, oom, rm);
         }
     }
 
@@ -311,8 +367,8 @@ public class Math_BigRationalRoot implements Serializable,
             } else {
                 if (this.oom < oom) {
                     this.oom = oom;
-                    rootxapprox = Math_BigDecimal.rootNoRounding(
-                            x.toBigDecimal(new MathContext(oom + 6)), n);
+                    rootxapprox = Math_BigDecimal.root(
+                            x.toBigDecimal(new MathContext(oom + 6)), n, oom);
                 }
             }
         } else {
@@ -328,24 +384,6 @@ public class Math_BigRationalRoot implements Serializable,
             }
         }
         return rootxapprox;
-    }
-
-    /**
-     * @param x The value for which the numerator and denominator are returned.
-     * @return The numerator and denominator of {@code x}
-     */
-    public static BigInteger[] getNumeratorAndDenominator(BigRational x) {
-        BigRational xr = x.reduce();
-        BigInteger[] r = new BigInteger[2];
-        r[0] = xr.getNumeratorBigInteger();
-        r[1] = xr.getDenominatorBigInteger();
-//        if (r[1].compareTo(BigInteger.ONE) != 0) {
-//            if (Math_BigInteger.isDivisibleBy(r[0], r[1])) {
-//                r[0] = r[0].divide(r[1]);
-//                r[1] = BigInteger.ONE;
-//            }
-//        }
-        return r;
     }
 
     /**
@@ -371,13 +409,20 @@ public class Math_BigRationalRoot implements Serializable,
             if (y.rootx == null) {
                 return null;
             } else {
-                return new Math_BigRationalRoot(y.rootx.pow(y.n).multiply(this.x), y.n);
+                BigRational v = y.rootx.pow(y.n).multiply(x);
+                return new Math_BigRationalRoot(v.multiply(x), y.n,
+                        Math.min(this.oom, y.oom));
             }
         } else {
+            BigRational v;
             if (y.rootx == null) {
-                return new Math_BigRationalRoot(rootx.pow(n).multiply(y.x), n);
+                v = rootx.pow(n).multiply(y.x);
+                return new Math_BigRationalRoot(v, n,
+                        Math.min(this.oom, y.oom));
             } else {
-                return new Math_BigRationalRoot(rootx.multiply(y.rootx), 1);
+                v = rootx.multiply(y.rootx);
+                return new Math_BigRationalRoot(v, 1,
+                        Math.min(this.oom, y.oom));
             }
         }
     }
@@ -404,13 +449,16 @@ public class Math_BigRationalRoot implements Serializable,
                 if (x.compareTo(BigRational.ZERO) == 0) {
                     return null;
                 }
-                return new Math_BigRationalRoot(y.rootx.pow(y.n).divide(x), y.n);
+                return new Math_BigRationalRoot(y.rootx.pow(y.n).divide(x),
+                        y.n, Math.min(this.oom, y.oom));
             }
         } else {
             if (y.rootx == null) {
-                return new Math_BigRationalRoot(rootx.pow(n).divide(y.x), n);
+                return new Math_BigRationalRoot(rootx.pow(n).divide(y.x), n,
+                        Math.min(this.oom, y.oom));
             } else {
-                return new Math_BigRationalRoot(rootx.divide(y.rootx), 1);
+                return new Math_BigRationalRoot(rootx.divide(y.rootx), 1,
+                        Math.min(this.oom, y.oom));
             }
         }
     }
