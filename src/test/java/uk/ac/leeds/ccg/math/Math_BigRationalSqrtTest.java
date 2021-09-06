@@ -388,22 +388,6 @@ public class Math_BigRationalSqrtTest {
     }
 
     /**
-     * Test of initSqrt method, of class Math_BigRationalSqrt.
-     */
-    @Test
-    @Disabled
-    public void testInitSqrt() {
-        // No Test
-        System.out.println("initSqrt");
-        Math_BigRationalSqrt instance = null;
-        BigRational expResult = null;
-        BigRational result = instance.initSqrt();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getX method, of class Math_BigRationalSqrt.
      */
     @Test
