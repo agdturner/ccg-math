@@ -80,7 +80,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * If true then this is negative irrespective of whether {@link #x} is
      * negative.
      */
-    protected final boolean negative;
+    public final boolean negative;
 
     /**
      * For storing the approximate square root of {@link #x}.
@@ -105,9 +105,28 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public Math_BigRationalSqrt(BigRational x) {
         this.x = x.reduce();
-        xsquared = x.pow(2);
-        sqrtx = initSqrt();
         negative = x.compareTo(BigRational.ZERO) == -1;
+        xsquared = x.pow(2);
+        // Special cases
+        if (x.compareTo(BigRational.ZERO) == 0) {
+            sqrtx = BigRational.ZERO;
+        } else if (x.compareTo(BigRational.ONE) == 0) {
+            sqrtx = BigRational.ONE;
+        } else {
+            BigInteger[] numden = getNumeratorAndDenominator();
+            BigInteger nums = Math_BigInteger.sqrt(numden[0].abs());
+            if (nums == null) {
+                sqrtx = null;
+            } else {
+                BigInteger dens = Math_BigInteger.sqrt(numden[1].abs());
+                if (dens == null) {
+                    sqrtx = null;
+                } else {
+                    sqrtx = BigRational.valueOf(nums).divide(
+                            BigRational.valueOf(dens));
+                }
+            }
+        }
     }
 
     /**
@@ -216,32 +235,6 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return The square root of x if that square root is rational and
      * {@code null} otherwise.
      */
-    protected final BigRational initSqrt() {
-        // Special cases
-        if (x.compareTo(BigRational.ZERO) == 0) {
-            return BigRational.ZERO;
-        }
-        if (x.compareTo(BigRational.ONE) == 0) {
-            return BigRational.ONE;
-        }
-        BigInteger[] numden = getNumeratorAndDenominator();
-        BigInteger nums = Math_BigInteger.sqrt(numden[0]);
-        if (nums == null) {
-            return null;
-        }
-        if (nums.signum() != -1) {
-            BigInteger dens = Math_BigInteger.sqrt(numden[1]);
-            if (dens.signum() != -1) {
-                return BigRational.valueOf(nums).divide(BigRational.valueOf(dens));
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @return The square root of x if that square root is rational and
-     * {@code null} otherwise.
-     */
     public final BigRational getSqrt() {
         return this.sqrtx;
     }
@@ -325,7 +318,7 @@ public class Math_BigRationalSqrt implements Serializable,
     /**
      * @return The numerator and denominator of {@link #x}
      */
-    public BigInteger[] getNumeratorAndDenominator() {
+    public final BigInteger[] getNumeratorAndDenominator() {
         BigInteger[] r = new BigInteger[2];
         r[0] = x.getNumeratorBigInteger();
         r[1] = x.getDenominatorBigInteger();
@@ -348,6 +341,21 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return {@code new Math_BigRationalSqrt(x.add(y.x))}.
      */
     public Math_BigRationalSqrt add(Math_BigRationalSqrt y) {
+        // Special cases
+        if (this.equals(ZERO)) {
+            return y;
+        }
+        if (y.equals(ZERO)) {
+            return this;
+        }
+        BigRational ts = getSqrt();
+        if (ts != null) {
+            BigRational ys = y.getSqrt();
+            if (ys != null) {
+                return new Math_BigRationalSqrt((ts.add(ys)).pow(2));
+            }
+        }
+        // General case
         BigRational cf = Math_BigRational.getCommonFactor(x, y.x);
         if (cf.compareTo(BigRational.ONE) == 0) {
             return null;

@@ -24,15 +24,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
-import uk.ac.leeds.ccg.generic.core.Generic_Environment;
-import uk.ac.leeds.ccg.generic.core.Generic_Strings;
-import uk.ac.leeds.ccg.generic.io.Generic_Defaults;
-import uk.ac.leeds.ccg.generic.io.Generic_Files;
 import uk.ac.leeds.ccg.generic.io.Generic_IO;
-import uk.ac.leeds.ccg.generic.io.Generic_Path;
-import uk.ac.leeds.ccg.math.core.Math_Environment;
-import uk.ac.leeds.ccg.math.core.Math_Object;
-import uk.ac.leeds.ccg.math.io.Math_Files;
 
 /**
  * This class finds all prime numbers up to 2147483646 in about 20 seconds. It
@@ -42,12 +34,7 @@ import uk.ac.leeds.ccg.math.io.Math_Files;
  * @author Andy Turner
  * @version 1.0
  */
-public class Math_PrimeNumbers extends Math_Object {
-
-    /**
-     * Generic_Defaults
-     */
-    Generic_Defaults defaults;
+public class Math_PrimeNumbers {
 
     /**
      * Create a new instance.
@@ -55,9 +42,7 @@ public class Math_PrimeNumbers extends Math_Object {
      * @param e What {@link #env} is set to.
      * @param defaults What {@link #defaults} is set to.
      */
-    public Math_PrimeNumbers(Math_Environment e, Generic_Defaults defaults) {
-        super(e);
-        this.defaults = defaults;
+    public Math_PrimeNumbers() {
     }
 
     /**
@@ -65,14 +50,8 @@ public class Math_PrimeNumbers extends Math_Object {
      */
     public static void main(String[] args) {
         try {
-            Generic_Defaults defaults = new Generic_Defaults(Paths.get(
-                    System.getProperty("user.dir"), Generic_Strings.s_data,
-                    Math_PrimeNumbers.class.getName()));
-            Math_Environment env = new Math_Environment(new Generic_Environment(
-                    new Generic_Files(defaults)));
-            Math_PrimeNumbers p = new Math_PrimeNumbers(env, defaults);
-            p.run();
-        } catch (Exception ex) {
+            new Math_PrimeNumbers().run();
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace(System.err);
         }
     }
@@ -84,18 +63,17 @@ public class Math_PrimeNumbers extends Math_Object {
      * @throws ClassNotFoundException If encountered.
      */
     public void run() throws IOException, ClassNotFoundException {
-        Math_Files files = new Math_Files(defaults);
-        Generic_Path dir = files.getGeneratedDir();
-        Files.createDirectories(dir.getPath());
+        Path p = Paths.get(System.getProperty("user.dir"), "data");
+        Files.createDirectories(p);
 
         int maxSize;
         //maxSize = 2147483646;
         //maxSize = 33554432;
         //maxSize = 67108864;
         maxSize = 268435456;
-        Path fBitSet = Paths.get(dir.toString(), "PrimesUpTo_" + maxSize + "_BitSet.dat");
-        Path fPrimeList = Paths.get(dir.toString(), "PrimesUpTo_" + maxSize + "_ArrayList_Integer.dat");
-        Path fPrimeIndexMap = Paths.get(dir.toString(), "PrimesIndexMapUpTo_" + maxSize + "_HashMap_Integer_Integer.dat");
+        Path fBitSet = Paths.get(p.toString(), "PrimesUpTo_" + maxSize + "_BitSet.dat");
+        Path fPrimeList = Paths.get(p.toString(), "PrimesUpTo_" + maxSize + "_ArrayList_Integer.dat");
+        Path fPrimeIndexMap = Paths.get(p.toString(), "PrimesIndexMapUpTo_" + maxSize + "_HashMap_Integer_Integer.dat");
         BitSet numbList;
         ArrayList<Integer> PrimeList;
         HashMap<Integer, Integer> PrimeIndexMap;
@@ -191,12 +169,16 @@ public class Math_PrimeNumbers extends Math_Object {
             while (name.compareTo("-1") != 0) {
                 int n = Integer.parseInt(name);
                 if (PrimeIndexMap.containsKey(n)) {
-                    System.out.println(n + " is the " + PrimeIndexMap.get(n).toString() + "th prime greater than 2.");
+                    System.out.println(n + " is the " 
+                            + PrimeIndexMap.get(n).toString() 
+                            + "th prime greater than 2.");
                 } else {
                     if (n < maxPrime) {
                         System.out.println(n + " is not prime.");
                     } else {
-                        System.out.println("Sorry, not calculated if " + n + " is prime yet, maximum prime found so far is " + maxPrime + "!");
+                        System.out.println("Sorry, not calculated if " + n
+                                + " is prime, maximum prime found so far is "
+                                + maxPrime + "!");
                     }
                 }
                 name = getTestPrime();
