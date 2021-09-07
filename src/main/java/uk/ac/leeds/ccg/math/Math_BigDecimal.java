@@ -70,8 +70,8 @@ public class Math_BigDecimal extends Math_Number {
      * For storing the
      * <a href="https://en.wikipedia.org/wiki/Pi">Pi constant</a> rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a> {@link #pi} rounded using {@link RoundingMode#HALF_UP}.
-     * The first few digits of the number are
+     * Magnitude</a> {@link #pi} rounded using {@link RoundingMode#HALF_UP}. The
+     * first few digits of the number are
      * {@code 3.1415926535897932384626433...}.
      */
     private BigDecimal pi;
@@ -2978,7 +2978,7 @@ public class Math_BigDecimal extends Math_Number {
         }
         return r;
     }
-    
+
     /**
      * Find the maximum in {@code c}.
      *
@@ -2988,9 +2988,9 @@ public class Math_BigDecimal extends Math_Number {
     public static BigDecimal min(Collection<BigDecimal> c) {
         return c.parallelStream().min(Comparator.comparing(i -> i)).get();
     }
-    
+
     /**
-     * 
+     *
      * @param x The values.
      * @return The maximum of all the values.
      */
@@ -3001,7 +3001,7 @@ public class Math_BigDecimal extends Math_Number {
         }
         return r;
     }
-    
+
     /**
      * Find the maximum in {@code c}.
      *
@@ -3119,14 +3119,13 @@ public class Math_BigDecimal extends Math_Number {
      * @param x The value to be rooted.
      * @param n The root (2 is for a square root, 3 is for a cube root etc.).
      * @param oom The order of magnitude that the result is calculated to.
-     * @return The nth root of x calculated to the oom 
-     * level of precision.
+     * @return The nth root of x calculated to the oom level of precision.
      */
     public static BigDecimal root(BigDecimal x, int root,
             int oom) {
         return root(x, root, oom, RoundingMode.HALF_UP);
     }
-    
+
     /**
      * Calculates and returns the root-th root of x.
      *
@@ -3134,7 +3133,7 @@ public class Math_BigDecimal extends Math_Number {
      * @param n The root (2 is for a square root, 3 is for a cube root etc.).
      * @param oom The order of magnitude that the result is calculated to.
      * @param rm The {@link RoundingMode} used to round the final result.
-     * @return The nth root of x which is either exact or rounded to the oom 
+     * @return The nth root of x which is either exact or rounded to the oom
      * level of precision.
      */
     public static BigDecimal root(BigDecimal x, int n,
@@ -3346,7 +3345,7 @@ public class Math_BigDecimal extends Math_Number {
 
     /**
      * Calculates and returns the {@code n}th root of {@code x} without
-     * rounding. The problem here is that 
+     * rounding. The problem here is that
      *
      * @param x The number to calculate and return the {@code n}th root of.
      * @param r0 A potential answer to use to begin an iterative approximation.
@@ -3442,10 +3441,10 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * This has been deprecated as for many inputs, the result is irrational or 
-     * cannot be expressed as a BigDecimal exactly and so this enters an 
-     * infinite loop. 
-     * 
+     * This has been deprecated as for many inputs, the result is irrational or
+     * cannot be expressed as a BigDecimal exactly and so this enters an
+     * infinite loop.
+     *
      * @param x The number to root.
      * @param root The root.
      * @param maxite The maximum number of iterations.
@@ -3501,12 +3500,12 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * This has been deprecated as for many inputs, the result is irrational or 
-     * cannot be expressed as a BigDecimal exactly and so this enters an 
-     * infinite loop. 
-     * 
+     * This has been deprecated as for many inputs, the result is irrational or
+     * cannot be expressed as a BigDecimal exactly and so this enters an
+     * infinite loop.
+     *
      * For calculating the {@code root}th root of {@code x} without rounding.
-     *  
+     *
      * @param x The value to calculate and return the root for.
      * @param root The root.
      * @return The {@code root}th root of {@code x}
@@ -3564,10 +3563,10 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * This has been deprecated as for many inputs, the result is irrational or 
-     * cannot be expressed as a BigDecimal exactly and so this enters an 
+     * This has been deprecated as for many inputs, the result is irrational or
+     * cannot be expressed as a BigDecimal exactly and so this enters an
      * infinite loop.
-     * 
+     *
      * @param x {@code 0 < x < 1}
      * @param root
      * @param oom The
@@ -3939,9 +3938,9 @@ public class Math_BigDecimal extends Math_Number {
     }
 
     /**
-     * This has been deprecated as for many inputs, the result is irrational or 
-     * cannot be expressed as a BigDecimal exactly and so this enters an 
-     * infinite loop. 
+     * This has been deprecated as for many inputs, the result is irrational or
+     * cannot be expressed as a BigDecimal exactly and so this enters an
+     * infinite loop.
      *
      * @param x 0 < x < 1
      * @param root_BigDecimal
@@ -4021,6 +4020,51 @@ public class Math_BigDecimal extends Math_Number {
             default:
                 return round(x.sqrt(new MathContext(x.scale() + 1 - oom, rm)),
                         oom, rm);
+        }
+    }
+
+    /**
+     * @param x The value for which the square root is returned.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * @param rm The {@link RoundingMode} used to round.
+     * @return Square root of {@code x} as a BigDecimal if this can be returned
+     * exactly at the {@code oom} precision and {@code null} otherwise.
+     */
+    public static BigDecimal sqrt(BigDecimal x, int oom) {
+        RoundingMode rm = RoundingMode.HALF_UP;
+        //return root(x, 2, oom, rm);
+        int c = x.compareTo(BigDecimal.ONE);
+        switch (c) {
+            case 0:
+                return BigDecimal.ONE;
+            case -1:
+                if (oom >= 0) {
+                    return BigDecimal.ZERO;
+                } else {
+                    int p = Math.max(x.scale(), -oom);
+                    BigDecimal r = x.sqrt(new MathContext(p, rm));
+                    if (r.pow(2).compareTo(x) == 0) {
+                        return r;
+                    } else {
+                        return null;
+                    }
+                }
+            default:
+                BigDecimal r = x.sqrt(new MathContext(x.scale() + 1 - oom, rm));
+                if (r.pow(2).compareTo(x) == 0) {
+                    return r;
+                } else {
+                    return null;
+                }
         }
     }
 
