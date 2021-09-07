@@ -21,7 +21,7 @@ import uk.ac.leeds.ccg.generic.core.Generic_Strings;
  * A class for {@code boolean} numbers.
  *
  * @author Andy Turner
- * @version 1.0.0
+ * @version 1.0
  */
 public class Math_Boolean extends Math_Number {
 

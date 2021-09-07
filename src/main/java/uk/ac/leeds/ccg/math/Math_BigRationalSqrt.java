@@ -72,7 +72,7 @@ public class Math_BigRationalSqrt implements Serializable,
 
     /**
      * Square root of {@link #x} if this can be stored exactly as a BigRational
-     * using {@link #oo} for the precision of the calculation, otherwise it is
+     * using {@link #oomi} for the precision of the calculation, otherwise it is
      * {@code null}.
      */
     protected final BigRational sqrtx;
@@ -103,6 +103,8 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@link #getSqrt()} with {@code x} as input.
      *
      * @param x What {@link #x} is set to.
+     * @param oom The Order of Magnitude of the precision for the root
+     * calculation.
      */
     public Math_BigRationalSqrt(BigRational x, int oom) {
         this.x = x.reduce();
@@ -123,6 +125,8 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@link #getSqrt()} with {@code x} as input.
      *
      * @param x What {@link #x} is set to.
+     * @param oom The Order of Magnitude of the precision for the root
+     * calculation.
      */
     public Math_BigRationalSqrt(BigInteger x, int oom) {
         this(BigRational.valueOf(x), oom);
@@ -133,6 +137,8 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@link #getSqrt()} with {@code x} as input.
      *
      * @param x What {@link #x} is set to.
+     * @param oom The Order of Magnitude of the precision for the root
+     * calculation.
      */
     public Math_BigRationalSqrt(long x, int oom) {
         this(BigRational.valueOf(x), oom);
@@ -142,7 +148,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * No check is performed to test that {@code sqrtx} is indeed what would be
      * returned from {@link #getSqrt()} with {@code x} input. This is preferred
      * for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational)} if the
+     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational, int)} if the
      * square root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
@@ -177,11 +183,12 @@ public class Math_BigRationalSqrt implements Serializable,
      * No check is performed to test that {@code sqrtx} is indeed what would be
      * returned from {@link #getSqrt()} with {@code x} as input. This is
      * preferred for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational)} if the
+     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational, int)} if the
      * square root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to.
+     * @param oomi What {@link #oomi} is set to.
      * @param sqrtxapprox What {@link #sqrtxapprox} is set to.
      * @param oom What {@link #oom} is set to.
      */
@@ -421,15 +428,13 @@ public class Math_BigRationalSqrt implements Serializable,
     }
 
     /**
-     * Complex!
-     *
-     * @return
+     * @return The negation of {@code this}.
      */
     public Math_BigRationalSqrt negate() {
         if (negative) {
-            return new Math_BigRationalSqrt(this.x.abs(), oomi);
+            return new Math_BigRationalSqrt(this.x.abs(), sqrtx.abs(), oomi, sqrtxapprox.abs(), oom);
         } else {
-            return new Math_BigRationalSqrt(this.x.negate(), oomi);
+            return new Math_BigRationalSqrt(this.x.abs().negate(), sqrtx.abs().negate(), oomi, sqrtxapprox.abs().negate(), oom);
         }
     }
 

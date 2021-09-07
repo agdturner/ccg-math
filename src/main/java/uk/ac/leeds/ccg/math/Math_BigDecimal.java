@@ -3121,9 +3121,9 @@ public class Math_BigDecimal extends Math_Number {
      * @param oom The order of magnitude that the result is calculated to.
      * @return The nth root of x calculated to the oom level of precision.
      */
-    public static BigDecimal root(BigDecimal x, int root,
+    public static BigDecimal root(BigDecimal x, int n,
             int oom) {
-        return root(x, root, oom, RoundingMode.HALF_UP);
+        return root(x, n, oom, RoundingMode.HALF_UP);
     }
 
     /**
@@ -4035,7 +4035,6 @@ public class Math_BigDecimal extends Math_Number {
      * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
-     * @param rm The {@link RoundingMode} used to round.
      * @return Square root of {@code x} as a BigDecimal if this can be returned
      * exactly at the {@code oom} precision and {@code null} otherwise.
      */

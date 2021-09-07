@@ -24,6 +24,7 @@ import java.util.Random;
  * @author Andy Turner
  * @version 1.0
  */
+//public abstract class Math_Number extends Number implements Serializable {
 public abstract class Math_Number implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -107,7 +107,6 @@ public class Math_BigRationalRoot implements Serializable,
      * @param n What {@link #n} is set to.
      * @param oom The Order of Magnitude of the precision of the root
      * calculation.
-     * @param rm The RoundingMode used for the calculation of the root.
      */
     public Math_BigRationalRoot(BigRational x, int n, int oom) {
         this.x = x;
@@ -121,6 +120,8 @@ public class Math_BigRationalRoot implements Serializable,
      *
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
+     * @param oom The Order of Magnitude of the precision of the root
+     * calculation.
      */
     public Math_BigRationalRoot(BigDecimal x, int n, int oom) {
         this(BigRational.valueOf(x), n, oom);
@@ -132,6 +133,8 @@ public class Math_BigRationalRoot implements Serializable,
      *
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
+     * @param oom The Order of Magnitude of the precision of the root
+     * calculation.
      */
     public Math_BigRationalRoot(BigInteger x, int n, int oom) {
         this(BigRational.valueOf(x), n, oom);
@@ -143,6 +146,8 @@ public class Math_BigRationalRoot implements Serializable,
      *
      * @param x What {@link #x} is set to.
      * @param n What {@link #n} is set to.
+     * @param oom The Order of Magnitude of the precision of the root
+     * calculation.
      */
     public Math_BigRationalRoot(long x, int n, int oom) {
         this(BigRational.valueOf(x), n, oom);
@@ -151,10 +156,10 @@ public class Math_BigRationalRoot implements Serializable,
     /**
      * No check is performed to test that {@code rootx} is indeed what would be
      * returned from
-     * {@link #getRootRational(ch.obermuhlner.math.big.BigRational, int)} with
-     * {@code x} and {@code n} input. This is preferred for efficiency reasons
-     * over
-     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int)}
+     * {@link #getRoot(ch.obermuhlner.math.big.BigRational, int, int, java.math.RoundingMode)}
+     * with {@code x} and {@code n} input. This is preferred for efficiency
+     * reasons over
+     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int, int)}
      * if the {@code n}th root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
@@ -171,9 +176,9 @@ public class Math_BigRationalRoot implements Serializable,
     /**
      * No check is performed to test that {@code rootx} is indeed what would be
      * returned from
-     * {@link #getRootRational(ch.obermuhlner.math.big.BigRational, int)} with
-     * {@code x} as input. This is preferred for efficiency reasons over
-     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int)}
+     * {@link #getRoot(ch.obermuhlner.math.big.BigRational, int, int, java.math.RoundingMode)}
+     * with {@code x} as input. This is preferred for efficiency reasons over
+     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int, int)}
      * if it is known what the square root of {@code x} is.
      *
      * @param x What {@link #x} is set to.
@@ -239,6 +244,8 @@ public class Math_BigRationalRoot implements Serializable,
      * BigRational.
      *
      * @param v The BigRational to construct from.
+     * @param oom The Order of Magnitude of the precision for the root
+     * calculation.
      * @return {@code new Math_BigRationalRoot(v, 1)}
      */
     public static Math_BigRationalRoot valueOf(BigRational v, int oom) {
@@ -249,7 +256,6 @@ public class Math_BigRationalRoot implements Serializable,
      * This method will only return an exact root if it can be represented as a
      * BigRational and null otherwise.
      *
-     * @param x The number to return the root of.
      * @param root The root i.e. 3 for a cube root etc.
      * @param oom The order of magnitude of precision for calculating the root.
      * If the root is rounded to this resolution then null is returned.

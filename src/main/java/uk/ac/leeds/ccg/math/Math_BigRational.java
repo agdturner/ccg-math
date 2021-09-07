@@ -20,16 +20,22 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
+ * This is a r
  * @author Andy Turner
  */
 public class Math_BigRational extends Math_Number {
 
     private static final long serialVersionUID = 1L;
     
-    protected final BigRational x;
+    /**
+     * The BigRational to wrap.
+     */
+    public final BigRational x;
     
     /**
      * Create a new instance.
+     * 
+     * @param x What {@link #x} is set to.
      */
     public Math_BigRational(BigRational x) {
         this.x = x;

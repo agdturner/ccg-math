@@ -38,9 +38,6 @@ public class Math_PrimeNumbers {
 
     /**
      * Create a new instance.
-     *
-     * @param e What {@link #env} is set to.
-     * @param defaults What {@link #defaults} is set to.
      */
     public Math_PrimeNumbers() {
     }
