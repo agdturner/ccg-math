@@ -37,7 +37,7 @@ public class Math_Matrix_BR {
     protected final int nc;
 
     /**
-     * The matrix.
+     * The matrix. With rows then columns
      */
     protected final BigRational[][] m;
 
