@@ -20,46 +20,62 @@ import java.util.Arrays;
 
 /**
  * For processing matrices holding BigRational numbers.
- * 
+ *
  * @author Andy Turner
  * @version 1.0
  */
 public class Math_Matrix_BR {
 
     /**
-     * The number of rows in the matrix
+     * The rows.
      */
-    protected final int nr;
+    protected final BigRational[][] rows;
 
     /**
-     * The number of columns in the matrix
+     * The columns.
      */
-    protected final int nc;
+    protected final BigRational[][] cols;
 
     /**
-     * The matrix. With rows then columns
+     * For storing the transpose of the matrix.
      */
-    protected final BigRational[][] m;
+    protected Math_Matrix_BR mt;
+
+    /**
+     * Create a new instance. External changes to m will not be reflected in this.
+     * 
+     * @param m A rectangular matrix used to construct this.
+     */
+    public Math_Matrix_BR(BigRational[][] m) {
+        int nr = m.length;
+        int nc = m[0].length;
+        this.rows = new BigRational[nr][nc];
+        this.cols = new BigRational[nc][nr];
+        for (int r = 0; r < nr; r++) {            
+            for (int c = 0; c < nc; c++) {
+                rows[r][c] = m[r][c];
+                cols[c][r] = m[r][c];
+            }
+        }
+    }
 
     /**
      * Create a new instance.
-     * 
-     * @param nr What {@link #nr} is set to.
-     * @param nc What {@link #nc} is set to.
+     *
+     * @param rows What {@link #rows} is set to.
+     * @param cols What {@link #cols} is set to.
      */
-    public Math_Matrix_BR(int nr, int nc) {
-        m = new BigRational[nr][nc];
-        this.nr = nr;
-        this.nc = nc;
+    protected Math_Matrix_BR(BigRational[][] rows, BigRational[][] cols) {
+        this.rows = rows;
+        this.cols = cols;
     }
 
     @Override
     public String toString() {
-        String r = this.getClass().getSimpleName() + "(nr=" + nr + ", nc=" + nc
-                + "\n";
-        for (int row = 0; row < nr; row++) {
-            for (int col = 0; col < nc; col++) {
-                r += "" + m[row][col] + " ";
+        String r = this.getClass().getSimpleName() + "(";
+        for (int row = 0; row < rows.length; row++) {
+            for (int col = 0; col < cols.length; col++) {
+                r += "" + rows[row][col] + " ";
             }
             r += "\n";
         }
@@ -67,69 +83,124 @@ public class Math_Matrix_BR {
         return r;
     }
 
-    /**
-     * @return {@link #m}
-     */
-    public BigRational[][] getM() {
-        return m;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Math_Matrix_BR) {
+            return equals((Math_Matrix_BR) o);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 11 * hash + Arrays.deepHashCode(this.rows);
+        hash = 11 * hash + Arrays.deepHashCode(this.cols);
+        return hash;
     }
 
     /**
-     * @return {@link #nr}
+     * @param m The Math_Matrix_BR to test for equality with this.
+     * @return {@code true} iff this is equal to {@code m}
      */
-    public int getNr() {
-        return nr;
-    }
-
-    /**
-     * @return {@link #nc}
-     */
-    public int getNc() {
-        return nc;
-    }
-
-    /**
-     * https://en.wikipedia.org/wiki/Matrix_multiplication
-     *
-     * @param b The matrix to multiply {@code this} by.
-     * @return result of multiplying {@code this} by {@code b}
-     */
-    public Math_Matrix_BR multiply(Math_Matrix_BR b) {
-        return multiply(this, b);
-    }
-
-    /**
-     * https://en.wikipedia.org/wiki/Matrix_multiplication
-     *
-     * @param a The matrix to multiply.
-     * @param b The matrix to multiply by.
-     * @return result of multiplying {@code a} by {@code b}
-     */
-    public static Math_Matrix_BR multiply(Math_Matrix_BR a, Math_Matrix_BR b) {
-        Math_Matrix_BR r = null;
-        if (a.nc == b.nr) {
-            r = new Math_Matrix_BR(a.nr, b.nc);
-            for (int row = 0; row < r.nr; row++) {
-                for (int col = 0; col < r.nc; col++) {
-                    BigRational v = BigRational.ZERO;
-                    for (int i = 0; i < b.nr; i++) {
-                        v = v.add(a.m[row][i].multiply(b.m[i][col]));
+    public boolean equals(Math_Matrix_BR m) {
+        if (rows.length == m.rows.length && cols.length == m.cols.length) {
+            for (int r = 0; r < rows.length; r++) {
+                for (int c = 0; c < cols.length; c++) {
+                    if (this.rows[r][c].compareTo(m.rows[r][c]) != 0) {
+                        return false;
                     }
-                    r.m[row][col] = v;
                 }
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * <a href="https://en.wikipedia.org/wiki/Matrix_multiplication>https://en.wikipedia.org/wiki/Matrix_multiplication</a>
+     *
+     * @param m The matrix to multiply {@code this} by.
+     * @return Result of multiplying {@code this} by {@code m}, or {@code null} 
+     * if {@code cols.length != m.rows.length}.
+     */
+    public Math_Matrix_BR multiply(Math_Matrix_BR m) {
+        Math_Matrix_BR r = null;
+        if (cols.length == m.rows.length) {
+            BigRational[][] rrows = new BigRational[rows.length][m.cols.length];
+            BigRational[][] rcols = new BigRational[m.cols.length][rows.length];
+            for (int row = 0; row < rows.length; row++) {
+                for (int col = 0; col < m.cols.length; col++) {
+                    BigRational v = BigRational.ZERO;
+                    for (int i = 0; i < m.rows.length; i++) {
+                        v = v.add(rows[row][i].multiply(m.rows[i][col]));
+                    }
+                    rrows[row][col] = v;
+                    rcols[col][row] = v;
+                }
+            }
+            r = new Math_Matrix_BR(rrows, rcols);
+        }
+        return r;
+    }
+
+    /**
+     * https://en.wikipedia.org/wiki/Scalar_multiplication Left scalar
+     * multiplication
+     *
+     * @param s The scalar to multiply by.
+     * @return Result of multiplying {@code this} by {@code s}.
+     */
+    public Math_Matrix_BR multiply(BigRational s) {
+        Math_Matrix_BR r;
+        BigRational[][] rrows = new BigRational[rows.length][cols.length];
+        BigRational[][] rcols = new BigRational[cols.length][rows.length];
+        for (int row = 0; row < rows.length; row++) {
+            for (int col = 0; col < cols.length; col++) {
+                BigRational v = rows[row][col].multiply(s);
+                rrows[row][col] = v;
+                rcols[col][row] = v;
+            }
+        }
+        r = new Math_Matrix_BR(rrows, rcols);
+        return r;
+    }
+
+    /**
+     * https://en.wikipedia.org/wiki/Matrix_addition
+     *
+     * @param m The matrix to add to {@code this}.
+     * @return result of adding {@code this} to {@code b} or {@code null} if the
+     * {@code this} and {@code b} have different dimensions.
+     */
+    public Math_Matrix_BR add(Math_Matrix_BR m) {
+        Math_Matrix_BR r = null;
+        if (cols.length == m.cols.length) {
+            if (rows.length == m.rows.length) {
+                BigRational[][] rrows = new BigRational[rows.length][cols.length];
+                BigRational[][] rcols = new BigRational[cols.length][rows.length];
+                for (int row = 0; row < rows.length; row++) {
+                    for (int col = 0; col < cols.length; col++) {
+                        BigRational v = rows[row][col].add(m.rows[row][col]);
+                        rrows[row][col] = v;
+                        rcols[col][row] = v;                        
+                    }
+                }
+                r = new Math_Matrix_BR(rrows, rcols);
             }
         }
         return r;
     }
 
     /**
-     * https://en.wikipedia.org/wiki/Determinant
-     * Calculates and returns the determinant of {@code this}.
+     * https://en.wikipedia.org/wiki/Determinant Calculates and returns the
+     * determinant of {@code this}.
+     *
      * @return The calculated determinant of {@code this}.
      */
     public BigRational getDeterminant() {
-        if (nr == nc) {
-            return getDeterminant(m);
+        if (rows.length == cols.length) {
+            return getDeterminant(rows);
         } else {
             throw new RuntimeException("Cannot calculate determinant of matrix "
                     + "as it is not square.");
@@ -173,7 +244,7 @@ public class Math_Matrix_BR {
                 return r;
         }
     }
-    
+
     private BigRational[][] getSubMatrix(BigRational[][] m, int col) {
         int len = m.length;
         int len2 = len - 1;
@@ -184,13 +255,13 @@ public class Math_Matrix_BR {
             int c = 0;
             for (int j = 0; j < col; j++) {
                 res[r][c] = m[i][j];
-                c ++;
+                c++;
             }
             for (int j = col2; j < len; j++) {
                 res[r][c] = m[i][j];
-                c ++;
+                c++;
             }
-            r ++;
+            r++;
         }
         return res;
     }
@@ -202,76 +273,123 @@ public class Math_Matrix_BR {
      * @return A matrix with values equal to 1 on the diagonal and 0 elsewhere;
      */
     public static Math_Matrix_BR getIdentityMatrix(int size) {
-        Math_Matrix_BR res = new Math_Matrix_BR(size, size);
-        for (int r = 0; r < size; r++) {
-            for (int c = 0; c < size; c++) {
-                res.m[r][c] = BigRational.ZERO;
-            }
+        Math_Matrix_BR r;
+        BigRational[][] rrows = getMatrix(size, size, BigRational.ZERO);
+        BigRational[][] rcols = getMatrix(size, size, BigRational.ZERO);
+        for (int i = 0; i < size; i++) {
+            rrows[i][i] = BigRational.ONE;
+            rcols[i][i] = BigRational.ONE;
         }
-        for (int r = 0; r < size; r++) {
-            res.m[r][r] = BigRational.ONE;
-        }
-        return res;
-    }
-
-    /**
-     * https://en.wikipedia.org/wiki/Transpose
-     *
-     * @return {@code this} transposed
-     */
-    public Math_Matrix_BR transpose() {
-        return transpose(this);
-    }
-
-    /**
-     * https://en.wikipedia.org/wiki/Transpose
-     *
-     * @param a The matrix to return the transpose of.
-     * @return {@code a} transposed
-     */
-    public static Math_Matrix_BR transpose(Math_Matrix_BR a) {
-        Math_Matrix_BR r = new Math_Matrix_BR(a.nc, a.nr);
-        for (int row = 0; row < a.nr; row++) {
-            for (int col = 0; col < a.nc; col++) {
-                r.m[col][row] = a.m[row][col];
-            }
-        }
+        r = new Math_Matrix_BR(rrows, rcols);
         return r;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof Math_Matrix_BR) {
-            return equals((Math_Matrix_BR) o);
+    /**
+     * @return A matrix with all values equal to v.
+     */
+    public static BigRational[][] getMatrix(int rows, int cols, BigRational v) {
+        BigRational[][] m = new BigRational[rows][cols];
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                m[r][c] = v;
+            }
         }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + this.nr;
-        hash = 71 * hash + this.nc;
-        hash = 71 * hash + Arrays.deepHashCode(this.m);
-        return hash;
+        return m;
     }
 
     /**
-     * @param m The Math_Matrix_BR to test for equality with this.
-     * @return {@code true} iff this is equal to {@code m}
+     * This will also store the transpose in {@link #mt} and likewise store
+     * {@code this} as the transpose in that. For details of what the transpose
+     * of a matrix is see
+     * <a href="https://en.wikipedia.org/wiki/Transpose">https://en.wikipedia.org/wiki/Transpose</a>.
+     *
+     * @return {@code this} transposed
      */
-    public boolean equals(Math_Matrix_BR m) {
-        if (nr == m.nr && nc == m.nc) {
-            for (int r = 0; r < nr; r++) {
-                for (int c = 0; c < nc; c++) {
-                    if (this.m[r][c].compareTo(m.m[r][c]) != 0) {
-                        return false;
-                    }
+    public Math_Matrix_BR getTranspose() {
+        if (mt == null) {
+            BigRational[][] rrows = new BigRational[cols.length][rows.length];
+            BigRational[][] rcols = new BigRational[rows.length][cols.length];
+            for (int row = 0; row < rows.length; row++) {
+                for (int col = 0; col < cols.length; col++) {
+                    rrows[col][row] = rows[row][col];
+                    rcols[row][col] = rows[row][col];
                 }
             }
-            return true;
+            mt = new Math_Matrix_BR(rrows, rcols);
+            mt.mt = this;
         }
-        return false;
+        return mt;
     }
 
+    /**
+     * Is symmetric.
+     */
+    public boolean isSymmetric() {
+        return getTranspose().equals(this);
+    }
+
+    /**
+     * Thee rank of the matrix is the highest number of linearly independent
+     * columns or rows.
+     */
+    public int getRank() {
+
+        return 1;
+
+    }
+
+    /**
+     * @param row The row index.
+     * @return {@code true} iff the row has all zero values.
+     */
+    public boolean isRowZero(int row) {
+        for (BigRational[] col : cols) {
+            if (col[row].compareTo(BigRational.ZERO) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param col The column index.
+     * @return {@code true} iff the column has all zero values.
+     */
+    public boolean isColZero(int col) {
+        for (BigRational[] row : rows) {
+            if (row[col].compareTo(BigRational.ZERO) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+//    public boolean isLinearCombinationRow(int row) {
+//        BigRational
+//        for (int  = 0; c < nc;
+//        c++
+//        
+//            ) {
+//            if (m[row][c].compareTo(BigRational.ZERO) == 0) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
+    public class Vector {
+
+        public BigRational[] v;
+
+        /**
+         * Create a new instance. A deep copy of v is made, so any changes to v
+         * made outside this do not change this.
+         *
+         * @param v A vector used to construct this.
+         */
+        public Vector(BigRational[] v) {
+            this.v = v;
+        }
+
+    }
 }
