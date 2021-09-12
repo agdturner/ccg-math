@@ -437,31 +437,126 @@ public class Math_Matrix_BRTest {
     @Test
     public void testGetRank() {
         System.out.println("getRank");
-        BigRational[][] m = new BigRational[5][4];
-        m[0][0] = BigRational.valueOf(2);
-        m[0][1] = BigRational.valueOf(3);
-        m[0][2] = BigRational.valueOf(-1);
-        m[0][3] = BigRational.valueOf(3);
-        m[1][0] = BigRational.valueOf(0);
-        m[1][1] = BigRational.valueOf(1);
-        m[1][2] = BigRational.valueOf(2);
-        m[1][3] = BigRational.valueOf(1);
-        m[2][0] = BigRational.valueOf(-2);
-        m[2][1] = BigRational.valueOf(1);
-        m[2][2] = BigRational.valueOf(3);
-        m[2][3] = BigRational.valueOf(5);
-        m[3][0] = BigRational.valueOf(0);
-        m[3][1] = BigRational.valueOf(1);
-        m[3][2] = BigRational.valueOf(1);
-        m[3][3] = BigRational.valueOf(2);
-        m[4][0] = BigRational.valueOf(1);
-        m[4][1] = BigRational.valueOf(-7);
-        m[4][2] = BigRational.valueOf(17);
-        m[4][3] = BigRational.valueOf(-4);
+        BigRational[][] m = new BigRational[3][3];
+        m[0][0] = BigRational.valueOf(1);
+        m[0][1] = BigRational.valueOf(2);
+        m[0][2] = BigRational.valueOf(1);
+        m[1][0] = BigRational.valueOf(-2);
+        m[1][1] = BigRational.valueOf(-3);
+        m[1][2] = BigRational.valueOf(1);
+        m[2][0] = BigRational.valueOf(3);
+        m[2][1] = BigRational.valueOf(5);
+        m[2][2] = BigRational.valueOf(0);
         Math_Matrix_BR a = new Math_Matrix_BR(m);
         int expResult = 2;
         int result = a.getRank();
         assertTrue(expResult == result);
     }
 
+    /**
+     * Test of getGauss method, of class Math_Matrix_BR.
+     */
+    @Test
+    public void testGetReducedRowEchelonForm() {
+        System.out.println("getReducedRowEchelonForm");
+        BigRational[][] m = new BigRational[4][3];
+        m[0][0] = BigRational.valueOf(0);
+        m[0][1] = BigRational.valueOf(1);
+        m[0][2] = BigRational.valueOf(1);
+        m[1][0] = BigRational.valueOf(1);
+        m[1][1] = BigRational.valueOf(0);
+        m[1][2] = BigRational.valueOf(0);
+        m[2][0] = BigRational.valueOf(2);
+        m[2][1] = BigRational.valueOf(-1);
+        m[2][2] = BigRational.valueOf(0);
+        m[3][0] = BigRational.valueOf(1);
+        m[3][1] = BigRational.valueOf(1);
+        m[3][2] = BigRational.valueOf(1);
+        Math_Matrix_BR a = new Math_Matrix_BR(m);
+        Math_Matrix_BR result = a.getReducedRowEchelonForm();
+        m = new BigRational[4][3];
+        m[0][0] = BigRational.valueOf(1);
+        m[0][1] = BigRational.valueOf(-1, 2);
+        m[0][2] = BigRational.valueOf(0);
+        m[1][0] = BigRational.valueOf(0);
+        m[1][1] = BigRational.valueOf(1);
+        m[1][2] = BigRational.valueOf(2, 3);
+        m[2][0] = BigRational.valueOf(0);
+        m[2][1] = BigRational.valueOf(0);
+        m[2][2] = BigRational.valueOf(1);
+        m[3][0] = BigRational.valueOf(0);
+        m[3][1] = BigRational.valueOf(0);
+        m[3][2] = BigRational.valueOf(0);
+        Math_Matrix_BR expResult = new Math_Matrix_BR(m);
+        assertTrue(expResult.equals(result));
+        // Test 2
+        m = new BigRational[3][4];
+        m[0][0] = BigRational.valueOf(2);
+        m[0][1] = BigRational.valueOf(1);
+        m[0][2] = BigRational.valueOf(-1);
+        m[0][3] = BigRational.valueOf(8);
+        m[1][0] = BigRational.valueOf(-3);
+        m[1][1] = BigRational.valueOf(-1);
+        m[1][2] = BigRational.valueOf(2);
+        m[1][3] = BigRational.valueOf(-11);
+        m[2][0] = BigRational.valueOf(-2);
+        m[2][1] = BigRational.valueOf(1);
+        m[2][2] = BigRational.valueOf(2);
+        m[2][3] = BigRational.valueOf(-3);
+        a = new Math_Matrix_BR(m);
+        result = a.getReducedRowEchelonForm();
+        m[0][0] = BigRational.valueOf(1);
+        m[0][1] = BigRational.valueOf(0);
+        m[0][2] = BigRational.valueOf(0);
+        m[0][3] = BigRational.valueOf(2);
+        m[1][0] = BigRational.valueOf(0);
+        m[1][1] = BigRational.valueOf(1);
+        m[1][2] = BigRational.valueOf(0);
+        m[1][3] = BigRational.valueOf(3);
+        m[2][0] = BigRational.valueOf(0);
+        m[2][1] = BigRational.valueOf(0);
+        m[2][2] = BigRational.valueOf(1);
+        m[2][3] = BigRational.valueOf(-1);
+        expResult = new Math_Matrix_BR(m);
+        assertTrue(expResult.equals(result));
+    }
+    
+    /**
+     * Test of getGauss method, of class Math_Matrix_BR.
+     */
+    @Test
+    public void testGetRowEchelonForm() {
+        System.out.println("getRowEchelonForm");
+        BigRational[][] m = new BigRational[3][4];
+        m[0][0] = BigRational.valueOf(2);
+        m[0][1] = BigRational.valueOf(1);
+        m[0][2] = BigRational.valueOf(-1);
+        m[0][3] = BigRational.valueOf(8);
+        m[1][0] = BigRational.valueOf(-3);
+        m[1][1] = BigRational.valueOf(-1);
+        m[1][2] = BigRational.valueOf(2);
+        m[1][3] = BigRational.valueOf(-11);
+        m[2][0] = BigRational.valueOf(-2);
+        m[2][1] = BigRational.valueOf(1);
+        m[2][2] = BigRational.valueOf(2);
+        m[2][3] = BigRational.valueOf(-3);
+        Math_Matrix_BR a = new Math_Matrix_BR(m);
+        Math_Matrix_BR result = a.getRowEchelonForm();
+        m = new BigRational[4][3];
+        m[0][0] = BigRational.valueOf(1);
+        m[0][1] = BigRational.valueOf(1, 2);
+        m[0][2] = BigRational.valueOf(-1, 2);
+        m[0][3] = BigRational.valueOf(4);
+        m[1][0] = BigRational.valueOf(0);
+        m[1][1] = BigRational.valueOf(1);
+        m[1][2] = BigRational.valueOf(1, 2);
+        m[1][3] = BigRational.valueOf(5, 2);
+        m[2][0] = BigRational.valueOf(0);
+        m[2][1] = BigRational.valueOf(0);
+        m[2][2] = BigRational.valueOf(1);
+        m[2][3] = BigRational.valueOf(-1);
+        Math_Matrix_BR expResult = new Math_Matrix_BR(m);
+        assertTrue(expResult.equals(result));
+    }
+    
 }
