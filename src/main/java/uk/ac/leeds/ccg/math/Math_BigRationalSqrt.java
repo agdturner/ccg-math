@@ -155,6 +155,8 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param sqrtx What {@link #sqrtx} is set to unless it is {@code null} in
      * which case an effort is made to calculate it based on the Order Of
      * Magnitude of the least significant digit of {@code x}.
+     * @param oomi The Order of Magnitude used to initialise the square root and
+     * what {@link #oomi} is set to.
      */
     public Math_BigRationalSqrt(BigRational x, BigRational sqrtx, int oomi) {
         this.x = x.reduce().abs();

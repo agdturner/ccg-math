@@ -16,7 +16,6 @@
 package uk.ac.leeds.ccg.math.matrices;
 
 import ch.obermuhlner.math.big.BigRational;
-import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
@@ -91,9 +90,9 @@ public class Math_Matrix_BR {
     @Override
     public String toString() {
         String r = this.getClass().getSimpleName() + "(";
-        for (int row = 0; row < rows.length; row++) {
+        for (BigRational[] row : rows) {
             for (int col = 0; col < cols.length; col++) {
-                r += "" + rows[row][col] + " ";
+                r += "" + row[col] + " ";
             }
             r += "\n";
         }
@@ -136,7 +135,8 @@ public class Math_Matrix_BR {
     }
 
     /**
-     * <a href="https://en.wikipedia.org/wiki/Matrix_multiplication>https://en.wikipedia.org/wiki/Matrix_multiplication</a>
+     * <a href="https://en.wikipedia.org/wiki/Matrix_multiplication">Matrix
+     * multiplication</a>
      *
      * @param m The matrix to multiply {@code this} by.
      * @return Result of multiplying {@code this} by {@code m}, or {@code null}
@@ -303,7 +303,11 @@ public class Math_Matrix_BR {
     }
 
     /**
-     * @return A matrix with all values equal to v.
+     * @param rows The number of rows.
+     * @param cols The number of cols
+     * @param v The value.
+     * @return A matrix with the given number of rows and cols with all values
+     * equal to v.
      */
     public static BigRational[][] getMatrix(int rows, int cols, BigRational v) {
         BigRational[][] m = new BigRational[rows][cols];
@@ -363,6 +367,8 @@ public class Math_Matrix_BR {
 
     /**
      * Is symmetric.
+     *
+     * @return {@code true} iff {@code this} is symmetric.
      */
     public boolean isSymmetric() {
         return getTranspose().equals(this);
@@ -377,6 +383,7 @@ public class Math_Matrix_BR {
     }
 
     /**
+     * @param m The matrix in row major order.
      * @param row The row index.
      * @return {@code true} iff the row has all zero values.
      */
@@ -390,8 +397,7 @@ public class Math_Matrix_BR {
     }
 
     /**
-     * @param col The column index.
-     * @return {@code true} iff the column has all zero values.
+     * @return {@code true} iff all values are zero.
      */
     public boolean isZero() {
         for (BigRational[] row : rows) {
@@ -413,6 +419,7 @@ public class Math_Matrix_BR {
     }
 
     /**
+     * @param m The matrix in row major order.
      * @param col The column index.
      * @return {@code true} iff the column has all zero values.
      */
@@ -459,8 +466,8 @@ public class Math_Matrix_BR {
      * <a href="https://en.wikipedia.org/wiki/Row_echelon_form">Row Echelon
      * Form</a> of the matrix using
      * <a href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian
-     * elimination</a> or returning it if it has already been computed. The first 
-     * non-zero element in each row is 1 if it exists.
+     * elimination</a> or returning it if it has already been computed. The
+     * first non-zero element in each row is 1 if it exists.
      *
      * @return {@link #ref} computing it first if it is {@code null}.
      */
@@ -478,7 +485,7 @@ public class Math_Matrix_BR {
                     /* No pivot in this column, pass to next column */
                     k++;
                 } else {
-                    if (h != i_max){
+                    if (h != i_max) {
                         swapRows(m, h, i_max);
                     }
                     /* Do for all rows below pivot: */
@@ -496,11 +503,11 @@ public class Math_Matrix_BR {
                     k++;
                 }
             }
-            for (h = rows.length - 1; h >= 0; h --) {
+            for (h = rows.length - 1; h >= 0; h--) {
                 if (!Math_Matrix_BR.isZeroRow(m, h)) {
                     int i = 0;
                     BigRational v = null;
-                    for (int col = 0; col < cols.length; col ++) {
+                    for (int col = 0; col < cols.length; col++) {
                         if (m[h][col].compareTo(BigRational.ZERO) != 0) {
                             i = col;
                             v = m[h][col];
@@ -509,75 +516,25 @@ public class Math_Matrix_BR {
                     }
                     if (v != null) {
                         if (v.compareTo(BigRational.ONE) != 0) {
-                            for (int col = i; col < cols.length; col ++) {
+                            for (int col = i; col < cols.length; col++) {
                                 m[h][col] = m[h][col].divide(v);
                             }
                         }
-                    }                    
-                }                
+                    }
+                }
             }
             ref = new Math_Matrix_BR(m);
         }
         return ref;
     }
-    
-//    /**
-//     * https://en.wikipedia.org/wiki/Row_echelon_form
-//     * https://en.wikipedia.org/wiki/Gaussian_elimination
-//     *
-//     * @return Get the reduced row echelon form of {@code this}.
-//     */
-//    public Math_Matrix_BR getReducedRowEchelonForm() {
-//        if (rref == null) {
-//            BigRational[][] m = getRowEchelonForm().getRows();
-//            int c = 0;
-//            for (int r = 0; r < rows.length; r++) {
-//                if (c >= cols.length) {
-//                    break;
-//                }
-//                int i = r;
-//                while (m[i][c].compareTo(BigRational.ZERO) == 0) {
-//                    i++;
-//                    if (i == rows.length) {
-//                        i = r;
-//                        c++;
-//                        if (c == cols.length) {
-//                            rref = new Math_Matrix_BR(m);
-//                            return rref;
-//                        }
-//                    }
-//                }
-//                if (i != r) {
-//                    swapRows(m, r, i);
-//                }
-//                BigRational v = rows[r][c];
-//                if (v.compareTo(BigRational.ZERO) != 0) {
-//                    for (int j = 0; j < cols.length; j++) {
-//                        m[r][j] = m[r][j].divide(v);
-//                    }
-//                } else {
-//                    for (int j = 0; j < cols.length; j++) {
-//                        m[r][j] = BigRational.ZERO;
-//                    }
-//                }
-//                for (i = 0; i < rows.length; i++) {
-//                    if (i != r) {
-//                        v = m[i][c];
-//                        for (int j = 0; j < cols.length; j++) {
-//                            m[i][j] = m[i][j].subtract(v.multiply(m[r][j]));
-//                        }
-//                    }
-//                }
-//                c++;
-//            }
-//            rref = new Math_Matrix_BR(m);
-//        }
-//        return rref;
-//    }
-    
+
     /**
-     * https://en.wikipedia.org/wiki/Row_echelon_form
-     * https://en.wikipedia.org/wiki/Gaussian_elimination
+     * For computing the
+     * <a href="https://en.wikipedia.org/wiki/Reduced_row_echelon_form">Reduced
+     * Row Echelon Form</a> of the matrix using
+     * <a href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian
+     * elimination</a> or returning it if it has already been computed.
+     *
      *
      * @return Get the reduced row echelon form of {@code this}.
      */
@@ -589,11 +546,11 @@ public class Math_Matrix_BR {
                     if (r >= 1) {
                         int c = getColIndexOfSecondNonZeroValue(m, r - 1);
                         if (c > 0) {
-                            BigRational d = m[r-1][c];
-                            m[r-1][c] = BigRational.ZERO;
+                            BigRational d = m[r - 1][c];
+                            m[r - 1][c] = BigRational.ZERO;
                             for (int col = c + 1; col < cols.length; col++) {
                                 // Subtract from all the rest of the columns
-                                m[r-1][col] = m[r-1][col].subtract(m[r][col].multiply(d));
+                                m[r - 1][col] = m[r - 1][col].subtract(m[r][col].multiply(d));
                             }
                         } else {
                             break;
@@ -618,6 +575,13 @@ public class Math_Matrix_BR {
         return rref;
     }
 
+    /**
+     * @param m The matrix in row major order.
+     * @param row The row.
+     * @return Get the index of the column in the row of the matrix that has the
+     * second non-zero column (counting from the right). If there is no such
+     * column, then return {@code -1}.
+     */
     public static int getColIndexOfSecondNonZeroValue(BigRational[][] m, int row) {
         boolean firstFound = false;
         for (int col = 0; col < m[0].length - 1; col++) {
@@ -631,7 +595,7 @@ public class Math_Matrix_BR {
         }
         return -1;
     }
-    
+
     /**
      * @param m The matrix rows by columns.
      * @param col The col in which to find the row index of the maximum value.
