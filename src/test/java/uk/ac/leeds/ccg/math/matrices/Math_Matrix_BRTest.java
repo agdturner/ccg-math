@@ -542,7 +542,7 @@ public class Math_Matrix_BRTest {
         m[2][3] = BigRational.valueOf(-3);
         Math_Matrix_BR a = new Math_Matrix_BR(m);
         Math_Matrix_BR result = a.getRowEchelonForm();
-        m = new BigRational[4][3];
+        m = new BigRational[3][4];
         m[0][0] = BigRational.valueOf(1);
         m[0][1] = BigRational.valueOf(1, 2);
         m[0][2] = BigRational.valueOf(-1, 2);
