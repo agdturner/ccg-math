@@ -4018,9 +4018,33 @@ public class Math_BigDecimal extends Math_Number {
                     return round(x.sqrt(new MathContext(p, rm)), oom, rm);
                 }
             default:
-                return round(x.sqrt(new MathContext(x.scale() + 1 - oom, rm)),
-                        oom, rm);
+                MathContext mc = getSqrtMathContext(x, oom, rm);
+//                return round(x.sqrt(new MathContext(x.scale() + 1 - oom, rm)),
+//                        oom, rm);
+                return round(x.sqrt(mc), oom, rm); // This last rounding is probably not needed...
         }
+    }
+    
+    /**
+     * @param x The value for which the square root is wanted.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a>
+     * <ul>
+     * <li>...</li>
+     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+     * <li>...</li>
+     * </ul>
+     * @param rm The {@link RoundingMode}.
+     * @return a MathContext appropriate for calculating a square root to the 
+     * precision given by {@code oom} and {@code rm}.
+     */
+    private static MathContext getSqrtMathContext(BigDecimal x, int oom, 
+            RoundingMode rm) {
+        return new MathContext((int) Math.ceil(
+                Math.sqrt((double) x.precision())) - oom, rm);
     }
 
     /**
@@ -4058,7 +4082,8 @@ public class Math_BigDecimal extends Math_Number {
                     }
                 }
             default:
-                BigDecimal r = x.sqrt(new MathContext(x.scale() + 1 - oom, rm));
+                //BigDecimal r = x.sqrt(new MathContext(x.scale() + 2 - oom, rm));
+                BigDecimal r = x.sqrt(getSqrtMathContext(x, oom, rm));
                 if (r.pow(2).compareTo(x) == 0) {
                     return r;
                 } else {
