@@ -4,7 +4,7 @@
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>ccg-math</artifactId>
-    <version>1.15-SNAPSHOT</version>
+    <version>1.15</version>
     <packaging>jar</packaging>
 
     <name>ccg-math</name>
@@ -49,7 +49,6 @@
         -->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <maven.version>3.0.1</maven.version>
         <junit.version>5.7.0</junit.version>
     </properties>
     
