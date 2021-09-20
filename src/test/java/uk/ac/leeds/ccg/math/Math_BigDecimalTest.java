@@ -2530,17 +2530,22 @@ public class Math_BigDecimalTest {
         result = Math_BigDecimal.sqrt(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
+        x = new BigDecimal("144");
+        expResult = new BigDecimal("12");
+        result = Math_BigDecimal.sqrt(x, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
         x = new BigDecimal("10000");
         expResult = new BigDecimal("100");
         result = Math_BigDecimal.sqrt(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
-        // Test 4
+        // Test 5
         oom = -1;
         x = new BigDecimal("0.01");
         expResult = new BigDecimal("0.1");
         result = Math_BigDecimal.sqrt(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
-        // Test 5
+        // Test 6
         oom = -7;
         x = new BigDecimal("0.00000001");
         result = Math_BigDecimal.sqrt(x, oom, rm);
@@ -2549,7 +2554,7 @@ public class Math_BigDecimalTest {
         expResult = x.sqrt(mc);
         //expResult = new BigDecimal("0.0001");
         assertTrue(expResult.compareTo(result) == 0);
-        // Test 6
+        // Test 7
         oom = -7;
         x = new BigDecimal("0.000000001");
         result = Math_BigDecimal.sqrt(x, oom, rm);
@@ -2558,7 +2563,7 @@ public class Math_BigDecimalTest {
         expResult = x.sqrt(mc);
         //expResult = new BigDecimal("0.0000316");
         assertTrue(expResult.compareTo(result) == 0);
-        // Test 7
+        // Test 8
         oom = -5;
         x = new BigDecimal("2");
         result = Math_BigDecimal.sqrt(x, oom, rm);
@@ -2566,13 +2571,19 @@ public class Math_BigDecimalTest {
         //expResult = BigDecimalMath.sqrt(x, mc);
         expResult = x.sqrt(mc);
         assertTrue(expResult.compareTo(result) == 0);
-        // Test 7
+        // Test 9
         oom = -100;
         x = new BigDecimal("2");
         result = Math_BigDecimal.sqrt(x, oom, rm);
         mc = new MathContext(Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(result) + 1 - oom, rm);
         //expResult = BigDecimalMath.sqrt(x, mc);
         expResult = x.sqrt(mc);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        oom = -10;
+        x = new BigDecimal("143");
+        expResult = new BigDecimal("11.9582607431");
+        result = Math_BigDecimal.sqrt(x, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
     }
 
