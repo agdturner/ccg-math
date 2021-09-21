@@ -130,7 +130,6 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@code false}.
      *
      * @param x What {@link #x} is set to.
-     * @param negative What {@link #negative} is set to.
      * @param oomi The Order of Magnitude of the precision for the initial root
      * calculation.
      */
@@ -183,7 +182,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * for efficiency reasons over
      * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational, int)}
      * if the square root of {@code x} is known about. If {@code sqrt} is null
-     * then by default {@link # negative} is set to {@code false}.
+     * then by default {@link #negative} is set to {@code false}.
      *
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to. Cannot be {@code null}.
