@@ -136,7 +136,7 @@ public class Math_BigRationalSqrtTest {
         int oomi = -1;
         Math_BigRationalSqrt instance = new Math_BigRationalSqrt(2, oomi);
         String expResult = "Math_BigRationalSqrt(x=2, negative=false, "
-                + "sqrtx=null, oomi=-1, sqrtxapprox=null, oom=0)";
+                + "sqrtx=null, oomi=-1, sqrtxapprox=1.4, oom=0)";
         String result = instance.toString();
         assertEquals(expResult, result);
         // Test 2
