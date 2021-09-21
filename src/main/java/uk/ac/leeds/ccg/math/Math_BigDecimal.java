@@ -4021,7 +4021,8 @@ public class Math_BigDecimal extends Math_Number {
                 MathContext mc = getSqrtMathContext(x, oom, rm);
 //                return round(x.sqrt(new MathContext(x.scale() + 1 - oom, rm)),
 //                        oom, rm);
-                return round(x.sqrt(mc), oom, rm); // This last rounding is probably not needed...
+//                return round(x.sqrt(mc), oom, rm); // This last rounding is probably not needed...
+                return x.sqrt(mc);
         }
     }
     
@@ -4074,21 +4075,23 @@ public class Math_BigDecimal extends Math_Number {
                     return BigDecimal.ZERO;
                 } else {
                     int p = Math.max(x.scale(), -oom);
-                    BigDecimal r = x.sqrt(new MathContext(p, rm));
-                    if (r.pow(2).compareTo(x) == 0) {
-                        return r;
-                    } else {
-                        return null;
-                    }
+                    return x.sqrt(new MathContext(p, rm));
+//                    BigDecimal r = x.sqrt(new MathContext(p, rm));
+//                    if (r.pow(2).compareTo(x) == 0) {
+//                        return r;
+//                    } else {
+//                        return null;
+//                    }
                 }
             default:
                 //BigDecimal r = x.sqrt(new MathContext(x.scale() + 2 - oom, rm));
-                BigDecimal r = x.sqrt(getSqrtMathContext(x, oom, rm));
-                if (r.pow(2).compareTo(x) == 0) {
-                    return r;
-                } else {
-                    return null;
-                }
+                return x.sqrt(getSqrtMathContext(x, oom, rm));
+//                BigDecimal r = x.sqrt(getSqrtMathContext(x, oom, rm));
+//                if (r.pow(2).compareTo(x) == 0) {
+//                    return r;
+//                } else {
+//                    return null;
+//                }
         }
     }
 
