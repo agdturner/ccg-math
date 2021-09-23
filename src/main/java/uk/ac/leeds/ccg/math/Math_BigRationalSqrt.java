@@ -234,8 +234,12 @@ public class Math_BigRationalSqrt implements Serializable,
             if (x.compareTo(BigRational.ZERO) == 0) {
                 this.sqrtx = BigRational.ZERO;
             } else {
-                this.sqrtxapprox = getSqrt(oomi).toBigDecimal();
-                this.sqrtx = initSqrtx();
+                if (x.compareTo(BigRational.ONE) == 0) {
+                    this.sqrtx = BigRational.ONE;
+                } else {
+                    this.sqrtxapprox = getSqrt(oomi).toBigDecimal();
+                    this.sqrtx = initSqrtx();
+                }
             }
         } else {
             this.sqrtx = sqrtx;
@@ -322,7 +326,7 @@ public class Math_BigRationalSqrt implements Serializable,
 
     /**
      * @param oom The Order of Magnitude precision to calculate square root to.
-     * @return Either the exact square root or null.
+     * @return The square root accurate to oom precision.
      */
     public final BigRational getSqrt(int oom) {
         BigRational x0 = x;
