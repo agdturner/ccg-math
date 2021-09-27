@@ -110,6 +110,20 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
         return x.divide(shift).integerPart().multiply(shift).toBigDecimal();
     }
     
+    
+    /**
+     * A convenience method for finding the minimum of this and x.
+     * @param x A number to compare with this to find out which is the minimum.
+     * @return The minimum of this and x.
+     */
+    public Math_BigRational min(Math_BigRational x) {
+        if (this.compareTo(x) == -1) {
+            return this;
+        } else {
+            return x;
+        }
+    }
+    
     /**
      * A convenience method for finding the minimum of two BigRational numbers.
      * @param x A number to compare with y to find out which is the minimum.
@@ -124,6 +138,19 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
         }
     }
 
+    /**
+     * A convenience method for finding the minimum of this and x.
+     * @param x A number to compare with this to find out which is the maximum.
+     * @return The maximum of this and x.
+     */
+    public Math_BigRational max(Math_BigRational x) {
+        if (this.compareTo(x) == 1) {
+            return this;
+        } else {
+            return x;
+        }
+    }
+    
     /**
      * A convenience method for finding the minimum of two BigRational numbers.
      * @param x A number to compare with y to find out which is the minimum.
