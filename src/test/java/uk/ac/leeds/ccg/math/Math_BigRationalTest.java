@@ -16,37 +16,39 @@
 package uk.ac.leeds.ccg.math;
 
 import ch.obermuhlner.math.big.BigRational;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test for class Math_BigRational
- * 
+ *
  * @author Andy Turner
  * @verson 1.0
  */
 public class Math_BigRationalTest {
-    
+
     public Math_BigRationalTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
@@ -56,7 +58,7 @@ public class Math_BigRationalTest {
         BigRational x;
         x = BigRational.valueOf("123.456789");
         BigRational result;
-        BigRational expResult ;
+        BigRational expResult;
         int oom;
         // Test 1
         oom = 0;
@@ -109,5 +111,71 @@ public class Math_BigRationalTest {
                 BigInteger.valueOf(3));
         BigRational result = Math_BigRational.getCommonFactor(x, y);
         assertTrue(result.compareTo(expResult) == 0);
+    }
+
+    /**
+     * Test of roundToBD method, of class Math_BigRational.
+     */
+    @Test
+    public void testRoundToBD() {
+        System.out.println("roundToBD");
+        BigRational x;
+        int oom;
+        BigDecimal expResult;
+        BigDecimal result;
+        // Test 1
+        x = BigRational.valueOf(BigDecimal.ONE, BigDecimal.valueOf(3));
+        oom = -3;
+        expResult = new BigDecimal("0.333");
+        result = Math_BigRational.roundToBD(x, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of min method, of class Math_BigRational.
+     */
+    @Test
+    public void testMin() {
+        System.out.println("min");
+        BigRational x;
+        BigRational y;
+        x = BigRational.valueOf(BigDecimal.ONE, BigDecimal.valueOf(1000000000));
+        y = BigRational.valueOf(BigDecimal.ONE, BigDecimal.valueOf(1000000001));
+        BigRational expResult = null;
+        BigRational result = Math_BigRational.min(x, y);
+        assertTrue(result.compareTo(y) == 0);
+    }
+
+    /**
+     * Test of max method, of class Math_BigRational.
+     */
+    @Test
+    public void testMax() {
+        System.out.println("max");
+        BigRational x;
+        BigRational y;
+        x = BigRational.valueOf(BigDecimal.ONE, BigDecimal.valueOf(1000000000));
+        y = BigRational.valueOf(BigDecimal.ONE, BigDecimal.valueOf(1000000001));
+        BigRational expResult = null;
+        BigRational result = Math_BigRational.max(x, y);
+        assertTrue(result.compareTo(x) == 0);
+    }
+
+    /**
+     * Test of getX method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testGetX() {
+        // No test.
+    }
+
+    /**
+     * Test of compareTo method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testCompareTo() {
+        // No test.
     }
 }
