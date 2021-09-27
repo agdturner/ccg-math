@@ -20,29 +20,56 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * This is a r
+ * This is mostly a wrapper around BigRational essentially so it is 
+ * serializable. A few extra utility methods are included.
+ *
  * @author Andy Turner
  */
-public class Math_BigRational extends Math_Number {
+public class Math_BigRational extends Math_Number implements Comparable<Math_BigRational> {
 
     private static final long serialVersionUID = 1L;
     
     /**
-     * The BigRational to wrap.
+     * Zero
      */
-    public final BigRational x;
-    
+    public static final Math_BigRational ZERO = new Math_BigRational(BigRational.ZERO);
+
     /**
-     * Create a new instance.
-     * 
-     * @param x What {@link #x} is set to.
+     * One
      */
-    public Math_BigRational(BigRational x) {
-        this.x = x;
+    public static final Math_BigRational ONE = new Math_BigRational(BigRational.ONE);
+
+    /**
+     * Serializable numerator of the rational number.
+     */
+    public final BigDecimal numerator;
+
+    /**
+     * Serializable denominator of the rational number.
+     */
+    public final BigDecimal denominator;
+
+    /**
+     * Create a new {@code null} instance.
+     */
+    public Math_BigRational(){
+        numerator = null;
+        denominator = null;
     }
     
     /**
+     * Create a new instance.
+     *
+     * @param x The number to wrap.
+     */
+    public Math_BigRational(BigRational x) {
+        this.numerator = x.getNumerator();
+        this.denominator = x.getDenominator();
+    }
+
+    /**
      * Calculate and return the common factor of two rational numbers.
+     *
      * @param x One number.
      * @param y Another number.
      * @return The common factor of the two numbers x and y.
@@ -58,10 +85,10 @@ public class Math_BigRational extends Math_Number {
         BigInteger gcdd = xrd.gcd(yrd);
         return BigRational.valueOf(gcdn, gcdd);
     }
-    
+
     /**
      * Always rounds down.
-     * 
+     *
      * @param x The value to round.
      * @param oom The order of magnitude to round to.
      * @return A new value which is x rounded down to {@code oom}
@@ -70,10 +97,10 @@ public class Math_BigRational extends Math_Number {
         BigRational shift = BigRational.TEN.pow(oom);
         return x.divide(shift).integerPart().multiply(shift);
     }
-    
+
     /**
      * Always rounds down.
-     * 
+     *
      * @param x The value to round.
      * @param oom The order of magnitude to round to.
      * @return A new value which is x rounded down to {@code oom}
@@ -82,4 +109,85 @@ public class Math_BigRational extends Math_Number {
         BigRational shift = BigRational.TEN.pow(oom);
         return x.divide(shift).integerPart().multiply(shift).toBigDecimal();
     }
+    
+    /**
+     * A convenience method for finding the minimum of two BigRational numbers.
+     * @param x A number to compare with y to find out which is the minimum.
+     * @param y A number to compare with x to find out which is the minimum.
+     * @return The minimum of x and y.
+     */
+    public static BigRational min(BigRational x, BigRational y) {
+        if (x.compareTo(y) == -1) {
+            return x;
+        } else {
+            return y;
+        }
+    }
+
+    /**
+     * A convenience method for finding the minimum of two BigRational numbers.
+     * @param x A number to compare with y to find out which is the minimum.
+     * @param y A number to compare with x to find out which is the minimum.
+     * @return The minimum of x and y.
+     */
+    public static BigRational max(BigRational x, BigRational y) {
+        if (x.compareTo(y) == 1) {
+            return x;
+        } else {
+            return y;
+        }
+    }
+//    /**
+//     * A convenience method to construct from.
+//     * @param x The number to wrap.
+//     * @return x represented as Math_BigRational.
+//     */
+//    public static Math_BigRational valueOf(BigDecimal x) {
+//        return new Math_BigRational(BigRational.valueOf(x));
+//    }
+//
+//    public static Math_BigRational valueOf(BigInteger x) {
+//        return new Math_BigRational(BigRational.valueOf(x));
+//    }
+//
+//    public static Math_BigRational valueOf(String x) {
+//        return new Math_BigRational(BigRational.valueOf(x));
+//    }
+//
+//    public static Math_BigRational valueOf(double x) {
+//        return new Math_BigRational(BigRational.valueOf(x));
+//    }
+//
+//    public static Math_BigRational valueOf(int x) {
+//        return new Math_BigRational(BigRational.valueOf(x));
+//    }
+//
+//    public static Math_BigRational valueOf(long x) {
+//        return new Math_BigRational(BigRational.valueOf(BigInteger.valueOf(x)));
+//    }
+//
+//    public static Math_BigRational valueOf(BigDecimal numerator, BigDecimal denominator) {
+//        return new Math_BigRational(BigRational.valueOf(numerator, denominator));
+//    }
+//
+//    public static Math_BigRational valueOf(BigInteger numerator, BigInteger denominator) {
+//        return new Math_BigRational(BigRational.valueOf(numerator, denominator));
+//    }
+//
+//    public static Math_BigRational valueOf(int numerator, int denominator) {
+//        return new Math_BigRational(BigRational.valueOf(numerator, denominator));
+//    }
+    
+    /**
+     * @return The value of the BigRational this is wrapping. 
+     */
+    public BigRational getX() {
+        return BigRational.valueOf(numerator, denominator);
+    }
+    
+    @Override
+    public int compareTo(Math_BigRational o) {
+        return this.getX().compareTo(o.getX());
+    }
+    
 }
