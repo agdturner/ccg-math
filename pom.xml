@@ -4,7 +4,7 @@
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>ccg-math</artifactId>
-    <version>1.17</version>
+    <version>1.18-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>ccg-math</name>
@@ -14,7 +14,7 @@
         <url>git@github.com:agdturner/ccg-math.git</url>
         <connection>scm:git:git@github.com:agdturner/ccg-math.git</connection>
         <developerConnection>scm:git:git@github.com:agdturner/ccg-math</developerConnection>
-        <tag>ccg-math-1.17</tag>
+        <tag>ccg-math-1.18</tag>
     </scm>
     <licenses>
         <license>
