@@ -67,6 +67,12 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
         this.denominator = x.getDenominator();
     }
 
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() 
+                + "(" + getX().toIntegerRationalString() + ")";
+    }
+    
     /**
      * Calculate and return the common factor of two rational numbers.
      *
@@ -110,7 +116,6 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
         return x.divide(shift).integerPart().multiply(shift).toBigDecimal();
     }
     
-    
     /**
      * A convenience method for finding the minimum of this and x.
      * @param x A number to compare with this to find out which is the minimum.
@@ -121,6 +126,19 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
             return this;
         } else {
             return x;
+        }
+    }
+    
+    /**
+     * A convenience method for finding the minimum of this.getX() and x.
+     * @param x A number to compare with this to find out which is the minimum.
+     * @return The minimum of this and x.
+     */
+    public Math_BigRational min(BigRational x) {
+        if (this.getX().compareTo(x) == -1) {
+            return this;
+        } else {
+            return new Math_BigRational(x);
         }
     }
     
@@ -139,7 +157,7 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
     }
 
     /**
-     * A convenience method for finding the minimum of this and x.
+     * A convenience method for finding the maximum of this and x.
      * @param x A number to compare with this to find out which is the maximum.
      * @return The maximum of this and x.
      */
@@ -152,10 +170,23 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
     }
     
     /**
-     * A convenience method for finding the minimum of two BigRational numbers.
-     * @param x A number to compare with y to find out which is the minimum.
-     * @param y A number to compare with x to find out which is the minimum.
-     * @return The minimum of x and y.
+     * A convenience method for finding the maximum of this.getX() and x.
+     * @param x A number to compare with this to find out which is the maximum.
+     * @return The maximum of this and x.
+     */
+    public Math_BigRational max(BigRational x) {
+        if (this.getX().compareTo(x) == 1) {
+            return this;
+        } else {
+            return new Math_BigRational(x);
+        }
+    }
+    
+    /**
+     * A convenience method for finding the maximum of two BigRational numbers.
+     * @param x A number to compare with y to find out which is the maximum.
+     * @param y A number to compare with x to find out which is the maximum.
+     * @return The maximum of x and y.
      */
     public static BigRational max(BigRational x, BigRational y) {
         if (x.compareTo(y) == 1) {
