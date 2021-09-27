@@ -135,7 +135,7 @@ public class Math_BigRationalTest {
      * Test of min method, of class Math_BigRational.
      */
     @Test
-    public void testMin() {
+    public void testMin_BigRational_BigRational() {
         System.out.println("min");
         BigRational x;
         BigRational y;
@@ -150,7 +150,7 @@ public class Math_BigRationalTest {
      * Test of max method, of class Math_BigRational.
      */
     @Test
-    public void testMax() {
+    public void testMax_Math_BigRational() {
         System.out.println("max");
         BigRational x;
         BigRational y;
@@ -177,5 +177,41 @@ public class Math_BigRationalTest {
     @Disabled
     public void testCompareTo() {
         // No test.
+    }
+
+    /**
+     * Test of min method, of class Math_BigRational.
+     */
+    @Test
+    public void testMin_Math_BigRational() {
+        System.out.println("min");
+        Math_BigRational x;
+        Math_BigRational instance;
+        Math_BigRational expResult;
+        Math_BigRational result;
+        // Test 1
+        x = new Math_BigRational(BigRational.valueOf(BigDecimal.ONE));
+        instance = new Math_BigRational(BigRational.valueOf(BigDecimal.ZERO));
+        expResult = instance;
+        result = instance.min(x);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of max method, of class Math_BigRational.
+     */
+    @Test
+    public void testMax_BigRational_BigRational() {
+        System.out.println("max");
+        Math_BigRational x;
+        Math_BigRational instance;
+        Math_BigRational expResult;
+        Math_BigRational result;
+        // Test 1
+        x = new Math_BigRational(BigRational.valueOf(BigDecimal.ONE));
+        instance = new Math_BigRational(BigRational.valueOf(BigDecimal.ZERO));
+        expResult = x;
+        result = instance.max(x);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 }
