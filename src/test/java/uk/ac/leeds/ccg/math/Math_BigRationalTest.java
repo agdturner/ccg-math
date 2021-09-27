@@ -214,4 +214,52 @@ public class Math_BigRationalTest {
         result = instance.max(x);
         assertTrue(expResult.compareTo(result) == 0);
     }
+
+    /**
+     * Test of min method, of class Math_BigRational.
+     */
+    @Test
+    public void testMin_BigRational() {
+        System.out.println("min");
+        BigRational x;
+        Math_BigRational instance;
+        Math_BigRational expResult;
+        Math_BigRational result;
+        // Test 1
+        x = BigRational.valueOf(BigDecimal.ONE);
+        instance = new Math_BigRational(BigRational.valueOf(BigDecimal.ZERO));
+        expResult = instance;
+        result = instance.min(x);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of max method, of class Math_BigRational.
+     */
+    @Test
+    public void testMax_BigRational() {
+        System.out.println("max");
+        BigRational x;
+        Math_BigRational instance;
+        Math_BigRational expResult;
+        Math_BigRational result;
+        // Test 1
+        x = BigRational.valueOf(BigDecimal.ONE);
+        instance = new Math_BigRational(BigRational.valueOf(BigDecimal.ZERO));
+        expResult = new Math_BigRational(x);
+        result = instance.max(x);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of toString method, of class Math_BigRational.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Math_BigRational instance = new Math_BigRational(BigRational.valueOf(10, 3));
+        String expResult = "Math_BigRational(3 1/3)";
+        String result = instance.toString();
+        assertTrue(expResult.equalsIgnoreCase(result));
+    }
 }
