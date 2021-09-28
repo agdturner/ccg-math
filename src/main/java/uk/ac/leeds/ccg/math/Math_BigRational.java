@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * This is mostly a wrapper around BigRational essentially so it is 
+ * This is mostly a wrapper around BigRational essentially so it is
  * serializable. A few extra utility methods are included.
  *
  * @author Andy Turner
@@ -28,7 +28,7 @@ import java.math.BigInteger;
 public class Math_BigRational extends Math_Number implements Comparable<Math_BigRational> {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Zero
      */
@@ -52,11 +52,11 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
     /**
      * Create a new {@code null} instance.
      */
-    public Math_BigRational(){
+    public Math_BigRational() {
         numerator = null;
         denominator = null;
     }
-    
+
     /**
      * Create a new instance.
      *
@@ -69,10 +69,30 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() 
+        return this.getClass().getSimpleName()
                 + "(" + getX().toIntegerRationalString() + ")";
     }
-    
+
+    /**
+     * @return A Float representation of this.
+     */
+    public float toFloat() {
+        return toFloat(getX());
+    }
+
+    /**
+     * @return A Float representation of this.
+     */
+    public static float toFloat(BigRational x) {
+        // Sometimes this return NaN!
+        float r = x.toFloat();
+        if (Float.isNaN(r)) {
+            return Float.parseFloat(x.toBigDecimal().toString());
+            //return Float.valueOf(x.toBigDecimal().toString());
+        }
+        return r;
+    }
+
     /**
      * Calculate and return the common factor of two rational numbers.
      *
@@ -115,9 +135,10 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
         BigRational shift = BigRational.TEN.pow(oom);
         return x.divide(shift).integerPart().multiply(shift).toBigDecimal();
     }
-    
+
     /**
      * A convenience method for finding the minimum of this and x.
+     *
      * @param x A number to compare with this to find out which is the minimum.
      * @return The minimum of this and x.
      */
@@ -128,9 +149,10 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
             return x;
         }
     }
-    
+
     /**
      * A convenience method for finding the minimum of this.getX() and x.
+     *
      * @param x A number to compare with this to find out which is the minimum.
      * @return The minimum of this and x.
      */
@@ -141,9 +163,10 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
             return new Math_BigRational(x);
         }
     }
-    
+
     /**
      * A convenience method for finding the minimum of two BigRational numbers.
+     *
      * @param x A number to compare with y to find out which is the minimum.
      * @param y A number to compare with x to find out which is the minimum.
      * @return The minimum of x and y.
@@ -158,6 +181,7 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
 
     /**
      * A convenience method for finding the maximum of this and x.
+     *
      * @param x A number to compare with this to find out which is the maximum.
      * @return The maximum of this and x.
      */
@@ -168,9 +192,10 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
             return x;
         }
     }
-    
+
     /**
      * A convenience method for finding the maximum of this.getX() and x.
+     *
      * @param x A number to compare with this to find out which is the maximum.
      * @return The maximum of this and x.
      */
@@ -181,9 +206,10 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
             return new Math_BigRational(x);
         }
     }
-    
+
     /**
      * A convenience method for finding the maximum of two BigRational numbers.
+     *
      * @param x A number to compare with y to find out which is the maximum.
      * @param y A number to compare with x to find out which is the maximum.
      * @return The maximum of x and y.
@@ -235,17 +261,17 @@ public class Math_BigRational extends Math_Number implements Comparable<Math_Big
 //    public static Math_BigRational valueOf(int numerator, int denominator) {
 //        return new Math_BigRational(BigRational.valueOf(numerator, denominator));
 //    }
-    
+
     /**
-     * @return The value of the BigRational this is wrapping. 
+     * @return The value of the BigRational this is wrapping.
      */
     public BigRational getX() {
         return BigRational.valueOf(numerator, denominator);
     }
-    
+
     @Override
     public int compareTo(Math_BigRational o) {
         return this.getX().compareTo(o.getX());
     }
-    
+
 }
