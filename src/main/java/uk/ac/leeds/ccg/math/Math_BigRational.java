@@ -20,20 +20,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
 
 /**
- * This was originally a wrapper around BigRational Version 2.3.0 of the
- * BigRational class in:
- * <a href="https://mvnrepository.com/artifact/ch.obermuhlner/big-math">https://mvnrepository.com/artifact/ch.obermuhlner/big-math</a>
- * <a href="https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java">https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java</a>
- * The wrapper made the class both Serializable and it extended Math_Number.
- *
- * The wrapper is inefficient and the BigRational class was standalone, so to
- * reduce dependencies the class was forked.
- *
  * A rational number represented as a quotient of two values.
  *
  * <p>
@@ -43,13 +31,15 @@ import java.util.stream.IntStream;
  *
  * <p>
  * <a href="http://en.wikipedia.org/wiki/Rational_number">Wikipedia: Rational
- * number</a></p>
+ * number</a>
+ * </p>
  *
  * <p>
  * The values are internally stored as {@link BigDecimal} (for performance
  * optimizations) but represented as {@link BigInteger} (for mathematical
  * correctness) when accessed with {@link #getNumeratorBigInteger()} and
- * {@link #getDenominatorBigInteger()}.</p>
+ * {@link #getDenominatorBigInteger()}.
+ * </p>
  *
  * <p>
  * The following basic calculations have no loss of precision:</p>
@@ -74,12 +64,27 @@ import java.util.stream.IntStream;
  * <p>
  * Any {@link Math_BigRational} value can be converted into an arbitrary
  * {@link #withPrecision(int) precision} (number of significant digits) or
- * {@link #withScale(int) scale} (number of digits after the decimal point).</p>
+ * {@link #withScale(int) scale} (number of digits after the decimal point).
+ * </p>
+ *
+ * <p>
+ * This was originally a wrapper around Version 2.3.0 of the BigRational class
+ * in:
+ * <a href="https://mvnrepository.com/artifact/ch.obermuhlner/big-math">https://mvnrepository.com/artifact/ch.obermuhlner/big-math</a>
+ * <a href="https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java">https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java</a>
+ * The wrapper made the class both Serializable and it extended Math_Number.
+ * </p>
+ * <p>
+ * The wrapper was not a great solution. Despite encouraging a new version of
+ * BigMath to be released, this didn't seem likely to happen. The BigRational
+ * class was standalone so was effectively duplicated, although some parts of
+ * the class to do with Bernoulli numbers were intentionally left out.
+ * </p>
  *
  * @author Eric Obermühlner, Andy Turner
  * @version 2.0
  */
-public class Math_BigRational extends Number implements Comparable<Math_BigRational>, Serializable {
+public class Math_BigRational extends Number implements Comparable<Math_BigRational> {
 
     private static final long serialVersionUID = 1L;
 
@@ -87,14 +92,17 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * The value 0 as {@link Math_BigRational}.
      */
     public static final Math_BigRational ZERO = new Math_BigRational(0);
+
     /**
      * The value 1 as {@link Math_BigRational}.
      */
     public static final Math_BigRational ONE = new Math_BigRational(1);
+
     /**
      * The value 2 as {@link Math_BigRational}.
      */
     public static final Math_BigRational TWO = new Math_BigRational(2);
+
     /**
      * The value 10 as {@link Math_BigRational}.
      */
@@ -122,16 +130,13 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     private Math_BigRational(BigDecimal num, BigDecimal denom) {
         BigDecimal n = num;
         BigDecimal d = denom;
-
         if (d.signum() == 0) {
             throw new ArithmeticException("Divide by zero");
         }
-
         if (d.signum() < 0) {
             n = n.negate();
             d = d.negate();
         }
-
         numerator = n;
         denominator = d;
     }
@@ -1123,16 +1128,19 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     }
 
     /**
-     * 
-     * @param positive If true then {@link Math_BigRational} created is positive.
-     * @param integerPart The whole integer part of the {@link Math_BigRational} created.
-     * @param fractionPart The fractional part of the {@link Math_BigRational} created.
+     *
+     * @param positive If true then {@link Math_BigRational} created is
+     * positive.
+     * @param integerPart The whole integer part of the {@link Math_BigRational}
+     * created.
+     * @param fractionPart The fractional part of the {@link Math_BigRational}
+     * created.
      * @param fractionRepeatPart The fractionRepeatPart.
      * @param exponentPart The exponentPart.
-     * @return  {@link Math_BigRational} created.
+     * @return {@link Math_BigRational} created.
      */
     public static Math_BigRational valueOf(boolean positive, String integerPart,
-            String fractionPart, String fractionRepeatPart, 
+            String fractionPart, String fractionRepeatPart,
             String exponentPart) {
         Math_BigRational result = ZERO;
         if (fractionRepeatPart != null && fractionRepeatPart.length() > 0) {
@@ -1214,67 +1222,6 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
             r = r.max(values[i]);
         }
         return r;
-    }
-
-    private static List<Math_BigRational> bernoulliCache = new ArrayList<>();
-
-    /**
-     * Calculates the Bernoulli number for the specified index.
-     *
-     * <p>
-     * This function calculates the <strong>first Bernoulli numbers</strong> and
-     * therefore <code>bernoulli(1)</code> returns -0.5</p>
-     * <p>
-     * Note that <code>bernoulli(x)</code> for all odd x &gt; 1 returns 0</p>
-     * <p>
-     * See: <a href="https://en.wikipedia.org/wiki/Bernoulli_number">Wikipedia:
-     * Bernoulli number</a></p>
-     *
-     * @param n the index of the Bernoulli number to be calculated (starting at
-     * 0)
-     * @return the Bernoulli number for the specified index
-     * @throws ArithmeticException if x is lesser than 0
-     */
-    public static Math_BigRational bernoulli(int n) {
-        if (n < 0) {
-            throw new ArithmeticException("Illegal bernoulli(n) for n < 0: n = " + n);
-        }
-        if (n == 1) {
-            return valueOf(-1, 2);
-        } else if (n % 2 == 1) {
-            return ZERO;
-        }
-
-        synchronized (bernoulliCache) {
-            int index = n / 2;
-
-            if (bernoulliCache.size() <= index) {
-                for (int i = bernoulliCache.size(); i <= index; i++) {
-                    Math_BigRational b = calculateBernoulli(i * 2);
-                    bernoulliCache.add(b);
-                }
-            }
-
-            return bernoulliCache.get(index);
-        }
-    }
-
-    private static Math_BigRational calculateBernoulli(int n) {
-        return IntStream.rangeClosed(0, n).parallel().mapToObj(k -> {
-            Math_BigRational jSum = ZERO;
-            Math_BigRational bin = ONE;
-            for (int j = 0; j <= k; j++) {
-                Math_BigRational jPowN = valueOf(j).pow(n);
-                if (j % 2 == 0) {
-                    jSum = jSum.add(bin.multiply(jPowN));
-                } else {
-                    jSum = jSum.subtract(bin.multiply(jPowN));
-                }
-
-                bin = bin.multiply(valueOf(k - j).divide(valueOf(j + 1)));
-            }
-            return jSum.divide(valueOf(k + 1));
-        }).reduce(ZERO, Math_BigRational::add);
     }
 
     @Override
