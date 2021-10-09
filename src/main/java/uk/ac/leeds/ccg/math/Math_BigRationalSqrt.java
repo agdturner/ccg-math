@@ -46,24 +46,24 @@ public class Math_BigRationalSqrt implements Serializable,
      * ZERO
      */
     public static final Math_BigRationalSqrt ZERO = new Math_BigRationalSqrt(
-            BigRational.ZERO, BigRational.ZERO);
+            Math_BigRational.ZERO, Math_BigRational.ZERO);
 
     /**
      * ONE
      */
     public static final Math_BigRationalSqrt ONE = new Math_BigRationalSqrt(
-            BigRational.ONE, BigRational.ONE);
+            Math_BigRational.ONE, Math_BigRational.ONE);
 
     /**
      * TWO
      */
     public static final Math_BigRationalSqrt TWO = new Math_BigRationalSqrt(
-            BigRational.TWO, 0, false);
+            Math_BigRational.TWO, 0, false);
 
     /**
      * The number for which {@code this} is the square root representation.
      */
-    protected final BigRational x;
+    protected final Math_BigRational x;
 
     /**
      * The Order of Magnitude used to calculate {@link #sqrtx}.
@@ -71,11 +71,11 @@ public class Math_BigRationalSqrt implements Serializable,
     protected int oomi;
 
     /**
-     * Square root of {@link #x} if this can be stored exactly as a BigRational
+     * Square root of {@link #x} if this can be stored exactly as a Math_BigRational
      * using {@link #oomi} for the precision of the calculation, otherwise it is
      * {@code null}.
      */
-    protected BigRational sqrtx;
+    protected Math_BigRational sqrtx;
 
     /**
      * If true then this is negative irrespective of whether {@link #x} is
@@ -107,7 +107,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param oomi The Order of Magnitude of the precision for the initial root
      * calculation.
      */
-    public Math_BigRationalSqrt(BigRational x, int oomi) {
+    public Math_BigRationalSqrt(Math_BigRational x, int oomi) {
         this(x, null, oomi, false);
     }
 
@@ -120,7 +120,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param oomi The Order of Magnitude of the precision for the initial root
      * calculation.
      */
-    public Math_BigRationalSqrt(BigRational x, int oomi, boolean negative) {
+    public Math_BigRationalSqrt(Math_BigRational x, int oomi, boolean negative) {
         this(x, null, oomi, negative);
     }
 
@@ -134,7 +134,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * calculation.
      */
     public Math_BigRationalSqrt(BigInteger x, int oomi) {
-        this(BigRational.valueOf(x), oomi, false);
+        this(Math_BigRational.valueOf(x), oomi, false);
     }
 
     /**
@@ -147,7 +147,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * calculation.
      */
     public Math_BigRationalSqrt(BigInteger x, int oomi, boolean negative) {
-        this(BigRational.valueOf(x), oomi, negative);
+        this(Math_BigRational.valueOf(x), oomi, negative);
     }
 
     /**
@@ -160,7 +160,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * calculation.
      */
     public Math_BigRationalSqrt(long x, int oomi) {
-        this(BigRational.valueOf(x), oomi, false);
+        this(Math_BigRational.valueOf(x), oomi, false);
     }
 
     /**
@@ -173,29 +173,29 @@ public class Math_BigRationalSqrt implements Serializable,
      * calculation.
      */
     public Math_BigRationalSqrt(long x, int oomi, boolean negative) {
-        this(BigRational.valueOf(x), oomi, negative);
+        this(Math_BigRational.valueOf(x), oomi, negative);
     }
 
     /**
      * No check is performed to test that {@code sqrtx} is indeed what would be
      * returned from {@link #getSqrt()} with {@code x} input. This is preferred
      * for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational, int)}
+     * {@link #Math_BigRationalSqrt(Math_BigRational, int)}
      * if the square root of {@code x} is known about. If {@code sqrt} is null
      * then by default {@link #negative} is set to {@code false}.
      *
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to. Cannot be {@code null}.
      */
-    public Math_BigRationalSqrt(BigRational x, BigRational sqrtx) {
-        this(x, sqrtx, 0, sqrtx.compareTo(BigRational.ZERO) == -1);
+    public Math_BigRationalSqrt(Math_BigRational x, Math_BigRational sqrtx) {
+        this(x, sqrtx, 0, sqrtx.compareTo(Math_BigRational.ZERO) == -1);
     }
 
     /**
      * No check is performed to test that {@code sqrtx} is indeed what would be
      * returned from {@link #getSqrt()} with {@code x} input. This is preferred
      * for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational, int)}
+     * {@link #Math_BigRationalSqrt(Math_BigRational, int)}
      * if the square root of {@code x} is known about. {@link #negative} is set
      * to {@code false}.
      *
@@ -206,7 +206,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param oomi The Order of Magnitude used to initialise the square root and
      * what {@link #oomi} is set to.
      */
-    public Math_BigRationalSqrt(BigRational x, BigRational sqrtx, int oomi) {
+    public Math_BigRationalSqrt(Math_BigRational x, Math_BigRational sqrtx, int oomi) {
         this(x, sqrtx, oomi, false);
     }
 
@@ -214,7 +214,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * No check is performed to test that {@code sqrtx} is indeed what would be
      * returned from {@link #getSqrt()} with {@code x} input. This is preferred
      * for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational, int)}
+     * {@link #Math_BigRationalSqrt(Math_BigRational, int)}
      * if the square root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
@@ -225,17 +225,17 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param oomi The Order of Magnitude used to initialise the square root and
      * what {@link #oomi} is set to.
      */
-    public Math_BigRationalSqrt(BigRational x, BigRational sqrtx, int oomi,
+    public Math_BigRationalSqrt(Math_BigRational x, Math_BigRational sqrtx, int oomi,
             boolean negative) {
         this.x = x.reduce().abs();
         this.negative = negative;
         this.oomi = oomi;
         if (sqrtx == null) {
-            if (x.compareTo(BigRational.ZERO) == 0) {
-                this.sqrtx = BigRational.ZERO;
+            if (x.compareTo(Math_BigRational.ZERO) == 0) {
+                this.sqrtx = Math_BigRational.ZERO;
             } else {
-                if (x.compareTo(BigRational.ONE) == 0) {
-                    this.sqrtx = BigRational.ONE;
+                if (x.compareTo(Math_BigRational.ONE) == 0) {
+                    this.sqrtx = Math_BigRational.ONE;
                 } else {
                     this.sqrtxapprox = getSqrt(oomi).toBigDecimal();
                     this.sqrtx = initSqrtx();
@@ -247,9 +247,9 @@ public class Math_BigRationalSqrt implements Serializable,
         init(oomi);
     }
 
-    private BigRational initSqrtx() {
-        if (BigRational.valueOf(this.sqrtxapprox.pow(2)).compareTo(x) == 0) {
-            return BigRational.valueOf(sqrtxapprox);
+    private Math_BigRational initSqrtx() {
+        if (Math_BigRational.valueOf(this.sqrtxapprox.pow(2)).compareTo(x) == 0) {
+            return Math_BigRational.valueOf(sqrtxapprox);
         } else {
             return null;
         }
@@ -259,7 +259,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * No check is performed to test that {@code sqrtx} is indeed what would be
      * returned from {@link #getSqrt()} with {@code x} as input. This is
      * preferred for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational, int)}
+     * {@link #Math_BigRationalSqrt(Math_BigRational, int)}
      * if the square root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
@@ -269,7 +269,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param sqrtxapprox What {@link #sqrtxapprox} is set to.
      * @param oom What {@link #oom} is set to.
      */
-    public Math_BigRationalSqrt(BigRational x, boolean negative, BigRational sqrtx, int oomi,
+    public Math_BigRationalSqrt(Math_BigRational x, boolean negative, Math_BigRational sqrtx, int oomi,
             BigDecimal sqrtxapprox, int oom) {
         this.x = x.reduce().abs();
         this.negative = negative;
@@ -308,7 +308,7 @@ public class Math_BigRationalSqrt implements Serializable,
     /**
      * @return {@link #x}.
      */
-    public BigRational getX() {
+    public Math_BigRational getX() {
         if (negative) {
             return x.abs().negate();
         } else {
@@ -320,7 +320,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return The square root of x if that square root is rational and
      * {@code null} otherwise.
      */
-    public final BigRational getSqrt() {
+    public final Math_BigRational getSqrt() {
         return this.sqrtx;
     }
 
@@ -328,8 +328,8 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param oom The Order of Magnitude precision to calculate square root to.
      * @return The square root accurate to oom precision.
      */
-    public final BigRational getSqrt(int oom) {
-        BigRational x0 = x;
+    public final Math_BigRational getSqrt(int oom) {
+        Math_BigRational x0 = x;
         if (negative) {
             x0 = x0.abs();
         }
@@ -343,7 +343,7 @@ public class Math_BigRationalSqrt implements Serializable,
             if (rd == null) {
                 return null;
             } else {
-                BigRational r = BigRational.valueOf(rn, rd);
+                Math_BigRational r = Math_BigRational.valueOf(rn, rd);
                 if (negative) {
                     r = r.negate();
                 }
@@ -463,22 +463,22 @@ public class Math_BigRationalSqrt implements Serializable,
         if (y.equals(ZERO)) {
             return this;
         }
-        BigRational ts = getSqrt();
+        Math_BigRational ts = getSqrt();
         if (ts != null) {
-            BigRational ys = y.getSqrt();
+            Math_BigRational ys = y.getSqrt();
             if (ys != null) {
-                BigRational tsays = ts.add(ys);
+                Math_BigRational tsays = ts.add(ys);
                 return new Math_BigRationalSqrt(tsays.pow(2), tsays, y.oomi);
             }
         }
         // General case
-        BigRational cf = Math_BigRational.getCommonFactor(x, y.x);
-        if (cf.compareTo(BigRational.ONE) == 0) {
+        Math_BigRational cf = Math_BigRational.getCommonFactor(x, y.x);
+        if (cf.compareTo(Math_BigRational.ONE) == 0) {
             return null;
         } else {
-            BigRational r = x.divide(cf);
-            BigRational ry = y.x.divide(cf);
-            BigRational d;
+            Math_BigRational r = x.divide(cf);
+            Math_BigRational ry = y.x.divide(cf);
+            Math_BigRational d;
             d = r.divide(ry);
             if (d.isInteger()) {
                 Math_BigRationalSqrt rr = new Math_BigRationalSqrt(r, y.oomi);
@@ -510,7 +510,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param y The number to be added.
      * @return {@code this} add {@code y}.
      */
-    public Math_BigRationalSqrt add(BigRational y) {
+    public Math_BigRationalSqrt add(Math_BigRational y) {
         return add(new Math_BigRationalSqrt(y.pow(2), y));
     }
 
@@ -532,7 +532,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return {@code this} multiplied by {@code y}.
      */
     public Math_BigRationalSqrt multiply(Math_BigRationalSqrt y) {
-        BigRational m = x.multiply(y.x);
+        Math_BigRational m = x.multiply(y.x);
         return getBigRationalSqrt(m, y);
     }
 
@@ -540,7 +540,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param y The number to multiply by.
      * @return {@code this} multiplied by {@code y}.
      */
-    public Math_BigRationalSqrt multiply(BigRational y) {
+    public Math_BigRationalSqrt multiply(Math_BigRational y) {
         return multiply(new Math_BigRationalSqrt(y.pow(2), y));
     }
 
@@ -549,11 +549,11 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return {@code this} divided by {@code y}.
      */
     public Math_BigRationalSqrt divide(Math_BigRationalSqrt y) {
-        BigRational d = x.divide(y.x);
+        Math_BigRational d = x.divide(y.x);
         return getBigRationalSqrt(d, y);
     }
 
-    private Math_BigRationalSqrt getBigRationalSqrt(BigRational x,
+    private Math_BigRationalSqrt getBigRationalSqrt(Math_BigRational x,
             Math_BigRationalSqrt y) {
         if (negative) {
             if (y.negative) {
@@ -574,7 +574,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param y The number to divide by.
      * @return {@code this} divided by {@code y}.
      */
-    public Math_BigRationalSqrt divide(BigRational y) {
+    public Math_BigRationalSqrt divide(Math_BigRational y) {
         return divide(new Math_BigRationalSqrt(y.pow(2), y));
     }
 
@@ -628,7 +628,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return The Order of Magnitude of the most significant digit of the
      * resulting square root.
      */
-    public static int getOOM(BigRational v, int oom) {
+    public static int getOOM(Math_BigRational v, int oom) {
         int oomn = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(v.getNumeratorBigInteger());
         int oomd = Math_BigInteger.getOrderOfMagnitudeOfMostSignificantDigit(v.getDenominatorBigInteger());
         int oom2 = oomn - oomd;
