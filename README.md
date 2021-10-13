@@ -22,7 +22,7 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 [JAR](https://repo1.maven.org/maven2/io/github/agdturner/ccg-math/2.0/ccg-math-2.0.jar)
 
 ## Example
-See [ccg-math-example](https://github.com/agdturner/ccg-math-example) for an example of how to set up and run the library.
+See [ccg-math-example](https://github.com/agdturner/ccg-math-example) for an example of how to set up and use the library.
 
 ## Notes
 [Math_BigRational](https://github.com/agdturner/ccg-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/number/Math_BigRational.java) is based on [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java), but has been slightly modified. Mostly this was to make it serializable.
