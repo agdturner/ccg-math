@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.number;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -629,7 +629,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return the resulting rational number
      * @throws ArithmeticException if the argument is 0 (division by zero)
      */
-    public Math_BigRational divide(int value) {
+    public Math_BigRational divide(long value) {
         return divide(BigInteger.valueOf(value));
     }
 
@@ -711,7 +711,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return the minimum rational number, either <code>this</code> or the
      * argument <code>value</code>
      */
-    private Math_BigRational min(Math_BigRational value) {
+    public Math_BigRational min(Math_BigRational value) {
         return compareTo(value) <= 0 ? this : value;
     }
 
@@ -722,7 +722,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return the minimum rational number, either <code>this</code> or the
      * argument <code>value</code>
      */
-    private Math_BigRational max(Math_BigRational value) {
+    public Math_BigRational max(Math_BigRational value) {
         return compareTo(value) >= 0 ? this : value;
     }
 
@@ -1286,20 +1286,32 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         Math_BigRational shift = Math_BigRational.TEN.pow(oom);
         return x.divide(shift).integerPart().multiply(shift).toBigDecimal();
     }
-
+    
     /**
-     * A convenience method for finding the minimum of two Math_BigRational
-     * numbers.
-     *
-     * @param x A number to compare with y to find out which is the minimum.
-     * @param y A number to compare with x to find out which is the minimum.
-     * @return The minimum of x and y.
+     * @return If this has a fractional part, then it returns just the whole 
+     * integer number part.
      */
-    public static Math_BigRational min(Math_BigRational x, Math_BigRational y) {
-        if (x.compareTo(y) == -1) {
-            return x;
-        } else {
-            return y;
+    public BigInteger floor() {
+        BigDecimal fractionNumerator = numerator.remainder(denominator);
+        BigDecimal integerNumerator = numerator.subtract(fractionNumerator);
+        BigInteger r = integerNumerator.divide(denominator).toBigInteger();
+        if (fractionNumerator.compareTo(BigDecimal.ZERO) == -1) {
+            return r.subtract(BigInteger.ONE);
         }
+        return r;
+    }
+    
+    /**
+     * @return If this has a fractional part, then it returns the whole integer 
+     * number greater than it.
+     */
+    public BigInteger ceil() {
+        BigDecimal fractionNumerator = numerator.remainder(denominator);
+        BigDecimal integerNumerator = numerator.subtract(fractionNumerator);
+        BigInteger r = integerNumerator.divide(denominator).toBigInteger();
+        if (fractionNumerator.compareTo(BigDecimal.ZERO) == 1) {
+            return r.add(BigInteger.ONE);
+        }
+        return r;
     }
 }

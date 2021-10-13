@@ -13,22 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.TreeMap;
-import uk.ac.leeds.ccg.generic.util.Generic_Collections;
+import uk.ac.leeds.ccg.math.util.Math_Collections;
+import uk.ac.leeds.ccg.math.core.Math_Strings;
 
 /**
  * A class for {@code int} numbers.
  *
  * @author Andy Turner
- * @version 1.1
+ * @version 2.0
  */
-public class Math_Integer extends Math_Number {
-
-    private static final long serialVersionUID = 1L;
+public class Math_Integer {
 
     /**
      * In most instances this behaves like
@@ -55,7 +52,7 @@ public class Math_Integer extends Math_Number {
             if (s.isBlank()) {
                 return Integer.MIN_VALUE;
             }
-            if (s.equalsIgnoreCase(SNAN)) {
+            if (s.equalsIgnoreCase(Math_Strings.S_NAN)) {
                 return Integer.MIN_VALUE;
             }
             throw e;
@@ -83,7 +80,7 @@ public class Math_Integer extends Math_Number {
             if (s.isBlank()) {
                 return true;
             }
-            return s.equalsIgnoreCase(SNAN);
+            return s.equalsIgnoreCase(Math_Strings.S_NAN);
         }
     }
 
@@ -145,13 +142,13 @@ public class Math_Integer extends Math_Number {
         int n2 = n;
         for (int i = 2; i <= n2/2; i++) {
             if (n2 % i == 0) {
-                Generic_Collections.addToCount(r, i, 1);
+                Math_Collections.addToCount(r, i, 1);
                 n2 = n2 / i;
                 i = 2;
             }
         }
         if (!r.isEmpty()) {
-            Generic_Collections.addToCount(r, n2, 1);
+            Math_Collections.addToCount(r, n2, 1);
         }
         return r;
     }

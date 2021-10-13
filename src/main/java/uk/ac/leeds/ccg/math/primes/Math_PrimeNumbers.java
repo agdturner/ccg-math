@@ -24,7 +24,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
-import uk.ac.leeds.ccg.generic.io.Generic_IO;
+import uk.ac.leeds.ccg.io.IO_Utilities;
 
 /**
  * This class finds all prime numbers up to 2147483646 in about 20 seconds. It
@@ -127,9 +127,9 @@ public class Math_PrimeNumbers {
                     }
                 }
             }
-            Generic_IO.writeObject(PrimeList, fPrimeList);
-            Generic_IO.writeObject(PrimeIndexMap, fPrimeIndexMap);
-            Generic_IO.writeObject(numbList, fBitSet);
+            IO_Utilities.writeObject(PrimeList, fPrimeList);
+            IO_Utilities.writeObject(PrimeIndexMap, fPrimeIndexMap);
+            IO_Utilities.writeObject(numbList, fBitSet);
 
             System.out.format("array size         : %,11d%n", maxNumber);
             //      System.out.format("prime count        : %,11d%n", primeCount);
@@ -141,10 +141,10 @@ public class Math_PrimeNumbers {
             System.out.println("That took " + (stopTime - startTime)
                     / 1000.0 + " seconds");
         } else {
-            PrimeList = (ArrayList<Integer>) Generic_IO.readObject(fPrimeList);
-            PrimeIndexMap = (HashMap<Integer, Integer>) Generic_IO.readObject(
+            PrimeList = (ArrayList<Integer>) IO_Utilities.readObject(fPrimeList);
+            PrimeIndexMap = (HashMap<Integer, Integer>) IO_Utilities.readObject(
                     fPrimeIndexMap);
-            numbList = (BitSet) Generic_IO.readObject(fBitSet);
+            numbList = (BitSet) IO_Utilities.readObject(fBitSet);
             maxPrime = PrimeList.get(PrimeList.size() - 1);
         }
         while (getQuit().compareTo("-1") != 0) {

@@ -13,21 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
-import java.util.ArrayList;
 import java.util.TreeMap;
-import uk.ac.leeds.ccg.generic.util.Generic_Collections;
+import uk.ac.leeds.ccg.math.core.Math_Strings;
+import uk.ac.leeds.ccg.math.util.Math_Collections;
 
 /**
  * A class for {@code long} numbers.
  *
  * @author Andy Turner
- * @version 1.0.0
+ * @version 2.0
  */
-public class Math_Long extends Math_Number {
-
-    private static final long serialVersionUID = 1L;
+public class Math_Long {
 
     /**
      * {@code INTEGER_MAX_VALUE = Integer.MAX_VALUE}
@@ -59,7 +57,7 @@ public class Math_Long extends Math_Number {
             if (s.isBlank()) {
                 return Long.MIN_VALUE;
             }
-            if (s.equalsIgnoreCase(SNAN)) {
+            if (s.equalsIgnoreCase(Math_Strings.S_NAN)) {
                 return Long.MIN_VALUE;
             }
             throw e;
@@ -184,13 +182,13 @@ public class Math_Long extends Math_Number {
         long n2 = n;
         for (long i = 2; i <= n2/2; i++) {
             if (n2 % i == 0) {
-                Generic_Collections.addToCount(r, i, 1L);
+                Math_Collections.addToCount(r, i, 1L);
                 n2 = n2 / i;
                 i = 2;
             }
         }
         if (!r.isEmpty()) {
-            Generic_Collections.addToCount(r, n2, 1L);
+            Math_Collections.addToCount(r, n2, 1L);
         }
         return r;
     }

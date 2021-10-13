@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
 import ch.obermuhlner.math.big.BigDecimalMath;
 import java.math.BigDecimal;
@@ -36,11 +36,9 @@ import java.util.Random;
  * {@link RoundingMode#HALF_UP} is used.
  *
  * @author Andy Turner
- * @version 2.0.0
+ * @version 2.0
  */
-public class Math_BigDecimal extends Math_Number {
-
-    private static final long serialVersionUID = 1L;
+public class Math_BigDecimal {
 
     /**
      * A {@link Math_BigInteger} is often wanted (such as in Taylor Series
@@ -4188,68 +4186,6 @@ public class Math_BigDecimal extends Math_Number {
                         oom, rm);
             }
         }
-    }
-
-    /**
-     * Returns a pseudorandom number in the range [l, u].
-     *
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a>
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * @param l The smallest value to return.
-     * @param u The largest value to return.
-     * @return A pseudorandom number in the range [l, u]
-     */
-    public BigDecimal getRandom(int oom, BigDecimal l, BigDecimal u) {
-        //BigDecimal resolution = new BigDecimal(BigInteger.ONE,decimalPlaces);
-        BigDecimal range = u.subtract(l);
-        BigInteger rescaledRange = range.scaleByPowerOfTen(-oom).toBigInteger();
-        BigInteger rbi = bi.getRandom(rescaledRange);
-        BigDecimal rbd = new BigDecimal(rbi, -oom);
-        return rbd.add(l);
-    }
-
-    /**
-     * Provided for convenience.
-     *
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a>
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * @return a random BigDecimal between 0 and 1 inclusive which can have up
-     * to dp decimal places.
-     */
-    public BigDecimal getRandom(int oom) {
-        Random[] random = getRandoms(-oom);
-        String value = "0.";
-        int digit;
-        for (int i = 0; i < -oom; i++) {
-            digit = random[i].nextInt(10);
-            value += digit;
-        }
-        int length = value.length();
-        // Tidy values ending with zero's
-        while (value.endsWith("0")) {
-            length--;
-            value = value.substring(0, length);
-        }
-        if (value.endsWith(".")) {
-            value = "0";
-        }
-        return new BigDecimal(value);
     }
 
     /**

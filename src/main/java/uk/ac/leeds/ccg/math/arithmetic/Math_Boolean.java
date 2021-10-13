@@ -13,19 +13,17 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
-import uk.ac.leeds.ccg.generic.core.Generic_Strings;
+import uk.ac.leeds.ccg.math.core.Math_Strings;
 
 /**
  * A class for {@code boolean} numbers.
  *
  * @author Andy Turner
- * @version 1.0
+ * @version 2.0
  */
-public class Math_Boolean extends Math_Number {
-
-    private static final long serialVersionUID = 1L;
+public class Math_Boolean {
 
     /**
      * {@code if (isTrue(s)) {return true;} return isFalse(s);}
@@ -51,13 +49,13 @@ public class Math_Boolean extends Math_Number {
      * @return true iff s is equivalent to {@code true}.
      */
     public static boolean isTrue(String s) {
-        if (s.equalsIgnoreCase(Generic_Strings.s_True)) {
+        if (s.equalsIgnoreCase(Math_Strings.S_True)) {
             return true;
         }
-        if (s.equalsIgnoreCase(Generic_Strings.s_T)) {
+        if (s.equalsIgnoreCase(Math_Strings.S_T)) {
             return true;
         }
-        return s.equalsIgnoreCase(Generic_Strings.symbol_1);
+        return s.equalsIgnoreCase(Math_Strings.S_1);
     }
 
     /**
@@ -69,13 +67,13 @@ public class Math_Boolean extends Math_Number {
      * @return true iff s is equivalent to {@code false}.
      */
     public static boolean isFalse(String s) {
-        if (s.equalsIgnoreCase(Generic_Strings.s_False)) {
+        if (s.equalsIgnoreCase(Math_Strings.S_False)) {
             return true;
         }
-        if (s.equalsIgnoreCase(Generic_Strings.s_F)) {
+        if (s.equalsIgnoreCase(Math_Strings.S_F)) {
             return true;
         }
-        return s.equalsIgnoreCase(Generic_Strings.symbol_0);
+        return s.equalsIgnoreCase(Math_Strings.S_0);
     }
 
     /**

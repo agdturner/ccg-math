@@ -31,12 +31,16 @@ module uk.ac.leeds.ccg.math {
     /**
      * The agdt-java-generic library is used for some general functionality.
      */
-    requires transitive uk.ac.leeds.ccg.generic;
+    requires transitive uk.ac.leeds.ccg.io;
     
     /**
      * Exports.
      */
-    exports uk.ac.leeds.ccg.math;
+    exports uk.ac.leeds.ccg.math.arithmetic;
+    exports uk.ac.leeds.ccg.math.core;
     exports uk.ac.leeds.ccg.math.matrices;
+    exports uk.ac.leeds.ccg.math.number;
     exports uk.ac.leeds.ccg.math.primes;
+    exports uk.ac.leeds.ccg.math.random;
+    exports uk.ac.leeds.ccg.math.util;
 }

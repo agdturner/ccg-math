@@ -13,21 +13,20 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import uk.ac.leeds.ccg.math.core.Math_Strings;
 
 /**
  * A class for {@code double} numbers.
  *
  * @author Andy Turner
- * @version 1.0.0
+ * @version 2.0
  */
-public class Math_Double extends Math_Number {
-
-    private static final long serialVersionUID = 1L;
+public class Math_Double {
 
     /**
      * The number {@code Double.POSITIVE_INFINITY} for convenience.
@@ -67,7 +66,7 @@ public class Math_Double extends Math_Number {
             if (s.isBlank()) {
                 return Double.NaN;
             }
-            if (s.equalsIgnoreCase(SNAN)) {
+            if (s.equalsIgnoreCase(Math_Strings.S_NAN)) {
                 return Double.NaN;
             }
             if (s.equalsIgnoreCase(POSITIVE_INFINITY)) {
@@ -96,7 +95,7 @@ public class Math_Double extends Math_Number {
             if (s.isBlank()) {
                 return true;
             }
-            if (s.equalsIgnoreCase(SNAN)) {
+            if (s.equalsIgnoreCase(Math_Strings.S_NAN)) {
                 return true;
             }
             if (s.equalsIgnoreCase(POSITIVE_INFINITY)) {

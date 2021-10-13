@@ -13,17 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
+import uk.ac.leeds.ccg.math.core.Math_Strings;
 /**
  * A class for {@code short} numbers.
  *
  * @author Andy Turner
- * @version 1.1
+ * @version 2.0
  */
-public class Math_Short extends Math_Number {
-
-    private static final long serialVersionUID = 1L;
+public class Math_Short {
 
     /**
      * In most instances this behaves like
@@ -50,7 +49,7 @@ public class Math_Short extends Math_Number {
             if (s.isBlank()) {
                 return Short.MIN_VALUE;
             }
-            if (s.equalsIgnoreCase(SNAN)) {
+            if (s.equalsIgnoreCase(Math_Strings.S_NAN)) {
                 return Short.MIN_VALUE;
             }
             throw e;

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -23,11 +23,9 @@ import java.math.RoundingMode;
  * A class for {@code float} numbers.
  *
  * @author Andy Turner
- * @version 1.0.0
+ * @version 2.0
  */
-public class Math_Float extends Math_Number {
-
-    private static final long serialVersionUID = 1L;
+public class Math_Float {
 
     /**
      * {@code Float.toString(Float.NaN)}.

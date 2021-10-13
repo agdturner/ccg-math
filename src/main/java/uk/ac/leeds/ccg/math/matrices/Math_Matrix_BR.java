@@ -15,11 +15,11 @@
  */
 package uk.ac.leeds.ccg.math.matrices;
 
-import ch.obermuhlner.math.big.BigRational;
 import java.util.Arrays;
+import uk.ac.leeds.ccg.math.number.Math_BigRational;
 
 /**
- * For processing matrices holding BigRational numbers.
+ * For processing matrices holding Math_BigRational numbers.
  *
  * @author Andy Turner
  * @version 1.0
@@ -29,12 +29,12 @@ public class Math_Matrix_BR {
     /**
      * The rows.
      */
-    protected final BigRational[][] rows;
+    protected final Math_BigRational[][] rows;
 
     /**
      * The columns.
      */
-    protected final BigRational[][] cols;
+    protected final Math_BigRational[][] cols;
 
     /**
      * For storing the
@@ -63,11 +63,11 @@ public class Math_Matrix_BR {
      *
      * @param m A rectangular matrix used to construct this.
      */
-    public Math_Matrix_BR(BigRational[][] m) {
+    public Math_Matrix_BR(Math_BigRational[][] m) {
         int nr = m.length;
         int nc = m[0].length;
-        this.rows = new BigRational[nr][nc];
-        this.cols = new BigRational[nc][nr];
+        this.rows = new Math_BigRational[nr][nc];
+        this.cols = new Math_BigRational[nc][nr];
         for (int r = 0; r < nr; r++) {
             for (int c = 0; c < nc; c++) {
                 rows[r][c] = m[r][c];
@@ -82,7 +82,7 @@ public class Math_Matrix_BR {
      * @param rows What {@link #rows} is set to.
      * @param cols What {@link #cols} is set to.
      */
-    protected Math_Matrix_BR(BigRational[][] rows, BigRational[][] cols) {
+    protected Math_Matrix_BR(Math_BigRational[][] rows, Math_BigRational[][] cols) {
         this.rows = rows;
         this.cols = cols;
     }
@@ -90,7 +90,7 @@ public class Math_Matrix_BR {
     @Override
     public String toString() {
         String r = this.getClass().getSimpleName() + "(";
-        for (BigRational[] row : rows) {
+        for (Math_BigRational[] row : rows) {
             for (int col = 0; col < cols.length; col++) {
                 r += "" + row[col] + " ";
             }
@@ -145,11 +145,11 @@ public class Math_Matrix_BR {
     public Math_Matrix_BR multiply(Math_Matrix_BR m) {
         Math_Matrix_BR r = null;
         if (cols.length == m.rows.length) {
-            BigRational[][] rrows = new BigRational[rows.length][m.cols.length];
-            BigRational[][] rcols = new BigRational[m.cols.length][rows.length];
+            Math_BigRational[][] rrows = new Math_BigRational[rows.length][m.cols.length];
+            Math_BigRational[][] rcols = new Math_BigRational[m.cols.length][rows.length];
             for (int row = 0; row < rows.length; row++) {
                 for (int col = 0; col < m.cols.length; col++) {
-                    BigRational v = BigRational.ZERO;
+                    Math_BigRational v = Math_BigRational.ZERO;
                     for (int i = 0; i < m.rows.length; i++) {
                         v = v.add(rows[row][i].multiply(m.rows[i][col]));
                     }
@@ -169,13 +169,13 @@ public class Math_Matrix_BR {
      * @param s The scalar to multiply by.
      * @return Result of multiplying {@code this} by {@code s}.
      */
-    public Math_Matrix_BR multiply(BigRational s) {
+    public Math_Matrix_BR multiply(Math_BigRational s) {
         Math_Matrix_BR r;
-        BigRational[][] rrows = new BigRational[rows.length][cols.length];
-        BigRational[][] rcols = new BigRational[cols.length][rows.length];
+        Math_BigRational[][] rrows = new Math_BigRational[rows.length][cols.length];
+        Math_BigRational[][] rcols = new Math_BigRational[cols.length][rows.length];
         for (int row = 0; row < rows.length; row++) {
             for (int col = 0; col < cols.length; col++) {
-                BigRational v = rows[row][col].multiply(s);
+                Math_BigRational v = rows[row][col].multiply(s);
                 rrows[row][col] = v;
                 rcols[col][row] = v;
             }
@@ -195,11 +195,11 @@ public class Math_Matrix_BR {
         Math_Matrix_BR r = null;
         if (cols.length == m.cols.length) {
             if (rows.length == m.rows.length) {
-                BigRational[][] rrows = new BigRational[rows.length][cols.length];
-                BigRational[][] rcols = new BigRational[cols.length][rows.length];
+                Math_BigRational[][] rrows = new Math_BigRational[rows.length][cols.length];
+                Math_BigRational[][] rcols = new Math_BigRational[cols.length][rows.length];
                 for (int row = 0; row < rows.length; row++) {
                     for (int col = 0; col < cols.length; col++) {
-                        BigRational v = rows[row][col].add(m.rows[row][col]);
+                        Math_BigRational v = rows[row][col].add(m.rows[row][col]);
                         rrows[row][col] = v;
                         rcols[col][row] = v;
                     }
@@ -216,7 +216,7 @@ public class Math_Matrix_BR {
      *
      * @return The calculated determinant of {@code this}.
      */
-    public BigRational getDeterminant() {
+    public Math_BigRational getDeterminant() {
         if (rows.length == cols.length) {
             return getDeterminant(rows);
         } else {
@@ -225,7 +225,7 @@ public class Math_Matrix_BR {
         }
     }
 
-    private BigRational getDeterminant(BigRational[][] m) {
+    private Math_BigRational getDeterminant(Math_BigRational[][] m) {
         switch (m.length) {
             case 1:
                 return m[0][0];
@@ -249,9 +249,9 @@ public class Math_Matrix_BR {
                         .subtract(m[0][0].multiply(m[1][2]).multiply(m[2][1]));
             default:
                 // Use Laplace formula recursively
-                BigRational r = BigRational.ZERO;
+                Math_BigRational r = Math_BigRational.ZERO;
                 for (int i = 0; i < m.length; i++) {
-                    BigRational sr = m[0][i].multiply(getDeterminant(
+                    Math_BigRational sr = m[0][i].multiply(getDeterminant(
                             getSubMatrix(m, i)));
                     if (i % 2 == 0) {
                         r = r.add(sr);
@@ -263,12 +263,12 @@ public class Math_Matrix_BR {
         }
     }
 
-    private BigRational[][] getSubMatrix(BigRational[][] m, int col) {
+    private Math_BigRational[][] getSubMatrix(Math_BigRational[][] m, int col) {
         int len = m.length;
         int len2 = len - 1;
         int col2 = col + 1;
         int r = 0;
-        BigRational[][] res = new BigRational[len2][len2];
+        Math_BigRational[][] res = new Math_BigRational[len2][len2];
         for (int i = 1; i < len; i++) {
             int c = 0;
             for (int j = 0; j < col; j++) {
@@ -292,11 +292,11 @@ public class Math_Matrix_BR {
      */
     public static Math_Matrix_BR getIdentityMatrix(int size) {
         Math_Matrix_BR r;
-        BigRational[][] rrows = getMatrix(size, size, BigRational.ZERO);
-        BigRational[][] rcols = getMatrix(size, size, BigRational.ZERO);
+        Math_BigRational[][] rrows = getMatrix(size, size, Math_BigRational.ZERO);
+        Math_BigRational[][] rcols = getMatrix(size, size, Math_BigRational.ZERO);
         for (int i = 0; i < size; i++) {
-            rrows[i][i] = BigRational.ONE;
-            rcols[i][i] = BigRational.ONE;
+            rrows[i][i] = Math_BigRational.ONE;
+            rcols[i][i] = Math_BigRational.ONE;
         }
         r = new Math_Matrix_BR(rrows, rcols);
         return r;
@@ -309,8 +309,8 @@ public class Math_Matrix_BR {
      * @return A matrix with the given number of rows and cols with all values
      * equal to v.
      */
-    public static BigRational[][] getMatrix(int rows, int cols, BigRational v) {
-        BigRational[][] m = new BigRational[rows][cols];
+    public static Math_BigRational[][] getMatrix(int rows, int cols, Math_BigRational v) {
+        Math_BigRational[][] m = new Math_BigRational[rows][cols];
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
                 m[r][c] = v;
@@ -322,8 +322,8 @@ public class Math_Matrix_BR {
     /**
      * @return A clone of {@link #rows}.
      */
-    public BigRational[][] getRows() {
-        BigRational[][] m = new BigRational[rows.length][cols.length];
+    public Math_BigRational[][] getRows() {
+        Math_BigRational[][] m = new Math_BigRational[rows.length][cols.length];
         for (int r = 0; r < rows.length; r++) {
             System.arraycopy(rows[r], 0, m[r], 0, cols.length);
         }
@@ -333,8 +333,8 @@ public class Math_Matrix_BR {
     /**
      * @return A clone of {@link #cols}.
      */
-    public BigRational[][] getCols() {
-        BigRational[][] m = new BigRational[cols.length][rows.length];
+    public Math_BigRational[][] getCols() {
+        Math_BigRational[][] m = new Math_BigRational[cols.length][rows.length];
         for (int c = 0; c < cols.length; c++) {
             System.arraycopy(cols[c], 0, m[c], 0, rows.length);
         }
@@ -351,8 +351,8 @@ public class Math_Matrix_BR {
      */
     public Math_Matrix_BR getTranspose() {
         if (mt == null) {
-            BigRational[][] rrows = new BigRational[cols.length][rows.length];
-            BigRational[][] rcols = new BigRational[rows.length][cols.length];
+            Math_BigRational[][] rrows = new Math_BigRational[cols.length][rows.length];
+            Math_BigRational[][] rcols = new Math_BigRational[rows.length][cols.length];
             for (int row = 0; row < rows.length; row++) {
                 for (int col = 0; col < cols.length; col++) {
                     rrows[col][row] = rows[row][col];
@@ -387,9 +387,9 @@ public class Math_Matrix_BR {
      * @param row The row index.
      * @return {@code true} iff the row has all zero values.
      */
-    public static boolean isZeroRow(BigRational[][] m, int row) {
+    public static boolean isZeroRow(Math_BigRational[][] m, int row) {
         for (int col = 0; col < m[0].length; col++) {
-            if (m[row][col].compareTo(BigRational.ZERO) != 0) {
+            if (m[row][col].compareTo(Math_BigRational.ZERO) != 0) {
                 return false;
             }
         }
@@ -400,9 +400,9 @@ public class Math_Matrix_BR {
      * @return {@code true} iff all values are zero.
      */
     public boolean isZero() {
-        for (BigRational[] row : rows) {
+        for (Math_BigRational[] row : rows) {
             for (int c = 0; c <= cols.length; c++) {
-                if (row[c].compareTo(BigRational.ZERO) != 0) {
+                if (row[c].compareTo(Math_BigRational.ZERO) != 0) {
                     return false;
                 }
             }
@@ -423,9 +423,9 @@ public class Math_Matrix_BR {
      * @param col The column index.
      * @return {@code true} iff the column has all zero values.
      */
-    public boolean isZeroCol(BigRational[][] m, int col) {
-        for (BigRational[] row : m) {
-            if (row[col].compareTo(BigRational.ZERO) == 0) {
+    public boolean isZeroCol(Math_BigRational[][] m, int col) {
+        for (Math_BigRational[] row : m) {
+            if (row[col].compareTo(Math_BigRational.ZERO) == 0) {
                 return false;
             }
         }
@@ -455,8 +455,8 @@ public class Math_Matrix_BR {
      * @param i Row index of a row to swap.
      * @param r Row index of a row to swap.
      */
-    private void swapRows(BigRational[][] m, int i, int r) {
-        BigRational[] mr0 = m[r];
+    private void swapRows(Math_BigRational[][] m, int i, int r) {
+        Math_BigRational[] mr0 = m[r];
         m[r] = m[i];
         m[i] = mr0;
     }
@@ -473,7 +473,7 @@ public class Math_Matrix_BR {
      */
     public Math_Matrix_BR getRowEchelonForm() {
         if (ref == null) {
-            BigRational[][] m = getRows();
+            Math_BigRational[][] m = getRows();
             int h = 0;
             /* Initialization of the pivot row */
             int k = 0;
@@ -481,7 +481,7 @@ public class Math_Matrix_BR {
             while (h < rows.length && k < cols.length) {
                 /* Find the k-th pivot: */
                 int i_max = getMaxRowIndex(m, k, h, rows.length);
-                if (m[i_max][k].compareTo(BigRational.ZERO) == 0) {
+                if (m[i_max][k].compareTo(Math_BigRational.ZERO) == 0) {
                     /* No pivot in this column, pass to next column */
                     k++;
                 } else {
@@ -490,9 +490,9 @@ public class Math_Matrix_BR {
                     }
                     /* Do for all rows below pivot: */
                     for (int i = h + 1; i < rows.length; i++) {
-                        BigRational f = m[i][k].divide(m[h][k]);
+                        Math_BigRational f = m[i][k].divide(m[h][k]);
                         /* Fill with zeros the lower part of pivot column: */
-                        m[i][k] = BigRational.ZERO;
+                        m[i][k] = Math_BigRational.ZERO;
                         /* Do for all remaining elements in current row: */
                         for (int j = k + 1; j < cols.length; j++) {
                             m[i][j] = m[i][j].subtract(m[h][j].multiply(f));
@@ -506,16 +506,16 @@ public class Math_Matrix_BR {
             for (h = rows.length - 1; h >= 0; h--) {
                 if (!Math_Matrix_BR.isZeroRow(m, h)) {
                     int i = 0;
-                    BigRational v = null;
+                    Math_BigRational v = null;
                     for (int col = 0; col < cols.length; col++) {
-                        if (m[h][col].compareTo(BigRational.ZERO) != 0) {
+                        if (m[h][col].compareTo(Math_BigRational.ZERO) != 0) {
                             i = col;
                             v = m[h][col];
                             break;
                         }
                     }
                     if (v != null) {
-                        if (v.compareTo(BigRational.ONE) != 0) {
+                        if (v.compareTo(Math_BigRational.ONE) != 0) {
                             for (int col = i; col < cols.length; col++) {
                                 m[h][col] = m[h][col].divide(v);
                             }
@@ -540,14 +540,14 @@ public class Math_Matrix_BR {
      */
     public Math_Matrix_BR getReducedRowEchelonForm() {
         if (rref == null) {
-            BigRational[][] m = getRowEchelonForm().getRows();
+            Math_BigRational[][] m = getRowEchelonForm().getRows();
             for (int r = rows.length - 1; r >= 0; r--) {
                 if (!isZeroRow(m, r)) {
                     if (r >= 1) {
                         int c = getColIndexOfSecondNonZeroValue(m, r - 1);
                         if (c > 0) {
-                            BigRational d = m[r - 1][c];
-                            m[r - 1][c] = BigRational.ZERO;
+                            Math_BigRational d = m[r - 1][c];
+                            m[r - 1][c] = Math_BigRational.ZERO;
                             for (int col = c + 1; col < cols.length; col++) {
                                 // Subtract from all the rest of the columns
                                 m[r - 1][col] = m[r - 1][col].subtract(m[r][col].multiply(d));
@@ -558,8 +558,8 @@ public class Math_Matrix_BR {
                     } else {
                         int c = getColIndexOfSecondNonZeroValue(m, r);
                         if (c > 0) {
-                            BigRational d = m[r][c];
-                            m[r][c] = BigRational.ZERO;
+                            Math_BigRational d = m[r][c];
+                            m[r][c] = Math_BigRational.ZERO;
                             for (int col = c + 1; col < cols.length; col++) {
                                 // Subtract from all the rest of the columns
                                 m[r][col] = m[r][col].subtract(m[c][col].multiply(d));
@@ -582,10 +582,10 @@ public class Math_Matrix_BR {
      * second non-zero column (counting from the right). If there is no such
      * column, then return {@code -1}.
      */
-    public static int getColIndexOfSecondNonZeroValue(BigRational[][] m, int row) {
+    public static int getColIndexOfSecondNonZeroValue(Math_BigRational[][] m, int row) {
         boolean firstFound = false;
         for (int col = 0; col < m[0].length - 1; col++) {
-            if (m[row][col].compareTo(BigRational.ZERO) != 0) {
+            if (m[row][col].compareTo(Math_BigRational.ZERO) != 0) {
                 if (firstFound) {
                     return col;
                 } else {
@@ -604,9 +604,9 @@ public class Math_Matrix_BR {
      * @return The row index for the row in m with the largest value in col in
      * the row range [minrow, maxrow).
      */
-    public static int getMaxRowIndex(BigRational[][] m, int col, int minrow, int maxrow) {
+    public static int getMaxRowIndex(Math_BigRational[][] m, int col, int minrow, int maxrow) {
         int r = minrow;
-        BigRational max = m[minrow][col];
+        Math_BigRational max = m[minrow][col];
         for (int row = minrow; row < maxrow; row++) {
             if (m[row][col].compareTo(max) == 1) {
                 max = m[row][col];
@@ -631,9 +631,9 @@ public class Math_Matrix_BR {
      * value.
      * @return The column index for the column in row with the largest value.
      */
-    public static int getMaxColumnIndex(BigRational[][] m, int row) {
+    public static int getMaxColumnIndex(Math_BigRational[][] m, int row) {
         int c = 0;
-        BigRational max = m[row][0];
+        Math_BigRational max = m[row][0];
         for (int col = 0; col < m[0].length; col++) {
             if (m[row][col].compareTo(max) == 1) {
                 max = m[row][col];
@@ -645,7 +645,7 @@ public class Math_Matrix_BR {
 
 //    public class Vector {
 //
-//        public BigRational[] v;
+//        public Math_BigRational[] v;
 //
 //        /**
 //         * Create a new instance. A deep copy of v is made, so any changes to v
@@ -653,7 +653,7 @@ public class Math_Matrix_BR {
 //         *
 //         * @param v A vector used to construct this.
 //         */
-//        public Vector(BigRational[] v) {
+//        public Vector(Math_BigRational[] v) {
 //            this.v = v;
 //        }
 //

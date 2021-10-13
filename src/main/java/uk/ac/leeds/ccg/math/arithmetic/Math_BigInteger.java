@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -23,11 +23,8 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Random;
 import java.util.TreeMap;
-import uk.ac.leeds.ccg.generic.util.Generic_Collections;
-//import static uk.ac.leeds.ccg.math.Math_BigDecimal.exp;
+import uk.ac.leeds.ccg.math.util.Math_Collections;
 
 /**
  * A class of methods for computation with {@code BigInteger} numbers.
@@ -38,11 +35,9 @@ import uk.ac.leeds.ccg.generic.util.Generic_Collections;
  * {@link RoundingMode#HALF_UP} is used.
  *
  * @author Andy Turner
- * @version 1.0.0
+ * @version 2.0
  */
-public class Math_BigInteger extends Math_Number {
-
-    private static final long serialVersionUID = 1L;
+public class Math_BigInteger {
 
     /**
      * The number {@code Integer.MIN_VALUE} for convenience.
@@ -72,7 +67,7 @@ public class Math_BigInteger extends Math_Number {
     /**
      * For storing powersOfTwo for convenience.
      */
-    protected transient List<BigInteger> powersOfTwo;
+    public transient List<BigInteger> powersOfTwo;
 
     private static final BigInteger ZERO = BigInteger.ZERO;
     private static final BigInteger ONE = BigInteger.ONE;
@@ -721,7 +716,7 @@ public class Math_BigInteger extends Math_Number {
                 }
                 if (c > 0) {
                     //Generic_Collections.addToMapInteger(r, index, c);
-                    Generic_Collections.addToCount(r, index, c);
+                    Math_Collections.addToCount(r, index, c);
                 }
             } else {
                 break;
@@ -730,7 +725,7 @@ public class Math_BigInteger extends Math_Number {
         if (remainder.compareTo(ZERO) == 1) {
             //Generic_Collections.addToMapInteger(r,
             //       getPowersOfTwoDecomposition(remainder));
-            Generic_Collections.addToCount(r,
+            Math_Collections.addToCount(r,
                     getPowersOfTwoDecomposition(remainder));
         }
         return r;
@@ -841,99 +836,6 @@ public class Math_BigInteger extends Math_Number {
             return digits;
         }
         throw new ArithmeticException("!(x > 0)");
-    }
-
-    /**
-     * For getting a random number between {@code 0} and {@code upperLimit}.
-     *
-     * @param upperLimit The largest number that can be returned.
-     * @return A random integer as a BigInteger between 0 and upperLimit
-     * inclusive.
-     */
-    public BigInteger getRandom(BigInteger upperLimit) {
-        /**
-         * The original implementation of this method only gave unbiased results
-         * for upperLimit being a number made of only 9's such as 99999. For
-         * other numbers there was an uneven distribution of decimal digits
-         * (skewed towards 1), e.g. There are many more 1's in the numbers 0 to
-         * 1234567 than there are any other number, the second most common is 2
-         * and so on. For any range of numbers this distribution is different.
-         */
-        // Special cases
-        if (upperLimit.compareTo(ZERO) == 0) {
-            return ZERO;
-        }
-        if (upperLimit.compareTo(BigInteger.valueOf(Integer.MAX_VALUE - 1)) == -1) {
-            int randomInt = getRandoms()[0].nextInt(upperLimit.intValue() + 1);
-            return BigInteger.valueOf(randomInt);
-        }
-        TreeMap<Integer, Integer> upperLimit_PowersOfTwoDecomposition = getPowersOfTwoDecomposition(upperLimit);
-        //Random[] random = this.getRandomsMinLength(1);
-        BigInteger r = ZERO;
-        Integer key;
-        BigInteger powerOfTwo;
-        Integer multiples;
-        for (Entry<Integer, Integer> entry : upperLimit_PowersOfTwoDecomposition.entrySet()) {
-            key = entry.getKey();
-            powerOfTwo = powerOfTwo(key);
-            multiples = entry.getValue();
-            for (int i = 0; i < multiples; i++) {
-                r = r.add(getRandomFromPowerOf2(powerOfTwo));
-//                if (random[0].nextBoolean()){
-//                    r = r.add(getRandomFromPowerOf2(powerOfTwo));
-//                }
-            }
-//            if (random[0].nextBoolean()){
-//                r = r.add(ONE);
-//            }
-        }
-        return r;
-    }
-
-    /**
-     * Calculates and returns a pseudorandom number in the range 0 to 2^n. If
-     * necessary, this expands {@link #powerOfTwo(int)} until it contains
-     * {@code powerOf2}. The it uses {@link #randoms} to determine whether to
-     * add each power of two from {@code 1} (inclusive) up to {@code powersof2}
-     * (exclusive). It then randomly adds {@code 1} or {@code 0}.
-     *
-     * @param powerOf2 This must be 2 to the power of n (2^n) for some n.
-     * @return returns a pseudorandom number in the range 0 to 2^n.
-     */
-    private BigInteger getRandomFromPowerOf2(BigInteger powerOf2) {
-        Random[] random = getRandoms(1);
-        if (!powersOfTwo.contains(powerOf2)) {
-            int size = powersOfTwo.size();
-            BigInteger lastPower = powersOfTwo.get(size - 1);
-            BigInteger power = lastPower.multiply(TWO);
-            powersOfTwo.add(power);
-            while (power.compareTo(powerOf2) == -1) {
-                power = lastPower.multiply(TWO);
-                powersOfTwo.add(power);
-            }
-        }
-        int i0 = powersOfTwo.indexOf(powerOf2);
-        BigInteger r = ZERO;
-        int randomLength = random.length;
-        int i;
-        for (i = 0; i < i0; i++) {
-            int ri = i;
-            while (ri >= randomLength) {
-                ri -= randomLength;
-            }
-            if (random[ri].nextBoolean()) {
-                BigInteger powerOfTwo = powerOfTwo(i);
-                r = r.add(powerOfTwo);
-            }
-        }
-        int ri = i;
-        while (ri >= randomLength) {
-            ri -= randomLength;
-        }
-        if (random[ri].nextBoolean()) {
-            r = r.add(ONE);
-        }
-        return r;
     }
 
     /**

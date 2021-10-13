@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.number;
 
-import ch.obermuhlner.math.big.BigRational;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -23,6 +22,8 @@ import java.math.MathContext;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Objects;
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigDecimal;
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
 
 /**
  * This is a class to help with the storage and arithmetic of numbers that are
