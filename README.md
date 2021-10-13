@@ -21,8 +21,12 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 ```
 [JAR](https://repo1.maven.org/maven2/io/github/agdturner/ccg-math/2.0/ccg-math-2.0.jar)
 
+## Example
+See [ccg-math-example](https://github.com/agdturner/ccg-math-example) for an example of how to set up and run the library.
+
 ## Notes
-[Math_BigRational](https://github.com/agdturner/ccg-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/number/Math_BigRational.java) is based on [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java), but has been slightly modified. Mostly this was to make it serializable.  
+[Math_BigRational](https://github.com/agdturner/ccg-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/number/Math_BigRational.java) is based on [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java), but has been slightly modified. Mostly this was to make it serializable.
+The library is dependent on both [ccg-io](https://github.com/agdturner/ccg-io) and [big-math](https://github.com/eobermuhlner/big-math)
 
 ## Development plans/ideas
 - Conduct some computational comparisons, e.g. compare Math_BigDecimal.sqrt(BigDecimal, int, RoundingMode), BigDecimal.sqrt(MathContext) and BigDecimalMath.sqrt().
@@ -36,9 +40,9 @@ Developed and tested on [Java Development Kit, version 15](https://openjdk.java.
 ### New in 2.0
 - The library was repackaged and [Math_BigRational](https://github.com/agdturner/ccg-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/number/Math_BigRational.java) based on [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) was included and used in it's place.
 ### New in 1.9
-- [Math_BigRationalSqrt](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) for representing the square roots of [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) numbers, some of which (including the square roots of prime numbers) are [irrational](https://en.wikipedia.org/wiki/Irrational_number).
+- [Math_BigRationalSqrt](https://github.com/agdturner/ccg-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/Math_BigRationalSqrt.java) for representing the square roots of [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) numbers, some of which (including the square roots of prime numbers) are [irrational](https://en.wikipedia.org/wiki/Irrational_number).
 ### New in 1.8
-- [Math_Matrix_BR](https://github.com/agdturner/agdt-java-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/matrices/Math_Matrix_BR.java) for processing [matrices](https://en.wikipedia.org/wiki/Matrix_(mathematics)) of [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) numbers.
+- [Math_Matrix_BR](https://github.com/agdturner/ccg-math/blob/master/src/main/java/uk/ac/leeds/ccg/math/matrices/Math_Matrix_BR.java) for processing [matrices](https://en.wikipedia.org/wiki/Matrix_(mathematics)) of [BigRational](https://github.com/eobermuhlner/big-math/blob/master/ch.obermuhlner.math.big/src/main/java/ch/obermuhlner/math/big/BigRational.java) numbers.
 ### Origins
 - Early versions of this code were bundled together with lots of other code developed for academic research projects. A separation of code produced [agdt-java-generic](https://github.com/agdturner/agdt-java-generic) a generic higher level library upon which this depends. Since Version 1.7 an attempt is being made to provide a summary of changes for each version released on Maven Central.
 
