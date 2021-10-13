@@ -46,7 +46,7 @@ public class Math_Double {
      * <ul>
      * <li>If {@code s} contains only white space, then a
      * {@link java.lang.Double#NaN} is returned.</li>
-     * <li>If {@code s}.equalsIgnoreCase({@link #SNAN}), then a
+     * <li>If {@code s}.equalsIgnoreCase({@link Math_Strings#S_NAN}), then a
      * {@link java.lang.Double#NaN} is returned.</li>
      * <li>If {@code s}.equalsIgnoreCase({@link #POSITIVE_INFINITY}), then a
      * {@link java.lang.Double#POSITIVE_INFINITY} is returned.</li>

@@ -32,7 +32,7 @@ public class Math_Short {
      * <ul>
      * <li>If {@code s} contains only white space, then a
      * {@link java.lang.Short#MIN_VALUE} is returned.</li>
-     * <li>If {@code s}.equalsIgnoreCase({@link #SNAN}), then a
+     * <li>If {@code s}.equalsIgnoreCase({@link Math_Strings#S_NAN}), then a
      * {@link java.lang.Short#MIN_VALUE} is returned.</li>
      * </ul>
      *

@@ -56,15 +56,6 @@ public class Math_Random implements Serializable {
     
     /**
      * Initialises or reinitialise {@link #randoms}.
-     *
-     * @param length The size to initialise {@link #randoms}. This should be
-     * greater than or equal to 1 and less than or equal to
-     * {@link java.lang.Integer#MAX_VALUE}. Although for practical purposes, the
-     * larger it is, the more memory is required, so it is best to keep it as
-     * small as necessary.
-     * @param initialSeed The seed for the first random.
-     * @param seedIncrement The difference between the last seed and the next
-     * (the last seed being the initialSeed to begin with).
      */
     public Math_Random() {
         this(1, 0, 1);
@@ -97,22 +88,20 @@ public class Math_Random implements Serializable {
     /**
      *
      * Initialises or reinitialise {@link #randoms}. If {{@link #randoms} is
-     * {@code null}, then it is initialised using
-     * {@link #initRandoms(int, long, long)}. If {@link #randoms} is already
+     * {@code null}, then it is initialised. If {@link #randoms} is already
      * initialised, {@link #initialSeed} is the same as {@code initialSeed},
      * {@link #seedIncrement} is the same as {@code seedIncrement}, and
      * {@link #randoms}{@code .length} is less than or equal to {@code length},
      * then {@link #randoms} is returned. If {@link #randoms} is already
      * initialised, {@link #initialSeed} is the same as {@code initialSeed},
      * {@link #seedIncrement} is the same as {@code seedIncrement}, and
-     * {@link #randoms}{@code .length} is greater than {@code length}, then
+     * {@link #randoms} {@code length} is greater than {@code length}, then
      * {@link #randoms} is effectively extended with the existing {@link Random}
      * instances copied into the start of the replacement array with length
      * {@code length} and the additional instances initialised using
      * {@link #nextSeed} incremented with {@code seedIncrement} for each new
      * instance added until the array is filled. In all other case
-     * {{@link #randoms} is reinitialised using
-     * {@link #initRandoms(int, long, long)}.
+     * {{@link #randoms} is reinitialised.
      *
      * @param length The size to initialise {@link #randoms}. This should be
      * greater than or equal to 1 and less than or equal to

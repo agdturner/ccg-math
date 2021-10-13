@@ -29,7 +29,7 @@ module uk.ac.leeds.ccg.math {
     requires transitive ch.obermuhlner.math.big;
 
     /**
-     * The agdt-java-generic library is used for some general functionality.
+     * The ccg-io library is used for input and output.
      */
     requires transitive uk.ac.leeds.ccg.io;
     

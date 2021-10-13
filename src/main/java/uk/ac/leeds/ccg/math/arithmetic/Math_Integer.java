@@ -35,7 +35,7 @@ public class Math_Integer {
      * <ul>
      * <li>If {@code s} contains only white space, then a
      * {@link java.lang.Integer#MIN_VALUE} is returned.</li>
-     * <li>If {@code s}.equalsIgnoreCase({@link #SNAN}), then a
+     * <li>If {@code s}.equalsIgnoreCase({@link Math_Strings#S_NAN}), then a
      * {@link java.lang.Integer#MIN_VALUE} is returned.</li>
      * </ul>
      *

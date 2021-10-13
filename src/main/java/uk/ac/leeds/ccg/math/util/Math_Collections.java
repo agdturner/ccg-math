@@ -21,7 +21,6 @@ import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +37,7 @@ import uk.ac.leeds.ccg.math.arithmetic.Math_Math;
  */
 public class Math_Collections {
 
-        /**
-     *
+    /**
      * @param min Min
      * @param w Interval width
      * @param map Map
@@ -220,15 +218,15 @@ public class Math_Collections {
         }
         return r;
     }
-    
+
     /**
      * Adds to a mapped number. This would be better called addToValue. If m
      * does not already contain the key k then i is mapped to k. Otherwise the
      * value for k is obtained from m and i is added to it using
-     * {@link Generic_Math#add(java.lang.Number, java.lang.Number)}. This may
+     * {@link Math_Math#add(java.lang.Number, java.lang.Number)}. This may
      * result in infinite values being added to m or ArithmeticExceptions being
      * thrown all depending on the result of any additions as calculated via
-     * {@link Generic_Math#add(java.lang.Number, java.lang.Number)}.
+     * {@link Math_Math#add(java.lang.Number, java.lang.Number)}.
      *
      * @param <K> Key
      * @param <V> Number
