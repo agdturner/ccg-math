@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
 import ch.obermuhlner.math.big.BigDecimalMath;
 import java.math.BigDecimal;
@@ -23,8 +23,6 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
-//import org.hamcrest.Matchers;
-//import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +30,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import uk.ac.leeds.ccg.math.random.Math_Random;
 
 /**
  * @author Andy Turner
@@ -2637,72 +2636,6 @@ public class Math_BigDecimalTest {
         probability = new BigDecimal("0.0125");
         result = bd.randomUniformTest(rand, probability, oom, rm);
         assertFalse(result);
-    }
-
-    /**
-     * Test of getRandom method, of class Math_BigDecimal.
-     */
-    @Test
-    public void testGetRandom_3args() {
-        System.out.println("getRandom");
-        int oom;
-        BigDecimal expResult;
-        BigDecimal result;
-        Math_BigDecimal bd = new Math_BigDecimal();
-        // Test 1
-        oom = -10;
-        BigDecimal lowerBound = BigDecimal.ZERO;
-        BigDecimal upperBound = BigDecimal.ONE;
-        //expResult = new BigDecimal("0.4932604312");
-        expResult = new BigDecimal("0.4106274901");
-        result = bd.getRandom(oom, lowerBound, upperBound);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getRandom method, of class Math_BigDecimal.
-     */
-    @Test
-    public void testGetRandom_int() {
-        System.out.println("getRandom");
-        int oom;
-        BigDecimal expResult;
-        BigDecimal result;
-        long seed;
-        int numberOfRandomInstances;
-        Math_BigDecimal bd = new Math_BigDecimal();
-        // Test 1
-        seed = 0L;
-        numberOfRandomInstances = 1000;
-        bd.initRandoms(numberOfRandomInstances, seed, 1);
-        oom = -1000;
-        expResult = new BigDecimal(
-                "0.058427164938625116053827514073627362958427064938847316953827"
-                + "504950497261958417066150847306953817281750397261948349286150"
-                + "837206959584170649286150069538175049726172619483170639288372"
-                + "069528175039403972519483160561408372059428172716403962519473"
-                + "392851408362059494831605392851400594281740397251625194731605"
-                + "382783620594271640394938625184731695514073620584271627064938"
-                + "615084733827504973629584847316953827504905842716493862516150"
-                + "847306953817736295842706493849286150837206955049726195841706"
-                + "170639286140837228175039726194831706392851408372281740397261"
-                + "948394831605392851400594281740396251625184731605382773620594"
-                + "271640394938625184730695514073629584271616053827514073622716"
-                + "403962519473847306953827504905842716493862516150847306952817"
-                + "736295841706493839286150837206955049726195841706069538175049"
-                + "726127064938615084738372069528175039958417064928615061408372"
-                + "059428177261948317063928392851408362059440397251948316050594"
-                + "281740397251170639286140837283620594271640399483160539285140"
-                + "5140736205842716625194731605382738275049");
-//        BigDecimal smallProbability = new BigDecimal("0.0001");
-//        for (int i = 0; i < 10000; i ++) {
-//            result = Math_BigDecimal.getRandom(bd, dp);
-//            if (result.compareTo(smallProbability) == -1){
-//                System.out.println("result " + result.toPlainString());
-//            }
-//        }
-        result = bd.getRandom(oom);
-        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**

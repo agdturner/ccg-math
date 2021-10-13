@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
+import uk.ac.leeds.ccg.math.arithmetic.Math_Double;
 import java.math.BigInteger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;

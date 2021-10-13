@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.arithmetic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -130,60 +130,7 @@ public class Math_BigIntegerTest {
                 + "000000000000000000000000");
         assertEquals(expResult, result);
     }
-
-    @Test
-    public void testGetRandom() {
-        String funcName = "getRandom";
-        System.out.println("Test " + funcName);
-        BigInteger upperLimit;
-        BigInteger result;
-        BigInteger expResult;
-        Math_BigInteger bi = new Math_BigInteger();
-        int length;
-        long seed;
-        int seedIncrement;
-        // Test 1
-        int test = 1;
-        length = 100;
-        seed = 0L;
-        seedIncrement = 1;
-        bi.initRandoms(length, seed, seedIncrement);
-        upperLimit = new BigInteger("10000");
-        expResult = new BigInteger("4402");
-        result = bi.getRandom(upperLimit);
-        assertEquals(expResult, result);
-        // Test 2
-        test++;
-        length = 100;
-        seed = 0L;
-        bi.initRandoms(length, seed, seedIncrement);
-        upperLimit = new BigInteger("1000000000000000000000000000000000000000");
-        expResult = new BigInteger("628570378078456855601488631590048551226");
-        result = bi.getRandom(upperLimit);
-        //System.out.println(result);
-        assertEquals(expResult, result);
-        // Test 3
-        test++;
-        length = 100;
-        seed = 1234567L;
-        bi.initRandoms(length, seed, seedIncrement);
-        upperLimit = new BigInteger("10000");
-        expResult = new BigInteger("8804");
-        result = bi.getRandom(upperLimit);
-        //System.out.println(result);
-        assertEquals(expResult, result);
-        // Test 4
-        test++;
-        length = 100;
-        seed = 1234567L;
-        bi.initRandoms(length, seed, seedIncrement);
-        upperLimit = new BigInteger("1000000000000000000000000000000000000000");
-        expResult = new BigInteger("772480814235536969920545354438528182674");
-        //System.out.println(result);
-        result = bi.getRandom(upperLimit);
-        assertEquals(expResult, result);
-    }
-
+    
     @Test
     public void testGetPowersOfTwoDecomposition_1args() {
         String funcName = "getPowersOfTwoDecomposition_1args";

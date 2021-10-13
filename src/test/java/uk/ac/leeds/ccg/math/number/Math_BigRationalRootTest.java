@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math;
+package uk.ac.leeds.ccg.math.number;
 
 import ch.obermuhlner.math.big.BigRational;
 import java.math.BigDecimal;
@@ -99,7 +99,7 @@ public class Math_BigRationalRootTest {
     @Test
     public void testValueOf_BigRational() {
         System.out.println("valueOf");
-        BigRational v = BigRational.ZERO;
+        Math_BigRational v = Math_BigRational.ZERO;
         Math_BigRationalRoot expResult = new Math_BigRationalRoot(0, 0, 0);
         Math_BigRationalRoot result = Math_BigRationalRoot.valueOf(v, 0);
         assertTrue(expResult.compareTo(result) == 0);
