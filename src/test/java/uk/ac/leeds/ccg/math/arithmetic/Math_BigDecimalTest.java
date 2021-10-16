@@ -2779,6 +2779,7 @@ public class Math_BigDecimalTest {
         expResult = 0;
         result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
         assertEquals(expResult, result);
+        
     }
 
     /**
