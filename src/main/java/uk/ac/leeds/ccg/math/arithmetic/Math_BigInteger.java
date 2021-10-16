@@ -575,7 +575,7 @@ public class Math_BigInteger {
             initFactorials();
         }
         int size = factorials.size();
-        if (x <= size) {
+        if (x < size) {
             return factorials.get(x);
         }
         BigInteger r = factorials.get(size - 1);

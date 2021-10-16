@@ -43,4 +43,15 @@ module uk.ac.leeds.ccg.math {
     exports uk.ac.leeds.ccg.math.primes;
     exports uk.ac.leeds.ccg.math.random;
     exports uk.ac.leeds.ccg.math.util;
+    
+    /**
+     * Opens
+     */
+    opens uk.ac.leeds.ccg.math.arithmetic;
+    opens uk.ac.leeds.ccg.math.core;
+    opens uk.ac.leeds.ccg.math.matrices;
+    opens uk.ac.leeds.ccg.math.number;
+    opens uk.ac.leeds.ccg.math.primes;
+    opens uk.ac.leeds.ccg.math.random;
+    opens uk.ac.leeds.ccg.math.util;
 }
