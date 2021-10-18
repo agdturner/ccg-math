@@ -15,12 +15,10 @@
  */
 package uk.ac.leeds.ccg.math.number;
 
-import uk.ac.leeds.ccg.math.number.Math_BigRationalSqrt;
-import uk.ac.leeds.ccg.math.number.Math_BigRational;
-import ch.obermuhlner.math.big.BigRational;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.HashSet;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,7 +56,7 @@ public class Math_BigRationalSqrtTest {
      * Test of initSqrt method, of class Math_BigRationalSqrt.
      */
     @Test
-    public void testGetSqrt() {
+    public void testGetSqrt_0args() {
         System.out.println("getSqrt");
         Math_BigRational x;
         int oomi = -1;
@@ -329,16 +327,14 @@ public class Math_BigRationalSqrtTest {
      * Test of getX method, of class Math_BigRationalSqrt.
      */
     @Test
-    @Disabled
     public void testGetX() {
         // No Test
         System.out.println("getX");
-        Math_BigRationalSqrt instance = null;
-        Math_BigRational expResult = null;
+        Math_BigRationalSqrt instance = new Math_BigRationalSqrt(1, 0);
+        Math_BigRational expResult = Math_BigRational.ONE;
         Math_BigRational result = instance.getX();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -606,60 +602,205 @@ public class Math_BigRationalSqrtTest {
      * Test of min method, of class Math_BigRationalSqrt.
      */
     @Test
-    @Disabled
     public void testMin_Math_BigRationalSqrtArr() {
         System.out.println("min");
-        Math_BigRationalSqrt[] x = null;
-        Math_BigRationalSqrt expResult = null;
-        Math_BigRationalSqrt result = Math_BigRationalSqrt.min(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int oomi;
+        Math_BigRationalSqrt[] x;
+        Math_BigRationalSqrt expResult;
+        Math_BigRationalSqrt result;
+        // Test 1
+        oomi = -3;
+        x = new Math_BigRationalSqrt[2];
+        x[0] = new Math_BigRationalSqrt(1, oomi);
+        x[1] = new Math_BigRationalSqrt(2, oomi);
+        expResult = x[0];
+        result = Math_BigRationalSqrt.min(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x[1] = new Math_BigRationalSqrt(2, oomi, true);
+        expResult = x[1];
+        result = Math_BigRationalSqrt.min(x);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
      * Test of min method, of class Math_BigRationalSqrt.
      */
     @Test
-    @Disabled
     public void testMin_Collection() {
         System.out.println("min");
-        Collection<Math_BigRationalSqrt> c = null;
-        Math_BigRationalSqrt expResult = null;
-        Math_BigRationalSqrt result = Math_BigRationalSqrt.min(c);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Collection<Math_BigRationalSqrt> c;
+        int oomi;
+        Math_BigRationalSqrt expResult;
+        Math_BigRationalSqrt result;
+        // Test 1
+        oomi = -3;
+        c = new HashSet<>();
+        c.add(new Math_BigRationalSqrt(1, oomi));
+        c.add(new Math_BigRationalSqrt(2, oomi));
+        expResult = new Math_BigRationalSqrt(1, oomi);
+        result = Math_BigRationalSqrt.min(c);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        c.add(new Math_BigRationalSqrt(2, oomi, true));
+        expResult = new Math_BigRationalSqrt(2, oomi, true);
+        result = Math_BigRationalSqrt.min(c);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
      * Test of max method, of class Math_BigRationalSqrt.
      */
     @Test
-    @Disabled
     public void testMax_Math_BigRationalSqrtArr() {
         System.out.println("max");
-        Math_BigRationalSqrt[] x = null;
-        Math_BigRationalSqrt expResult = null;
-        Math_BigRationalSqrt result = Math_BigRationalSqrt.max(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int oomi;
+        Math_BigRationalSqrt[] x;
+        Math_BigRationalSqrt expResult;
+        Math_BigRationalSqrt result;
+        // Test 1
+        oomi = -3;
+        x = new Math_BigRationalSqrt[2];
+        x[0] = new Math_BigRationalSqrt(1, oomi);
+        x[1] = new Math_BigRationalSqrt(2, oomi);
+        expResult = x[1];
+        result = Math_BigRationalSqrt.max(x);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x[1] = new Math_BigRationalSqrt(2, oomi, true);
+        expResult = x[0];
+        result = Math_BigRationalSqrt.max(x);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
      * Test of max method, of class Math_BigRationalSqrt.
      */
     @Test
-    @Disabled
     public void testMax_Collection() {
         System.out.println("max");
-        Collection<Math_BigRationalSqrt> c = null;
-        Math_BigRationalSqrt expResult = null;
-        Math_BigRationalSqrt result = Math_BigRationalSqrt.max(c);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Collection<Math_BigRationalSqrt> c;
+        int oomi;
+        Math_BigRationalSqrt expResult;
+        Math_BigRationalSqrt result;
+        // Test 1
+        oomi = -3;
+        c = new HashSet<Math_BigRationalSqrt>();
+        c.add(new Math_BigRationalSqrt(1, oomi));
+        c.add(new Math_BigRationalSqrt(2, oomi));
+        expResult = new Math_BigRationalSqrt(2, oomi);
+        result = Math_BigRationalSqrt.max(c);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        c.add(new Math_BigRationalSqrt(2, oomi, true));
+        expResult = new Math_BigRationalSqrt(2, oomi);
+        result = Math_BigRationalSqrt.max(c);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of getSqrt method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testGetSqrt_int() {
+        System.out.println("getSqrt");
+        int oom = 0;
+        Math_BigRationalSqrt instance;
+        Math_BigRational expResult;
+        Math_BigRational result;
+        // Test 1
+        instance = new Math_BigRationalSqrt(1, oom);
+        expResult = Math_BigRational.ONE;
+        result = instance.getSqrt(oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        instance = new Math_BigRationalSqrt(2, oom);
+        expResult = Math_BigRational.valueOf("1.4");
+        oom = -1;
+        result = instance.getSqrt(oom);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of add method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testAdd_Math_BigRational() {
+        System.out.println("add");
+        Math_BigRational y;
+        Math_BigRationalSqrt instance;
+        Math_BigRationalSqrt expResult;
+        Math_BigRationalSqrt result;
+        int oom;
+        // Test 1
+        oom = -1;
+        y = Math_BigRational.ONE;
+        instance = new Math_BigRationalSqrt(1, oom);
+        result = instance.add(y);
+        expResult = new Math_BigRationalSqrt(4, 2, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of negate method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testNegate() {
+        System.out.println("negate");
+        int oom;
+        Math_BigRationalSqrt instance;
+        Math_BigRationalSqrt expResult;
+        Math_BigRationalSqrt result;
+        // Test 1
+        oom = -1;
+        instance = new Math_BigRationalSqrt(1, oom);
+        expResult = new Math_BigRationalSqrt(1, oom, true);
+        result = instance.negate();
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        oom = -1;
+        instance = new Math_BigRationalSqrt(1, oom, true);
+        expResult = new Math_BigRationalSqrt(1, oom);
+        result = instance.negate();
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of multiply method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testMultiply_Math_BigRational() {
+        System.out.println("multiply");
+        Math_BigRational y;
+        Math_BigRationalSqrt instance;
+        Math_BigRationalSqrt expResult;
+        Math_BigRationalSqrt result;
+        // Test 1
+        int oom = -1;
+        y = Math_BigRational.ONE;
+        instance = new Math_BigRationalSqrt(1, oom);
+        result = instance.multiply(y);
+        expResult = new Math_BigRationalSqrt(1, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of divide method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testDivide_Math_BigRational() {
+        System.out.println("divide");
+        Math_BigRational y;
+        Math_BigRationalSqrt instance;
+        Math_BigRationalSqrt expResult;
+        Math_BigRationalSqrt result;
+        // Test 1
+        int oom = -1;
+        y = Math_BigRational.ONE;
+        instance = new Math_BigRationalSqrt(1, oom);
+        result = instance.divide(y);
+        expResult = new Math_BigRationalSqrt(1, oom);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
 }
