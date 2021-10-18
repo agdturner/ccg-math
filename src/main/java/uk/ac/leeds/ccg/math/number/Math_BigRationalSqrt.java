@@ -165,6 +165,20 @@ public class Math_BigRationalSqrt implements Serializable,
     }
 
     /**
+     * Creates a new instance. {@link #negative} is set to
+     * {@code false}.
+     *
+     * @param x What {@link #x} is set to.
+     * @param sqrtx What {@link #sqrtx} is set to.
+     * @param oomi The Order of Magnitude of the precision for the initial root
+     * calculation.
+     */
+    public Math_BigRationalSqrt(long x, long sqrtx, int oomi) {
+        this(Math_BigRational.valueOf(x), Math_BigRational.valueOf(sqrtx),
+                oomi, false);
+    }
+
+    /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
      * {@link #getSqrt()} with {@code x} as input.
      *
@@ -520,11 +534,22 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public Math_BigRationalSqrt negate() {
         if (negative) {
-            return new Math_BigRationalSqrt(x.abs(), false, sqrtx.abs(), oomi,
-                    sqrtxapprox.abs(), oom);
+            if (sqrtx == null) {
+                return new Math_BigRationalSqrt(x.abs(), false, sqrtx, oomi,
+                        sqrtxapprox.abs(), oom);
+            } else {
+                return new Math_BigRationalSqrt(x.abs(), false, sqrtx.abs(), oomi,
+                        sqrtxapprox, oom);
+            }
         } else {
-            return new Math_BigRationalSqrt(x.abs().negate(), true,
-                    sqrtx.abs().negate(), oomi, sqrtxapprox.abs().negate(), oom);
+            if (sqrtx == null) {
+                return new Math_BigRationalSqrt(x.abs().negate(), true,
+                    sqrtx, oomi, sqrtxapprox.abs().negate(), oom);
+            } else {
+                return new Math_BigRationalSqrt(x.abs().negate(), true,
+                    sqrtx.abs().negate(), oomi, sqrtxapprox, oom);
+            }
+            
         }
     }
 
@@ -616,7 +641,19 @@ public class Math_BigRationalSqrt implements Serializable,
 
     @Override
     public int compareTo(Math_BigRationalSqrt o) {
-        return x.compareTo(o.x);
+        if (negative) {
+            if (o.negative) {
+                return -x.compareTo(o.x);
+            } else {
+                return -1;
+            }
+        } else {
+            if (o.negative) {
+                return 1;
+            } else {
+                return x.compareTo(o.x);
+            }
+        }
     }
 
     /**
