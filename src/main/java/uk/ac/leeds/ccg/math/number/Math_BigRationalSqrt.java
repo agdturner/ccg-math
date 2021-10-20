@@ -28,12 +28,15 @@ import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
 /**
  * This is a class to help with the storage and arithmetic of numbers that are
  * square roots of positive numbers. Many such square roots are irrational and
- * so it is best not to compute them to a precision unless necessary. Sometimes
- * calculations can be simplified by realising that component terms cancel out.
- * For instance: the square root of 2 ({@code sqrt(2)}) multiplied by
- * {@code sqrt(2)} is {@code 2}; and {@code sqrt(2)} divided by {@code sqrt(2)}
- * is {@code 1}. This has application in geometry for calculating distances,
- * areas and volumes.
+ * so it is best not to compute them until necessary and then to do so knowing
+ * what precision is wanted. Sometimes calculations can be simplified by
+ * realising that component terms cancel out. For instance: the square root of 2
+ * ({@code sqrt(2)}) multiplied by {@code sqrt(2)} is {@code 2}; and
+ * {@code sqrt(2)} divided by {@code sqrt(2)} is {@code 1}. This has application
+ * in geometry for calculating distances, areas and volumes.
+ *
+ * Throughout <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order
+ * of Magnitude</a> (OOM) is abbreviated as such.
  *
  * @author Andy Turner
  * @version 1.1
@@ -72,15 +75,16 @@ public class Math_BigRationalSqrt implements Serializable,
     protected int oomi;
 
     /**
-     * Square root of {@link #x} if this can be stored exactly as a Math_BigRational
-     * using {@link #oomi} for the precision of the calculation, otherwise it is
-     * {@code null}.
+     * Square root of {@link #x} if this can be stored exactly as a
+     * Math_BigRational using {@link #oomi} for the precision of the
+     * calculation, otherwise it is {@code null}. This is always stored as a
+     * positive number. If it is negative, then {@link #negative} indicates
+     * this.
      */
     protected Math_BigRational sqrtx;
 
     /**
-     * If true then this is negative irrespective of whether {@link #x} is
-     * negative.
+     * If {@code true}, then the root is negative.
      */
     public final boolean negative;
 
@@ -165,8 +169,7 @@ public class Math_BigRationalSqrt implements Serializable,
     }
 
     /**
-     * Creates a new instance. {@link #negative} is set to
-     * {@code false}.
+     * Creates a new instance. {@link #negative} is set to {@code false}.
      *
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to.
@@ -192,56 +195,55 @@ public class Math_BigRationalSqrt implements Serializable,
     }
 
     /**
-     * No check is performed to test that {@code sqrtx} is indeed what would be
-     * returned from {@link #getSqrt()} with {@code x} input. This is preferred
-     * for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(Math_BigRational, int)}
-     * if the square root of {@code x} is known about. If {@code sqrt} is null
-     * then by default {@link #negative} is set to {@code false}.
+     * No check is performed to test that {@code sqrtx} is indeed the square
+     * root of {@code x}. This constructor is preferred for efficiency reasons
+     * over {@link #Math_BigRationalSqrt(Math_BigRational, int)} if the square
+     * root of {@code x} is known. If {@code sqrtx} is negative then
+     * {@link #negative} is set to {@code true} otherwise it is set to
+     * {@code false}.
      *
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to. Cannot be {@code null}.
      */
     public Math_BigRationalSqrt(Math_BigRational x, Math_BigRational sqrtx) {
-        this(x, sqrtx, 0, sqrtx.compareTo(Math_BigRational.ZERO) == -1);
+        this(x, sqrtx,
+                Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(
+                        sqrtx.toBigDecimal()));
     }
 
     /**
-     * No check is performed to test that {@code sqrtx} is indeed what would be
-     * returned from {@link #getSqrt()} with {@code x} input. This is preferred
-     * for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(Math_BigRational, int)}
-     * if the square root of {@code x} is known about. {@link #negative} is set
-     * to {@code false}.
+     * No check is performed to test that {@code sqrtx} the square root of
+     * {@code x}. This constructor is preferred for efficiency reasons over
+     * {@link #Math_BigRationalSqrt(Math_BigRational, int)} if the square root
+     * of {@code x} is known. If {@code sqrtx} is negative then
+     * {@link #negative} is set to {@code true} otherwise it is set to
+     * {@code false}.
      *
      * @param x What {@link #x} is set to.
-     * @param sqrtx What {@link #sqrtx} is set to unless it is {@code null} in
-     * which case an effort is made to calculate it based on the Order Of
-     * Magnitude of the least significant digit of {@code x}.
-     * @param oomi The Order of Magnitude used to initialise the square root and
-     * what {@link #oomi} is set to.
+     * @param sqrtx What {@link #sqrtx} is set to. Cannot be {@code null}.
+     * @param oomi The OOM used to initialise the square root and what
+     * {@link #oomi} is set to.
      */
-    public Math_BigRationalSqrt(Math_BigRational x, Math_BigRational sqrtx, int oomi) {
-        this(x, sqrtx, oomi, false);
+    public Math_BigRationalSqrt(Math_BigRational x, Math_BigRational sqrtx,
+            int oomi) {
+        this(x, sqrtx, oomi, sqrtx.compareTo(Math_BigRational.ZERO) == -1);
     }
 
     /**
-     * No check is performed to test that {@code sqrtx} is indeed what would be
-     * returned from {@link #getSqrt()} with {@code x} input. This is preferred
-     * for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(Math_BigRational, int)}
-     * if the square root of {@code x} is known about.
+     * No check is performed to test that {@code sqrtx} the square root of
+     * {@code x}. This constructor is preferred for efficiency reasons over
+     * {@link #Math_BigRationalSqrt(Math_BigRational, int)} if the square root
+     * of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
      * @param negative What {@link #negative} is set to.
-     * @param sqrtx What {@link #sqrtx} is set to unless it is {@code null} in
-     * which case an effort is made to calculate it based on the Order Of
-     * Magnitude of the least significant digit of {@code x}.
+     * @param sqrtx {@link #sqrtx} is set to {@code sqrtx.abs()} unless it is
+     * {@code null} in which case an effort is made to calculate it using {@code oomi}.
      * @param oomi The Order of Magnitude used to initialise the square root and
-     * what {@link #oomi} is set to.
+     * what {@link #oomi} is set to if {@code sqrtx} is {@code null}.
      */
-    public Math_BigRationalSqrt(Math_BigRational x, Math_BigRational sqrtx, int oomi,
-            boolean negative) {
+    public Math_BigRationalSqrt(Math_BigRational x, Math_BigRational sqrtx,
+            int oomi, boolean negative) {
         this.x = x.reduce().abs();
         this.negative = negative;
         this.oomi = oomi;
@@ -257,7 +259,7 @@ public class Math_BigRationalSqrt implements Serializable,
                 }
             }
         } else {
-            this.sqrtx = sqrtx;
+            this.sqrtx = sqrtx.abs();
         }
         init(oomi);
     }
@@ -274,14 +276,16 @@ public class Math_BigRationalSqrt implements Serializable,
      * No check is performed to test that {@code sqrtx} is indeed what would be
      * returned from {@link #getSqrt()} with {@code x} as input. This is
      * preferred for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(Math_BigRational, int)}
-     * if the square root of {@code x} is known about.
+     * {@link #Math_BigRationalSqrt(Math_BigRational, int)} if the square root
+     * of {@code x} is known about.
      *
-     * @param x What {@link #x} is set to.
+     * @param x What {@link #x} is set to. This should be positive.
      * @param negative What {@link #negative} is set to.
-     * @param sqrtx What {@link #sqrtx} is set to.
+     * @param sqrtx {@link #sqrtx} is set to. This should be positive if not
+     * null.
      * @param oomi What {@link #oomi} is set to.
-     * @param sqrtxapprox What {@link #sqrtxapprox} is set to.
+     * @param sqrtxapprox What {@link #sqrtxapprox} is set to. This should be
+     * positive if not null.
      * @param oom What {@link #oom} is set to.
      */
     public Math_BigRationalSqrt(Math_BigRational x, boolean negative, Math_BigRational sqrtx, int oomi,
@@ -336,6 +340,11 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@code null} otherwise.
      */
     public final Math_BigRational getSqrt() {
+        if (negative) {
+            if (sqrtx != null) {
+                return sqrtx.negate();
+            }
+        }
         return this.sqrtx;
     }
 
@@ -344,12 +353,8 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return The square root accurate to oom precision.
      */
     public final Math_BigRational getSqrt(int oom) {
-        Math_BigRational x0 = x;
-        if (negative) {
-            x0 = x0.abs();
-        }
-        BigDecimal num = x0.getNumerator();
-        BigDecimal den = x0.getDenominator();
+        BigDecimal num = x.getNumerator();
+        BigDecimal den = x.getDenominator();
         BigDecimal rn = Math_BigDecimal.sqrt(num, oom);
         if (rn == null) {
             return null;
@@ -538,18 +543,17 @@ public class Math_BigRationalSqrt implements Serializable,
                 return new Math_BigRationalSqrt(x.abs(), false, sqrtx, oomi,
                         sqrtxapprox.abs(), oom);
             } else {
-                return new Math_BigRationalSqrt(x.abs(), false, sqrtx.abs(), oomi,
-                        sqrtxapprox, oom);
+                return new Math_BigRationalSqrt(x.abs(), false, sqrtx.abs(),
+                        oomi, sqrtxapprox, oom);
             }
         } else {
             if (sqrtx == null) {
                 return new Math_BigRationalSqrt(x.abs().negate(), true,
-                    sqrtx, oomi, sqrtxapprox.abs().negate(), oom);
+                        sqrtx, oomi, sqrtxapprox.abs().negate(), oom);
             } else {
                 return new Math_BigRationalSqrt(x.abs().negate(), true,
-                    sqrtx.abs().negate(), oomi, sqrtxapprox, oom);
+                        sqrtx.abs().negate(), oomi, sqrtxapprox, oom);
             }
-            
         }
     }
 
