@@ -107,7 +107,7 @@ public class Math_BigRationalSqrtTest {
         x = new Math_BigRationalSqrt(
                 Math_BigRational.valueOf(10).divide(Math_BigRational.valueOf(3)), oomi);
         y = Math_BigRational.valueOf(-15).divide(Math_BigRational.valueOf(4));
-        expResult = new Math_BigRationalSqrt(y.pow(2).multiply(x.x).negate(), oomi);
+        expResult = new Math_BigRationalSqrt(y.pow(2).multiply(x.x), oomi, true);
         result = x.multiply(y);
         assertTrue(expResult.equals(result));
     }
@@ -461,7 +461,7 @@ public class Math_BigRationalSqrtTest {
         assertTrue(expResult.equals(result));
         // Test 7
         y = Math_BigRational.valueOf(-8).divide(Math_BigRational.valueOf(1));
-        expResult = new Math_BigRationalSqrt(x.getX().divide(y.pow(2)).negate(), oomi);
+        expResult = new Math_BigRationalSqrt(x.getX().divide(y.pow(2)), oomi, true);
         result = x.divide(y);
         assertTrue(expResult.equals(result));
         // Test 8
@@ -473,7 +473,7 @@ public class Math_BigRationalSqrtTest {
         assertTrue(expResult.equals(result));
         // Test 9
         y = Math_BigRational.valueOf(-1).divide(Math_BigRational.valueOf(3));
-        expResult = new Math_BigRationalSqrt(x.getX().divide(y.pow(2)).negate(), oomi);
+        expResult = new Math_BigRationalSqrt(x.getX().divide(y.pow(2)), oomi, true);
         result = x.divide(y);
         assertTrue(expResult.equals(result));
     }
@@ -559,6 +559,22 @@ public class Math_BigRationalSqrtTest {
         result = instance.divide(y);
         assertTrue(expResult.equals(result));
         // Test 13
+        aob = Math_BigRational.valueOf(-1).divide(Math_BigRational.valueOf(3));
+        cod = Math_BigRational.valueOf(-3);
+        y = new Math_BigRationalSqrt(aob, oomi);
+        instance = new Math_BigRationalSqrt(cod, oomi);
+        expResult = new Math_BigRationalSqrt(Math_BigRational.valueOf(9), oomi);
+        result = instance.divide(y);
+        assertTrue(expResult.equals(result));
+        // Test 14
+        aob = Math_BigRational.valueOf(1).divide(Math_BigRational.valueOf(3));
+        cod = Math_BigRational.valueOf(-3);
+        y = new Math_BigRationalSqrt(aob, oomi);
+        instance = new Math_BigRationalSqrt(cod, oomi);
+        expResult = new Math_BigRationalSqrt(Math_BigRational.valueOf(-9), oomi);
+        result = instance.divide(y);
+        assertTrue(expResult.equals(result));
+        // Test 15
         expResult = new Math_BigRationalSqrt(Math_BigRational.valueOf(1).divide(9).negate(), oomi);
         result = y.divide(instance);
         assertTrue(expResult.equals(result));
