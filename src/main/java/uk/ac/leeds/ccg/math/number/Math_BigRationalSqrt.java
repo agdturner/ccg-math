@@ -587,15 +587,15 @@ public class Math_BigRationalSqrt implements Serializable,
             Math_BigRationalSqrt y) {
         if (negative) {
             if (y.negative) {
-                return new Math_BigRationalSqrt(x, y.oomi);
+                return new Math_BigRationalSqrt(x, y.oomi, false);
             } else {
-                return new Math_BigRationalSqrt(x.negate(), y.oomi);
+                return new Math_BigRationalSqrt(x, y.oomi, true);
             }
         } else {
             if (y.negative) {
-                return new Math_BigRationalSqrt(x.negate(), y.oomi);
+                return new Math_BigRationalSqrt(x, y.oomi, true);
             } else {
-                return new Math_BigRationalSqrt(x, y.oomi);
+                return new Math_BigRationalSqrt(x, y.oomi, false);
             }
         }
     }
