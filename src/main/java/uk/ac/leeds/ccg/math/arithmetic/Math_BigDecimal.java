@@ -144,16 +144,120 @@ public class Math_BigDecimal {
         e = getE(oom, RoundingMode.DOWN);
         eOOM = oom;
     }
-    
+
     /**
      * For initialising and returning {@link #bi}.
+     *
      * @return {@link #bi} initialised if {@code null}
      */
     private Math_BigInteger getBi() {
-        if(bi == null) {
+        if (bi == null) {
             bi = new Math_BigInteger();
         }
         return bi;
+    }
+
+    /**
+     * @param v The value to return as a String.
+     * @return A String representation of {@code v} in 10 characters. This may
+     * involve rounding in which case {@link RoundingMode.HALF_UP} is used. If
+     * the default number has fewer than 10 characters it is padded with spaces.
+     * The returned String is always of length 10.
+     */
+    public String getStringValue(BigDecimal v) {
+        return getStringValue(v, 10);
+    }
+    
+    /**
+     * @param v The value to return as a String.
+     * @param n The length of the String returned. This must be greater than or
+     * equal to 10.
+     * @return A String representation of {@code v} in n characters. This may
+     * involve rounding in which case {@link RoundingMode.HALF_UP} is used. If
+     * the default number has fewer than 10 characters it is padded with spaces.
+     * The returned String is always of length 10.
+     */
+    public String getStringValue(BigDecimal v, int n) {
+        String r = v.toString();
+        if (r.length() > n) {
+            if (v.abs().compareTo(BigDecimal.ONE) == -1) {
+                int oomm = getOrderOfMagnitudeOfMostSignificantDigit(v);
+                int ooml = getOrderOfMagnitudeOfLeastSignificantDigit(v);
+                String oomms = Integer.toString(oomm);
+                int oommsl = oomms.length();
+                if (oommsl > n - 2) {
+                    return "  Epsilon ";
+                } else {
+                    int digits = n - 4 - oommsl;
+                    int d = 0;
+                    r = "~";
+                    if (v.compareTo(BigDecimal.ZERO) == -1) {
+                        d++;
+                        digits --;
+                        r += "-";
+                    }
+
+                    int oomd = ooml - oomm;
+                    BigDecimal rv;
+                    if (oomd < digits) {
+                        rv = round(v, oomm - digits);
+                    } else {
+                        rv = v;
+                    }
+                    String bis = rv.unscaledValue().toString();
+                    r += bis.substring(d, d + 1);
+                    d++;
+                    r += ".";
+                    for (int i = d; i < d + digits; i++) {
+                        r += bis.substring(i, i + 1);
+                    }
+                    r += "E" + oomm;
+                }
+            } else {
+                int ooml = getOrderOfMagnitudeOfLeastSignificantDigit(v);
+                int oomm = getOrderOfMagnitudeOfMostSignificantDigit(v);
+                String oomms = Integer.toString(oomm);
+                int oommsl = oomms.length();
+                int digits = n - 2 - oommsl;
+                int d = 0;
+                r = "~";
+                int oommsc = n - 1;
+                if (v.compareTo(BigDecimal.ZERO) == -1) {
+                    r += "-";
+                    if (oommsl > n - 2) {
+                        oommsc --;
+                    }
+                    d++;
+                }
+                if (oommsl > oommsc) {
+                    r += "Large";
+                } else {
+                int oomd = ooml - oomm;
+                BigDecimal rv;
+                if (oomd < digits) {
+                    rv = round(v, oomm - digits + 2 + d);
+                } else {
+                    rv = v;
+                }
+                String rvs = rv.toString();
+                r += rvs.substring(d, d + 1);
+                d++;
+                r += ".";
+                for (int i = d + 1; i < digits; i++) {
+                    r += rvs.substring(i, i + 1);
+                }
+                r += "E" + oomm;
+                }
+            }
+        }
+        while (r.length() < n - 1) {
+            r = " " + r + " ";
+        }
+        if (r.length() < n) {
+            r = " " + r;
+        }
+        //System.out.println(r.length());
+        return r;
     }
 
     /**
@@ -449,10 +553,10 @@ public class Math_BigDecimal {
 
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
-     * rounded to {@code oom} using {@link RoundingMode#HALF_UP}. This
-     * method is appropriate when {@code x} and or {@code y} are very large, and
-     * the precision of the result required is at an order of magnitude the
-     * square root of which is less than the magnitude of the larger of x and y.
+     * rounded to {@code oom} using {@link RoundingMode#HALF_UP}. This method is
+     * appropriate when {@code x} and or {@code y} are very large, and the
+     * precision of the result required is at an order of magnitude the square
+     * root of which is less than the magnitude of the larger of x and y.
      * Multiplication is only very time consuming for huge numbers, so to gain
      * some computational advantage of prior rounding the numbers have to be
      * perhaps over 100 digits in length. (TODO test timings, maybe efficiency
@@ -510,24 +614,24 @@ public class Math_BigDecimal {
 
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
-     * rounded to {@code oom} using {@link RoundingMode#HALF_UP}. This
-     * method is appropriate when {@code x} and/or {@code y} are very large, and
-     * the precision of the result required is at an order of magnitude the
-     * square root of which is less than the magnitude of the larger of
-     * {@code x} and/or {@code y}. Multiplication is only very time consuming
-     * for huge and/or very precise numbers, so to gain some computational
-     * advantage of prior rounding the numbers being multiplied may have to be
-     * very big and/or very precise. Some timing experiments should be performed
-     * to test efficiencies... If the OOM of {@code x} and/or {@code y} are
-     * small relative to {@code oom} and {@code x} and/or {@code y} do not have
-     * a very large precision then it may be computationally advantageous to
-     * simply use
+     * rounded to {@code oom} using {@link RoundingMode#HALF_UP}. This method is
+     * appropriate when {@code x} and/or {@code y} are very large, and the
+     * precision of the result required is at an order of magnitude the square
+     * root of which is less than the magnitude of the larger of {@code x}
+     * and/or {@code y}. Multiplication is only very time consuming for huge
+     * and/or very precise numbers, so to gain some computational advantage of
+     * prior rounding the numbers being multiplied may have to be very big
+     * and/or very precise. Some timing experiments should be performed to test
+     * efficiencies... If the OOM of {@code x} and/or {@code y} are small
+     * relative to {@code oom} and {@code x} and/or {@code y} do not have a very
+     * large precision then it may be computationally advantageous to simply use
      * {@link #multiply(java.math.BigDecimal, java.math.BigDecimal, int, java.math.RoundingMode)}.
      *
      * @param x A number to multiply.
      * @param y A number to multiply.
      * @param oom The OOM the result is rounded to if rounding is necessary.
-     * @return {@code x*y} rounded to {@code oom} using {@link RoundingMode#HALF_UP}.
+     * @return {@code x*y} rounded to {@code oom} using
+     * {@link RoundingMode#HALF_UP}.
      */
     public static BigDecimal multiplyPriorRound(BigDecimal x, BigInteger y,
             int oom) {
@@ -536,9 +640,9 @@ public class Math_BigDecimal {
 
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
-     * rounded to {@code oom} using {@code rm}. If {@code x} and {@code y} are both very
-     * large and or very detailed then prior rounding may be computationally
-     * advantageous (@see also
+     * rounded to {@code oom} using {@code rm}. If {@code x} and {@code y} are
+     * both very large and or very detailed then prior rounding may be
+     * computationally advantageous (@see also
      * {@link #multiplyPriorRound(java.math.BigDecimal, java.math.BigDecimal, int, java.math.RoundingMode)}).
      *
      * @param x A number to multiply.
@@ -720,24 +824,24 @@ public class Math_BigDecimal {
 
     /**
      * Calculate and return {@code x} multiplied by {@code y} ({@code x*y})
-     * rounded to {@code oom} using {@link RoundingMode#HALF_UP}. This
-     * method is appropriate when {@code x} and/or {@code y} are very large, and
-     * the precision of the result required is at an order of magnitude the
-     * square root of which is less than the magnitude of the larger of
-     * {@code x} and/or {@code y}. Multiplication is only very time consuming
-     * for huge and/or very precise numbers, so to gain some computational
-     * advantage of prior rounding the numbers being multiplied may have to be
-     * very big and/or very precise. Some timing experiments should be performed
-     * to test efficiencies... If the OOM of {@code x} and/or {@code y} are
-     * small relative to {@code oom} and {@code x} and/or {@code y} do not have
-     * a very large precision then it may be computationally advantageous to
-     * simply use
+     * rounded to {@code oom} using {@link RoundingMode#HALF_UP}. This method is
+     * appropriate when {@code x} and/or {@code y} are very large, and the
+     * precision of the result required is at an order of magnitude the square
+     * root of which is less than the magnitude of the larger of {@code x}
+     * and/or {@code y}. Multiplication is only very time consuming for huge
+     * and/or very precise numbers, so to gain some computational advantage of
+     * prior rounding the numbers being multiplied may have to be very big
+     * and/or very precise. Some timing experiments should be performed to test
+     * efficiencies... If the OOM of {@code x} and/or {@code y} are small
+     * relative to {@code oom} and {@code x} and/or {@code y} do not have a very
+     * large precision then it may be computationally advantageous to simply use
      * {@link #multiply(java.math.BigDecimal, java.math.BigDecimal, int, java.math.RoundingMode)}.
      *
      * @param x A number to multiply.
      * @param y A number to multiply.
      * @param oom The OOM the result is rounded to if rounding is necessary.
-     * @return ({@code x*y}) rounded to {@code oom} using {@link RoundingMode#HALF_UP}.
+     * @return ({@code x*y}) rounded to {@code oom} using
+     * {@link RoundingMode#HALF_UP}.
      */
     public static BigDecimal multiplyPriorRound(BigDecimal x, BigDecimal y,
             int oom) {
@@ -745,11 +849,10 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculate and return {@code x} divided by {@code y} ({@code x/y})
-     * rounded to {@code oom} using {@code rm}. If {@code y} is
-     * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
-     * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
-     * {@link BigDecimal#ZERO} is returned.
+     * Calculate and return {@code x} divided by {@code y} ({@code x/y}) rounded
+     * to {@code oom} using {@code rm}. If {@code y} is {@link BigDecimal#ZERO}
+     * then an {@link ArithmeticException} is thrown. Otherwise if {@code x} is
+     * {@link BigDecimal#ZERO} then {@link BigDecimal#ZERO} is returned.
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
@@ -811,11 +914,10 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculate and return {@code x} divided by {@code y} ({@code x/y})
-     * rounded to {@code oom} using {@code rm}. If {@code y} is
-     * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
-     * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
-     * {@link BigDecimal#ZERO} is returned.
+     * Calculate and return {@code x} divided by {@code y} ({@code x/y}) rounded
+     * to {@code oom} using {@code rm}. If {@code y} is {@link BigDecimal#ZERO}
+     * then an {@link ArithmeticException} is thrown. Otherwise if {@code x} is
+     * {@link BigDecimal#ZERO} then {@link BigDecimal#ZERO} is returned.
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
@@ -829,11 +931,10 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculate and return {@code x} divided by {@code y} ({@code x/y})
-     * rounded to {@code oom} using {@code rm}. If {@code y} is
-     * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
-     * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
-     * {@link BigDecimal#ZERO} is returned.
+     * Calculate and return {@code x} divided by {@code y} ({@code x/y}) rounded
+     * to {@code oom} using {@code rm}. If {@code y} is {@link BigDecimal#ZERO}
+     * then an {@link ArithmeticException} is thrown. Otherwise if {@code x} is
+     * {@link BigDecimal#ZERO} then {@link BigDecimal#ZERO} is returned.
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
@@ -847,11 +948,10 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculate and return {@code x} divided by {@code y} ({@code x/y})
-     * rounded to {@code oom} using {@code rm}. If {@code y} is
-     * {@link BigDecimal#ZERO} then an {@link ArithmeticException} is thrown.
-     * Otherwise if {@code x} is {@link BigDecimal#ZERO} then
-     * {@link BigDecimal#ZERO} is returned.
+     * Calculate and return {@code x} divided by {@code y} ({@code x/y}) rounded
+     * to {@code oom} using {@code rm}. If {@code y} is {@link BigDecimal#ZERO}
+     * then an {@link ArithmeticException} is thrown. Otherwise if {@code x} is
+     * {@link BigDecimal#ZERO} then {@link BigDecimal#ZERO} is returned.
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
@@ -865,8 +965,8 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculate and return {@code x} divided by {@code y} ({@code x/y})
-     * without rounding.
+     * Calculate and return {@code x} divided by {@code y} ({@code x/y}) without
+     * rounding.
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
@@ -896,8 +996,8 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculate and return {@code x} divided by {@code y} ({@code x/y})
-     * without rounding.
+     * Calculate and return {@code x} divided by {@code y} ({@code x/y}) without
+     * rounding.
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
@@ -910,8 +1010,8 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculate and return {@code x} divided by {@code y} ({@code x/y})
-     * without rounding.
+     * Calculate and return {@code x} divided by {@code y} ({@code x/y}) without
+     * rounding.
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
@@ -924,8 +1024,8 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculate and return {@code x} divided by {@code y} ({@code x/y})
-     * without rounding.
+     * Calculate and return {@code x} divided by {@code y} ({@code x/y}) without
+     * rounding.
      *
      * @param x The numerator of the division.
      * @param y The denominator of the division.
@@ -938,7 +1038,7 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculate and return x raised to the power of y (x^y) for 
+     * Calculate and return x raised to the power of y (x^y) for
      * {@code (0 < y < 1)}.
      *
      * The following formulae are used:
@@ -952,7 +1052,7 @@ public class Math_BigDecimal {
      *
      * @param x The base.
      * @param y The exponent. Expected to be in the range (0,1).
-     * @param oom The OOM for the precision of the result. 
+     * @param oom The OOM for the precision of the result.
      * @param rm The {@link RoundingMode} used to round the final result.
      * @return x^y accurate to {@code oom}.
      */
@@ -1056,7 +1156,8 @@ public class Math_BigDecimal {
      * @param x x {@code >} 1
      * @param y y {@code >} 1
      * @param oom The number of decimal places the result has to be correct to.
-     * @param rm The {@link RoundingMode} used in the case rounding is necessary.
+     * @param rm The {@link RoundingMode} used in the case rounding is
+     * necessary.
      * @return true iff x^y {@code compare}.
      */
     public static boolean powerTestAbove(BigDecimal compare, BigDecimal x,

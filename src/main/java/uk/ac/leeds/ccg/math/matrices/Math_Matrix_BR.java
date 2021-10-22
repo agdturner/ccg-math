@@ -90,6 +90,7 @@ public class Math_Matrix_BR {
     @Override
     public String toString() {
         String r = this.getClass().getSimpleName() + "(";
+            r += "\n";
         for (Math_BigRational[] row : rows) {
             for (int col = 0; col < cols.length; col++) {
                 r += "" + row[col] + " ";
