@@ -164,7 +164,7 @@ public class Math_BigDecimal {
      * the default number has fewer than 10 characters it is padded with spaces.
      * The returned String is always of length 10.
      */
-    public String getStringValue(BigDecimal v) {
+    public static String getStringValue(BigDecimal v) {
         return getStringValue(v, 10);
     }
     
@@ -177,7 +177,7 @@ public class Math_BigDecimal {
      * the default number has fewer than 10 characters it is padded with spaces.
      * The returned String is always of length 10.
      */
-    public String getStringValue(BigDecimal v, int n) {
+    public static String getStringValue(BigDecimal v, int n) {
         String r = v.toString();
         if (r.length() > n) {
             if (v.abs().compareTo(BigDecimal.ONE) == -1) {

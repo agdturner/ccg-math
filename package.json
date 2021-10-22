@@ -1,22 +1,22 @@
 {
-  "name": "agdt-java-math",
+  "name": "ccg-math",
   "version": "1.14.0",
-  "description": "Generic Math Java",
+  "description": "Arithmetic and matrices.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/agdturner/agdt-java-math.git"
+    "url": "git+https://github.com/agdturner/ccg-math.git"
   },
   "keywords": [
-    "Java"
+    "Java, numerical mathematics"
   ],
   "author": "Andy Turner",
-  "license": "Apache 2",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/agdturner/agdt-java-math/issues"
+    "url": "https://github.com/agdturner/ccg-math/issues"
   },
-  "homepage": "https://github.com/agdturner/agdt-java-math#readme"
+  "homepage": "https://github.com/agdturner/ccg-math#readme"
 }
