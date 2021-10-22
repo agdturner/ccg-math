@@ -83,7 +83,7 @@ public class Math_Matrix_BRTest {
         Math_BigRational[][] m = new Math_BigRational[1][1];
         m[0][0] = Math_BigRational.ZERO;
         Math_Matrix_BR instance = new Math_Matrix_BR(m);
-        String expResult = "Math_Matrix_BR(0 " + "\n" + ")";
+        String expResult = "Math_Matrix_BR(" + "\n" + "0 " + "\n" + ")";
         System.out.println(expResult);
         String result = instance.toString();
         System.out.println(result);
@@ -517,6 +517,37 @@ public class Math_Matrix_BRTest {
         m[2][1] = Math_BigRational.valueOf(0);
         m[2][2] = Math_BigRational.valueOf(1);
         m[2][3] = Math_BigRational.valueOf(-1);
+        expResult = new Math_Matrix_BR(m);
+        assertTrue(expResult.equals(result));
+        
+        // Test 2
+        m = new Math_BigRational[3][4];
+        m[0][0] = Math_BigRational.valueOf(1);
+        m[0][1] = Math_BigRational.valueOf(2);
+        m[0][2] = Math_BigRational.valueOf(3);
+        m[0][3] = Math_BigRational.valueOf(0);
+        m[1][0] = Math_BigRational.valueOf(3);
+        m[1][1] = Math_BigRational.valueOf(4);
+        m[1][2] = Math_BigRational.valueOf(7);
+        m[1][3] = Math_BigRational.valueOf(2);
+        m[2][0] = Math_BigRational.valueOf(6);
+        m[2][1] = Math_BigRational.valueOf(5);
+        m[2][2] = Math_BigRational.valueOf(9);
+        m[2][3] = Math_BigRational.valueOf(11);
+        a = new Math_Matrix_BR(m);
+        result = a.getReducedRowEchelonForm();
+        m[0][0] = Math_BigRational.valueOf(1);
+        m[0][1] = Math_BigRational.valueOf(0);
+        m[0][2] = Math_BigRational.valueOf(0);
+        m[0][3] = Math_BigRational.valueOf(4);
+        m[1][0] = Math_BigRational.valueOf(0);
+        m[1][1] = Math_BigRational.valueOf(1);
+        m[1][2] = Math_BigRational.valueOf(0);
+        m[1][3] = Math_BigRational.valueOf(1);
+        m[2][0] = Math_BigRational.valueOf(0);
+        m[2][1] = Math_BigRational.valueOf(0);
+        m[2][2] = Math_BigRational.valueOf(1);
+        m[2][3] = Math_BigRational.valueOf(-2);
         expResult = new Math_Matrix_BR(m);
         assertTrue(expResult.equals(result));
     }

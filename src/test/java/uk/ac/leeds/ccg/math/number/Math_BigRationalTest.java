@@ -15,6 +15,7 @@
  */
 package uk.ac.leeds.ccg.math.number;
 
+import ch.obermuhlner.math.big.BigRational;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -51,6 +52,19 @@ public class Math_BigRationalTest {
 
     @AfterEach
     public void tearDown() {
+    }
+
+    @Test
+    public void testToFloat2() {
+        BigRational x = BigRational.valueOf("8.804462619980757911125181749462772084351754080848495898653087767533866267556634");
+//        System.out.println(x.toRationalString());
+//        System.out.println(x.toFloat());
+//        System.out.println(Float.valueOf(x.toBigDecimal().toString()));
+//        System.out.println(new BigDecimal("1000000000000000000000000000000000000000000000000000000000000000000000000000000").floatValue());
+        x = BigRational.valueOf("8.8044626199807579111251817494627720843");
+        System.out.println(x.toRationalString());
+        System.out.println(x.toFloat());
+        System.out.println(Float.valueOf(x.toBigDecimal().toString()));
     }
 
     @Test
@@ -238,8 +252,10 @@ public class Math_BigRationalTest {
         float expResult = 8.804462F;
         float result = x.toFloat();
         assertTrue(expResult == result);
+        //System.out.println(Float.valueOf(x.toBigDecimal().toString()));
+        System.out.println(new BigDecimal("1000000000000000000000000000000000000000000000000000000000000000000000000000000").floatValue());
     }
-    
+
     /**
      * Test of subtract method, of class Math_BigRational.
      */
@@ -558,7 +574,7 @@ public class Math_BigRationalTest {
         instance = Math_BigRational.valueOf(2);
         expResult = Math_BigRational.valueOf(-2);
         result = instance.negate();
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         expResult = Math_BigRational.valueOf(2);
@@ -579,7 +595,7 @@ public class Math_BigRationalTest {
         instance = Math_BigRational.valueOf(2);
         expResult = Math_BigRational.valueOf(1, 2);
         result = instance.reciprocal();
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(1, 2);
         expResult = Math_BigRational.valueOf(2);
@@ -600,7 +616,7 @@ public class Math_BigRationalTest {
         instance = Math_BigRational.valueOf(2);
         expResult = Math_BigRational.valueOf(2);
         result = instance.abs();
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         expResult = Math_BigRational.valueOf(2);
@@ -647,7 +663,7 @@ public class Math_BigRationalTest {
         instance = Math_BigRational.valueOf(2);
         expResult = Math_BigRational.valueOf(3);
         result = instance.increment();
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         expResult = Math_BigRational.valueOf(-1);
@@ -668,7 +684,7 @@ public class Math_BigRationalTest {
         instance = Math_BigRational.valueOf(2);
         expResult = Math_BigRational.valueOf(1);
         result = instance.decrement();
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         expResult = Math_BigRational.valueOf(-3);
@@ -691,13 +707,13 @@ public class Math_BigRationalTest {
         value = Math_BigRational.valueOf(3);
         expResult = Math_BigRational.valueOf(5);
         result = instance.add(value);
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         value = Math_BigRational.valueOf(3);
         expResult = Math_BigRational.valueOf(1);
         result = instance.add(value);
-        assertTrue(expResult.compareTo(result) == 0);  
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -715,13 +731,13 @@ public class Math_BigRationalTest {
         value = BigInteger.valueOf(3);
         expResult = Math_BigRational.valueOf(5);
         result = instance.add(value);
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         value = BigInteger.valueOf(3);
         expResult = Math_BigRational.valueOf(1);
         result = instance.add(value);
-        assertTrue(expResult.compareTo(result) == 0); 
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -739,13 +755,13 @@ public class Math_BigRationalTest {
         value = 3;
         expResult = Math_BigRational.valueOf(5);
         result = instance.add(value);
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         value = 3;
         expResult = Math_BigRational.valueOf(1);
         result = instance.add(value);
-        assertTrue(expResult.compareTo(result) == 0); 
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -763,13 +779,13 @@ public class Math_BigRationalTest {
         value = Math_BigRational.valueOf(3);
         expResult = Math_BigRational.valueOf(-1);
         result = instance.subtract(value);
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         value = Math_BigRational.valueOf(3);
         expResult = Math_BigRational.valueOf(-5);
         result = instance.subtract(value);
-        assertTrue(expResult.compareTo(result) == 0);  
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -787,13 +803,13 @@ public class Math_BigRationalTest {
         value = BigInteger.valueOf(3);
         expResult = Math_BigRational.valueOf(-1);
         result = instance.subtract(value);
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         value = BigInteger.valueOf(3);
         expResult = Math_BigRational.valueOf(-5);
         result = instance.subtract(value);
-        assertTrue(expResult.compareTo(result) == 0); 
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -811,13 +827,13 @@ public class Math_BigRationalTest {
         value = 3;
         expResult = Math_BigRational.valueOf(-1);
         result = instance.subtract(value);
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         value = 3;
         expResult = Math_BigRational.valueOf(-5);
         result = instance.subtract(value);
-        assertTrue(expResult.compareTo(result) == 0); 
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -835,7 +851,7 @@ public class Math_BigRationalTest {
         value = Math_BigRational.valueOf(3);
         expResult = Math_BigRational.valueOf(6);
         result = instance.multiply(value);
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         value = Math_BigRational.valueOf(3);
@@ -859,7 +875,7 @@ public class Math_BigRationalTest {
         value = BigInteger.valueOf(3);
         expResult = Math_BigRational.valueOf(6);
         result = instance.multiply(value);
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         value = BigInteger.valueOf(3);
@@ -883,7 +899,7 @@ public class Math_BigRationalTest {
         value = 3;
         expResult = Math_BigRational.valueOf(6);
         result = instance.multiply(value);
-        assertTrue(expResult.compareTo(result) == 0);        
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         instance = Math_BigRational.valueOf(-2);
         value = 3;
@@ -891,7 +907,7 @@ public class Math_BigRationalTest {
         result = instance.multiply(value);
         assertTrue(expResult.compareTo(result) == 0);
     }
-    
+
     /**
      * Test of floor method, of class Math_BigRational.
      */
@@ -912,7 +928,7 @@ public class Math_BigRationalTest {
         result = instance.floor();
         assertEquals(expResult, result);
     }
-    
+
     /**
      * Test of floor method, of class Math_BigRational.
      */

@@ -900,11 +900,11 @@ public class Math_BigDecimalTest {
      * Test of power method, of class Math_BigDecimal.
      */
     @Test
-    public void testPower_4args_3() {
+    public void testPower_4args_2() {
         System.out.println("power");
-        BigDecimal x = null;
-        int y = 0;
-        int oom = 0;
+        BigDecimal x;
+        int y;
+        int oom;
         RoundingMode rm = RoundingMode.HALF_UP;
         BigDecimal expResult;
         BigDecimal result;
@@ -1046,7 +1046,7 @@ public class Math_BigDecimalTest {
      * Test of power method, of class Math_BigDecimal.
      */
     @Test
-    public void testPower_4args_2() {
+    public void testPower_4args_3() {
         System.out.println("power");
         BigDecimal x;
         BigInteger y;
@@ -2161,13 +2161,15 @@ public class Math_BigDecimalTest {
      * Test of max method, of class Math_BigDecimal.
      */
     @Test
-    public void testMax() {
+    public void testMax_Collection() {
         System.out.println("max");
         Collection<BigDecimal> c = new ArrayList<>();
-        for (int i = -100; i < 101; i++) {
-            c.add(BigDecimal.valueOf(123456789, i));
+        BigDecimal x = BigDecimal.ONE;
+        for (int i = 0; i < 3; i++) {
+            c.add(x);
+            x = x.add(BigDecimal.ONE);
         }
-        BigDecimal expResult = BigDecimal.valueOf(123456789, -100);
+        BigDecimal expResult = BigDecimal.valueOf(3);
         BigDecimal result = Math_BigDecimal.max(c);
         assertTrue(expResult.compareTo(result) == 0);
     }
@@ -2307,7 +2309,7 @@ public class Math_BigDecimalTest {
      * Test of root method, of class Math_BigDecimal.
      */
     @Test
-    public void testRoot() {
+    public void testRoot_4args() {
         System.out.println("root");
         BigDecimal x;
         int root;
@@ -2510,7 +2512,7 @@ public class Math_BigDecimalTest {
      * Test of sqrt method, of class Math_BigDecimal.
      */
     @Test
-    public void testSqrt() {
+    public void testSqrt_3args() {
         System.out.println("sqrt");
         BigDecimal x;
         int oom;
@@ -2779,7 +2781,12 @@ public class Math_BigDecimalTest {
         expResult = 0;
         result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
         assertEquals(expResult, result);
-        
+        // Test 4
+        x = new BigDecimal("0.0001");;
+        scale = x.scale();
+        expResult = -4;
+        result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -3952,6 +3959,7 @@ public class Math_BigDecimalTest {
     public MathContext getMathContext(BigDecimal result, int oom, RoundingMode rm) {
         return new MathContext(Math_BigDecimal.getScaleOfMostSignificantDigit(result) + 1 - oom, rm);
     }
+
     /**
      * Test of cos method, of class Math_BigDecimal.
      */
@@ -4612,6 +4620,185 @@ public class Math_BigDecimalTest {
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getStringValue method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetStringValue_BigDecimal() {
+        System.out.println("getStringValue");
+        BigDecimal v = BigDecimal.valueOf(123456789101112L);
+        Math_BigDecimal instance = new Math_BigDecimal();
+        String expResult = "~1.2346E14";
+        String result = instance.getStringValue(v);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 2
+        v = BigDecimal.valueOf(-123456789101112L);
+        instance = new Math_BigDecimal();
+        expResult = "~-1.235E14";
+        result = instance.getStringValue(v);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 3
+        v = new BigDecimal("-0.123456789101112");
+        instance = new Math_BigDecimal();
+        expResult = "~-1.235E-1";
+        result = instance.getStringValue(v);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 4
+        v = new BigDecimal("-0.0000123");
+        instance = new Math_BigDecimal();
+        expResult = "-0.0000123";
+        result = instance.getStringValue(v);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 5
+        v = new BigDecimal("-0.0000000000123456789101112");
+        instance = new Math_BigDecimal();
+        expResult = "~-1.23E-11";
+        result = instance.getStringValue(v);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 6
+        v = new BigDecimal("-0.12345");
+        instance = new Math_BigDecimal();
+        expResult = " -0.12345 ";
+        result = instance.getStringValue(v);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 6
+        v = new BigDecimal("-0.123456");
+        instance = new Math_BigDecimal();
+        expResult = " -0.123456";
+        result = instance.getStringValue(v);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 7
+        v = new BigDecimal("-12345678910111232132132132132132132132543513213221"
+                + "333213213213213123213213213213213213213213123213129");
+        //v.toString().length()
+        instance = new Math_BigDecimal();
+        expResult = "~-1.23E100";
+        result = instance.getStringValue(v);
+        assertTrue(expResult.equalsIgnoreCase(result));
+    }
+
+    /**
+     * Test of min method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testMin_BigDecimalArr() {
+        System.out.println("min");
+        BigDecimal[] x = new BigDecimal[3];
+        x[0] = BigDecimal.ZERO;
+        x[1] = BigDecimal.ONE;
+        x[2] = BigDecimal.TEN;
+        BigDecimal expResult = BigDecimal.ZERO;
+        BigDecimal result = Math_BigDecimal.min(x);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of min method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testMin_Collection() {
+        System.out.println("min");
+        Collection<BigDecimal> c = new ArrayList<>();
+        BigDecimal x = BigDecimal.ONE;
+        for (int i = 0; i < 3; i++) {
+            c.add(x);
+            x = x.add(BigDecimal.ONE);
+        }
+        BigDecimal expResult = BigDecimal.valueOf(3);
+        BigDecimal result = Math_BigDecimal.max(c);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of max method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testMax_BigDecimalArr() {
+        System.out.println("max");
+        BigDecimal[] x = new BigDecimal[3];
+        x[0] = BigDecimal.ZERO;
+        x[1] = BigDecimal.ONE;
+        x[2] = BigDecimal.TEN;
+        BigDecimal expResult = BigDecimal.TEN;
+        BigDecimal result = Math_BigDecimal.max(x);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of root method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testRoot_3args() {
+        System.out.println("root");
+        // Not test as test covered by testRoot_4args
+    }
+
+    /**
+     * Test of sqrt method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testSqrt_BigDecimal_int() {
+        // Not test as test covered by testSqrt_3args
+    }
+
+    /**
+     * Test of getStringValue method, of class Math_BigDecimal.
+     */
+    @Test
+    public void testGetStringValue_BigDecimal_int() {
+        System.out.println("getStringValue");
+        int n = 11;
+        BigDecimal v = BigDecimal.valueOf(123456789101112L);
+        Math_BigDecimal instance = new Math_BigDecimal();
+        String expResult = "~1.23457E14";
+        String result = instance.getStringValue(v, n);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 2
+        v = BigDecimal.valueOf(-123456789101112L);
+        instance = new Math_BigDecimal();
+        expResult = "~-1.2346E14";
+        result = instance.getStringValue(v, n);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 3
+        v = new BigDecimal("-0.123456789101112");
+        instance = new Math_BigDecimal();
+        expResult = "~-1.2346E-1";
+        result = instance.getStringValue(v, n);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 4
+        v = new BigDecimal("-0.0000123");
+        instance = new Math_BigDecimal();
+        expResult = " -0.0000123";
+        result = instance.getStringValue(v, n);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 5
+        v = new BigDecimal("-0.0000000000123456789101112");
+        instance = new Math_BigDecimal();
+        expResult = "~-1.235E-11";
+        result = instance.getStringValue(v, n);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 6
+        v = new BigDecimal("-0.12345");
+        instance = new Math_BigDecimal();
+        expResult = "  -0.12345 ";
+        result = instance.getStringValue(v, n);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 6
+        v = new BigDecimal("-0.123456");
+        instance = new Math_BigDecimal();
+        expResult = " -0.123456 ";
+        result = instance.getStringValue(v, n);
+        assertTrue(expResult.equalsIgnoreCase(result));
+        // Test 7
+        v = new BigDecimal("-12345678910111232132132132132132132132543513213221"
+                + "333213213213213123213213213213213213213213123213129");
+        //v.toString().length()
+        instance = new Math_BigDecimal();
+        expResult = "~-1.235E100";
+        result = instance.getStringValue(v, n);
+        assertTrue(expResult.equalsIgnoreCase(result));
     }
 
 }
