@@ -160,7 +160,7 @@ public class Math_BigDecimal {
     /**
      * @param v The value to return as a String.
      * @return A String representation of {@code v} in 10 characters. This may
-     * involve rounding in which case {@link RoundingMode.HALF_UP} is used. If
+     * involve rounding in which case {@link RoundingMode#HALF_UP} is used. If
      * the default number has fewer than 10 characters it is padded with spaces.
      * The returned String is always of length 10.
      */
@@ -173,7 +173,7 @@ public class Math_BigDecimal {
      * @param n The length of the String returned. This must be greater than or
      * equal to 10.
      * @return A String representation of {@code v} in n characters. This may
-     * involve rounding in which case {@link RoundingMode.HALF_UP} is used. If
+     * involve rounding in which case {@link RoundingMode#HALF_UP} is used. If
      * the default number has fewer than 10 characters it is padded with spaces.
      * The returned String is always of length 10.
      */

@@ -213,6 +213,7 @@ public class Math_Random implements Serializable {
      * </ul>
      * @param l The smallest value to return.
      * @param u The largest value to return.
+     * @param mbi The Math_BigInteger.
      * @return A pseudorandom number in the range [l, u]
      */
     public BigDecimal getRandom(int oom, BigDecimal l, BigDecimal u, Math_BigInteger mbi) {
@@ -227,6 +228,7 @@ public class Math_Random implements Serializable {
     /**
      * For getting a random number between {@code 0} and {@code upperLimit}.
      *
+     * @param mbi The Math_BigInteger.
      * @param upperLimit The largest number that can be returned.
      * @return A random integer as a BigInteger between 0 and upperLimit
      * inclusive.
