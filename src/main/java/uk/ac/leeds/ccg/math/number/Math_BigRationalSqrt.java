@@ -175,8 +175,6 @@ public class Math_BigRationalSqrt implements Serializable,
      *
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to.
-     * @param oomi The Order of Magnitude of the precision for the initial root
-     * calculation.
      */
     public Math_BigRationalSqrt(long x, long sqrtx) {
         this(Math_BigRational.valueOf(x), Math_BigRational.valueOf(sqrtx));

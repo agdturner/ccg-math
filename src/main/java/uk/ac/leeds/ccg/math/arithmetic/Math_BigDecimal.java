@@ -105,22 +105,22 @@ public class Math_BigDecimal {
     public static final BigDecimal ELEVEN = BigDecimal.valueOf(11);
 
     /**
-     * {@Code BigDecimal.valueOf(Float.MIN_VALUE)}
+     * {@code BigDecimal.valueOf(Float.MIN_VALUE)}
      */
     public static final BigDecimal FLOAT_MIN_VALUE = BigDecimal.valueOf(Float.MIN_VALUE);
     
     /**
-     * {@Code Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(FLOAT_MIN_VALUE)}
+     * {@code Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(FLOAT_MIN_VALUE)}
      */
     public static final int FLOAT_MIN_VALUE_LSD = Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(FLOAT_MIN_VALUE);
     
     /**
-     * {@Code BigDecimal.valueOf(Double.MIN_VALUE)}
+     * {@code BigDecimal.valueOf(Double.MIN_VALUE)}
      */
     public static final BigDecimal DOUBLE_MIN_VALUE = BigDecimal.valueOf(Double.MIN_VALUE);
     
     /**
-     * {@Code Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(DOUBLE_MIN_VALUE)}
+     * {@code Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(DOUBLE_MIN_VALUE)}
      */
     public static final int DOUBLE_MIN_VALUE_LSD = Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(DOUBLE_MIN_VALUE);
     

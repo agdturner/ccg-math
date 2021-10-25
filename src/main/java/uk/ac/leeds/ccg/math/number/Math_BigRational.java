@@ -15,13 +15,11 @@
  */
 package uk.ac.leeds.ccg.math.number;
 
-import ch.obermuhlner.math.big.BigDecimalMath;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import uk.ac.leeds.ccg.math.arithmetic.Math_BigDecimal;
-import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
 
 /**
  * A rational number represented as a quotient of two values.
@@ -62,12 +60,6 @@ import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
  * <li>{@link #increment()}</li>
  * <li>{@link #decrement()}</li>
  * </ul>
- *
- * <p>
- * Any {@link Math_BigRational} value can be converted into an arbitrary
- * {@link #withPrecision(int) precision} (number of significant digits) or
- * {@link #withScale(int) scale} (number of digits after the decimal point).
- * </p>
  *
  * <p>
  * This was originally a wrapper around Version 2.3.0 of the BigRational class
@@ -753,6 +745,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     /**
      * Returns this rational number as a float value.
      *
+     * @param oom The Order of Magnitude for the precision of the conversion.
      * @return the float value
      */
     public float toFloat(int oom) {
