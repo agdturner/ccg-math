@@ -82,7 +82,7 @@ public class Math_BigRationalTest {
         // Test 2
         oom = -1;
         result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.valueOf("123.4");
+        expResult = Math_BigRational.valueOf("123.5");
         assertTrue(result.compareTo(expResult) == 0);
         // Test 3
         oom = 1;
@@ -97,12 +97,12 @@ public class Math_BigRationalTest {
         // Test 5
         oom = -4;
         result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.valueOf("123.4567");
+        expResult = Math_BigRational.valueOf("123.4568");
         assertTrue(result.compareTo(expResult) == 0);
         // Test 6
         oom = 20;
         result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.valueOf("0");
+        expResult = Math_BigRational.ZERO;
         assertTrue(result.compareTo(expResult) == 0);
         // Test 7
         oom = -7;
@@ -125,24 +125,6 @@ public class Math_BigRationalTest {
                 BigInteger.valueOf(3));
         Math_BigRational result = Math_BigRational.getCommonFactor(x, y);
         assertTrue(result.compareTo(expResult) == 0);
-    }
-
-    /**
-     * Test of roundToBD method, of class Math_BigRational.
-     */
-    @Test
-    public void testRoundToBD() {
-        System.out.println("roundToBD");
-        Math_BigRational x;
-        int oom;
-        BigDecimal expResult;
-        BigDecimal result;
-        // Test 1
-        x = Math_BigRational.valueOf(BigDecimal.ONE, BigDecimal.valueOf(3));
-        oom = -3;
-        expResult = new BigDecimal("0.333");
-        result = Math_BigRational.roundToBD(x, oom);
-        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -179,7 +161,6 @@ public class Math_BigRationalTest {
      * Test of getX method, of class Math_BigRational.
      */
     @Test
-    @Disabled
     public void testGetX() {
         // No test.
     }
@@ -188,7 +169,6 @@ public class Math_BigRationalTest {
      * Test of compareTo method, of class Math_BigRational.
      */
     @Test
-    @Disabled
     public void testCompareTo() {
         // No test.
     }
@@ -249,7 +229,7 @@ public class Math_BigRationalTest {
         System.out.println("toFloat");
         Math_BigRational x = Math_BigRational.valueOf("8.80446261998075791112518174946277"
                 + "2084351754080848495898653087767533866267556634");
-        float expResult = 8.804462F;
+        float expResult = 8.804463F;
         float result = x.toFloat(-6);
         assertTrue(expResult == result);
         //System.out.println(Float.valueOf(x.toBigDecimal().toString()));
@@ -1009,7 +989,7 @@ public class Math_BigRationalTest {
     @Test
     public void testPow() {
         System.out.println("pow");
-        int exponent = 0;
+        int exponent = 3;
         Math_BigRational instance = Math_BigRational.TWO;
         Math_BigRational expResult = Math_BigRational.valueOf(8);
         Math_BigRational result = instance.pow(exponent);
@@ -1017,6 +997,7 @@ public class Math_BigRationalTest {
         // Test 2
         instance = instance.negate();
         result = instance.pow(exponent);
+        expResult = Math_BigRational.valueOf(-8);
         assertTrue(expResult.equals(result));
         // Test 3
         exponent = 3;
