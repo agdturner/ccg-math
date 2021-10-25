@@ -250,7 +250,7 @@ public class Math_BigRationalTest {
         Math_BigRational x = Math_BigRational.valueOf("8.80446261998075791112518174946277"
                 + "2084351754080848495898653087767533866267556634");
         float expResult = 8.804462F;
-        float result = x.toFloat();
+        float result = x.toFloat(-6);
         assertTrue(expResult == result);
         //System.out.println(Float.valueOf(x.toBigDecimal().toString()));
         System.out.println(new BigDecimal("1000000000000000000000000000000000000000000000000000000000000000000000000000000").floatValue());
@@ -948,5 +948,99 @@ public class Math_BigRationalTest {
         expResult = BigInteger.valueOf(0);
         result = instance.ceil();
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of divide method, of class Math_BigRational.
+     */
+    @Test
+    public void testDivide_BigInteger() {
+        System.out.println("divide");
+        BigInteger value = BigInteger.ONE;
+        Math_BigRational instance = Math_BigRational.ONE;
+        Math_BigRational expResult = Math_BigRational.ONE;
+        Math_BigRational result = instance.divide(value);
+        assertTrue(expResult.equals(result));
+        // Test 2
+        value = BigInteger.TWO;
+        instance = Math_BigRational.ONE;
+        expResult = Math_BigRational.valueOf(1, 2);
+        result = instance.divide(value);
+        assertTrue(expResult.equals(result));
+        // Test 3
+        value = BigInteger.TWO.negate();
+        instance = Math_BigRational.ONE;
+        expResult = Math_BigRational.valueOf(-1, 2);
+        result = instance.divide(value);
+        assertTrue(expResult.equals(result));
+    }
+
+    /**
+     * Test of isZero method, of class Math_BigRational.
+     */
+    @Test
+    public void testIsZero() {
+        System.out.println("isZero");
+        assertTrue(Math_BigRational.ZERO.isZero());
+        assertTrue(Math_BigRational.ZERO.negate().isZero());
+        assertFalse(Math_BigRational.ONE.isZero());
+        assertFalse(Math_BigRational.ONE.negate().isZero());
+    }
+
+    /**
+     * Test of isInteger method, of class Math_BigRational.
+     */
+    @Test
+    public void testIsInteger() {
+        System.out.println("isInteger");
+        assertTrue(Math_BigRational.ZERO.isInteger());
+        assertTrue(Math_BigRational.ZERO.negate().isInteger());
+        assertTrue(Math_BigRational.ONE.isInteger());
+        assertTrue(Math_BigRational.ONE.negate().isInteger());
+        assertTrue(Math_BigRational.TWO.isInteger());
+        assertTrue(Math_BigRational.TWO.negate().isInteger());
+        assertTrue(Math_BigRational.valueOf(4, 2).isInteger());
+        assertFalse(Math_BigRational.valueOf(4, 3).isInteger());
+    }
+
+    /**
+     * Test of pow method, of class Math_BigRational.
+     */
+    @Test
+    public void testPow() {
+        System.out.println("pow");
+        int exponent = 0;
+        Math_BigRational instance = Math_BigRational.TWO;
+        Math_BigRational expResult = Math_BigRational.valueOf(8);
+        Math_BigRational result = instance.pow(exponent);
+        assertTrue(expResult.equals(result));
+        // Test 2
+        instance = instance.negate();
+        result = instance.pow(exponent);
+        assertTrue(expResult.equals(result));
+        // Test 3
+        exponent = 3;
+        instance = Math_BigRational.valueOf(10);
+        result = instance.pow(exponent);
+        expResult = Math_BigRational.valueOf(1000);
+        assertTrue(expResult.equals(result));
+        // Test 3
+        exponent = -3;
+        instance = Math_BigRational.valueOf(10);
+        result = instance.pow(exponent);
+        expResult = Math_BigRational.valueOf("0.001");
+        assertTrue(expResult.equals(result));
+        // Test 3
+        exponent = 3;
+        instance = Math_BigRational.valueOf("0.02");
+        result = instance.pow(exponent);
+        expResult = instance.multiply(instance).multiply(instance);
+        assertTrue(expResult.equals(result));
+        // Test 4
+        exponent = 3;
+        instance = Math_BigRational.valueOf("-0.02");
+        result = instance.pow(exponent);
+        expResult = instance.multiply(instance).multiply(instance);
+        assertTrue(expResult.equals(result));
     }
 }
