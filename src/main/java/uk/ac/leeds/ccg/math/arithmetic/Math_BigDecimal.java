@@ -928,6 +928,9 @@ public class Math_BigDecimal {
         } else {
             p = xDARy[0].precision() - oom;
         }
+        if (p < 0) {
+            return BigDecimal.ZERO;
+        }
         MathContext mc = new MathContext(p, rm);
         //return x.divide(y, mc);
         return round(x.divide(y, mc), oom, rm);

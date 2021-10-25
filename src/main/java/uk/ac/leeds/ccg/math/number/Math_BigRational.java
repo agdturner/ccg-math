@@ -776,12 +776,8 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return the {@link BigDecimal} value rounded to {@code oom}.
      */
     public BigDecimal toBigDecimal(int oom) {
-        if (oom < 0) {
-            return Math_BigDecimal.divide(numerator, denominator, oom, 
-                    RoundingMode.UP);
-        } else {
-            return Math_BigDecimal.round(integerPart().numerator, oom);
-        }
+        return Math_BigDecimal.divide(numerator, denominator, oom, 
+                    RoundingMode.HALF_UP);
     }
 
     /**
@@ -1268,27 +1264,16 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     }
 
     /**
-     * Always rounds down.
+     * Uses {@link RoundingMode#HALF_UP}.
      *
      * @param x The value to round.
      * @param oom The order of magnitude to round to.
      * @return A new value which is x rounded down to {@code oom}
      */
     public static Math_BigRational round(Math_BigRational x, int oom) {
-        Math_BigRational shift = Math_BigRational.TEN.pow(oom);
-        return x.divide(shift).integerPart().multiply(shift);
-    }
-
-    /**
-     * Always rounds down.
-     *
-     * @param x The value to round.
-     * @param oom The order of magnitude to round to.
-     * @return A new value which is x rounded down to {@code oom}
-     */
-    public static BigDecimal roundToBD(Math_BigRational x, int oom) {
-        Math_BigRational shift = Math_BigRational.TEN.pow(oom);
-        return x.divide(shift).integerPart().multiply(shift).toBigDecimal(oom);
+        return Math_BigRational.valueOf(x.toBigDecimal(oom));
+//        Math_BigRational shift = Math_BigRational.TEN.pow(oom);
+//        return x.divide(shift).integerPart().multiply(shift);
     }
     
     /**
