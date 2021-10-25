@@ -351,7 +351,7 @@ public class Math_BigRationalRoot implements Serializable,
 
         MC(int oom) {
             int precision = (int) Math.ceil(
-                    x.integerPart().toBigDecimal().precision() / (double) 2)
+                    x.integerPart().toBigDecimal(oom).precision() / (double) 2)
                     - oom;
             mc = new MathContext(precision);
             mcp6 = new MathContext(precision + 6);
@@ -383,7 +383,8 @@ public class Math_BigRationalRoot implements Serializable,
                 this.oom = oom;
                 rootxapprox = rootx.toBigDecimal(new MathContext(oom));
             } else {
-                int precision = (int) Math.ceil(x.integerPart().toBigDecimal().precision() / (double) 2) + oom;
+                int precision = (int) Math.ceil(x.integerPart()
+                        .toBigDecimal(oom).precision() / (double) 2) + oom;
                 if (this.oom < oom) {
                     this.oom = oom;
                     rootxapprox = rootx.toBigDecimal(new MathContext(precision));

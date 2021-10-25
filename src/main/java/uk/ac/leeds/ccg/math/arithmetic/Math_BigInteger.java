@@ -113,6 +113,30 @@ public class Math_BigInteger {
     }
 
     /**
+     * @param v The value to return as a String.
+     * @return A String representation of {@code v} in 10 characters. This may
+     * involve rounding in which case {@link RoundingMode#HALF_UP} is used. If
+     * the default number has fewer than 10 characters it is padded with spaces.
+     * The returned String is always of length 10.
+     */
+    public static String getStringValue(BigInteger v) {
+        return getStringValue(v, 10);
+    }
+    
+    /**
+     * @param v The value to return as a String.
+     * @param n The length of the String returned. This must be greater than or
+     * equal to 10.
+     * @return A String representation of {@code v} in n characters. This may
+     * involve rounding in which case {@link RoundingMode#HALF_UP} is used. If
+     * the default number has fewer than 10 characters it is padded with spaces.
+     * The returned String is always of length 10.
+     */
+    public static String getStringValue(BigInteger v, int n) {
+        return Math_BigDecimal.getStringValue(new BigDecimal(v));
+    }
+    
+    /**
      * Returns the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> (OOM) of the most significant digit of {@code x}. Examples:

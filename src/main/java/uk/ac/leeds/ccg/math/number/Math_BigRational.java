@@ -15,10 +15,13 @@
  */
 package uk.ac.leeds.ccg.math.number;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigDecimal;
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
 
 /**
  * A rational number represented as a quotient of two values.
@@ -738,32 +741,6 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     }
 
     /**
-     * Returns a rational number with approximatively <code>this</code> value
-     * and the specified scale.
-     *
-     * @param scale the scale (number of digits after the decimal point) of the
-     * calculated result
-     * @return the calculated rational number with the specified scale
-     */
-    public Math_BigRational withScale(int scale) {
-        return valueOf(toBigDecimal().setScale(scale, RoundingMode.HALF_UP));
-    }
-
-    private static int countDigits(BigInteger number) {
-        double factor = Math.log(2) / Math.log(10);
-        int digitCount = (int) (factor * number.bitLength() + 1);
-        if (BigInteger.TEN.pow(digitCount - 1).compareTo(number) > 0) {
-            return digitCount - 1;
-        }
-        return digitCount;
-    }
-
-    // TODO what is precision of a rational?
-    private int precision() {
-        return countDigits(numerator.toBigInteger()) + countDigits(denominator.toBigInteger());
-    }
-
-    /**
      * Returns this rational number as a double value.
      *
      * @return the double value
@@ -778,27 +755,33 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      *
      * @return the float value
      */
-    public float toFloat() {
+    public float toFloat(int oom) {
         // Sometimes this return NaN!
         float r = numerator.floatValue() / denominator.floatValue();
         if (Float.isNaN(r)) {
-            return Float.parseFloat(toBigDecimal().toString());
+            return Float.parseFloat(toBigDecimal(oom).toString());
             //return Float.valueOf(x.toBigDecimal().toString());
         }
         if (Float.isInfinite(r)) {
-            return Float.parseFloat(toBigDecimal().toString());
+            return Float.parseFloat(toBigDecimal(oom).toString());
         }
         return r;
     }
 
     /**
-     * Returns this rational number as a {@link BigDecimal}.
-     *
-     * @return the {@link BigDecimal} value
+     * Returns this rational number as a {@link BigDecimal} rounded if 
+     * necessary to {@code oom}.
+     * 
+     * @param oom The Order of Magnitude for the precision of the result.
+     * @return the {@link BigDecimal} value rounded to {@code oom}.
      */
-    public BigDecimal toBigDecimal() {
-        int precision = Math.max(precision(), MathContext.DECIMAL128.getPrecision());
-        return toBigDecimal(new MathContext(precision));
+    public BigDecimal toBigDecimal(int oom) {
+        if (oom < 0) {
+            return Math_BigDecimal.divide(numerator, denominator, oom, 
+                    RoundingMode.UP);
+        } else {
+            return Math_BigDecimal.round(integerPart().numerator, oom);
+        }
     }
 
     /**
@@ -854,7 +837,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         if (isIntegerInternal()) {
             return numerator.toString();
         }
-        return toBigDecimal().toString();
+        return toBigDecimal(Math_BigDecimal.FLOAT_MIN_VALUE_LSD).toString();
     }
 
     /**
@@ -871,7 +854,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         if (isIntegerInternal()) {
             return numerator.toPlainString();
         }
-        return toBigDecimal().toPlainString();
+        return toBigDecimal(Math_BigDecimal.FLOAT_MIN_VALUE_LSD).toPlainString();
     }
 
     /**
@@ -951,6 +934,28 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         }
 
         return result.toString();
+    }
+    
+    /**
+     * @return A String representation of {@code v} in 10 characters. This may
+     * involve rounding in which case {@link RoundingMode#HALF_UP} is used. If
+     * the default number has fewer than 10 characters it is padded with spaces.
+     * The returned String is always of length 10.
+     */
+    public String getStringValue() {
+        return getStringValue(10);
+    }
+    
+    /**
+     * @param n The length of the String returned. This must be greater than or
+     * equal to 10.
+     * @return A String representation of {@code v} in n characters. This may
+     * involve rounding in which case {@link RoundingMode#HALF_UP} is used. If
+     * the default number has fewer than 10 characters it is padded with spaces.
+     * The returned String is always of length 10.
+     */
+    public String getStringValue(int n) {
+        return Math_BigDecimal.getStringValue(toBigDecimal(Math_BigDecimal.FLOAT_MIN_VALUE_LSD));
     }
 
     /**
@@ -1225,22 +1230,22 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
 
     @Override
     public int intValue() {
-        return toBigDecimal().intValue();
+        return toBigDecimal(0).intValue();
     }
 
     @Override
     public long longValue() {
-        return toBigDecimal().longValue();
+        return toBigDecimal(0).longValue();
     }
 
     @Override
     public float floatValue() {
-        return toBigDecimal().floatValue();
+        return toBigDecimal(Math_BigDecimal.FLOAT_MIN_VALUE_LSD).floatValue();
     }
 
     @Override
     public double doubleValue() {
-        return toBigDecimal().doubleValue();
+        return toBigDecimal(Math_BigDecimal.DOUBLE_MIN_VALUE_LSD).doubleValue();
     }
 
     /**
@@ -1283,7 +1288,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      */
     public static BigDecimal roundToBD(Math_BigRational x, int oom) {
         Math_BigRational shift = Math_BigRational.TEN.pow(oom);
-        return x.divide(shift).integerPart().multiply(shift).toBigDecimal();
+        return x.divide(shift).integerPart().multiply(shift).toBigDecimal(oom);
     }
     
     /**
