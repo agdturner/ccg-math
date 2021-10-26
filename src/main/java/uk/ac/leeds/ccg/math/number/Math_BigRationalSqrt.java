@@ -65,17 +65,10 @@ public class Math_BigRationalSqrt implements Serializable,
 
     /**
      * Square root of {@link #x} if this can be stored exactly as a
-     * Math_BigRational using {@link #oom} for the precision of the
-     * calculation, otherwise it is {@code null}. This is always stored as a
-     * positive number. If it is negative, then {@link #negative} indicates
-     * this.
+     * Math_BigRational using {@link #oom} for the precision of the calculation,
+     * otherwise it is {@code null}.
      */
     protected Math_BigRational sqrtx;
-
-    /**
-     * If {@code true}, then the root is negative.
-     */
-    public final boolean negative;
 
     /**
      * For storing the approximate square root of {@link #x}.
@@ -115,12 +108,13 @@ public class Math_BigRationalSqrt implements Serializable,
     public Math_BigRationalSqrt(Math_BigRational x, int oom, boolean negative) {
         this.x = x;
         sqrtxapprox = Math_BigDecimal.round(getSqrt(oom - 2).toBigDecimal(oom - 2), oom);
+        if (negative) {
+            sqrtxapprox = sqrtxapprox.negate();
+        }
         if (Math_BigRational.valueOf(sqrtxapprox.pow(2)).compareTo(x) == 0) {
             sqrtx = Math_BigRational.valueOf(sqrtxapprox);
-        } else {
-            init(oom);
-        }    
-        this.negative = negative;
+        }
+        init(oom);
     }
 
     /**
@@ -149,8 +143,9 @@ public class Math_BigRationalSqrt implements Serializable,
 
     /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
-     * {@link #getSqrt()} with {@code x} as input. {@link #negative} is set to
-     * {@code false}.
+     * {@link #getSqrt()} with {@code x} as input. By default this is the
+     * positive square root for a negative square root use
+     * {@link #Math_BigRationalSqrt(long, int, boolean}.
      *
      * @param x What {@link #x} is set to.
      * @param oom What {@link #oom} is set to.
@@ -160,7 +155,7 @@ public class Math_BigRationalSqrt implements Serializable,
     }
 
     /**
-     * Creates a new instance. {@link #negative} is set to {@code false}.
+     * Creates a new instance.
      *
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to.
@@ -174,7 +169,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@link #getSqrt()} with {@code x} as input.
      *
      * @param x What {@link #x} is set to.
-     * @param negative What {@link #negative} is set to.
+     * @param negative Indicates if negative or positive.
      * @param oom What {@link #oom} is set to.
      */
     public Math_BigRationalSqrt(long x, int oom, boolean negative) {
@@ -190,37 +185,12 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@code false}.
      *
      * @param x What {@link #x} is set to.
-     * @param sqrtx What {@link #sqrtx} is set to. Cannot be {@code null}. This 
-     * should be the exact square root of x. 
+     * @param sqrtx What {@link #sqrtx} is set to. Cannot be {@code null}. This
+     * should be the exact square root of x.
      */
     public Math_BigRationalSqrt(Math_BigRational x, Math_BigRational sqrtx) {
-        this.x = x.reduce().abs();
-        this.negative = sqrtx.compareTo(Math_BigRational.ZERO) == -1;
+        this.x = x.reduce();
         this.sqrtx = sqrtx;
-    }
-
-    /**
-     * No check is performed to test that {@code sqrtx} is indeed what would be
-     * returned from {@link #getSqrt()} with {@code x} as input. This is
-     * preferred for efficiency reasons over
-     * {@link #Math_BigRationalSqrt(Math_BigRational, int)} if the square root
-     * of {@code x} is known about.
-     *
-     * @param x What {@link #x} is set to. This should be positive.
-     * @param negative What {@link #negative} is set to.
-     * @param sqrtx {@link #sqrtx} is set to. This should be positive if not
-     * null.
-     * @param oom What {@link #oom} is set to.
-     * @param sqrtxapprox What {@link #sqrtxapprox} is set to. This should be
-     * positive if not null.
-     */
-    public Math_BigRationalSqrt(Math_BigRational x, boolean negative, 
-            Math_BigRational sqrtx, int oom, BigDecimal sqrtxapprox) {
-        this.x = x.reduce().abs();
-        this.negative = negative;
-        this.sqrtx = sqrtx;
-        this.sqrtxapprox = sqrtxapprox;
-        init(oom);
     }
 
     /**
@@ -230,7 +200,6 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public Math_BigRationalSqrt(Math_BigRationalSqrt i) {
         this.x = i.x;
-        this.negative = i.negative;
         this.sqrtx = i.sqrtx;
         this.sqrtxapprox = i.sqrtxapprox;
         this.oom = i.oom;
@@ -239,14 +208,13 @@ public class Math_BigRationalSqrt implements Serializable,
 
     @Override
     public String toString() {
-        String r = this.getClass().getSimpleName() + "(x=" + x
-                + ", negative=" + negative;
+        String r = this.getClass().getSimpleName() + "(x=" + x;
         if (sqrtx == null) {
             r += ", sqrtxapprox=" + sqrtxapprox
-                + ", oom=" + oom + ")";
+                    + ", oom=" + oom + ")";
         } else {
             r += ", sqrtx=" + sqrtx
-                + ", oom=" + oom + ")";
+                    + ", oom=" + oom + ")";
         }
         return r;
     }
@@ -255,11 +223,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return {@link #x}.
      */
     public Math_BigRational getX() {
-        if (negative) {
-            return x.abs().negate();
-        } else {
-            return x;
-        }
+        return x;
     }
 
     /**
@@ -295,9 +259,9 @@ public class Math_BigRationalSqrt implements Serializable,
                 return null;
             } else {
                 Math_BigRational r = Math_BigRational.valueOf(rn, rd);
-                if (negative) {
-                    r = r.negate();
-                }
+//                if (negative) {
+//                    r = r.negate();
+//                }
                 return Math_BigRational.valueOf(r.toBigDecimal(oom));
             }
         }
@@ -467,24 +431,21 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return The negation of {@code this}.
      */
     public Math_BigRationalSqrt negate() {
-        if (negative) {
-            if (sqrtx == null) {
-                return new Math_BigRationalSqrt(x.abs(), false, sqrtx, oom,
-                        sqrtxapprox.abs());
-            } else {
-                return new Math_BigRationalSqrt(x.abs(), false, sqrtx.abs(),
-                        oom, sqrtxapprox);
-            }
+        if (sqrtx == null) {
+            Math_BigRationalSqrt r = new Math_BigRationalSqrt(this);
+            r.sqrtxapprox.negate();
+            return r;
         } else {
-            if (sqrtx == null) {
-                return new Math_BigRationalSqrt(x.abs().negate(), true,
-                        sqrtx, oom, sqrtxapprox.abs().negate());
-            } else {
-                return new Math_BigRationalSqrt(x.abs().negate(), true,
-                        sqrtx.abs().negate(), oom, sqrtxapprox);
-            }
+            return new Math_BigRationalSqrt(x, sqrtx.negate());
         }
     }
+    
+    public boolean isNegative() {
+        if (sqrtx == null) {
+            return sqrtxapprox.compareTo(BigDecimal.ZERO) == -1;
+        }
+        return sqrtx.compareTo(Math_BigRational.ZERO) == -1;
+    } 
 
     /**
      * @param y The number to multiply by.
@@ -492,7 +453,19 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public Math_BigRationalSqrt multiply(Math_BigRationalSqrt y) {
         Math_BigRational m = x.multiply(y.x);
-        return getBigRationalSqrt(m, y);
+        if (isNegative()) {
+            if (y.isNegative()) {
+                return new Math_BigRationalSqrt(m, Math.min(oom, y.oom), false);
+            } else {
+                return new Math_BigRationalSqrt(m, Math.min(oom, y.oom), true);
+            }
+        } else {
+            if (y.isNegative()) {
+                return new Math_BigRationalSqrt(m, Math.min(oom, y.oom), true);
+            } else {
+                return new Math_BigRationalSqrt(m, Math.min(oom, y.oom), false);
+            }
+        }
     }
 
     /**
@@ -509,22 +482,17 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public Math_BigRationalSqrt divide(Math_BigRationalSqrt y) {
         Math_BigRational d = x.divide(y.x);
-        return getBigRationalSqrt(d, y);
-    }
-
-    private Math_BigRationalSqrt getBigRationalSqrt(Math_BigRational x,
-            Math_BigRationalSqrt y) {
-        if (negative) {
-            if (y.negative) {
-                return new Math_BigRationalSqrt(x, y.oom, false);
+        if (isNegative()) {
+            if (y.isNegative()) {
+                return new Math_BigRationalSqrt(d, Math.min(oom, y.oom), false);
             } else {
-                return new Math_BigRationalSqrt(x, y.oom, true);
+                return new Math_BigRationalSqrt(d, Math.min(oom, y.oom), true);
             }
         } else {
-            if (y.negative) {
-                return new Math_BigRationalSqrt(x, y.oom, true);
+            if (y.isNegative()) {
+                return new Math_BigRationalSqrt(d, Math.min(oom, y.oom), true);
             } else {
-                return new Math_BigRationalSqrt(x, y.oom, false);
+                return new Math_BigRationalSqrt(d, Math.min(oom, y.oom), false);
             }
         }
     }
@@ -557,14 +525,14 @@ public class Math_BigRationalSqrt implements Serializable,
      * @return {@code true} iff this is equal to {@code x}
      */
     public boolean equals(Math_BigRationalSqrt x) {
-        if (negative) {
-            if (x.negative) {
+        if (isNegative()) {
+            if (x.isNegative()) {
                 return x.x.compareTo(this.x) == 0;
             } else {
                 return false;
             }
         } else {
-            if (x.negative) {
+            if (x.isNegative()) {
                 return false;
             } else {
                 return x.x.compareTo(this.x) == 0;
@@ -574,14 +542,14 @@ public class Math_BigRationalSqrt implements Serializable,
 
     @Override
     public int compareTo(Math_BigRationalSqrt o) {
-        if (negative) {
-            if (o.negative) {
+        if (isNegative()) {
+            if (o.isNegative()) {
                 return -x.compareTo(o.x);
             } else {
                 return -1;
             }
         } else {
-            if (o.negative) {
+            if (o.isNegative()) {
                 return 1;
             } else {
                 return x.compareTo(o.x);

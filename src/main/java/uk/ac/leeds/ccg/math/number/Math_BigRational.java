@@ -249,7 +249,6 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         if (isZero()) {
             return this;
         }
-
         return of(numerator.negate(), denominator);
     }
 
