@@ -144,8 +144,7 @@ public class Math_BigRationalSqrt implements Serializable,
     /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
      * {@link #getSqrt()} with {@code x} as input. By default this is the
-     * positive square root. Ffor a negative square root use
-     * {@link #Math_BigRationalSqrt(long, int, boolean}.
+     * positive square root. By default the positive root is calculated.
      *
      * @param x What {@link #x} is set to.
      * @param oom What {@link #oom} is set to.
@@ -180,8 +179,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * No check is performed to test that {@code sqrtx} is indeed the square
      * root of {@code x}. This constructor is preferred for efficiency reasons
      * over {@link #Math_BigRationalSqrt(Math_BigRational, int)} if the square
-     * root of {@code x} is known. By default the positive root
-     * is calculated.
+     * root of {@code x} is known. By default the positive root is calculated.
      *
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to. Cannot be {@code null}. This
