@@ -1255,19 +1255,6 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         BigInteger gcdd = xrd.gcd(yrd);
         return Math_BigRational.valueOf(gcdn, gcdd);
     }
-
-    /**
-     * Uses {@link RoundingMode#HALF_UP}.
-     *
-     * @param x The value to round.
-     * @param oom The order of magnitude to round to.
-     * @return A new value which is x rounded down to {@code oom}
-     */
-    public static Math_BigRational round(Math_BigRational x, int oom) {
-        return Math_BigRational.valueOf(x.toBigDecimal(oom));
-//        Math_BigRational shift = Math_BigRational.TEN.pow(oom);
-//        return x.divide(shift).integerPart().multiply(shift);
-    }
     
     /**
      * @return If this has a fractional part, then it returns just the whole 

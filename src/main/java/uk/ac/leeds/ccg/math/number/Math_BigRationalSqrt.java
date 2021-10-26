@@ -288,7 +288,7 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public final Math_BigRational getSqrt(int oom) {
         if (sqrtx != null) {
-            return Math_BigRational.round(sqrtx, oom);
+            return Math_BigRational.valueOf(sqrtx.toBigDecimal(oom));
         }
         if (oomi == oom) {
             return Math_BigRational.valueOf(sqrtxapprox);
