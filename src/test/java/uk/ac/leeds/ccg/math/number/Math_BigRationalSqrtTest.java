@@ -138,13 +138,13 @@ public class Math_BigRationalSqrtTest {
         int oomi = -2;
         Math_BigRationalSqrt instance = new Math_BigRationalSqrt(2L, oomi);
         String expResult = "Math_BigRationalSqrt(x=2, negative=false, "
-                + "sqrtx=null, oomi=-2, sqrtxapprox=1.41, oom=-2)";
+                + "sqrtxapprox=1.41, oom=-2)";
         String result = instance.toString();
         assertTrue(expResult.equalsIgnoreCase(result));
         // Test 2
         instance.toBigDecimal(-3);
         expResult = "Math_BigRationalSqrt(x=2, negative=false, "
-                + "sqrtx=null, oomi=-3, sqrtxapprox=1.414, oom=-3)";
+                + "sqrtxapprox=1.414, oom=-3)";
         result = instance.toString();
         assertTrue(expResult.equalsIgnoreCase(result));
     }
