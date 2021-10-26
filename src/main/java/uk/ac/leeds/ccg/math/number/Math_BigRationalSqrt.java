@@ -87,8 +87,8 @@ public class Math_BigRationalSqrt implements Serializable,
 
     /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
-     * {@link #getSqrt()} with {@code x} as input. {@link #negative} is set to
-     * {@code false}.
+     * {@link #getSqrt()} with {@code x} as input. By default the positive root
+     * is calculated.
      *
      * @param x What {@link #x} is set to.
      * @param oom What {@link #oom} is set to.
@@ -102,7 +102,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@link #getSqrt()} with {@code x} as input.
      *
      * @param x What {@link #x} is set to.
-     * @param negative What {@link #negative} is set to.
+     * @param negative Determines the sign of the root calculated.
      * @param oom What {@link #oom} is set to.
      */
     public Math_BigRationalSqrt(Math_BigRational x, int oom, boolean negative) {
@@ -119,8 +119,8 @@ public class Math_BigRationalSqrt implements Serializable,
 
     /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
-     * {@link #getSqrt()} with {@code x} as input. {@link #negative} is set to
-     * {@code false}.
+     * {@link #getSqrt()} with {@code x} as input. By default the positive root
+     * is calculated.
      *
      * @param x What {@link #x} is set to.
      * @param oom What {@link #oom} is set to.
@@ -134,7 +134,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * {@link #getSqrt()} with {@code x} as input.
      *
      * @param x What {@link #x} is set to.
-     * @param negative What {@link #negative} is set to.
+     * @param negative Determines the sign of the root calculated.
      * @param oom What {@link #oom} is set to.
      */
     public Math_BigRationalSqrt(BigInteger x, int oom, boolean negative) {
@@ -144,7 +144,7 @@ public class Math_BigRationalSqrt implements Serializable,
     /**
      * Creates a new instance attempting to calculate {@link #sqrtx} using
      * {@link #getSqrt()} with {@code x} as input. By default this is the
-     * positive square root for a negative square root use
+     * positive square root. Ffor a negative square root use
      * {@link #Math_BigRationalSqrt(long, int, boolean}.
      *
      * @param x What {@link #x} is set to.
@@ -180,9 +180,8 @@ public class Math_BigRationalSqrt implements Serializable,
      * No check is performed to test that {@code sqrtx} is indeed the square
      * root of {@code x}. This constructor is preferred for efficiency reasons
      * over {@link #Math_BigRationalSqrt(Math_BigRational, int)} if the square
-     * root of {@code x} is known. If {@code sqrtx} is negative then
-     * {@link #negative} is set to {@code true} otherwise it is set to
-     * {@code false}.
+     * root of {@code x} is known. By default the positive root
+     * is calculated.
      *
      * @param x What {@link #x} is set to.
      * @param sqrtx What {@link #sqrtx} is set to. Cannot be {@code null}. This
@@ -439,13 +438,16 @@ public class Math_BigRationalSqrt implements Serializable,
             return new Math_BigRationalSqrt(x, sqrtx.negate());
         }
     }
-    
+
+    /**
+     * @return {@code true} if {@code this} represents a negative square root.
+     */
     public boolean isNegative() {
         if (sqrtx == null) {
             return sqrtxapprox.compareTo(BigDecimal.ZERO) == -1;
         }
         return sqrtx.compareTo(Math_BigRational.ZERO) == -1;
-    } 
+    }
 
     /**
      * @param y The number to multiply by.
