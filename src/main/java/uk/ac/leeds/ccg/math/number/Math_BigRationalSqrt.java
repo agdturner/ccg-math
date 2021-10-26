@@ -213,10 +213,9 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param oom What {@link #oomi} is set to.
      * @param sqrtxapprox What {@link #sqrtxapprox} is set to. This should be
      * positive if not null.
-     * @param oom What {@link #oom} is set to.
      */
-    public Math_BigRationalSqrt(Math_BigRational x, boolean negative, Math_BigRational sqrtx, int oom,
-            BigDecimal sqrtxapprox) {
+    public Math_BigRationalSqrt(Math_BigRational x, boolean negative, 
+            Math_BigRational sqrtx, int oom, BigDecimal sqrtxapprox) {
         this.x = x.reduce().abs();
         this.negative = negative;
         this.sqrtx = sqrtx;
