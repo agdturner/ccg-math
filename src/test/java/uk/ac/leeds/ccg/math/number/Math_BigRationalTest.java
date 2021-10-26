@@ -67,50 +67,6 @@ public class Math_BigRationalTest {
         System.out.println(Float.valueOf(x.toBigDecimal().toString()));
     }
 
-    @Test
-    public void testRound() {
-        Math_BigRational x;
-        x = Math_BigRational.valueOf("123.456789");
-        Math_BigRational result;
-        Math_BigRational expResult;
-        int oom;
-        // Test 1
-        oom = 0;
-        result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.valueOf("123");
-        assertTrue(result.compareTo(expResult) == 0);
-        // Test 2
-        oom = -1;
-        result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.valueOf("123.5");
-        assertTrue(result.compareTo(expResult) == 0);
-        // Test 3
-        oom = 1;
-        result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.valueOf("120");
-        assertTrue(result.compareTo(expResult) == 0);
-        // Test 4
-        oom = 2;
-        result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.valueOf("100");
-        assertTrue(result.compareTo(expResult) == 0);
-        // Test 5
-        oom = -4;
-        result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.valueOf("123.4568");
-        assertTrue(result.compareTo(expResult) == 0);
-        // Test 6
-        oom = 20;
-        result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.ZERO;
-        assertTrue(result.compareTo(expResult) == 0);
-        // Test 7
-        oom = -7;
-        result = Math_BigRational.round(x, oom);
-        expResult = Math_BigRational.valueOf("123.4567890");
-        assertTrue(result.compareTo(expResult) == 0);
-    }
-
     /**
      * Test of getCommonFactor method, of class Math_BigRational.
      */
