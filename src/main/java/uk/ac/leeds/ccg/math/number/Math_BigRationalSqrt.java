@@ -65,7 +65,7 @@ public class Math_BigRationalSqrt implements Serializable,
 
     /**
      * Square root of {@link #x} if this can be stored exactly as a
-     * Math_BigRational using {@link #oomi} for the precision of the
+     * Math_BigRational using {@link #oom} for the precision of the
      * calculation, otherwise it is {@code null}. This is always stored as a
      * positive number. If it is negative, then {@link #negative} indicates
      * this.
@@ -210,7 +210,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * @param negative What {@link #negative} is set to.
      * @param sqrtx {@link #sqrtx} is set to. This should be positive if not
      * null.
-     * @param oom What {@link #oomi} is set to.
+     * @param oom What {@link #oom} is set to.
      * @param sqrtxapprox What {@link #sqrtxapprox} is set to. This should be
      * positive if not null.
      */
