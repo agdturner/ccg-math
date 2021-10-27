@@ -448,6 +448,13 @@ public class Math_BigRationalSqrt implements Serializable,
     }
 
     /**
+     * @return {@code true} if {@code this} is Zero.
+     */
+    public boolean isZero() {
+        return equals(ZERO);
+    }
+
+    /**
      * @param y The number to multiply by.
      * @return {@code this} multiplied by {@code y}.
      */
