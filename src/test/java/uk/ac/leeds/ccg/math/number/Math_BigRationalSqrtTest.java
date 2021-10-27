@@ -783,4 +783,32 @@ public class Math_BigRationalSqrtTest {
         assertTrue(expResult.compareTo(result) == 0);
     }
 
+    /**
+     * Test of isNegative method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testIsNegative() {
+        System.out.println("isNegative");
+        Math_BigRationalSqrt instance = Math_BigRationalSqrt.ONE;
+        assertFalse(instance.isNegative());
+        instance = instance.negate();
+        assertTrue(instance.isNegative());
+        instance = Math_BigRationalSqrt.ZERO;
+        assertFalse(instance.isNegative());
+        instance = instance.negate();
+        assertFalse(instance.isNegative());
+    }
+
+    /**
+     * Test of isZero method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testIsZero() {
+        System.out.println("isZero");
+        Math_BigRationalSqrt instance = Math_BigRationalSqrt.ONE;
+        assertFalse(instance.isZero());
+        instance = Math_BigRationalSqrt.ZERO;
+        assertTrue(instance.isZero());
+    }
+
 }
