@@ -768,8 +768,8 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return the {@link BigDecimal} value rounded to {@code oom}.
      */
     public BigDecimal toBigDecimal(int oom) {
-        return Math_BigDecimal.divide(numerator, denominator, oom, 
-                    RoundingMode.HALF_UP);
+        return Math_BigDecimal.round(Math_BigDecimal.divide(numerator, 
+                denominator, oom - 2, RoundingMode.HALF_UP), oom);
     }
 
     /**
