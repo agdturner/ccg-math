@@ -230,7 +230,7 @@ public class Math_BigRationalSqrt implements Serializable,
     public final Math_BigRational getSqrt() {
         return this.sqrtx;
     }
-
+    
     /**
      * @param oom The Order of Magnitude precision to calculate square root to.
      * @return The square root accurate to oom precision.
@@ -264,6 +264,13 @@ public class Math_BigRationalSqrt implements Serializable,
         }
     }
 
+    /**
+     * @return A copy of {@link #oom}. 
+     */
+    public int getOom() {
+        return oom;
+    }
+    
     /**
      * Initialises {@link #oom} and {@link #oommc}. {@link #oommc} is
      * initialised as {@code new MathContext(oom)}.
