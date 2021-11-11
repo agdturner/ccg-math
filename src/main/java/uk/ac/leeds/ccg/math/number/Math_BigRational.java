@@ -125,14 +125,20 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         BigDecimal n = num;
         BigDecimal d = denom;
         if (d.signum() == 0) {
-            throw new ArithmeticException("Divide by zero");
+            if (n.signum() == 0) {
+                numerator = n;
+                denominator = d;
+            } else {
+                throw new ArithmeticException("Divide by zero");
+            }
+        } else {
+            if (d.signum() < 0) {
+                n = n.negate();
+                d = d.negate();
+            }
+            numerator = n;
+            denominator = d;
         }
-        if (d.signum() < 0) {
-            n = n.negate();
-            d = d.negate();
-        }
-        numerator = n;
-        denominator = d;
     }
 
     /**
@@ -761,14 +767,14 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     }
 
     /**
-     * Returns this rational number as a {@link BigDecimal} rounded if 
-     * necessary to {@code oom}.
-     * 
+     * Returns this rational number as a {@link BigDecimal} rounded if necessary
+     * to {@code oom}.
+     *
      * @param oom The Order of Magnitude for the precision of the result.
      * @return the {@link BigDecimal} value rounded to {@code oom}.
      */
     public BigDecimal toBigDecimal(int oom) {
-        return Math_BigDecimal.round(Math_BigDecimal.divide(numerator, 
+        return Math_BigDecimal.round(Math_BigDecimal.divide(numerator,
                 denominator, oom - 2, RoundingMode.HALF_UP), oom);
     }
 
@@ -923,7 +929,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
 
         return result.toString();
     }
-    
+
     /**
      * @return A String representation of {@code v} in 10 characters. This may
      * involve rounding in which case {@link RoundingMode#HALF_UP} is used. If
@@ -933,7 +939,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     public String getStringValue() {
         return getStringValue(10);
     }
-    
+
     /**
      * @param n The length of the String returned. This must be greater than or
      * equal to 10.
@@ -1254,9 +1260,9 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         BigInteger gcdd = xrd.gcd(yrd);
         return Math_BigRational.valueOf(gcdn, gcdd);
     }
-    
+
     /**
-     * @return If this has a fractional part, then it returns just the whole 
+     * @return If this has a fractional part, then it returns just the whole
      * integer number part.
      */
     public BigInteger floor() {
@@ -1268,9 +1274,9 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         }
         return r;
     }
-    
+
     /**
-     * @return If this has a fractional part, then it returns the whole integer 
+     * @return If this has a fractional part, then it returns the whole integer
      * number greater than it.
      */
     public BigInteger ceil() {
