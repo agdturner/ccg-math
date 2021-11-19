@@ -194,14 +194,16 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return the reduced rational number
      */
     public Math_BigRational reduce() {
-        BigInteger n = numerator.toBigInteger();
-        BigInteger d = denominator.toBigInteger();
-
-        BigInteger gcd = n.gcd(d);
-        n = n.divide(gcd);
-        d = d.divide(gcd);
-
-        return valueOf(n, d);
+        if (isZero()) {
+            return this;
+        } else {
+            BigInteger n = numerator.toBigInteger();
+            BigInteger d = denominator.toBigInteger();
+            BigInteger gcd = n.gcd(d);
+            n = n.divide(gcd);
+            d = d.divide(gcd);
+            return valueOf(n, d);
+        }
     }
 
     /**
@@ -252,9 +254,6 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return the negated rational number
      */
     public Math_BigRational negate() {
-        if (isZero()) {
-            return this;
-        }
         return of(numerator.negate(), denominator);
     }
 
@@ -358,7 +357,6 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         if (denominator.equals(value.denominator)) {
             return of(numerator.add(value.numerator), denominator);
         }
-
         BigDecimal n = numerator.multiply(value.denominator).add(value.numerator.multiply(denominator));
         BigDecimal d = denominator.multiply(value.denominator);
         return of(n, d);
@@ -426,7 +424,6 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         if (denominator.equals(value.denominator)) {
             return of(numerator.subtract(value.numerator), denominator);
         }
-
         BigDecimal n = numerator.multiply(value.denominator).subtract(value.numerator.multiply(denominator));
         BigDecimal d = denominator.multiply(value.denominator);
         return of(n, d);
@@ -774,6 +771,9 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return the {@link BigDecimal} value rounded to {@code oom}.
      */
     public BigDecimal toBigDecimal(int oom) {
+        if (isZero()) {
+            return BigDecimal.ZERO;
+        }
         return Math_BigDecimal.round(Math_BigDecimal.divide(numerator,
                 denominator, oom - 2, RoundingMode.HALF_UP), oom);
     }
@@ -787,12 +787,15 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return the {@link BigDecimal}
      */
     public BigDecimal toBigDecimal(MathContext mc) {
+        if (isZero()) {
+            return BigDecimal.ZERO;
+        }
         return numerator.divide(denominator, mc);
     }
 
     @Override
     public int compareTo(Math_BigRational other) {
-        if (this == other) {
+        if (this.equals(other)) {
             return 0;
         }
         return numerator.multiply(other.denominator).compareTo(denominator.multiply(other.numerator));
@@ -1078,7 +1081,6 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         if (value.compareTo(BigDecimal.ONE) == 0) {
             return ONE;
         }
-
         int scale = value.scale();
         if (scale == 0) {
             return new Math_BigRational(value, BigDecimal.ONE);
@@ -1250,6 +1252,9 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return The common factor of the two numbers x and y.
      */
     public static Math_BigRational getCommonFactor(Math_BigRational x, Math_BigRational y) {
+        if (x.isZero() || y.isZero()) {
+            return Math_BigRational.ZERO;
+        }
         Math_BigRational xr = x.reduce();
         Math_BigRational yr = y.reduce();
         BigInteger xrn = xr.getNumeratorBigInteger();
@@ -1266,6 +1271,9 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * integer number part.
      */
     public BigInteger floor() {
+        if (isZero()) {
+            return BigInteger.ZERO;
+        }
         BigDecimal fractionNumerator = numerator.remainder(denominator);
         BigDecimal integerNumerator = numerator.subtract(fractionNumerator);
         BigInteger r = integerNumerator.divide(denominator).toBigInteger();
@@ -1280,6 +1288,9 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * number greater than it.
      */
     public BigInteger ceil() {
+        if (isZero()) {
+            return BigInteger.ZERO;
+        }
         BigDecimal fractionNumerator = numerator.remainder(denominator);
         BigDecimal integerNumerator = numerator.subtract(fractionNumerator);
         BigInteger r = integerNumerator.divide(denominator).toBigInteger();

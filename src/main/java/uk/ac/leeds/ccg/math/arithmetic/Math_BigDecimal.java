@@ -108,22 +108,22 @@ public class Math_BigDecimal {
      * {@code BigDecimal.valueOf(Float.MIN_VALUE)}
      */
     public static final BigDecimal FLOAT_MIN_VALUE = BigDecimal.valueOf(Float.MIN_VALUE);
-    
+
     /**
      * {@code Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(FLOAT_MIN_VALUE)}
      */
     public static final int FLOAT_MIN_VALUE_LSD = Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(FLOAT_MIN_VALUE);
-    
+
     /**
      * {@code BigDecimal.valueOf(Double.MIN_VALUE)}
      */
     public static final BigDecimal DOUBLE_MIN_VALUE = BigDecimal.valueOf(Double.MIN_VALUE);
-    
+
     /**
      * {@code Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(DOUBLE_MIN_VALUE)}
      */
     public static final int DOUBLE_MIN_VALUE_LSD = Math_BigDecimal.getOrderOfMagnitudeOfLeastSignificantDigit(DOUBLE_MIN_VALUE);
-    
+
     /**
      * Creates a new instance.
      */
@@ -187,7 +187,7 @@ public class Math_BigDecimal {
     public static String getStringValue(BigDecimal v) {
         return getStringValue(v, 10);
     }
-    
+
     /**
      * @param v The value to return as a String.
      * @param n The length of the String returned. This must be greater than or
@@ -213,7 +213,7 @@ public class Math_BigDecimal {
                     r = "~";
                     if (v.compareTo(BigDecimal.ZERO) == -1) {
                         d++;
-                        digits --;
+                        digits--;
                         r += "-";
                     }
 
@@ -245,28 +245,28 @@ public class Math_BigDecimal {
                 if (v.compareTo(BigDecimal.ZERO) == -1) {
                     r += "-";
                     if (oommsl > n - 2) {
-                        oommsc --;
+                        oommsc--;
                     }
                     d++;
                 }
                 if (oommsl > oommsc) {
                     r += "Large";
                 } else {
-                int oomd = ooml - oomm;
-                BigDecimal rv;
-                if (oomd < digits) {
-                    rv = round(v, oomm - digits + 2 + d);
-                } else {
-                    rv = v;
-                }
-                String rvs = rv.toString();
-                r += rvs.substring(d, d + 1);
-                d++;
-                r += ".";
-                for (int i = d + 1; i < digits; i++) {
-                    r += rvs.substring(i, i + 1);
-                }
-                r += "E" + oomm;
+                    int oomd = ooml - oomm;
+                    BigDecimal rv;
+                    if (oomd < digits) {
+                        rv = round(v, oomm - digits + 2 + d);
+                    } else {
+                        rv = v;
+                    }
+                    String rvs = rv.toString();
+                    r += rvs.substring(d, d + 1);
+                    d++;
+                    r += ".";
+                    for (int i = d + 1; i < digits; i++) {
+                        r += rvs.substring(i, i + 1);
+                    }
+                    r += "E" + oomm;
                 }
             }
         }
@@ -4137,114 +4137,122 @@ public class Math_BigDecimal {
      * @param rm The {@link RoundingMode} used to round.
      * @return The sine of x.
      */
+    @Deprecated
+    /**
+     * Use instead:
+     * {@code MathContext mc = new MathContext(-oom, rm);
+     * BigDecimalMath.sin(latSubtractLat0, mc);
+     * }
+     */
     public BigDecimal sin(BigDecimal x, int oom, RoundingMode rm) {
-        BigDecimal aPi = getPi(oom - 3, RoundingMode.DOWN);
-        BigDecimal aPi2 = getPi2(oom - 3, RoundingMode.DOWN);
-        while (x.compareTo(BigDecimal.ZERO) == -1) {
-            x = x.add(aPi2);
-        }
-        while (x.compareTo(aPi2) == 1) {
-            x = x.subtract(aPi2);
-        }
-        // SpecialCases
-        if (x.compareTo(BigDecimal.ZERO) == 0) {
-            return BigDecimal.ZERO;
-        }
-        if (x.compareTo(aPi) == 0) {
-            return BigDecimal.ZERO;
-        }
-        if (x.compareTo(aPi2) == 0) {
-            return BigDecimal.ZERO;
-        }
-        BigDecimal aPIBy2 = getPiBy2(oom, RoundingMode.DOWN);
-        return sinNoCaseCheck(x, aPi, aPi2, aPIBy2, oom, rm);
+        return BigDecimalMath.sin(x, new MathContext(-oom, rm));
+//        BigDecimal aPi = getPi(oom - 3, RoundingMode.DOWN);
+//        BigDecimal aPi2 = getPi2(oom - 3, RoundingMode.DOWN);
+//        while (x.compareTo(BigDecimal.ZERO) == -1) {
+//            x = x.add(aPi2);
+//        }
+//        while (x.compareTo(aPi2) == 1) {
+//            x = x.subtract(aPi2);
+//        }
+//        // SpecialCases
+//        if (x.compareTo(BigDecimal.ZERO) == 0) {
+//            return BigDecimal.ZERO;
+//        }
+//        if (x.compareTo(aPi) == 0) {
+//            return BigDecimal.ZERO;
+//        }
+//        if (x.compareTo(aPi2) == 0) {
+//            return BigDecimal.ZERO;
+//        }
+//        BigDecimal aPIBy2 = getPiBy2(oom, RoundingMode.DOWN);
+//        return sinNoCaseCheck(x, aPi, aPi2, aPIBy2, oom, rm);
     }
 
-    /**
-     * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
-     *
-     * @param x The value for which the sine is returned.
-     * @param aPI The value of PI to be used.
-     * @param twoPI The value of 2PI to be used.
-     * @param aPIBy2 The value of PI/2 to be used.
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a> the result is rounded to if rounding is needed.
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * @param rm The {@link RoundingMode} used to round.
-     * @return The sine of x without checking the case of x.
-     */
-    protected BigDecimal sinNoCaseCheck(BigDecimal x, BigDecimal aPI,
-            BigDecimal twoPI, BigDecimal aPIBy2, int oom, RoundingMode rm) {
-        // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
-        if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
-            return sinAngleBetweenZeroAndPI(x, aPI, twoPI, oom, rm);
-        } else {
-            if (x.compareTo(aPI) == -1) {
-                return sinAngleBetweenZeroAndPI(aPI.subtract(x), aPI, twoPI, oom, rm);
-            }
-            return sinNoCaseCheck(twoPI.subtract(x), aPI, twoPI, aPIBy2, oom, rm).negate();
-        }
-    }
-
-    /**
-     * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
-     *
-     * @param x The value for which the sine is returned.
-     * @param aPI The value of PI to be used.
-     * @param twoPI The value of 2PI to be used.
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a> the result is rounded to if rounding is needed.
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * @param rm The {@link RoundingMode} used to round.
-     * @return The sine of x in the range [0, PI].
-     */
-    protected BigDecimal sinAngleBetweenZeroAndPI(BigDecimal x, BigDecimal aPI,
-            BigDecimal twoPI, int oom, RoundingMode rm) {
-        BigDecimal aPIBy2 = Math_BigDecimal.round(piBy2, oom - 2);
-        // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
-        if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
-            BigDecimal precision = new BigDecimal(BigInteger.ONE, oom - 4);
-            BigDecimal sinx = new BigDecimal(x.toString());
-            int factor = 3;
-            BigInteger factorial;
-            BigDecimal power;
-            boolean alternator = true;
-            while (true) {
-                factorial = getBi().factorial(factor);
-                power = Math_BigDecimal.power(x, factor, oom - 2, rm);
-                BigDecimal division = Math_BigDecimal.divide(
-                        power, factorial, oom - 2, rm);
-                if (division.compareTo(precision) != -1) {
-                    if (alternator) {
-                        alternator = false;
-                        sinx = sinx.subtract(division);
-                    } else {
-                        alternator = true;
-                        sinx = sinx.add(division);
-                    }
-                } else {
-                    break;
-                }
-                factor += 2;
-            }
-            return Math_BigDecimal.round(sinx, oom, rm);
-        }
-        return null;
-    }
+//    /**
+//     * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
+//     *
+//     * @param x The value for which the sine is returned.
+//     * @param aPI The value of PI to be used.
+//     * @param twoPI The value of 2PI to be used.
+//     * @param aPIBy2 The value of PI/2 to be used.
+//     * @param oom The
+//     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+//     * Magnitude</a> the result is rounded to if rounding is needed.
+//     * <ul>
+//     * <li>...</li>
+//     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+//     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+//     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+//     * <li>...</li>
+//     * </ul>
+//     * @param rm The {@link RoundingMode} used to round.
+//     * @return The sine of x without checking the case of x.
+//     */
+//    protected BigDecimal sinNoCaseCheck(BigDecimal x, BigDecimal aPI,
+//            BigDecimal twoPI, BigDecimal aPIBy2, int oom, RoundingMode rm) {
+//        // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
+//        if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
+//            return sinAngleBetweenZeroAndPI(x, aPI, twoPI, oom, rm);
+//        } else {
+//            if (x.compareTo(aPI) == -1) {
+//                return sinAngleBetweenZeroAndPI(aPI.subtract(x), aPI, twoPI, oom, rm);
+//            }
+//            return sinNoCaseCheck(twoPI.subtract(x), aPI, twoPI, aPIBy2, oom, rm).negate();
+//        }
+//    }
+//
+//    /**
+//     * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
+//     *
+//     * @param x The value for which the sine is returned.
+//     * @param aPI The value of PI to be used.
+//     * @param twoPI The value of 2PI to be used.
+//     * @param oom The
+//     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+//     * Magnitude</a> the result is rounded to if rounding is needed.
+//     * <ul>
+//     * <li>...</li>
+//     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
+//     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
+//     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
+//     * <li>...</li>
+//     * </ul>
+//     * @param rm The {@link RoundingMode} used to round.
+//     * @return The sine of x in the range [0, PI].
+//     */
+//    protected BigDecimal sinAngleBetweenZeroAndPI(BigDecimal x, BigDecimal aPI,
+//            BigDecimal twoPI, int oom, RoundingMode rm) {
+//        BigDecimal aPIBy2 = Math_BigDecimal.round(piBy2, oom - 2);
+//        // sinx = 1-(x^3)/(3!)+(x^5)/(5!)-(x^7)/(7!)+... (1)
+//        if (x.compareTo(BigDecimal.ZERO) != -1 && x.compareTo(aPIBy2) != 1) {
+//            BigDecimal precision = new BigDecimal(BigInteger.ONE, oom - 4);
+//            BigDecimal sinx = new BigDecimal(x.toString());
+//            int factor = 3;
+//            BigInteger factorial;
+//            BigDecimal power;
+//            boolean alternator = true;
+//            while (true) {
+//                factorial = getBi().factorial(factor);
+//                power = Math_BigDecimal.power(x, factor, oom - 2, rm);
+//                BigDecimal division = Math_BigDecimal.divide(
+//                        power, factorial, oom - 2, rm);
+//                if (division.compareTo(precision) != -1) {
+//                    if (alternator) {
+//                        alternator = false;
+//                        sinx = sinx.subtract(division);
+//                    } else {
+//                        alternator = true;
+//                        sinx = sinx.add(division);
+//                    }
+//                } else {
+//                    break;
+//                }
+//                factor += 2;
+//            }
+//            return Math_BigDecimal.round(sinx, oom, rm);
+//        }
+//        return null;
+//    }
 
     /**
      * Calculate and return the tangent of x (tan(x)).

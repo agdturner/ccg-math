@@ -4133,47 +4133,6 @@ public class Math_BigDecimalTest {
     }
 
     /**
-     * Test of sinNoCaseCheck method, of class Math_BigDecimal.
-     */
-    @Test
-    @Disabled
-    public void testSinNoCaseCheck() {
-        System.out.println("sinNoCaseCheck");
-        BigDecimal x = null;
-        BigDecimal aPI = null;
-        BigDecimal twoPI = null;
-        BigDecimal aPIBy2 = null;
-        int oom = 0;
-        RoundingMode rm = RoundingMode.HALF_UP;
-        Math_BigDecimal instance = new Math_BigDecimal();
-        BigDecimal expResult = null;
-        BigDecimal result = instance.sinNoCaseCheck(x, aPI, twoPI, aPIBy2, oom, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of sinAngleBetweenZeroAndPI method, of class Math_BigDecimal.
-     */
-    @Test
-    @Disabled
-    public void testSinAngleBetweenZeroAndPI() {
-        System.out.println("sinAngleBetweenZeroAndPI");
-        BigDecimal x = null;
-        BigDecimal aPI = null;
-        BigDecimal twoPI = null;
-        int oom = 0;
-        RoundingMode rm = null;
-        Math_BigDecimal instance = new Math_BigDecimal();
-        BigDecimal expResult = null;
-        BigDecimal result = instance.sinAngleBetweenZeroAndPI(x, aPI, twoPI, oom, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of tan method, of class Math_BigDecimal.
      */
     @Test
