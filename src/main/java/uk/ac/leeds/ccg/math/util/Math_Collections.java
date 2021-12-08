@@ -17,7 +17,6 @@ package uk.ac.leeds.ccg.math.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import uk.ac.leeds.ccg.math.arithmetic.Math_Math;
+import uk.ac.leeds.ccg.math.number.Math_BigRational;
 
 /**
  * For processing and manipulating collections including Lists, Arrays, Sets and
@@ -38,28 +38,33 @@ import uk.ac.leeds.ccg.math.arithmetic.Math_Math;
 public class Math_Collections {
 
     /**
+     * Create a new instance.
+     */
+    public Math_Collections() {}
+    
+    /**
      * @param min Min
      * @param w Interval width
      * @param map Map
-     * @param mc MathContext
      * @return CountsLabelsMins
      */
-    public static CountsLabelsMins getIntervalCountsLabelsMins(BigDecimal min,
-            BigDecimal w, TreeMap<?, BigDecimal> map, MathContext mc) {
+    public static CountsLabelsMins getIntervalCountsLabelsMins(
+            Math_BigRational min, Math_BigRational w, 
+            TreeMap<?, Math_BigRational> map) {
         CountsLabelsMins r = new CountsLabelsMins();
-        for (BigDecimal v : map.values()) {
+        for (Math_BigRational v : map.values()) {
             Integer interval;
-            if (w.compareTo(BigDecimal.ZERO) == 0) {
+            if (w.compareTo(Math_BigRational.ZERO) == 0) {
                 interval = 0;
             } else {
-                interval = getInterval(min, w, v, mc);
+                interval = getInterval(min, w, v);
             }
             //addToTreeMapIntegerInteger(counts, interval, 1);
             //addToMapInteger(r.counts, interval, 1);
             addToCount(r.counts, interval, 1);
             if (!r.labels.containsKey(interval)) {
-                BigDecimal imin = getIntervalMin(min, w, interval);
-                BigDecimal intervalMax = getIntervalMax(imin, w);
+                Math_BigRational imin = getIntervalMin(min, w, interval);
+                Math_BigRational intervalMax = getIntervalMax(imin, w);
                 r.labels.put(interval, "" + imin + " - " + intervalMax);
                 r.mins.put(interval, imin);
             }
@@ -85,7 +90,7 @@ public class Math_Collections {
         /**
          * Mins.
          */
-        public TreeMap<Integer, BigDecimal> mins;
+        public TreeMap<Integer, Number> mins;
 
         /**
          * Create a new instance.
@@ -103,9 +108,9 @@ public class Math_Collections {
      * @param interval Interval
      * @return {@code min.add(new BigDecimal(interval).multiply(w))}
      */
-    public static BigDecimal getIntervalMin(BigDecimal min, BigDecimal w,
-            int interval) {
-        return min.add(new BigDecimal(interval).multiply(w));
+    public static Math_BigRational getIntervalMin(Math_BigRational min, 
+            Math_BigRational w, int interval) {
+        return min.add(Math_BigRational.valueOf(interval).multiply(w));
     }
 
     /**
@@ -113,7 +118,8 @@ public class Math_Collections {
      * @param w Interval width
      * @return {@code min.add(w)}
      */
-    public static BigDecimal getIntervalMax(BigDecimal min, BigDecimal w) {
+    public static Math_BigRational getIntervalMax(Math_BigRational min,
+            Math_BigRational w) {
         return min.add(w);
     }
 
@@ -124,24 +130,24 @@ public class Math_Collections {
      * @param mc MathContext
      * @return {@code (v.subtract(min)).divide(w, mc).intValue()}
      */
-    public static int getInterval(BigDecimal min, BigDecimal w, BigDecimal v,
-            MathContext mc) {
-        return (v.subtract(min)).divide(w, mc).intValue();
+    public static int getInterval(Math_BigRational min, Math_BigRational w, 
+            Math_BigRational v) {
+        return (v.subtract(min)).divide(w).intValue();
     }
 
     /**
-     * @param <K> A generic key type.
-     * @param <V> A generic value type.
+     * @param <K> A generic key.
+     * @param <V> A generic value that extends Comparable<V>.
      * @param m Map
-     * @return The minimum and maximum values in m.
+     * @return A list with the first element being the minimum and the second and last being the maximum.
      */
     public static <K, V extends Comparable<V>> ArrayList<V> getMinMax(Map<K, V> m) {
         ArrayList<V> r = new ArrayList<>();
         Iterator<V> ite = m.values().iterator();
         if (ite.hasNext()) {
             V v = ite.next();
-            r.set(0, v);
-            r.set(1, v);
+            r.add(v);
+            r.add(v);
             while (ite.hasNext()) {
                 v = ite.next();
                 if (v.compareTo(r.get(0)) == -1) {
@@ -154,71 +160,7 @@ public class Math_Collections {
         }
         return r;
     }
-
-    /**
-     * @param <K> A generic key.
-     * @param m Map
-     * @return BigDecimal[] with the minimum and maximum values in m.
-     */
-    public static <K> MinMaxBigDecimal getMinMaxBigDecimal(Map<K, BigDecimal> m) {
-        MinMaxBigDecimal r = new MinMaxBigDecimal();
-        Iterator<BigDecimal> ite = m.values().iterator();
-        if (ite.hasNext()) {
-            BigDecimal v = ite.next();
-            r.min = v;
-            r.max = v;
-            while (ite.hasNext()) {
-                v = ite.next();
-                r.min = r.min.min(v);
-                r.max = r.max.max(v);
-            }
-        }
-        return r;
-    }
-
-    /**
-     * POJO for combining a BigDecimal representing a minimum value and a
-     * BigDecimal representing a maximum value.
-     */
-    public static class MinMaxBigDecimal {
-
-        /**
-         * The minimum value.
-         */
-        public BigDecimal min;
-
-        /**
-         * The maximum value.
-         */
-        public BigDecimal max;
-
-        /**
-         * Create a new instance.
-         */
-        public MinMaxBigDecimal() {
-        }
-    }
-
-    /**
-     * @param <K> A generic key.
-     * @param m Map
-     * @return int[] r containing the minimum and maximum values in m.
-     */
-    public static <K> int[] getMinMaxInteger(Map<K, Integer> m) {
-        int[] r = new int[2];
-        Iterator<Integer> ite = m.values().iterator();
-        if (ite.hasNext()) {
-            int v = ite.next();
-            r[0] = v;
-            r[1] = v;
-            while (ite.hasNext()) {
-                r[0] = Math.min(r[0], v);
-                r[1] = Math.max(r[1], v);
-            }
-        }
-        return r;
-    }
-
+    
     /**
      * Adds to a mapped number. This would be better called addToValue. If m
      * does not already contain the key k then i is mapped to k. Otherwise the

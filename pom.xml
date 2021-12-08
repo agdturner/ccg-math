@@ -49,8 +49,8 @@
         <big-math.version>2.3.0</big-math.version>
         <big-math.version>2.3.1</big-math.version>
         -->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <junit.version>5.7.0</junit.version>
     </properties>
     
