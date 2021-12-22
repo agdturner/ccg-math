@@ -4308,7 +4308,7 @@ public class Math_BigDecimal {
     public BigDecimal atan(BigDecimal x, int oom, RoundingMode rm) {
         int oomn8 = oom - 8; // Is 8 sufficient?
         BigDecimal xdivsqrt1px2 = divide(x,
-                sqrt(BigDecimal.ONE.add(x.multiply(x)), oomn8, RoundingMode.DOWN),
+                sqrt(BigDecimal.ONE.add(x.pow(2)), oomn8, RoundingMode.DOWN),
                 oom, rm);
         return asin(xdivsqrt1px2, oom, rm);
     }

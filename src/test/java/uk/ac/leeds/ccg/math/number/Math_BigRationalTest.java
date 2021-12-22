@@ -19,6 +19,7 @@ import ch.obermuhlner.math.big.BigRational;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
 
 /**
  * Test for class Math_BigRational
@@ -979,5 +981,511 @@ public class Math_BigRationalTest {
         result = instance.pow(exponent);
         expResult = instance.multiply(instance).multiply(instance);
         assertTrue(expResult.equals(result));
+    }
+
+    /**
+     * Test of withPrecision method, of class Math_BigRational.
+     */
+    @Test
+    public void testRound() {
+        System.out.println("round");
+        int precision = -3;
+        Math_BigRational instance = Math_BigRational.valueOf(1, 3);
+        Math_BigRational expResult = Math_BigRational.valueOf("0.333");
+        Math_BigRational result = instance.round(precision);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of toDouble method, of class Math_BigRational.
+     */
+    @Test
+    public void testToDouble() {
+        System.out.println("toDouble");
+        Math_BigRational instance = Math_BigRational.valueOf(1, 3);
+        double expResult = 1.0d / 3.0d;
+        double result = instance.toDouble();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of toBigDecimal method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testToBigDecimal_int() {
+        System.out.println("toBigDecimal");
+        int oom = 0;
+        Math_BigRational instance = null;
+        BigDecimal expResult = null;
+        BigDecimal result = instance.toBigDecimal(oom);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toBigDecimal method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testToBigDecimal_MathContext() {
+        System.out.println("toBigDecimal");
+        MathContext mc = null;
+        Math_BigRational instance = null;
+        BigDecimal expResult = null;
+        BigDecimal result = instance.toBigDecimal(mc);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of hashCode method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testHashCode() {
+        System.out.println("hashCode");
+        Math_BigRational instance = null;
+        int expResult = 0;
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of equals method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testEquals() {
+        System.out.println("equals");
+        Object obj = null;
+        Math_BigRational instance = null;
+        boolean expResult = false;
+        boolean result = instance.equals(obj);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testToString() {
+        System.out.println("toString");
+        Math_BigRational instance = null;
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toPlainString method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testToPlainString() {
+        System.out.println("toPlainString");
+        Math_BigRational instance = null;
+        String expResult = "";
+        String result = instance.toPlainString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toIntegerRationalString method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testToIntegerRationalString() {
+        System.out.println("toIntegerRationalString");
+        Math_BigRational instance = null;
+        String expResult = "";
+        String result = instance.toIntegerRationalString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getStringValue method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testGetStringValue_0args() {
+        System.out.println("getStringValue");
+        Math_BigRational instance = null;
+        String expResult = "";
+        String result = instance.getStringValue();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getStringValue method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testGetStringValue_int() {
+        System.out.println("getStringValue");
+        int n = 0;
+        Math_BigRational instance = null;
+        String expResult = "";
+        String result = instance.getStringValue(n);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_int() {
+        System.out.println("valueOf");
+        int value = 0;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(value);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_int_int() {
+        System.out.println("valueOf");
+        int numerator = 0;
+        int denominator = 0;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(numerator, denominator);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_3args() {
+        System.out.println("valueOf");
+        int integer = 0;
+        int fractionNumerator = 0;
+        int fractionDenominator = 0;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(integer, fractionNumerator, fractionDenominator);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_BigInteger_BigInteger() {
+        System.out.println("valueOf");
+        BigInteger numerator = null;
+        BigInteger denominator = null;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(numerator, denominator);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_BigInteger() {
+        System.out.println("valueOf");
+        BigInteger value = null;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(value);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_double() {
+        System.out.println("valueOf");
+        double value = 0.0;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(value);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_BigDecimal() {
+        System.out.println("valueOf");
+        BigDecimal value = null;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(value);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_String() {
+        System.out.println("valueOf");
+        String string = "";
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(string);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_5args() {
+        System.out.println("valueOf");
+        boolean positive = false;
+        String integerPart = "";
+        String fractionPart = "";
+        String fractionRepeatPart = "";
+        String exponentPart = "";
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(positive, integerPart, fractionPart, fractionRepeatPart, exponentPart);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testValueOf_BigDecimal_BigDecimal() {
+        System.out.println("valueOf");
+        BigDecimal numerator = null;
+        BigDecimal denominator = null;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.valueOf(numerator, denominator);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of min method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testMin_Math_BigRationalArr() {
+        System.out.println("min");
+        Math_BigRational[] values = null;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.min(values);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of max method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testMax_Math_BigRationalArr() {
+        System.out.println("max");
+        Math_BigRational[] values = null;
+        Math_BigRational expResult = null;
+        Math_BigRational result = Math_BigRational.max(values);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of intValue method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testIntValue() {
+        System.out.println("intValue");
+        Math_BigRational instance = null;
+        int expResult = 0;
+        int result = instance.intValue();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of longValue method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testLongValue() {
+        System.out.println("longValue");
+        Math_BigRational instance = null;
+        long expResult = 0L;
+        long result = instance.longValue();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of floatValue method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testFloatValue() {
+        System.out.println("floatValue");
+        Math_BigRational instance = null;
+        float expResult = 0.0F;
+        float result = instance.floatValue();
+        assertEquals(expResult, result, 0.0);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of doubleValue method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testDoubleValue() {
+        System.out.println("doubleValue");
+        Math_BigRational instance = null;
+        double expResult = 0.0;
+        double result = instance.doubleValue();
+        assertEquals(expResult, result, 0.0);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of ceil method, of class Math_BigRational.
+     */
+    @Test
+    @Disabled
+    public void testCeil() {
+        System.out.println("ceil");
+        Math_BigRational instance = null;
+        BigInteger expResult = null;
+        BigInteger result = instance.ceil();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of cos method, of class Math_BigRational.
+     */
+    @Test
+    public void testCos() {
+        System.out.println("cos");
+        Math_BigInteger bi = new Math_BigInteger();
+        int oom = -3;
+        Math_BigRational x = Math_BigRational.ZERO;
+        Math_BigRational expResult = Math_BigRational.ONE;
+        Math_BigRational result = x.cos(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = Math_BigRational.ONE;
+        expResult = Math_BigRational.valueOf(Math.cos(1.0d)).round(oom);
+        result = x.cos(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = Math_BigRational.ONE.negate();
+        expResult = Math_BigRational.valueOf(Math.cos(1.0d)).round(oom);
+        result = x.cos(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = Math_BigRational.valueOf(1, 2);
+        expResult = Math_BigRational.valueOf(Math.cos(0.5d)).round(oom);
+        result = x.cos(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = Math_BigRational.valueOf(1, 2).negate();
+        expResult = Math_BigRational.valueOf(Math.cos(-0.5d)).round(oom);
+        result = x.cos(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = Math_BigRational.valueOf(1, 4).negate();
+        expResult = Math_BigRational.valueOf(Math.cos(-0.25d)).round(oom);
+        result = x.cos(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+
+    /**
+     * Test of cos method, of class Math_BigRational.
+     */
+    @Test
+    public void testSin() {
+        System.out.println("sin");
+        Math_BigInteger bi = new Math_BigInteger();
+        int oom = -3;
+        Math_BigRational x = Math_BigRational.ONE;
+        Math_BigRational expResult = Math_BigRational.valueOf(Math.sin(1.0d)).round(oom);
+        Math_BigRational result = x.sin(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = Math_BigRational.ZERO;
+        expResult = Math_BigRational.valueOf(Math.sin(0.0d)).round(oom);
+        result = x.sin(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = Math_BigRational.ONE.negate();
+        expResult = Math_BigRational.valueOf(Math.sin(-1.0d)).round(oom);
+        result = x.sin(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = Math_BigRational.valueOf(1, 2);
+        expResult = Math_BigRational.valueOf(Math.sin(0.5d)).round(oom);
+        result = x.sin(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = Math_BigRational.valueOf(-1, 2);
+        expResult = Math_BigRational.valueOf(Math.sin(-0.5d)).round(oom);
+        result = x.sin(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = Math_BigRational.valueOf(1, 4);
+        expResult = Math_BigRational.valueOf(Math.sin(0.25d)).round(oom);
+        result = x.sin(bi, oom);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 }

@@ -20,6 +20,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import uk.ac.leeds.ccg.math.arithmetic.Math_BigDecimal;
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
 
 /**
  * A rational number represented as a quotient of two values.
@@ -723,15 +724,14 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     }
 
     /**
-     * Returns a rational number with approximatively <code>this</code> value
-     * and the specified precision.
+     * Returns a rational number with approximately <code>this</code> value and
+     * the specified precision.
      *
-     * @param precision the precision (number of significant digits) of the
-     * calculated result, or 0 for unlimited precision
+     * @param oom the order of magnitude for the precision.
      * @return the calculated rational number with the specified precision
      */
-    public Math_BigRational withPrecision(int precision) {
-        return valueOf(toBigDecimal(new MathContext(precision)));
+    public Math_BigRational round(int oom) {
+        return valueOf(toBigDecimal(oom));
     }
 
     /**
@@ -775,7 +775,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
             return BigDecimal.ZERO;
         }
         return Math_BigDecimal.round(Math_BigDecimal.divide(numerator,
-                denominator, oom - 2, RoundingMode.HALF_UP), oom);
+                denominator, oom - 3, RoundingMode.HALF_UP), oom);
     }
 
     /**
@@ -1298,5 +1298,81 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
             return r.add(BigInteger.ONE);
         }
         return r;
+    }
+
+    /**
+     * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
+     *
+     * @param bi Stores Taylor series expansion terms for computational
+     * efficiency.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a> for the precision.
+     * @return The cosine of x.
+     */
+    public Math_BigRational cos(Math_BigInteger bi, int oom) {
+        // cosx = 1-(x^2)/(2!)+(x^4)/(4!)-(x^6)/(6!)+...
+        Math_BigRational precision = Math_BigRational.valueOf(BigInteger.ONE, BigInteger.TEN.pow(2 - oom));
+        Math_BigRational r = Math_BigRational.ONE;
+        int factor = 2;
+        BigInteger factorial;
+        Math_BigRational power;
+        boolean alternator = true;
+        while (true) {
+            factorial = bi.factorial(factor);
+            power = this.pow(factor);
+            Math_BigRational division = power.divide(factorial);
+            if (division.abs().compareTo(precision) != -1) {
+                if (alternator) {
+                    alternator = false;
+                    r = r.subtract(division);
+                } else {
+                    alternator = true;
+                    r = r.add(division);
+                }
+            } else {
+                break;
+            }
+            factor += 2;
+        }
+        return r.round(oom);
+    }
+
+    /**
+     * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
+     *
+     * @param bi Stores Taylor series expansion terms for computational
+     * efficiency.
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a> for the precision.
+     * @return The sine of x.
+     */
+    public Math_BigRational sin(Math_BigInteger bi, int oom) {
+        // sin x = x − x^3/3! + x^5/5! − x^7/7! +...
+        Math_BigRational precision = Math_BigRational.valueOf(BigInteger.ONE, BigInteger.TEN.pow(2 - oom));
+        Math_BigRational r = this;
+        int factor = 3;
+        BigInteger factorial;
+        Math_BigRational power;
+        boolean alternator = true;
+        while (true) {
+            factorial = bi.factorial(factor);
+            power = this.pow(factor);
+            Math_BigRational division = power.divide(factorial);
+            if (division.abs().compareTo(precision) != -1) {
+                if (alternator) {
+                    alternator = false;
+                    r = r.subtract(division);
+                } else {
+                    alternator = true;
+                    r = r.add(division);
+                }
+            } else {
+                break;
+            }
+            factor += 2;
+        }
+        return r.round(oom);
     }
 }
