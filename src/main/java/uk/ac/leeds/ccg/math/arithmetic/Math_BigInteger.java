@@ -239,8 +239,8 @@ public class Math_BigInteger {
      * <li>...</li>
      * </ul>
      * the result is rounded to if rounding is needed.
-     * @param rm The {@link RoundingMode} used to round the final result if
-     * rounding is necessary.
+     * @param rm The {@link RoundingMode} used to roundDown the final result if
+ rounding is necessary.
      * @return x add y rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
@@ -299,8 +299,8 @@ public class Math_BigInteger {
      * <li>...</li>
      * </ul>
      * the result is rounded to if rounding is needed.
-     * @param rm The {@link RoundingMode} used to round the final result if
-     * rounding is necessary.
+     * @param rm The {@link RoundingMode} used to roundDown the final result if
+ rounding is necessary.
      * @return x multiplied by y rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
@@ -360,8 +360,8 @@ public class Math_BigInteger {
      * <li>...</li>
      * </ul>
      * the result is rounded to if rounding is needed.
-     * @param rm The {@link RoundingMode} used to round the final result if
-     * rounding is necessary.
+     * @param rm The {@link RoundingMode} used to roundDown the final result if
+ rounding is necessary.
      * @return x multiplied by y rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
@@ -425,8 +425,8 @@ public class Math_BigInteger {
      * <li>...</li>
      * </ul>
      * the result is rounded to if rounding is needed.
-     * @param rm The {@link RoundingMode} used to round the final result if
-     * rounding is necessary.
+     * @param rm The {@link RoundingMode} used to roundDown the final result if
+ rounding is necessary.
      * @return x multiplied by y rounded to the
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a> {@code oom} using the {@link RoundingMode} {@code rm}.
@@ -499,7 +499,7 @@ public class Math_BigInteger {
     /**
      * For rounding {@code x}.
      *
-     * @param x The number to round.
+     * @param x The number to roundDown.
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
      * Magnitude</a>
@@ -525,7 +525,7 @@ public class Math_BigInteger {
      * {@link #round(java.math.BigInteger, int, java.math.RoundingMode)} with
      * {@code rm} set to {@link RoundingMode#HALF_UP}.
      *
-     * @param x The number to round.
+     * @param x The number to roundDown.
      *
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">Order of
