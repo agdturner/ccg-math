@@ -3406,7 +3406,6 @@ public class Math_BigDecimalTest {
      * covered by {@link #testMultiplyPriorRound_4args_2()}.
      */
     @Test
-    @Disabled
     public void testMultiplyPriorRound_3args_2() {
     }
 
@@ -3415,7 +3414,6 @@ public class Math_BigDecimalTest {
      * case covered by {@link #testMultiplyPriorRound_4args_2()}
      */
     @Test
-    @Disabled
     public void testMultiplyPriorRoundXLT1YLT1() {
     }
 
@@ -3424,7 +3422,6 @@ public class Math_BigDecimalTest {
      * case covered by {@link #testMultiplyPriorRound_4args_2()}
      */
     @Test
-    @Disabled
     public void testMultiplyPriorRoundXLT1YGT1() {
     }
 
@@ -3475,7 +3472,6 @@ public class Math_BigDecimalTest {
      * {@link #testAdd_3args_2()}
      */
     @Test
-    @Disabled
     public void testAdd_3args_1() {
     }
 
@@ -3542,36 +3538,30 @@ public class Math_BigDecimalTest {
      * Test of addPriorRound method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testAddPriorRound_4args_1() {
         System.out.println("addPriorRound");
-        BigDecimal x = null;
-        BigInteger y = null;
-        int oom = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
+        BigDecimal x = new BigDecimal("100000000000000000.000000001");
+        BigInteger y = BigInteger.valueOf(100000000);
+        int oom = 4;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult = new BigDecimal("100000000100000000");
         BigDecimal result = Math_BigDecimal.addPriorRound(x, y, oom, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
      * Test of addPriorRound method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testAddPriorRound_4args_2() {
         System.out.println("addPriorRound");
-        BigDecimal x = null;
-        BigDecimal y = null;
+        BigDecimal x = new BigDecimal("100000000000000000.000000001");
+        BigDecimal y = new BigDecimal("1000000.999999999");
         int oom = 0;
-        RoundingMode rm = null;
-        BigDecimal expResult = null;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigDecimal expResult = new BigDecimal("100000000001000001");
         BigDecimal result = Math_BigDecimal.addPriorRound(x, y, oom, rm);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**

@@ -1183,7 +1183,8 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         if (numerator.signum() == 0 && denominator.signum() != 0) {
             return ZERO;
         }
-        if (numerator.compareTo(BigDecimal.ONE) == 0 && denominator.compareTo(BigDecimal.ONE) == 0) {
+        if (numerator.compareTo(BigDecimal.ONE) == 0 &&
+                denominator.compareTo(BigDecimal.ONE) == 0) {
             return ONE;
         }
         return new Math_BigRational(numerator, denominator);
@@ -1349,8 +1350,9 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @return The sine of x.
      */
     public Math_BigRational sin(Math_BigInteger bi, int oom) {
-        // sin x = x − x^3/3! + x^5/5! − x^7/7! +...
-        Math_BigRational precision = Math_BigRational.valueOf(BigInteger.ONE, BigInteger.TEN.pow(2 - oom));
+        // sin(x) = x − x^3/3! + x^5/5! − x^7/7! +...
+        Math_BigRational precision = Math_BigRational.valueOf(BigInteger.ONE,
+                BigInteger.TEN.pow(2 - oom));
         Math_BigRational r = this;
         int factor = 3;
         BigInteger factorial;
@@ -1374,5 +1376,85 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
             factor += 2;
         }
         return r.round(oom);
+    }
+
+    /**
+     * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
+     *
+     * @param oom The
+     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
+     * Magnitude</a> for the precision.
+     * @return The sine of x.
+     */
+    public Math_BigRational arctan(int oom) {
+        // arctan(x) = x − x^3/3 + x^5/5 − x^7/7 +...
+        Math_BigRational precision = Math_BigRational.valueOf(BigInteger.ONE,
+                BigInteger.TEN.pow(2 - oom));
+        Math_BigRational r = this;
+        int factor = 3;
+        Math_BigRational power;
+        boolean alternator = true;
+        while (true) {
+            power = this.pow(factor);
+            Math_BigRational division = power.divide(factor);
+            if (division.abs().compareTo(precision) != -1) {
+                if (alternator) {
+                    alternator = false;
+                    r = r.subtract(division);
+                } else {
+                    alternator = true;
+                    r = r.add(division);
+                }
+            } else {
+                break;
+            }
+            factor += 2;
+        }
+        return r.round(oom);
+    }
+    
+    /**
+     * For calculating the arcsine of {@code this}.
+     * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     * http://en.wikipedia.org/wiki/Arcsine
+     *
+     * @param oom The Order of Magnitude for the precision.
+     * @return arcsin
+     */
+    public Math_BigRational arcsin(int oom) {
+        // Special cases
+        if (this.abs().compareTo(Math_BigRational.ONE) == 0) {
+            Math_BigRational r = Math_BigRational.valueOf(
+                    new Math_BigDecimal().getPi(oom, RoundingMode.HALF_UP),
+                    Math_BigDecimal.TWO);
+            if (this.isPositive()) {
+                return r;
+            }
+            return r.negate();
+        }
+        if (this.compareTo(Math_BigRational.ONE) == 0) {
+            return Math_BigRational.valueOf(
+                    new Math_BigDecimal().getPi(oom, RoundingMode.HALF_UP),
+                    Math_BigDecimal.TWO);
+        }
+        // General case
+        Math_BigRational divisor = new Math_BigRationalSqrt(
+                Math_BigRational.ONE.subtract(this.pow(2)), oom).getSqrt(oom);
+        Math_BigRational x = this.divide(divisor);
+        return x.arctan(oom);
+    }
+
+    /**
+     * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     * http://en.wikipedia.org/wiki/Arcsine
+     *
+     * @param oom The Order of Magnitude for the precision.
+     * @return arcsin
+     */
+    public Math_BigRational arccos(int oom) {
+        //Pi/2 - arcsin(oom)
+        Math_BigDecimal bd = new Math_BigDecimal();
+        return Math_BigRational.valueOf(bd.getPiBy2(oom, RoundingMode.HALF_UP))
+                .subtract(arcsin(oom));
     }
 }

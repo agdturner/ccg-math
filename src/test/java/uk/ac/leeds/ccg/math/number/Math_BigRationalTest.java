@@ -1488,4 +1488,43 @@ public class Math_BigRationalTest {
         result = x.sin(bi, oom);
         assertTrue(expResult.compareTo(result) == 0);
     }
+    
+    /**
+     * Test of cos method, of class Math_BigRational.
+     */
+    @Test
+    public void testAsin() {
+        System.out.println("asin");
+        int oom = -3;
+        Math_BigRational x = Math_BigRational.ONE;
+        Math_BigRational expResult = Math_BigRational.valueOf(Math.asin(1.0d)).round(oom);
+        System.out.println(expResult.toString());
+        Math_BigRational result = x.arcsin(oom);
+        System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = Math_BigRational.ZERO;
+        expResult = Math_BigRational.valueOf(Math.asin(0.0d)).round(oom);
+        result = x.arcsin(oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = Math_BigRational.ONE.negate();
+        expResult = Math_BigRational.valueOf(Math.asin(-1.0d)).round(oom);
+        result = x.arcsin(oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = Math_BigRational.valueOf(1, 2);
+        expResult = Math_BigRational.valueOf(Math.asin(0.5d)).round(oom);
+        //System.out.println(expResult.toString());
+        result = x.arcsin(oom);
+        //System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = Math_BigRational.valueOf(-1, 2);
+        expResult = Math_BigRational.valueOf(Math.asin(-0.5d)).round(oom);
+        //System.out.println(expResult.toString());
+        result = x.arcsin(oom);
+        //System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+    }
 }

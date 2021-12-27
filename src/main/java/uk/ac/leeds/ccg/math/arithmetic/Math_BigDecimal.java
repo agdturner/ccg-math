@@ -4366,15 +4366,17 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Calculates the asin of {@code BigDecimal x}.
-     * <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">https://en.wikipedia.org/wiki/Inverse_trigonometric_functions</a>
-     *
+     * Calculates the arcsine of {@code BigDecimal x}.
+     * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     * http://en.wikipedia.org/wiki/Arcsine
+     * 
      * @param x the value
      * @param scale scale
      * @param rm RoundingMode
      * @return asin(x)
      */
     public static BigDecimal asin(BigDecimal x, int scale, RoundingMode rm) {
+        // x + (1/2)(x^3/3) + (1.3/2.4)(x^5/5) + (1.3.5/2.4.6)(x^7/7) +...
         //if (x.compareTo(BigDecimal.ZERO) == -1) {
         //    return asin(x.negate(), scale, rm).negate();
         //}
