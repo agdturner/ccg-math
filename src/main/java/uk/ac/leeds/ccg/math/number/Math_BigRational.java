@@ -1379,15 +1379,14 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     }
 
     /**
-     * http://en.wikipedia.org/wiki/Cosine#Sine.2C_cosine.2C_and_tangent
-     *
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a> for the precision.
-     * @return The sine of x.
+     * For calculating the arctangent of {@code this}.
+     * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
+     * 
+     * @param oom The Order of Magnitude for the precision.
+     * @return The arctangent a.k.a the inverse tangent.
      */
-    public Math_BigRational arctan(int oom) {
-        // arctan(x) = x − x^3/3 + x^5/5 − x^7/7 +...
+    public Math_BigRational atan(int oom) {
+        // atan(x) = x − x^3/3 + x^5/5 − x^7/7 +...
         Math_BigRational precision = Math_BigRational.valueOf(BigInteger.ONE,
                 BigInteger.TEN.pow(2 - oom));
         Math_BigRational r = this;
@@ -1416,12 +1415,11 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     /**
      * For calculating the arcsine of {@code this}.
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
-     * http://en.wikipedia.org/wiki/Arcsine
      *
      * @param oom The Order of Magnitude for the precision.
-     * @return arcsin
+     * @return The arcsine a.k.a the inverse sine.
      */
-    public Math_BigRational arcsin(int oom) {
+    public Math_BigRational asin(int oom) {
         // Special cases
         if (this.abs().compareTo(Math_BigRational.ONE) == 0) {
             Math_BigRational r = Math_BigRational.valueOf(
@@ -1441,20 +1439,20 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         Math_BigRational divisor = new Math_BigRationalSqrt(
                 Math_BigRational.ONE.subtract(this.pow(2)), oom).getSqrt(oom);
         Math_BigRational x = this.divide(divisor);
-        return x.arctan(oom);
+        return x.atan(oom);
     }
 
     /**
+     * For calculating the arccosine of {@code this}.
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
-     * http://en.wikipedia.org/wiki/Arcsine
      *
      * @param oom The Order of Magnitude for the precision.
-     * @return arcsin
+     * @return The arccosine a.k.a the inverse cosine.
      */
     public Math_BigRational arccos(int oom) {
-        //Pi/2 - arcsin(oom)
+        //Pi/2 - asin(oom)
         Math_BigDecimal bd = new Math_BigDecimal();
         return Math_BigRational.valueOf(bd.getPiBy2(oom, RoundingMode.HALF_UP))
-                .subtract(arcsin(oom));
+                .subtract(asin(oom));
     }
 }
