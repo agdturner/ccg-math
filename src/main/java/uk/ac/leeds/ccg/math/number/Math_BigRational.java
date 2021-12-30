@@ -1469,30 +1469,28 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     /**
      * For converting degrees to radians.
      *
-     * @param degrees The angle in degrees to be converted to radians.
      * @param bD An instance for getting Pi
      * @param oom The Order of Magnitude for the precision.
      * @param rm The Rounding mode.
      * @return degrees converted to radians using the given precision.
      */
-    public Math_BigRational toRadians(Math_BigRational degrees,
-            Math_BigDecimal bD, int oom, RoundingMode rm) {
+    public Math_BigRational toRadians(Math_BigDecimal bD, int oom, 
+            RoundingMode rm) {
         Math_BigRational pi = getPi(bD, oom, rm);
-        return degrees.multiply(pi).divide(180);
+        return multiply(pi).divide(180);
     }
 
     /**
      * For converting radians to degrees.
      *
-     * @param radians The angle in radians to be converted to degrees.
      * @param bD An instance for getting Pi
      * @param oom The Order of Magnitude for the precision.
      * @param rm The Rounding mode.
      * @return radians converted to degrees using the given precision.
      */
-    public Math_BigRational toDegrees(Math_BigRational radians,
-            Math_BigDecimal bD, int oom, RoundingMode rm) {
+    public Math_BigRational toDegrees(Math_BigDecimal bD, int oom, 
+            RoundingMode rm) {
         Math_BigRational pi = getPi(bD, oom, rm);
-        return radians.multiply(180).divide(pi);
+        return multiply(180).divide(pi);
     }
 }
