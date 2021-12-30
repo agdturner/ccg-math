@@ -1183,8 +1183,8 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         if (numerator.signum() == 0 && denominator.signum() != 0) {
             return ZERO;
         }
-        if (numerator.compareTo(BigDecimal.ONE) == 0 &&
-                denominator.compareTo(BigDecimal.ONE) == 0) {
+        if (numerator.compareTo(BigDecimal.ONE) == 0
+                && denominator.compareTo(BigDecimal.ONE) == 0) {
             return ONE;
         }
         return new Math_BigRational(numerator, denominator);
@@ -1381,7 +1381,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
     /**
      * For calculating the arctangent of {@code this}.
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
-     * 
+     *
      * @param oom The Order of Magnitude for the precision.
      * @return The arctangent a.k.a the inverse tangent.
      */
@@ -1411,7 +1411,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         }
         return r.round(oom);
     }
-    
+
     /**
      * For calculating the arcsine of {@code this}.
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
@@ -1454,5 +1454,45 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         Math_BigDecimal bd = new Math_BigDecimal();
         return Math_BigRational.valueOf(bd.getPiBy2(oom, RoundingMode.HALF_UP))
                 .subtract(asin(oom));
+    }
+
+    /**
+     * @param bD An instance for getting Pi
+     * @param oom The Order of Magnitude for the precision.
+     * @param rm The Rounding mode.
+     * @return An approximation of Pi rounded to {@code oom} precision.
+     */
+    public Math_BigRational getPi(Math_BigDecimal bD, int oom, RoundingMode rm) {
+        return valueOf(bD.getPi(oom, rm));
+    }
+
+    /**
+     * For converting degrees to radians.
+     *
+     * @param degrees The angle in degrees to be converted to radians.
+     * @param bD An instance for getting Pi
+     * @param oom The Order of Magnitude for the precision.
+     * @param rm The Rounding mode.
+     * @return degrees converted to radians using the given precision.
+     */
+    public Math_BigRational toRadians(Math_BigRational degrees,
+            Math_BigDecimal bD, int oom, RoundingMode rm) {
+        Math_BigRational pi = getPi(bD, oom, rm);
+        return degrees.multiply(pi).divide(180);
+    }
+
+    /**
+     * For converting radians to degrees.
+     *
+     * @param radians The angle in radians to be converted to degrees.
+     * @param bD An instance for getting Pi
+     * @param oom The Order of Magnitude for the precision.
+     * @param rm The Rounding mode.
+     * @return radians converted to degrees using the given precision.
+     */
+    public Math_BigRational toDegrees(Math_BigRational radians,
+            Math_BigDecimal bD, int oom, RoundingMode rm) {
+        Math_BigRational pi = getPi(bD, oom, rm);
+        return radians.multiply(180).divide(pi);
     }
 }
