@@ -137,6 +137,15 @@ public class Math_Quaternion_BigRational implements Serializable {
         hash = 29 * hash + Objects.hashCode(this.z);
         return hash;
     }
+    
+    @Override
+    public String toString(){
+        return this.getClass().getSimpleName() + "("
+                + "w=(" + w.toString() + "), "
+                + "x=(" + x.toString() + "), "
+                + "y=(" + y.toString() + "), "
+                + "z=(" + z.toString() + "))";
+    }
 
     /**
      * For addition.
