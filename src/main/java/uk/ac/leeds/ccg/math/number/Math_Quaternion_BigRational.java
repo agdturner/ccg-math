@@ -238,7 +238,7 @@ public class Math_Quaternion_BigRational implements Serializable {
     }
 
     /**
-     * @returns the negation.
+     * @return The negation.
      */
     public Math_Quaternion_BigRational negate() {
         return new Math_Quaternion_BigRational(w.negate(), x.negate(),
@@ -267,8 +267,9 @@ public class Math_Quaternion_BigRational implements Serializable {
 
     /**
      * Compute and return the normalized quaternion (a.k.a. the versor).
-     *
-     * @return {@link #this} normalized.
+     * @param oom The Order Of Magnitude for the precision.
+     * 
+     * @return Normalized quaternion.
      */
     public Math_Quaternion_BigRational normalize(int oom) {
         return this.divide(this.getMagnitude(oom));

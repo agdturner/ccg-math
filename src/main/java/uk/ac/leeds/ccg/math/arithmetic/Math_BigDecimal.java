@@ -2275,7 +2275,7 @@ public class Math_BigDecimal {
 
     /**
      * This is the same as
-     * {@link #roundDown(java.math.BigDecimal, int, java.math.RoundingMode)}
+     * {@link #roundDown(java.math.BigDecimal, int)}
      * with {@code rm = RoundingMode.HALF_UP}
      *
      * @param x The number to roundDown

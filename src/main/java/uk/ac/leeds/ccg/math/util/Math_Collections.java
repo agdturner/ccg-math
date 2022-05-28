@@ -127,8 +127,7 @@ public class Math_Collections {
      * @param min Minimum
      * @param w Interval width
      * @param v Value
-     * @param mc MathContext
-     * @return {@code (v.subtract(min)).divide(w, mc).intValue()}
+     * @return {@code (v.subtract(min)).divide(w).intValue()}
      */
     public static int getInterval(Math_BigRational min, Math_BigRational w, 
             Math_BigRational v) {
@@ -137,7 +136,7 @@ public class Math_Collections {
 
     /**
      * @param <K> A generic key.
-     * @param <V> A generic value that extends Comparable<V>.
+     * @param <V> A generic value that extends {@code Comparable<V>}.
      * @param m Map
      * @return A list with the first element being the minimum and the second and last being the maximum.
      */
