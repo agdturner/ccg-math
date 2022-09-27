@@ -171,6 +171,30 @@ public class Math_BigRationalRootTest {
         expResult = new BigDecimal("1.4");
         result = instance.toBigDecimal(oom);
         assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        oom = -3;
+        instance = new Math_BigRationalRoot(2, 2, oom);
+        expResult = new BigDecimal("1.414");
+        result = instance.toBigDecimal(oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        oom = -3;
+        instance = new Math_BigRationalRoot(17, 2, oom);
+        expResult = new BigDecimal("4.123");
+        result = instance.toBigDecimal(oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        oom = -11;
+        instance = new Math_BigRationalRoot(177, 2, oom);
+        expResult = new BigDecimal("13.30413469565");
+        result = instance.toBigDecimal(oom);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        oom = -23;
+        instance = new Math_BigRationalRoot(177, 2, oom);
+        expResult = new BigDecimal("13.30413469565007072504603");
+        result = instance.toBigDecimal(oom);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**

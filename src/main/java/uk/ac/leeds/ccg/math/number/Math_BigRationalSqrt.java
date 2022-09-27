@@ -207,12 +207,11 @@ public class Math_BigRationalSqrt implements Serializable,
     public String toString() {
         String r = this.getClass().getSimpleName() + "(x=" + x;
         if (sqrtx == null) {
-            r += ", sqrtxapprox=" + sqrtxapprox
-                    + ", oom=" + oom + ")";
+            r += ", sqrtxapprox=" + sqrtxapprox;
         } else {
-            r += ", sqrtx=" + sqrtx
-                    + ", oom=" + oom + ")";
+            r += ", sqrtx=" + sqrtx;
         }
+        r += ", oom=" + oom + ")";
         return r;
     }
 
@@ -404,7 +403,11 @@ public class Math_BigRationalSqrt implements Serializable,
                 if (ryr.sqrtx == null) {
                     return null;
                 } else {
-                    return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)), oom);
+                    if (rr.sqrtx == null) {
+                        return null;
+                    } else {
+                        return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)), oom);
+                    }
                 }
             }
             d = ry.divide(r);
@@ -414,13 +417,17 @@ public class Math_BigRationalSqrt implements Serializable,
                 if (ryr.sqrtx == null) {
                     return null;
                 } else {
-                    return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)), oom);
+                    if (rr.sqrtx == null) {
+                        return null;
+                    } else {
+                        return new Math_BigRationalSqrt(cf.multiply(rr.sqrtx.add(ryr.sqrtx).pow(2)), oom);
+                    }
                 }
             }
             return null;
         }
     }
-
+    
     /**
      * This method returns a non null result only in the cases where the result
      * can be expressed exactly as a square root.
@@ -527,8 +534,8 @@ public class Math_BigRationalSqrt implements Serializable,
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Math_BigRationalSqrt) {
-            return equals((Math_BigRationalSqrt) o);
+        if (o instanceof Math_BigRationalSqrt m) {
+            return equals(m);
         }
         return false;
     }

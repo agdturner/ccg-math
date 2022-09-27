@@ -93,11 +93,13 @@ public class Math_BigRationalRoot implements Serializable,
      */
     public int oom;
 
-    /**
-     * Stores the MathContext of the minimum precision scale used for the
-     * approximate calculation of {@link #rootxapprox}.
-     */
-    public MathContext oommc;
+    public MC mc;
+    
+//    /**
+//     * Stores the MathContext of the minimum precision scale used for the
+//     * approximate calculation of {@link #rootxapprox}.
+//     */
+//    public MathContext oommc;
 
     /**
      * Creates a new instance attempting to calculate the {@code n}th root of
@@ -334,11 +336,12 @@ public class Math_BigRationalRoot implements Serializable,
      */
     private void init(int oom) {
         this.oom = oom;
-        if (oom < 0) {
-            oommc = new MathContext(0);
-        } else {
-            oommc = new MathContext(oom);
-        }
+        this.mc = new MC(oom);
+//        if (oom < 0) {
+//            oommc = new MathContext(0);
+//        } else {
+//            oommc = new MathContext(oom);
+//        }
     }
 
     /**
@@ -364,30 +367,32 @@ public class Math_BigRationalRoot implements Serializable,
      */
     public BigDecimal toBigDecimal(int oom) {
         if (rootx == null) {
+            init(oom);
             if (rootxapprox == null) {
-                init(oom);
-                MC mcs = new MC(oom);
-                x.toBigDecimal(mcs.mcp6).sqrt(mcs.mc);
+                //MC mcs = new MC(oom);
+                x.toBigDecimal(mc.mcp6).sqrt(mc.mc);
                 // Change the following
                 rootxapprox = Math_BigDecimal.root(
-                        x.toBigDecimal(mcs.mcp6), n, oom, RoundingMode.HALF_UP);
+                        x.toBigDecimal(mc.mcp6), n, oom, RoundingMode.HALF_UP);
             } else {
                 if (this.oom < oom) {
                     this.oom = oom;
                     rootxapprox = Math_BigDecimal.root(
-                            x.toBigDecimal(new MathContext(oom + 6)), n, oom);
+//                            x.toBigDecimal(new MathContext(oom + 6)), n, oom);
+                            x.toBigDecimal(mc.mcp6), n, oom);
                 }
             }
         } else {
             if (rootxapprox == null) {
-                this.oom = oom;
-                rootxapprox = rootx.toBigDecimal(new MathContext(oom));
+                init(oom);
+                rootxapprox = rootx.toBigDecimal(mc.mc);
             } else {
-                int precision = (int) Math.ceil(x.integerPart()
-                        .toBigDecimal(oom).precision() / (double) 2) + oom;
+//                int precision = (int) Math.ceil(x.integerPart()
+//                        .toBigDecimal(oom).precision() / (double) 2) + oom;
                 if (this.oom < oom) {
-                    this.oom = oom;
-                    rootxapprox = rootx.toBigDecimal(new MathContext(precision));
+                    init(oom);
+//                    rootxapprox = rootx.toBigDecimal(new MathContext(precision));
+                    rootxapprox = rootx.toBigDecimal(mc.mc);
                 }
             }
         }
@@ -473,8 +478,8 @@ public class Math_BigRationalRoot implements Serializable,
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Math_BigRationalRoot) {
-            return equals((Math_BigRationalRoot) o);
+        if (o instanceof Math_BigRationalRoot r) {
+            return equals(r);
         }
         return false;
     }
