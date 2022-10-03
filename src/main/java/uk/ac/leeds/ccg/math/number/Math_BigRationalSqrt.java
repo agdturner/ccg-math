@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Objects;
@@ -114,7 +115,7 @@ public class Math_BigRationalSqrt implements Serializable,
         if (Math_BigRational.valueOf(sqrtxapprox.pow(2)).compareTo(x) == 0) {
             sqrtx = Math_BigRational.valueOf(sqrtxapprox);
         }
-        init(oom);
+        setOom(oom);
     }
 
     /**
@@ -232,18 +233,19 @@ public class Math_BigRationalSqrt implements Serializable,
     
     /**
      * @param oom The Order of Magnitude precision to calculate square root to.
+     * @param rm The RoundingMode used if rounding is necessary.
      * @return The square root accurate to oom precision.
      */
-    public final Math_BigRational getSqrt(int oom) {
+    public final Math_BigRational getSqrt(int oom, RoundingMode rm) {
         if (sqrtx != null) {
-            return Math_BigRational.valueOf(sqrtx.toBigDecimal(oom));
+            return Math_BigRational.valueOf(sqrtx.toBigDecimal(oom, rm));
         }
         if (this.oom == oom) {
             return Math_BigRational.valueOf(sqrtxapprox);
         } else if (this.oom < oom) {
-            return Math_BigRational.valueOf(Math_BigDecimal.round(sqrtxapprox, oom));
+            return Math_BigRational.valueOf(Math_BigDecimal.round(sqrtxapprox, oom, rm));
         }
-        init(oom);
+        setOom(oom);
         BigDecimal num = x.getNumerator();
         BigDecimal den = x.getDenominator();
         BigDecimal rn = Math_BigDecimal.sqrt(num, oom - 2);
@@ -258,9 +260,17 @@ public class Math_BigRationalSqrt implements Serializable,
 //                if (negative) {
 //                    r = r.negate();
 //                }
-                return Math_BigRational.valueOf(r.toBigDecimal(oom));
+                return Math_BigRational.valueOf(r.toBigDecimal(oom, rm));
             }
         }
+    }
+    
+    /**
+     * @param oom The Order of Magnitude precision to calculate square root to.
+     * @return The square root accurate to oom precision.
+     */
+    public final Math_BigRational getSqrt(int oom) {
+        return getSqrt(oom, RoundingMode.HALF_UP);
     }
 
     /**
@@ -276,7 +286,7 @@ public class Math_BigRationalSqrt implements Serializable,
      *
      * @param oom What {@link #oom} is set to.
      */
-    private void init(int oom) {
+    private void setOom(int oom) {
         this.oom = oom;
         if (oom > 0) {
             oommc = new MathContext(oom);
@@ -322,23 +332,23 @@ public class Math_BigRationalSqrt implements Serializable,
     public BigDecimal toBigDecimal(int oom) {
         if (sqrtx == null) {
             if (sqrtxapprox == null) {
-                init(oom);
+                setOom(oom);
                 MC mcs = new MC(oom);
                 sqrtxapprox = x.toBigDecimal(mcs.mcp6).sqrt(mcs.mc);
             } else {
                 if (this.oom > oom) {
-                    init(oom);
+                    setOom(oom);
                     MC mcs = new MC(oom);
                     sqrtxapprox = x.toBigDecimal(mcs.mcp6).sqrt(mcs.mc);
                 }
             }
         } else {
             if (sqrtxapprox == null) {
-                init(oom);
+                setOom(oom);
                 sqrtxapprox = sqrtx.toBigDecimal(oommc);
             } else {
                 if (this.oom > oom) {
-                    init(oom);
+                    setOom(oom);
                     sqrtxapprox = sqrtx.toBigDecimal(oommc);
                 }
             }

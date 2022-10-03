@@ -768,14 +768,26 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * to {@code oom}.
      *
      * @param oom The Order of Magnitude for the precision of the result.
+     * @param rm The RoundingMode used for rounding.
      * @return the {@link BigDecimal} value rounded to {@code oom}.
      */
-    public BigDecimal toBigDecimal(int oom) {
+    public BigDecimal toBigDecimal(int oom, RoundingMode rm) {
         if (isZero()) {
             return BigDecimal.ZERO;
         }
         return Math_BigDecimal.round(Math_BigDecimal.divide(numerator,
-                denominator, oom - 3, RoundingMode.HALF_UP), oom);
+                denominator, oom - 3, rm), oom, rm);
+    }
+    
+    /**
+     * Returns this rational number as a {@link BigDecimal} rounded if necessary
+     * to {@code oom} using RoundingMode.HALF_UP.
+     *
+     * @param oom The Order of Magnitude for the precision of the result.
+     * @return the {@link BigDecimal} value rounded to {@code oom}.
+     */
+    public BigDecimal toBigDecimal(int oom) {
+        return toBigDecimal(oom, RoundingMode.HALF_UP);
     }
 
     /**

@@ -2274,11 +2274,11 @@ public class Math_BigDecimal {
     }
 
     /**
-     * This is the same as
-     * {@link #roundDown(java.math.BigDecimal, int)}
+     * The is the same as
+     * {@link #round(java.math.BigDecimal, int, java.math.RoundingMode)}
      * with {@code rm = RoundingMode.HALF_UP}
      *
-     * @param x The number to roundDown
+     * @param x The number to round.
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a>
