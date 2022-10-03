@@ -15,6 +15,7 @@
  */
 package uk.ac.leeds.ccg.math.number;
 
+import java.math.RoundingMode;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -216,9 +217,10 @@ public class Math_Quaternion_BigRationalTest {
     public void testGetMagnitude() {
         System.out.println("getMagnitude");
         int oom = 0;
+        RoundingMode rm = RoundingMode.HALF_UP;
         Math_Quaternion_BigRational instance = null;
         Math_BigRational expResult = null;
-        Math_BigRational result = instance.getMagnitude(oom);
+        Math_BigRational result = instance.getMagnitude(oom, rm);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -247,12 +249,13 @@ public class Math_Quaternion_BigRationalTest {
     public void testNormalize() {
         System.out.println("normalize");
         int oom;
+        RoundingMode rm = RoundingMode.HALF_UP;
         Math_Quaternion_BigRational instance;
         Math_Quaternion_BigRational result;
         // Test 1
         oom = -3;
         instance = new Math_Quaternion_BigRational(2, 1, -4, -2);
-        result = instance.normalize(oom);
+        result = instance.normalize(oom, rm);
         assertTrue(Math_BigRational.valueOf(2,5).compareTo(result.getW()) == 0);
         assertTrue(Math_BigRational.valueOf(1,5).compareTo(result.getX()) == 0);
         assertTrue(Math_BigRational.valueOf(-4,5).compareTo(result.getY()) == 0);

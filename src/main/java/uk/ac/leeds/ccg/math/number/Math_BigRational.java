@@ -574,7 +574,6 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         if (value.equals(ONE)) {
             return this;
         }
-
         BigDecimal n = numerator.multiply(value.denominator);
         BigDecimal d = denominator.multiply(value.numerator);
         return of(n, d);
@@ -730,8 +729,8 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @param oom the order of magnitude for the precision.
      * @return the calculated rational number with the specified precision
      */
-    public Math_BigRational round(int oom) {
-        return valueOf(toBigDecimal(oom));
+    public Math_BigRational round(int oom, RoundingMode rm) {
+        return valueOf(toBigDecimal(oom, rm));
     }
 
     /**
@@ -1321,9 +1320,10 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> for the precision.
+     * @param rm The RoundingMode if rounding is necessary.
      * @return The cosine of x.
      */
-    public Math_BigRational cos(Math_BigInteger bi, int oom) {
+    public Math_BigRational cos(Math_BigInteger bi, int oom, RoundingMode rm) {
         // cosx = 1-(x^2)/(2!)+(x^4)/(4!)-(x^6)/(6!)+...
         Math_BigRational precision = Math_BigRational.valueOf(BigInteger.ONE, BigInteger.TEN.pow(2 - oom));
         Math_BigRational r = Math_BigRational.ONE;
@@ -1348,7 +1348,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
             }
             factor += 2;
         }
-        return r.round(oom);
+        return r.round(oom, rm);
     }
 
     /**
@@ -1359,9 +1359,10 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
      * Magnitude</a> for the precision.
+     * @param rm The RoundingMode if rounding is necessary.
      * @return The sine of x.
      */
-    public Math_BigRational sin(Math_BigInteger bi, int oom) {
+    public Math_BigRational sin(Math_BigInteger bi, int oom, RoundingMode rm) {
         // sin(x) = x − x^3/3! + x^5/5! − x^7/7! +...
         Math_BigRational precision = Math_BigRational.valueOf(BigInteger.ONE,
                 BigInteger.TEN.pow(2 - oom));
@@ -1387,7 +1388,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
             }
             factor += 2;
         }
-        return r.round(oom);
+        return r.round(oom, rm);
     }
 
     /**
@@ -1395,9 +1396,10 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
      *
      * @param oom The Order of Magnitude for the precision.
+     * @param rm The RoundingMode if rounding is necessary.
      * @return The arctangent a.k.a the inverse tangent.
      */
-    public Math_BigRational atan(int oom) {
+    public Math_BigRational atan(int oom, RoundingMode rm) {
         // atan(x) = x − x^3/3 + x^5/5 − x^7/7 +...
         Math_BigRational precision = Math_BigRational.valueOf(BigInteger.ONE,
                 BigInteger.TEN.pow(2 - oom));
@@ -1421,7 +1423,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
             }
             factor += 2;
         }
-        return r.round(oom);
+        return r.round(oom, rm);
     }
 
     /**
@@ -1429,9 +1431,10 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
      *
      * @param oom The Order of Magnitude for the precision.
+     * @param rm The RoundingMode if rounding is necessary.
      * @return The arcsine a.k.a the inverse sine.
      */
-    public Math_BigRational asin(int oom) {
+    public Math_BigRational asin(int oom, RoundingMode rm) {
         // Special cases
         if (this.abs().compareTo(Math_BigRational.ONE) == 0) {
             Math_BigRational r = Math_BigRational.valueOf(
@@ -1449,9 +1452,10 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
         }
         // General case
         Math_BigRational divisor = new Math_BigRationalSqrt(
-                Math_BigRational.ONE.subtract(this.pow(2)), oom).getSqrt(oom);
+                Math_BigRational.ONE.subtract(this.pow(2)), oom, rm)
+                .getSqrt(oom, rm);
         Math_BigRational x = this.divide(divisor);
-        return x.atan(oom);
+        return x.atan(oom, rm);
     }
 
     /**
@@ -1459,19 +1463,20 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
      *
      * @param oom The Order of Magnitude for the precision.
+     * @param rm The RoundingMode if rounding is necessary.
      * @return The arccosine a.k.a the inverse cosine.
      */
-    public Math_BigRational arccos(int oom) {
+    public Math_BigRational arccos(int oom, RoundingMode rm) {
         //Pi/2 - asin(oom)
         Math_BigDecimal bd = new Math_BigDecimal();
-        return Math_BigRational.valueOf(bd.getPiBy2(oom, RoundingMode.HALF_UP))
-                .subtract(asin(oom));
+        return Math_BigRational.valueOf(bd.getPiBy2(oom, rm))
+                .subtract(asin(oom, rm));
     }
 
     /**
      * @param bD An instance for getting Pi
      * @param oom The Order of Magnitude for the precision.
-     * @param rm The Rounding mode.
+     * @param rm The RoundingMode.
      * @return An approximation of Pi rounded to {@code oom} precision.
      */
     public Math_BigRational getPi(Math_BigDecimal bD, int oom, RoundingMode rm) {

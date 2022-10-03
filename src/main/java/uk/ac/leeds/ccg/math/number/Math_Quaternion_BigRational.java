@@ -16,6 +16,7 @@
 package uk.ac.leeds.ccg.math.number;
 
 import java.io.Serializable;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -251,8 +252,9 @@ public class Math_Quaternion_BigRational implements Serializable {
      * @param oom The Order of Magnitude for the precision of the result.
      * @return The magnitude
      */
-    public Math_BigRational getMagnitude(int oom) {
-        return new Math_BigRationalSqrt(getMagnitude2(), oom).getSqrt(oom);
+    public Math_BigRational getMagnitude(int oom, RoundingMode rm) {
+        return new Math_BigRationalSqrt(getMagnitude2(), oom, rm)
+                .getSqrt(oom, rm);
     }
 
     /**
@@ -271,8 +273,8 @@ public class Math_Quaternion_BigRational implements Serializable {
      * 
      * @return Normalized quaternion.
      */
-    public Math_Quaternion_BigRational normalize(int oom) {
-        return this.divide(this.getMagnitude(oom));
+    public Math_Quaternion_BigRational normalize(int oom, RoundingMode rm) {
+        return this.divide(this.getMagnitude(oom, rm));
     }
 
     /**

@@ -992,7 +992,13 @@ public class Math_BigRationalTest {
         int precision = -3;
         Math_BigRational instance = Math_BigRational.valueOf(1, 3);
         Math_BigRational expResult = Math_BigRational.valueOf("0.333");
-        Math_BigRational result = instance.round(precision);
+        RoundingMode rm = RoundingMode.HALF_UP;
+        Math_BigRational result = instance.round(precision, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        expResult = Math_BigRational.valueOf("0.334");
+        rm = RoundingMode.UP;
+        result = instance.round(precision, rm);
         assertTrue(expResult.compareTo(result) == 0);
     }
 
@@ -1421,32 +1427,33 @@ public class Math_BigRationalTest {
         int oom = -3;
         Math_BigRational x = Math_BigRational.ZERO;
         Math_BigRational expResult = Math_BigRational.ONE;
-        Math_BigRational result = x.cos(bi, oom);
+        RoundingMode rm = RoundingMode.HALF_UP;
+        Math_BigRational result = x.cos(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         x = Math_BigRational.ONE;
-        expResult = Math_BigRational.valueOf(Math.cos(1.0d)).round(oom);
-        result = x.cos(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.cos(1.0d)).round(oom, rm);
+        result = x.cos(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
         x = Math_BigRational.ONE.negate();
-        expResult = Math_BigRational.valueOf(Math.cos(1.0d)).round(oom);
-        result = x.cos(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.cos(1.0d)).round(oom, rm);
+        result = x.cos(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
         x = Math_BigRational.valueOf(1, 2);
-        expResult = Math_BigRational.valueOf(Math.cos(0.5d)).round(oom);
-        result = x.cos(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.cos(0.5d)).round(oom, rm);
+        result = x.cos(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 5
         x = Math_BigRational.valueOf(1, 2).negate();
-        expResult = Math_BigRational.valueOf(Math.cos(-0.5d)).round(oom);
-        result = x.cos(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.cos(-0.5d)).round(oom, rm);
+        result = x.cos(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 6
         x = Math_BigRational.valueOf(1, 4).negate();
-        expResult = Math_BigRational.valueOf(Math.cos(-0.25d)).round(oom);
-        result = x.cos(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.cos(-0.25d)).round(oom, rm);
+        result = x.cos(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
     }
 
@@ -1459,33 +1466,34 @@ public class Math_BigRationalTest {
         Math_BigInteger bi = new Math_BigInteger();
         int oom = -3;
         Math_BigRational x = Math_BigRational.ONE;
-        Math_BigRational expResult = Math_BigRational.valueOf(Math.sin(1.0d)).round(oom);
-        Math_BigRational result = x.sin(bi, oom);
+        RoundingMode rm = RoundingMode.HALF_UP;
+        Math_BigRational expResult = Math_BigRational.valueOf(Math.sin(1.0d)).round(oom, rm);
+        Math_BigRational result = x.sin(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         x = Math_BigRational.ZERO;
-        expResult = Math_BigRational.valueOf(Math.sin(0.0d)).round(oom);
-        result = x.sin(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.sin(0.0d)).round(oom, rm);
+        result = x.sin(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
         x = Math_BigRational.ONE.negate();
-        expResult = Math_BigRational.valueOf(Math.sin(-1.0d)).round(oom);
-        result = x.sin(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.sin(-1.0d)).round(oom, rm);
+        result = x.sin(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
         x = Math_BigRational.valueOf(1, 2);
-        expResult = Math_BigRational.valueOf(Math.sin(0.5d)).round(oom);
-        result = x.sin(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.sin(0.5d)).round(oom, rm);
+        result = x.sin(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 5
         x = Math_BigRational.valueOf(-1, 2);
-        expResult = Math_BigRational.valueOf(Math.sin(-0.5d)).round(oom);
-        result = x.sin(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.sin(-0.5d)).round(oom, rm);
+        result = x.sin(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 6
         x = Math_BigRational.valueOf(1, 4);
-        expResult = Math_BigRational.valueOf(Math.sin(0.25d)).round(oom);
-        result = x.sin(bi, oom);
+        expResult = Math_BigRational.valueOf(Math.sin(0.25d)).round(oom, rm);
+        result = x.sin(bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
     }
     
@@ -1497,33 +1505,34 @@ public class Math_BigRationalTest {
         System.out.println("asin");
         int oom = -3;
         Math_BigRational x = Math_BigRational.ONE;
-        Math_BigRational expResult = Math_BigRational.valueOf(Math.asin(1.0d)).round(oom);
+        RoundingMode rm = RoundingMode.HALF_UP;
+        Math_BigRational expResult = Math_BigRational.valueOf(Math.asin(1.0d)).round(oom, rm);
         System.out.println(expResult.toString());
-        Math_BigRational result = x.asin(oom);
+        Math_BigRational result = x.asin(oom, rm);
         System.out.println(result.toString());
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         x = Math_BigRational.ZERO;
-        expResult = Math_BigRational.valueOf(Math.asin(0.0d)).round(oom);
-        result = x.asin(oom);
+        expResult = Math_BigRational.valueOf(Math.asin(0.0d)).round(oom, rm);
+        result = x.asin(oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
         x = Math_BigRational.ONE.negate();
-        expResult = Math_BigRational.valueOf(Math.asin(-1.0d)).round(oom);
-        result = x.asin(oom);
+        expResult = Math_BigRational.valueOf(Math.asin(-1.0d)).round(oom, rm);
+        result = x.asin(oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
         x = Math_BigRational.valueOf(1, 2);
-        expResult = Math_BigRational.valueOf(Math.asin(0.5d)).round(oom);
+        expResult = Math_BigRational.valueOf(Math.asin(0.5d)).round(oom, rm);
         //System.out.println(expResult.toString());
-        result = x.asin(oom);
+        result = x.asin(oom, rm);
         //System.out.println(result.toString());
         assertTrue(expResult.compareTo(result) == 0);
         // Test 5
         x = Math_BigRational.valueOf(-1, 2);
-        expResult = Math_BigRational.valueOf(Math.asin(-0.5d)).round(oom);
+        expResult = Math_BigRational.valueOf(Math.asin(-0.5d)).round(oom, rm);
         //System.out.println(expResult.toString());
-        result = x.asin(oom);
+        result = x.asin(oom, rm);
         //System.out.println(result.toString());
         assertTrue(expResult.compareTo(result) == 0);
     }

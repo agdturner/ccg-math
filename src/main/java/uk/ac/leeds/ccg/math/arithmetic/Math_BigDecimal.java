@@ -3889,48 +3889,6 @@ public class Math_BigDecimal {
     }
 
     /**
-     * Returns the square root of x as a BigDecimal. In some cases the square
-     * root of a number is irrational and cannot be precisely stored as a
-     * decimal number. This method therefore rounds the result as necessary
-     * using the RoundingMode to try to ensure the result is correct to
-     *
-     * @param x The value for which the square root is returned.
-     * @param oom The
-     * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
-     * Magnitude</a>
-     * <ul>
-     * <li>...</li>
-     * <li>{@code oom=-1} rounds to the nearest {@code 0.1}</li>
-     * <li>{@code oom=0} rounds to the nearest {@code unit}</li>
-     * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
-     * <li>...</li>
-     * </ul>
-     * @param rm The {@link RoundingMode} used to roundDown.
-     * @return Square root of {@code x} rounded if necessary.
-     */
-    public static BigDecimal sqrt(BigDecimal x, int oom, RoundingMode rm) {
-        //return root(x, 2, oom, rm);
-        int c = x.compareTo(BigDecimal.ONE);
-        switch (c) {
-            case 0:
-                return BigDecimal.ONE;
-            case -1:
-                if (oom >= 0) {
-                    return BigDecimal.ZERO;
-                } else {
-                    int p = Math.max(x.scale(), -oom);
-                    return roundDown(x.sqrt(new MathContext(p, rm)), oom);
-                }
-            default:
-                MathContext mc = getSqrtMathContext(x, oom, rm);
-//                return roundDown(x.sqrt(new MathContext(x.scale() + 1 - oom, rm)),
-//                        oom, rm);
-//                return roundDown(x.sqrt(mc), oom, rm); // This last rounding is probably not needed...
-                return x.sqrt(mc);
-        }
-    }
-
-    /**
      * @param x The value for which the square root is wanted.
      * @param oom The
      * <a href="https://en.wikipedia.org/wiki/Order_of_magnitude#Uses">Order of
@@ -3964,11 +3922,11 @@ public class Math_BigDecimal {
      * <li>{@code oom=1} rounds to the nearest {@code 10}</li>
      * <li>...</li>
      * </ul>
+     * @param rm The {@link RoundingMode}.
      * @return Square root of {@code x} as a BigDecimal if this can be returned
      * exactly at the {@code oom} precision and {@code null} otherwise.
      */
-    public static BigDecimal sqrt(BigDecimal x, int oom) {
-        RoundingMode rm = RoundingMode.HALF_UP;
+    public static BigDecimal sqrt(BigDecimal x, int oom, RoundingMode rm) {
         //return root(x, 2, oom, rm);
         int c = x.compareTo(BigDecimal.ONE);
         switch (c) {
@@ -3979,7 +3937,7 @@ public class Math_BigDecimal {
                     return BigDecimal.ZERO;
                 } else {
                     int p = Math.max(x.scale(), -oom);
-                    return x.sqrt(new MathContext(p, rm));
+                    return round(x.sqrt(new MathContext(p, rm)), oom, rm);
 //                    BigDecimal r = x.sqrt(new MathContext(p, rm));
 //                    if (r.pow(2).compareTo(x) == 0) {
 //                        return r;
@@ -3989,7 +3947,7 @@ public class Math_BigDecimal {
                 }
             default:
                 //BigDecimal r = x.sqrt(new MathContext(x.scale() + 2 - oom, rm));
-                return x.sqrt(getSqrtMathContext(x, oom, rm));
+                return round(x.sqrt(getSqrtMathContext(x, oom, rm)), oom, rm);
 //                BigDecimal r = x.sqrt(getSqrtMathContext(x, oom, rm));
 //                if (r.pow(2).compareTo(x) == 0) {
 //                    return r;
