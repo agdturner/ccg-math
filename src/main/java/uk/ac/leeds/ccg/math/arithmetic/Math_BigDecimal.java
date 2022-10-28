@@ -170,7 +170,7 @@ public class Math_BigDecimal {
      *
      * @return {@link #bi} initialised if {@code null}
      */
-    private Math_BigInteger getBi() {
+    public Math_BigInteger getBi() {
         if (bi == null) {
             bi = new Math_BigInteger();
         }

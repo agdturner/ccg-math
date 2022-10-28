@@ -865,13 +865,18 @@ public class Math_BigRationalTest {
         expResult = BigInteger.valueOf(-1);
         result = instance.floor();
         assertEquals(expResult, result);
+        // Test 3
+        instance = Math_BigRational.valueOf("-1.1");
+        expResult = BigInteger.valueOf(-2);
+        result = instance.floor();
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of floor method, of class Math_BigRational.
      */
     @Test
-    public void testCiel() {
+    public void testCeil() {
         System.out.println("ceil");
         Math_BigRational instance;
         BigInteger expResult;
@@ -1398,21 +1403,6 @@ public class Math_BigRationalTest {
         double expResult = 0.0;
         double result = instance.doubleValue();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of ceil method, of class Math_BigRational.
-     */
-    @Test
-    @Disabled
-    public void testCeil() {
-        System.out.println("ceil");
-        Math_BigRational instance = null;
-        BigInteger expResult = null;
-        BigInteger result = instance.ceil();
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

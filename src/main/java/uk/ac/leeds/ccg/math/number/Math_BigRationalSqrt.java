@@ -82,6 +82,11 @@ public class Math_BigRationalSqrt implements Serializable,
     protected int oom;
 
     /**
+     * Stores the RoundingMode used in the calculation of {@link #sqrtxapprox}.
+     */
+    protected RoundingMode rm;
+        
+    /**
      * Stores the MathContext for {@link #oom}.
      */
     protected MathContext oommc;
@@ -219,6 +224,16 @@ public class Math_BigRationalSqrt implements Serializable,
         r += ", oom=" + oom + ")";
         return r;
     }
+    
+    public String toStringSimple() {
+        String r = "";
+        if (sqrtx == null) {
+            r += sqrtxapprox;
+        } else {
+            r += sqrtx;
+        }
+        return r;
+    }
 
     /**
      * @return {@link #x}.
@@ -236,20 +251,23 @@ public class Math_BigRationalSqrt implements Serializable,
     }
     
     /**
+     * Return the square root rounded to a precision given by oom and rm.
+     * 
      * @param oom The Order of Magnitude precision to calculate square root to.
      * @param rm The RoundingMode used if rounding is necessary.
-     * @return The square root accurate to oom precision.
+     * @return The square root rounded to a precision given by oom and rm.
      */
     public final Math_BigRational getSqrt(int oom, RoundingMode rm) {
         if (sqrtx != null) {
             return Math_BigRational.valueOf(sqrtx.toBigDecimal(oom, rm));
         }
-        if (this.oom == oom) {
-            return Math_BigRational.valueOf(sqrtxapprox);
-        } else if (this.oom < oom) {
+        if (this.oom < oom) {
             return Math_BigRational.valueOf(Math_BigDecimal.round(sqrtxapprox, oom, rm));
+        } else if (this.oom == oom && getRoundingMode().equals(rm)) {
+            return Math_BigRational.valueOf(sqrtxapprox);
         }
         setOom(oom);
+        this.rm = rm;
         BigDecimal num = x.getNumerator();
         BigDecimal den = x.getDenominator();
         BigDecimal rn = Math_BigDecimal.sqrt(num, oom - 2, rm);
@@ -274,6 +292,13 @@ public class Math_BigRationalSqrt implements Serializable,
      */
     public int getOom() {
         return oom;
+    }
+    
+    /**
+     * @return {@link #RoundingMode}. 
+     */
+    public RoundingMode getRoundingMode() {
+        return rm;
     }
     
     /**
