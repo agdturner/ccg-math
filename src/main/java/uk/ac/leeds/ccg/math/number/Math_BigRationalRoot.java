@@ -93,6 +93,9 @@ public class Math_BigRationalRoot implements Serializable,
      */
     public int oom;
 
+    /**
+     * A math context POJO.
+     */
     public MC mc;
     
 //    /**

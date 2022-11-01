@@ -138,9 +138,9 @@ public class Math_Quaternion_BigRational implements Serializable {
         hash = 29 * hash + Objects.hashCode(this.z);
         return hash;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.getClass().getSimpleName() + "("
                 + "w=(" + w.toString() + "), "
                 + "x=(" + x.toString() + "), "
@@ -250,6 +250,7 @@ public class Math_Quaternion_BigRational implements Serializable {
      * Compute and return the magnitude.
      *
      * @param oom The Order of Magnitude for the precision of the result.
+     * @param rm The RoundingMode for any rounding.
      * @return The magnitude
      */
     public Math_BigRational getMagnitude(int oom, RoundingMode rm) {
@@ -269,8 +270,9 @@ public class Math_Quaternion_BigRational implements Serializable {
 
     /**
      * Compute and return the normalized quaternion (a.k.a. the versor).
-     * @param oom The Order Of Magnitude for the precision.
-     * 
+     *
+     * @param oom The Order of Magnitude for the precision.
+     * @param rm The RoundingMode for any rounding.
      * @return Normalized quaternion.
      */
     public Math_Quaternion_BigRational normalize(int oom, RoundingMode rm) {

@@ -727,6 +727,7 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * the specified precision.
      *
      * @param oom the order of magnitude for the precision.
+     * @param rm The RoundingMode for any rounding.
      * @return the calculated rational number with the specified precision
      */
     public Math_BigRational round(int oom, RoundingMode rm) {
@@ -963,7 +964,8 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * The returned String is always of length 10.
      */
     public String getStringValue(int n) {
-        return Math_BigDecimal.getStringValue(toBigDecimal(Math_BigDecimal.FLOAT_MIN_VALUE_LSD));
+        return Math_BigDecimal.getStringValue(toBigDecimal(
+                Math_BigDecimal.FLOAT_MIN_VALUE_LSD));
     }
 
     /**
@@ -986,13 +988,13 @@ public class Math_BigRational extends Number implements Comparable<Math_BigRatio
      * Creates a rational number of the specified numerator/denominator int
      * values.
      *
-     * @param numerator the numerator int value
-     * @param denominator the denominator int value (0 not allowed)
+     * @param num the numerator int value
+     * @param den the denominator int value (0 not allowed)
      * @return the rational number
      * @throws ArithmeticException if the denominator is 0 (division by zero)
      */
-    public static Math_BigRational valueOf(int numerator, int denominator) {
-        return of(BigDecimal.valueOf(numerator), BigDecimal.valueOf(denominator));
+    public static Math_BigRational valueOf(int num, int den) {
+        return of(BigDecimal.valueOf(num), BigDecimal.valueOf(den));
     }
 
     /**
