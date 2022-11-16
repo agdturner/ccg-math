@@ -39,6 +39,11 @@ public class Math_Double {
     public static final String NEGATIVE_INFINITY = Double.toString(Double.NEGATIVE_INFINITY);
 
     /**
+     * Create a new instance.
+     */
+    public Math_Double(){}
+    
+    /**
      * In most instances this behaves like
      * {@link java.lang.Double#parseDouble(java.lang.String)}, but if a
      * {@link java.lang.NumberFormatException} is thrown then this method deals
@@ -203,5 +208,31 @@ public class Math_Double {
      */
     public static String toPlainString(double d) {
         return new BigDecimal(d).toPlainString();
+    }
+    
+    /**
+     * @param d1 A double to check if it is within epsilon of d2;
+     * @param d2 A double to check if it is within epsilon of d1;
+     * @param epsilon Usually a small amount.
+     * @return {@code true} iff d1 and d2 are less than epsilon different.
+     */
+    public static boolean equals(double d1, double d2, double epsilon) {
+        return d1 < d2 + epsilon && d1 > d2 - epsilon;
+    }
+    
+    /**
+     * Take the square root preserving the sign.
+     * @param d The number to be square rooted.
+     * @return The square root which is negative of the positive square root for 
+     * a negative d. 
+     */
+    public double sqrt(double d) {
+        double r;
+        if (d < 0) {
+            r = -Math.sqrt(-d);
+        } else {
+            r = Math.sqrt(d);
+        }
+        return r;
     }
 }
