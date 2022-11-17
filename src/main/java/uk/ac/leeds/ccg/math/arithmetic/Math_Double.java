@@ -226,7 +226,7 @@ public class Math_Double {
      * @return The square root which is negative of the positive square root for 
      * a negative d. 
      */
-    public double sqrt(double d) {
+    public static double sqrt(double d) {
         double r;
         if (d < 0) {
             r = -Math.sqrt(-d);
