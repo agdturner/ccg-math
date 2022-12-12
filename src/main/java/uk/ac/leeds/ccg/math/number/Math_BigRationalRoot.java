@@ -15,6 +15,7 @@
  */
 package uk.ac.leeds.ccg.math.number;
 
+import ch.obermuhlner.math.big.BigRational;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -49,25 +50,25 @@ public class Math_BigRationalRoot implements Serializable,
      * ZERO
      */
     public static final Math_BigRationalRoot ZERO = new Math_BigRationalRoot(
-            Math_BigRational.ZERO, 1, Math_BigRational.ZERO);
+            BigRational.ZERO, 1, BigRational.ZERO);
 
     /**
      * ONE
      */
     public static final Math_BigRationalRoot ONE = new Math_BigRationalRoot(
-            Math_BigRational.ONE, 1, Math_BigRational.ONE);
+            BigRational.ONE, 1, BigRational.ONE);
 
     /**
      * TWO
      */
     public static final Math_BigRationalRoot TWO = new Math_BigRationalRoot(
-            Math_BigRational.TWO, 1, Math_BigRational.TWO);
+            BigRational.TWO, 1, BigRational.TWO);
 
     /**
      * The number for which {@code this} is the {@link #n}-th root
      * representation.
      */
-    public final Math_BigRational x;
+    public final BigRational x;
 
     /**
      * The order of the root of x. (i.e. n=2 is a square root, n=3 is a cube
@@ -79,7 +80,7 @@ public class Math_BigRationalRoot implements Serializable,
      * Stores the {@link #n}-th root of {@link #x} if this can be stored exactly
      * as a BigRational, otherwise it is {@code null}.
      */
-    public final Math_BigRational rootx;
+    public final BigRational rootx;
 
     /**
      * Stores the approximate {@link #n}-th root of {@link #x} with a minimum
@@ -114,7 +115,7 @@ public class Math_BigRationalRoot implements Serializable,
      * @param oom The Order of Magnitude of the precision of the root
      * calculation.
      */
-    public Math_BigRationalRoot(Math_BigRational x, int n, int oom) {
+    public Math_BigRationalRoot(BigRational x, int n, int oom) {
         this.x = x;
         this.n = n;
         rootx = getRoot(n, oom);
@@ -130,7 +131,7 @@ public class Math_BigRationalRoot implements Serializable,
      * calculation.
      */
     public Math_BigRationalRoot(BigDecimal x, int n, int oom) {
-        this(Math_BigRational.valueOf(x), n, oom);
+        this(BigRational.valueOf(x), n, oom);
     }
 
     /**
@@ -143,7 +144,7 @@ public class Math_BigRationalRoot implements Serializable,
      * calculation.
      */
     public Math_BigRationalRoot(BigInteger x, int n, int oom) {
-        this(Math_BigRational.valueOf(x), n, oom);
+        this(BigRational.valueOf(x), n, oom);
     }
 
     /**
@@ -156,7 +157,7 @@ public class Math_BigRationalRoot implements Serializable,
      * calculation.
      */
     public Math_BigRationalRoot(long x, int n, int oom) {
-        this(Math_BigRational.valueOf(x), n, oom);
+        this(BigRational.valueOf(x), n, oom);
     }
 
     /**
@@ -173,7 +174,7 @@ public class Math_BigRationalRoot implements Serializable,
      * @param rootx The root of {@code x} or {@code null} if the {@code n}-th
      * root of {@code x} is irrational.
      */
-    public Math_BigRationalRoot(Math_BigRational x, int n, Math_BigRational rootx) {
+    public Math_BigRationalRoot(BigRational x, int n, BigRational rootx) {
         this.x = x;
         this.n = n;
         this.rootx = rootx;
@@ -193,7 +194,7 @@ public class Math_BigRationalRoot implements Serializable,
      * @param rootxapprox What {@link #rootxapprox} is set to.
      * @param oom What {@link #oom} is set to.
      */
-    public Math_BigRationalRoot(Math_BigRational x, int n, Math_BigRational rootx,
+    public Math_BigRationalRoot(BigRational x, int n, BigRational rootx,
             BigDecimal rootxapprox, int oom) {
         this.x = x;
         this.n = n;
@@ -254,7 +255,7 @@ public class Math_BigRationalRoot implements Serializable,
      * calculation.
      * @return {@code new Math_BigRationalRoot(v, 1)}
      */
-    public static Math_BigRationalRoot valueOf(Math_BigRational v, int oom) {
+    public static Math_BigRationalRoot valueOf(BigRational v, int oom) {
         return new Math_BigRationalRoot(v, 1, oom);
     }
 
@@ -268,8 +269,8 @@ public class Math_BigRationalRoot implements Serializable,
      * @return The root of {@code x} or {@code null} if a precise root is not
      * found at the oom.
      */
-    public final Math_BigRational getRoot(int root, int oom) {
-        Math_BigRational x0 = x.reduce();
+    public final BigRational getRoot(int root, int oom) {
+        BigRational x0 = x.reduce();
         TreeMap<Integer, Integer> f = Math_Integer.getPrimeFactors(root);
         BigDecimal num = x0.getNumerator();
         BigDecimal den = x0.getDenominator();
@@ -282,7 +283,7 @@ public class Math_BigRationalRoot implements Serializable,
             if (rn.pow(root).compareTo(num) != 0) {
                 return null;
             }
-            return Math_BigRational.valueOf(rn, rd);
+            return BigRational.valueOf(rn, rd);
         } else {
             BigDecimal rn = BigDecimal.ONE;
             BigDecimal rd = BigDecimal.ONE;
@@ -293,7 +294,7 @@ public class Math_BigRationalRoot implements Serializable,
                     rd = rd.multiply(Math_BigDecimal.root(den, p, oomN6));
                 }
             }
-            return Math_BigRational.valueOf(rn).divide(Math_BigRational.valueOf(rd));
+            return BigRational.valueOf(rn).divide(BigRational.valueOf(rd));
         }
     }
 
@@ -308,8 +309,9 @@ public class Math_BigRationalRoot implements Serializable,
      * @param rm The RoundingMode for any rounding.
      * @return The root of x rounded using {@code oom} and {@code rm}.
      */
-    public static BigDecimal getRoot(Math_BigRational x, int root, int oom, RoundingMode rm) {
-        Math_BigRational x0 = x.reduce();
+    public static BigDecimal getRoot(BigRational x, int root, int oom, 
+            RoundingMode rm) {
+        BigRational x0 = x.reduce();
         int oomN6 = oom - 6;
         TreeMap<Integer, Integer> f = Math_Integer.getPrimeFactors(root);
         BigDecimal num = x0.getNumerator();
@@ -350,15 +352,17 @@ public class Math_BigRationalRoot implements Serializable,
     /**
      * A POJO class for code brevity.
      */
-    private class MC {
+    public class MC implements Serializable {
+
+        private static final long serialVersionUID = 1L;
 
         MathContext mc;
         MathContext mcp6;
 
         MC(int oom) {
             int precision = (int) Math.ceil(
-                    x.integerPart().toBigDecimal(oom).precision() / (double) 2)
-                    - oom;
+                    Math_BigRational.toBigDecimal(x.integerPart(), oom)
+                            .precision() / (double) 2) - oom;
             mc = new MathContext(precision);
             mcp6 = new MathContext(precision + 6);
         }
@@ -425,12 +429,12 @@ public class Math_BigRationalRoot implements Serializable,
             if (y.rootx == null) {
                 return null;
             } else {
-                Math_BigRational v = y.rootx.pow(y.n).multiply(x);
+                BigRational v = y.rootx.pow(y.n).multiply(x);
                 return new Math_BigRationalRoot(v.multiply(x), y.n,
                         Math.min(this.oom, y.oom));
             }
         } else {
-            Math_BigRational v;
+            BigRational v;
             if (y.rootx == null) {
                 v = rootx.pow(n).multiply(y.x);
                 return new Math_BigRationalRoot(v, n,
@@ -462,7 +466,7 @@ public class Math_BigRationalRoot implements Serializable,
             if (y.rootx == null) {
                 return null;
             } else {
-                if (x.compareTo(Math_BigRational.ZERO) == 0) {
+                if (x.compareTo(BigRational.ZERO) == 0) {
                     return null;
                 }
                 return new Math_BigRationalRoot(y.rootx.pow(y.n).divide(x),

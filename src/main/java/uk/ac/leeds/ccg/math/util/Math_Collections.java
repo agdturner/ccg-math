@@ -15,6 +15,7 @@
  */
 package uk.ac.leeds.ccg.math.util;
 
+import ch.obermuhlner.math.big.BigRational;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import uk.ac.leeds.ccg.math.arithmetic.Math_Math;
-import uk.ac.leeds.ccg.math.number.Math_BigRational;
 
 /**
  * For processing and manipulating collections including Lists, Arrays, Sets and
@@ -49,12 +49,12 @@ public class Math_Collections {
      * @return CountsLabelsMins
      */
     public static CountsLabelsMins getIntervalCountsLabelsMins(
-            Math_BigRational min, Math_BigRational w, 
-            TreeMap<?, Math_BigRational> map) {
+            BigRational min, BigRational w, 
+            TreeMap<?, BigRational> map) {
         CountsLabelsMins r = new CountsLabelsMins();
-        for (Math_BigRational v : map.values()) {
+        for (BigRational v : map.values()) {
             Integer interval;
-            if (w.compareTo(Math_BigRational.ZERO) == 0) {
+            if (w.compareTo(BigRational.ZERO) == 0) {
                 interval = 0;
             } else {
                 interval = getInterval(min, w, v);
@@ -63,8 +63,8 @@ public class Math_Collections {
             //addToMapInteger(r.counts, interval, 1);
             addToCount(r.counts, interval, 1);
             if (!r.labels.containsKey(interval)) {
-                Math_BigRational imin = getIntervalMin(min, w, interval);
-                Math_BigRational intervalMax = getIntervalMax(imin, w);
+                BigRational imin = getIntervalMin(min, w, interval);
+                BigRational intervalMax = getIntervalMax(imin, w);
                 r.labels.put(interval, "" + imin + " - " + intervalMax);
                 r.mins.put(interval, imin);
             }
@@ -108,9 +108,9 @@ public class Math_Collections {
      * @param interval Interval
      * @return {@code min.add(new BigDecimal(interval).multiply(w))}
      */
-    public static Math_BigRational getIntervalMin(Math_BigRational min, 
-            Math_BigRational w, int interval) {
-        return min.add(Math_BigRational.valueOf(interval).multiply(w));
+    public static BigRational getIntervalMin(BigRational min, 
+            BigRational w, int interval) {
+        return min.add(BigRational.valueOf(interval).multiply(w));
     }
 
     /**
@@ -118,8 +118,8 @@ public class Math_Collections {
      * @param w Interval width
      * @return {@code min.add(w)}
      */
-    public static Math_BigRational getIntervalMax(Math_BigRational min,
-            Math_BigRational w) {
+    public static BigRational getIntervalMax(BigRational min,
+            BigRational w) {
         return min.add(w);
     }
 
@@ -129,8 +129,8 @@ public class Math_Collections {
      * @param v Value
      * @return {@code (v.subtract(min)).divide(w).intValue()}
      */
-    public static int getInterval(Math_BigRational min, Math_BigRational w, 
-            Math_BigRational v) {
+    public static int getInterval(BigRational min, BigRational w, 
+            BigRational v) {
         return (v.subtract(min)).divide(w).intValue();
     }
 

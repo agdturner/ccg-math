@@ -15,6 +15,7 @@
  */
 package uk.ac.leeds.ccg.math.number;
 
+import ch.obermuhlner.math.big.BigRational;
 import java.math.RoundingMode;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -118,9 +119,9 @@ public class Math_Quaternion_BigRationalTest {
      */
     @Test
     @Disabled
-    public void testMultiply_Math_BigRational() {
+    public void testMultiply_BigRational() {
         System.out.println("multiply");
-        Math_BigRational s = null;
+        BigRational s = null;
         Math_Quaternion_BigRational instance = null;
         Math_Quaternion_BigRational expResult = null;
         Math_Quaternion_BigRational result = instance.multiply(s);
@@ -136,7 +137,7 @@ public class Math_Quaternion_BigRationalTest {
     @Disabled
     public void testDivide() {
         System.out.println("divide");
-        Math_BigRational s = null;
+        BigRational s = null;
         Math_Quaternion_BigRational instance = null;
         Math_Quaternion_BigRational expResult = null;
         Math_Quaternion_BigRational result = instance.divide(s);
@@ -185,8 +186,8 @@ public class Math_Quaternion_BigRationalTest {
         System.out.println("getDotProduct");
         Math_Quaternion_BigRational q;
         Math_Quaternion_BigRational instance;
-        Math_BigRational expResult = Math_BigRational.valueOf(-6);
-        Math_BigRational result;
+        BigRational expResult = BigRational.valueOf(-6);
+        BigRational result;
         // Test 1
         q = new Math_Quaternion_BigRational(1, 2, 2, 1);
         instance = new Math_Quaternion_BigRational(3, -2, -1, -3);
@@ -219,8 +220,8 @@ public class Math_Quaternion_BigRationalTest {
         int oom = 0;
         RoundingMode rm = RoundingMode.HALF_UP;
         Math_Quaternion_BigRational instance = null;
-        Math_BigRational expResult = null;
-        Math_BigRational result = instance.getMagnitude(oom, rm);
+        BigRational expResult = null;
+        BigRational result = instance.getMagnitude(oom, rm);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -234,8 +235,8 @@ public class Math_Quaternion_BigRationalTest {
     public void testGetMagnitude2() {
         System.out.println("getMagnitude2");
         Math_Quaternion_BigRational instance = null;
-        Math_BigRational expResult = null;
-        Math_BigRational result = instance.getMagnitude2();
+        BigRational expResult = null;
+        BigRational result = instance.getMagnitude2();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -256,10 +257,10 @@ public class Math_Quaternion_BigRationalTest {
         oom = -3;
         instance = new Math_Quaternion_BigRational(2, 1, -4, -2);
         result = instance.normalize(oom, rm);
-        assertTrue(Math_BigRational.valueOf(2,5).compareTo(result.getW()) == 0);
-        assertTrue(Math_BigRational.valueOf(1,5).compareTo(result.getX()) == 0);
-        assertTrue(Math_BigRational.valueOf(-4,5).compareTo(result.getY()) == 0);
-        assertTrue(Math_BigRational.valueOf(-2,5).compareTo(result.getZ()) == 0);
+        assertTrue(BigRational.valueOf(2,5).compareTo(result.getW()) == 0);
+        assertTrue(BigRational.valueOf(1,5).compareTo(result.getX()) == 0);
+        assertTrue(BigRational.valueOf(-4,5).compareTo(result.getY()) == 0);
+        assertTrue(BigRational.valueOf(-2,5).compareTo(result.getZ()) == 0);
     }
 
     /**
@@ -270,8 +271,8 @@ public class Math_Quaternion_BigRationalTest {
     public void testGetW() {
         System.out.println("getW");
         Math_Quaternion_BigRational instance = null;
-        Math_BigRational expResult = null;
-        Math_BigRational result = instance.getW();
+        BigRational expResult = null;
+        BigRational result = instance.getW();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -285,8 +286,8 @@ public class Math_Quaternion_BigRationalTest {
     public void testGetX() {
         System.out.println("getX");
         Math_Quaternion_BigRational instance = null;
-        Math_BigRational expResult = null;
-        Math_BigRational result = instance.getX();
+        BigRational expResult = null;
+        BigRational result = instance.getX();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -300,8 +301,8 @@ public class Math_Quaternion_BigRationalTest {
     public void testGetY() {
         System.out.println("getY");
         Math_Quaternion_BigRational instance = null;
-        Math_BigRational expResult = null;
-        Math_BigRational result = instance.getY();
+        BigRational expResult = null;
+        BigRational result = instance.getY();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -315,8 +316,8 @@ public class Math_Quaternion_BigRationalTest {
     public void testGetZ() {
         System.out.println("getZ");
         Math_Quaternion_BigRational instance = null;
-        Math_BigRational expResult = null;
-        Math_BigRational result = instance.getZ();
+        BigRational expResult = null;
+        BigRational result = instance.getZ();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

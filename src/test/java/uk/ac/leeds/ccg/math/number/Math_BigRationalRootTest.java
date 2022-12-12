@@ -99,7 +99,7 @@ public class Math_BigRationalRootTest {
     @Test
     public void testValueOf_BigRational() {
         System.out.println("valueOf");
-        Math_BigRational v = Math_BigRational.ZERO;
+        BigRational v = BigRational.ZERO;
         Math_BigRationalRoot expResult = new Math_BigRationalRoot(0, 0, 0);
         Math_BigRationalRoot result = Math_BigRationalRoot.valueOf(v, 0);
         assertTrue(expResult.compareTo(result) == 0);

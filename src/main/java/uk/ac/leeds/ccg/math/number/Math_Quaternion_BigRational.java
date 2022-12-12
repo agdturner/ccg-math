@@ -15,6 +15,7 @@
  */
 package uk.ac.leeds.ccg.math.number;
 
+import ch.obermuhlner.math.big.BigRational;
 import java.io.Serializable;
 import java.math.RoundingMode;
 import java.util.Objects;
@@ -56,22 +57,22 @@ public class Math_Quaternion_BigRational implements Serializable {
     /**
      * Scalar component.
      */
-    public Math_BigRational w;
+    public BigRational w;
 
     /**
      * First vector component.
      */
-    public Math_BigRational x;
+    public BigRational x;
 
     /**
      * Second vector component.
      */
-    public Math_BigRational y;
+    public BigRational y;
 
     /**
      * Third vector component.
      */
-    public Math_BigRational z;
+    public BigRational z;
 
     /**
      * Create a new instance.
@@ -82,8 +83,8 @@ public class Math_Quaternion_BigRational implements Serializable {
      * @param z Third vector component.
      */
     public Math_Quaternion_BigRational(long w, long x, long y, long z) {
-        this(Math_BigRational.valueOf(w), Math_BigRational.valueOf(x),
-                Math_BigRational.valueOf(y), Math_BigRational.valueOf(z));
+        this(BigRational.valueOf(w), BigRational.valueOf(x),
+                BigRational.valueOf(y), BigRational.valueOf(z));
     }
 
     /**
@@ -94,8 +95,8 @@ public class Math_Quaternion_BigRational implements Serializable {
      * @param y Second vector component.
      * @param z Third vector component.
      */
-    public Math_Quaternion_BigRational(Math_BigRational w, Math_BigRational x,
-            Math_BigRational y, Math_BigRational z) {
+    public Math_Quaternion_BigRational(BigRational w, BigRational x,
+            BigRational y, BigRational z) {
         this.w = w;
         this.x = x;
         this.y = y;
@@ -182,7 +183,7 @@ public class Math_Quaternion_BigRational implements Serializable {
      * @param s Scale factor.
      * @return A scaled quaternion.
      */
-    public Math_Quaternion_BigRational multiply(Math_BigRational s) {
+    public Math_Quaternion_BigRational multiply(BigRational s) {
         return new Math_Quaternion_BigRational(w.multiply(s), x.multiply(s),
                 y.multiply(s), z.multiply(s));
     }
@@ -193,7 +194,7 @@ public class Math_Quaternion_BigRational implements Serializable {
      * @param s Scale factor.
      * @return A scaled quaternion.
      */
-    public Math_Quaternion_BigRational divide(Math_BigRational s) {
+    public Math_Quaternion_BigRational divide(BigRational s) {
         return new Math_Quaternion_BigRational(w.divide(s), x.divide(s),
                 y.divide(s), z.divide(s));
     }
@@ -231,7 +232,7 @@ public class Math_Quaternion_BigRational implements Serializable {
      * @param q Quaternion to get the projection onto.
      * @return {@code this} Dot {@code q}.
      */
-    public Math_BigRational getDotProduct(Math_Quaternion_BigRational q) {
+    public BigRational getDotProduct(Math_Quaternion_BigRational q) {
         return this.w.multiply(q.w)
                 .add(this.x.multiply(q.x))
                 .add(this.y.multiply(q.y))
@@ -253,7 +254,7 @@ public class Math_Quaternion_BigRational implements Serializable {
      * @param rm The RoundingMode for any rounding.
      * @return The magnitude
      */
-    public Math_BigRational getMagnitude(int oom, RoundingMode rm) {
+    public BigRational getMagnitude(int oom, RoundingMode rm) {
         return new Math_BigRationalSqrt(getMagnitude2(), oom, rm)
                 .getSqrt(oom, rm);
     }
@@ -263,7 +264,7 @@ public class Math_Quaternion_BigRational implements Serializable {
      *
      * @return The square of the magnitude.
      */
-    public Math_BigRational getMagnitude2() {
+    public BigRational getMagnitude2() {
         return w.pow(2).add(x.pow(2)).add(y.pow(2)).add(z.pow(2));
 
     }
@@ -282,28 +283,28 @@ public class Math_Quaternion_BigRational implements Serializable {
     /**
      * @return {@link #w}.
      */
-    public Math_BigRational getW() {
+    public BigRational getW() {
         return w;
     }
 
     /**
      * @return {@link #x}.
      */
-    public Math_BigRational getX() {
+    public BigRational getX() {
         return x;
     }
 
     /**
      * @return {@link #y}.
      */
-    public Math_BigRational getY() {
+    public BigRational getY() {
         return y;
     }
 
     /**
      * @return {@link #z}.
      */
-    public Math_BigRational getZ() {
+    public BigRational getZ() {
         return z;
     }
 }

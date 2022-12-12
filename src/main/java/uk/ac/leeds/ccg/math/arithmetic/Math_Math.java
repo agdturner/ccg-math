@@ -128,72 +128,70 @@ public class Math_Math {
 //        if (x instanceof BigRational) {
 //            return (T) ((BigRational) x).add((BigRational) y);
 //        } else 
-        if (x instanceof BigDecimal) {
-            return (T) ((BigDecimal) x).add((BigDecimal) y);
-        } else if (x instanceof BigInteger) {
-            return (T) ((BigInteger) x).add((BigInteger) y);
+        if (x instanceof BigDecimal xbd) {
+            return (T) xbd.add((BigDecimal) y);
+        } else if (x instanceof BigInteger xbi) {
+            return (T) xbi.add((BigInteger) y);
         } else {
-            if (x instanceof Double) {
-                Double x0 = (Double) x;
+            if (x instanceof Double xd) {
                 // Deal with special cases.
-                if (x0.isNaN()) {
-                    return (T) x0;
+                if (xd.isNaN()) {
+                    return (T) xd;
                 }
                 Double y0 = (Double) y;
                 if (y0.isNaN()) {
                     return (T) y0;
                 }
-                if (x0 == Double.POSITIVE_INFINITY) {
+                if (xd == Double.POSITIVE_INFINITY) {
                     if (y0 == Double.NEGATIVE_INFINITY) {
                         throw new ArithmeticException("Attempting to add "
                                 + "positive and negative infinity.");
                         //return (T) (Double) Double.NaN;
                     } else {
-                        return (T) x0;
+                        return (T) xd;
                     }
-                } else if (x0 == Double.NEGATIVE_INFINITY) {
+                } else if (xd == Double.NEGATIVE_INFINITY) {
                     if (y0 == Double.POSITIVE_INFINITY) {
                         throw new ArithmeticException("Attempting to add "
                                 + "positive and negative infinity.");
                         //return (T) (Double) Double.NaN;
                     } else {
-                        return (T) x0;
+                        return (T) xd;
                     }
                 } else {
-                    BigDecimal x1 = BigDecimal.valueOf(x0);
+                    BigDecimal x1 = BigDecimal.valueOf(xd);
                     BigDecimal y1 = BigDecimal.valueOf(y0);
                     BigDecimal sum = x1.add(y1);
                     testDouble(sum);
                     return (T) (Double) sum.doubleValue();
                 }
-            } else if (x instanceof Float) {
-                Float x0 = (Float) x;
+            } else if (x instanceof Float xf) {
                 // Deal with special cases.
-                if (x0.isNaN()) {
-                    return (T) x0;
+                if (xf.isNaN()) {
+                    return (T) xf;
                 }
                 Float y0 = (Float) y;
                 if (y0.isNaN()) {
                     return (T) y0;
                 }
-                if (x0 == Float.POSITIVE_INFINITY) {
+                if (xf == Float.POSITIVE_INFINITY) {
                     if (y0 == Float.NEGATIVE_INFINITY) {
                         throw new ArithmeticException("Attempting to add "
                                 + "positive and negative infinity.");
                         //return (T) (Float) Float.NaN;
                     } else {
-                        return (T) x0;
+                        return (T) xf;
                     }
-                } else if (x0 == Float.NEGATIVE_INFINITY) {
+                } else if (xf == Float.NEGATIVE_INFINITY) {
                     if (y0 == Float.POSITIVE_INFINITY) {
                         throw new ArithmeticException("Attempting to add "
                                 + "positive and negative infinity.");
                         //return (T) (Float) Float.NaN;
                     } else {
-                        return (T) x0;
+                        return (T) xf;
                     }
                 } else {
-                    BigDecimal x1 = BigDecimal.valueOf(x0);
+                    BigDecimal x1 = BigDecimal.valueOf(xf);
                     
                     if (y0.isInfinite()) {
                         int debug = 1;
@@ -204,20 +202,20 @@ public class Math_Math {
                     testFloat(sum);
                     return (T) (Float) sum.floatValue();
                 }
-            } else if (x instanceof Long) {
-                BigInteger x0 = BigInteger.valueOf((Long) x);
+            } else if (x instanceof Long xl) {
+                BigInteger x0 = BigInteger.valueOf(xl);
                 BigInteger y0 = BigInteger.valueOf((Long) y);
                 return (T) (Long) x0.add(y0).longValueExact();
-            } else if (x instanceof Integer) {
-                BigInteger x0 = BigInteger.valueOf((Integer) x);
+            } else if (x instanceof Integer xi) {
+                BigInteger x0 = BigInteger.valueOf(xi);
                 BigInteger y0 = BigInteger.valueOf((Integer) y);
                 return (T) (Integer) x0.add(y0).intValueExact();
-            } else if (x instanceof Short) {
-                BigInteger x0 = BigInteger.valueOf((Short) x);
+            } else if (x instanceof Short xs) {
+                BigInteger x0 = BigInteger.valueOf(xs);
                 BigInteger y0 = BigInteger.valueOf((Short) y);
                 return (T) (Short) x0.add(y0).shortValueExact();
-            } else if (x instanceof Byte) {
-                BigInteger x0 = BigInteger.valueOf((Byte) x);
+            } else if (x instanceof Byte xb) {
+                BigInteger x0 = BigInteger.valueOf(xb);
                 BigInteger y0 = BigInteger.valueOf((Byte) y);
                 return (T) (Byte) x0.add(y0).byteValueExact();
             } else {
