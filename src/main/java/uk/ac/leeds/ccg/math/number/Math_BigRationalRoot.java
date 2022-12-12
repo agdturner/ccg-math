@@ -163,10 +163,10 @@ public class Math_BigRationalRoot implements Serializable,
     /**
      * No check is performed to test that {@code rootx} is indeed what would be
      * returned from
-     * {@link #getRoot(Math_BigRational, int, int, java.math.RoundingMode)}
+     * {@link #getRoot(ch.obermuhlner.math.big.BigRational, int, int, java.math.RoundingMode)}
      * with {@code x} and {@code n} input. This is preferred for efficiency
      * reasons over
-     * {@link #Math_BigRationalRoot(Math_BigRational, int, int)}
+     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int, int)}
      * if the {@code n}th root of {@code x} is known about.
      *
      * @param x What {@link #x} is set to.
@@ -183,9 +183,9 @@ public class Math_BigRationalRoot implements Serializable,
     /**
      * No check is performed to test that {@code rootx} is indeed what would be
      * returned from
-     * {@link #getRoot(Math_BigRational, int, int, java.math.RoundingMode)}
+     * {@link #getRoot(ch.obermuhlner.math.big.BigRational, int, int, java.math.RoundingMode)}
      * with {@code x} as input. This is preferred for efficiency reasons over
-     * {@link #Math_BigRationalRoot(Math_BigRational, int, int)}
+     * {@link #Math_BigRationalRoot(ch.obermuhlner.math.big.BigRational, int, int)}
      * if it is known what the square root of {@code x} is.
      *
      * @param x What {@link #x} is set to.
@@ -356,9 +356,20 @@ public class Math_BigRationalRoot implements Serializable,
 
         private static final long serialVersionUID = 1L;
 
+        /**
+         * The general MathContext
+         */
         MathContext mc;
+
+        /**
+         * The MathContext with 6 more places of precision.
+         */
         MathContext mcp6;
 
+        /**
+         * Creates a new instance.
+         * @param oom The order of magnitude for the precision.
+         */
         MC(int oom) {
             int precision = (int) Math.ceil(
                     Math_BigRational.toBigDecimal(x.integerPart(), oom)

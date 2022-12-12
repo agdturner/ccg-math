@@ -196,7 +196,7 @@ public class Math_BigRationalSqrt implements Serializable,
      * No check is performed to test that {@code sqrtx} is indeed the square
      * root of {@code x}. This constructor is preferred for efficiency reasons
      * over
-     * {@link #Math_BigRationalSqrt(uk.ac.leeds.ccg.math.number.Math_BigRational, int, java.math.RoundingMode)}
+     * {@link #Math_BigRationalSqrt(ch.obermuhlner.math.big.BigRational, int, java.math.RoundingMode)}
      * if the square root of {@code x} is known. By default the positive root is
      * calculated.
      *
