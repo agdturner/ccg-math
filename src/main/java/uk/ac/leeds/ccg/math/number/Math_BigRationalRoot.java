@@ -15,6 +15,7 @@
  */
 package uk.ac.leeds.ccg.math.number;
 
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigRational;
 import ch.obermuhlner.math.big.BigRational;
 import java.io.Serializable;
 import java.math.BigDecimal;

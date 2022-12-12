@@ -13,34 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math.number;
+package uk.ac.leeds.ccg.math.arithmetic;
 
 import ch.obermuhlner.math.big.BigRational;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 import java.math.RoundingMode;
-import uk.ac.leeds.ccg.math.arithmetic.Math_BigDecimal;
-import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
+import uk.ac.leeds.ccg.math.number.Math_BigRationalSqrt;
 
 /**
- * A <a href="http://en.wikipedia.org/wiki/Rational_number">rational number</a>
- * represented as a quotient of two values. The following calculations have no
- * loss of precision:
- * <ul>
- * <li>{@link #add(BigRational)}</li>
- * <li>{@link #subtract(BigRational)}</li>
- * <li>{@link #multiply(BigRational)}</li>
- * <li>{@link #divide(BigRational)}</li>
- * <li>{@link #pow(int)}</li>
- * <li>{@link #negate()}</li>
- * <li>{@link #reciprocal()}</li>
- * <li>{@link #increment()}</li>
- * <li>{@link #decrement()}</li>
- * </ul>
+ * A class with additional utility methods for processing BigRational numbers.
  *
- * @author Eric Obermühlner, Andy Turner
- * @version 2.0
+ * @author Andy Turner
+ * @version 3.0
  */
 public class Math_BigRational {
 
