@@ -6,7 +6,7 @@
 
     <groupId>io.github.agdturner</groupId>
     <artifactId>ccg-math</artifactId>
-    <version>3.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>ccg-math</name>
@@ -16,7 +16,7 @@
         <url>git@github.com:agdturner/ccg-math.git</url>
         <connection>scm:git:git@github.com:agdturner/ccg-math.git</connection>
         <developerConnection>scm:git:git@github.com:agdturner/ccg-math</developerConnection>
-        <tag>ccg-math-3.0</tag>
+        <tag>ccg-math-3.0.1</tag>
     </scm>
     <licenses>
         <license>

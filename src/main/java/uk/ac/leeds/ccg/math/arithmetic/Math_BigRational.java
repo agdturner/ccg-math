@@ -47,6 +47,28 @@ public class Math_BigRational {
     public static BigRational round(BigRational x, int oom, RoundingMode rm) {
         return BigRational.valueOf(toBigDecimal(x, oom, rm));
     }
+    
+    /**
+     * @return A String representation of {@code x} in 10 characters. This may
+     * involve rounding in which case {@link RoundingMode#HALF_UP} is used. If
+     * the default number has fewer than 10 characters it is padded with spaces.
+     * The returned String is always of length 10.
+     */
+    public static String getStringValue(BigRational x) {
+        return getStringValue(x, 10);
+    }
+
+    /**
+     * @param n The length of the String returned. This must be greater than or
+     * equal to 10.
+     * @return A String representation of {@code x} in n characters. This may
+     * involve rounding in which case {@link RoundingMode#HALF_UP} is used. If
+     * the default number has fewer than 10 characters it is padded with spaces.
+     * The returned String is always of length 10.
+     */
+    public static String getStringValue(BigRational x, int n) {
+        return Math_BigDecimal.getStringValue(x.toBigDecimal());
+    }
 
     /**
      * Returns this rational number as a float value.
