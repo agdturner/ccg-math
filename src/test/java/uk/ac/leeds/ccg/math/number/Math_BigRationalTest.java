@@ -58,6 +58,32 @@ public class Math_BigRationalTest {
     }
 
     @Test
+    public void testEquals() {
+        BigRational x = BigRational.TEN;
+        BigRational y = BigRational.TEN;
+        int oom = 0;
+        assertTrue(Math_BigRational.equals(x, y, oom));
+        oom = 1;
+        assertTrue(Math_BigRational.equals(x, y, oom));
+        oom = 10;
+        assertTrue(Math_BigRational.equals(x, y, oom));
+        oom = -10;
+        assertTrue(Math_BigRational.equals(x, y, oom));
+        y = BigRational.valueOf("10.000000001");
+        oom = 0;
+        assertTrue(Math_BigRational.equals(x, y, oom));
+        oom = 1;
+        assertTrue(Math_BigRational.equals(x, y, oom));
+        oom = 10;
+        assertTrue(Math_BigRational.equals(x, y, oom));
+        oom = -7;
+        assertTrue(Math_BigRational.equals(x, y, oom));
+        oom = -10;
+        assertFalse(Math_BigRational.equals(x, y, oom));
+    }
+    
+    
+    @Test
     public void testToFloat2() {
         BigRational x = BigRational.valueOf("8.80446261998075791112518174946277"
                 + "2084351754080848495898653087767533866267556634");

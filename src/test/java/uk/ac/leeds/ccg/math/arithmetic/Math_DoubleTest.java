@@ -226,4 +226,29 @@ public class Math_DoubleTest {
         assertEquals(expResult, result, 0.0d);
     }
 
+    @Test
+    public void testEquals() {
+        String funcName = "testEquals";
+        System.out.println("Test " + funcName);
+        double d0 = 0d;
+        double d1 = 0d;
+        double epsilon = 0d;
+        // Test 1
+        assertTrue(Math_Double.equals(d0, d1, epsilon));
+        // Test 2        
+        epsilon = 1d/10000000d;
+        double ediv2 = epsilon / 2d;
+        d0 = 0d;
+        d1 = ediv2;
+        assertTrue(Math_Double.equals(d0, d1, epsilon));
+        // Test 3
+        d1 = -ediv2;
+        assertTrue(Math_Double.equals(d0, d1, epsilon));
+        // Test 4
+        d1 = epsilon;
+        assertTrue(Math_Double.equals(d0, d1, epsilon));
+        // Test 5
+        d1 = epsilon * 2d;
+        assertFalse(Math_Double.equals(d0, d1, epsilon));
+    }
 }

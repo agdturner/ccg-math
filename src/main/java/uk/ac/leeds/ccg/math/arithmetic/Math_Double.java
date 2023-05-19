@@ -214,10 +214,11 @@ public class Math_Double {
      * @param d1 A double to check if it is within epsilon of d2;
      * @param d2 A double to check if it is within epsilon of d1;
      * @param epsilon Usually a small amount.
-     * @return {@code true} iff d1 and d2 are less than epsilon different.
+     * @return {@code true} iff d1 and d2 are less than or equal to epsilon 
+     * different.
      */
     public static boolean equals(double d1, double d2, double epsilon) {
-        return d1 < d2 + epsilon && d1 > d2 - epsilon;
+        return d1 <= d2 + epsilon && d1 >= d2 - epsilon;
     }
     
     /**

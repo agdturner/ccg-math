@@ -520,6 +520,13 @@ public class Math_BigRationalSqrt implements Serializable,
     }
 
     /**
+     * @return {@code true} if {@code this} is Zero.
+     */
+    public boolean isZero(int oom) {
+        return equals(ZERO, oom);
+    }
+
+    /**
      * @param y The number to multiply by.
      * @param oom The Order of Magnitude for the precision.
      * @param rm The RoundingMode for any rounding.
@@ -624,6 +631,26 @@ public class Math_BigRationalSqrt implements Serializable,
         }
     }
 
+    /**
+     * @param x The Math_BigRationalSqrt to test for equality with this.
+     * @return {@code true} iff this is equal to {@code x}
+     */
+    public boolean equals(Math_BigRationalSqrt x, int oom) {
+        if (isNegative()) {
+            if (x.isNegative()) {
+                return Math_BigRational.equals(x.x, this.x, oom);
+            } else {
+                return false;
+            }
+        } else {
+            if (x.isNegative()) {
+                return false;
+            } else {
+                return Math_BigRational.equals(x.x, this.x, oom);
+            }
+        }
+    }
+    
     @Override
     public int compareTo(Math_BigRationalSqrt o) {
         if (isNegative()) {

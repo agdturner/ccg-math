@@ -36,6 +36,18 @@ public class Math_BigRational {
     }
 
     /**
+     * @param x A BigRational to check if it is within an oom of y;
+     * @param y A BigRational to check if it is within an oom of x;
+     * @param oom the order of magnitude for the precision.
+     * @return {@code true} iff x and y are less than or equal to epsilon 
+     * different.
+     */
+    public static boolean equals(BigRational x, BigRational y, int oom) {
+        BigRational oomb = BigRational.TEN.pow(oom);
+        return x.compareTo(y.add(oomb)) != 1 && x.compareTo(y.subtract(oomb)) != -1;
+    }
+    
+    /**
      * Returns a rational number with approximately <code>this</code> value and
      * the specified precision.
      *
