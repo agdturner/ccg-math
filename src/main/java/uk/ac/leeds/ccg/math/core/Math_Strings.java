@@ -21,6 +21,11 @@ package uk.ac.leeds.ccg.math.core;
  */
 public class Math_Strings {
     
+    /**
+     * Create a new instance;
+     */
+    public Math_Strings(){}
+    
     // -------
     // Symbols
     // -------

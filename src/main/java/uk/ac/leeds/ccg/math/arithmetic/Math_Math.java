@@ -16,6 +16,7 @@
 package uk.ac.leeds.ccg.math.arithmetic;
 
 //import ch.obermuhlner.math.big.BigRational;
+import ch.obermuhlner.math.big.BigRational;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -32,6 +33,11 @@ import java.math.RoundingMode;
  */
 public class Math_Math {
 
+    /**
+     * Create a new instance;
+     */
+    public Math_Math(){}
+    
     /**
      * Stores the second largest finite double. The largest is:
      *
@@ -83,8 +89,8 @@ public class Math_Math {
     //        Float.toString(Float.MAX_VALUE));
 
     /**
-     * Used for testing. If values are greater than this then they cannot be stored as
-     * Shorts.
+     * Used for testing. If values are greater than this then they cannot be
+     * stored as Shorts.
      */
     public static final BigInteger SHORT_MAXVALUE = new BigInteger(
             Short.toString(Short.MAX_VALUE));
@@ -125,102 +131,136 @@ public class Math_Math {
         if (x == null || y == null) {
             return null;
         }
-//        if (x instanceof BigRational) {
-//            return (T) ((BigRational) x).add((BigRational) y);
-//        } else 
-        if (x instanceof BigDecimal xbd) {
-            return (T) xbd.add((BigDecimal) y);
-        } else if (x instanceof BigInteger xbi) {
-            return (T) xbi.add((BigInteger) y);
+        if (x instanceof BigRational) {
+            @SuppressWarnings("unchecked")
+            T r = (T) ((BigRational) x).add((BigRational) y);
+            return r;
         } else {
-            if (x instanceof Double xd) {
-                // Deal with special cases.
-                if (xd.isNaN()) {
-                    return (T) xd;
-                }
-                Double y0 = (Double) y;
-                if (y0.isNaN()) {
-                    return (T) y0;
-                }
-                if (xd == Double.POSITIVE_INFINITY) {
-                    if (y0 == Double.NEGATIVE_INFINITY) {
-                        throw new ArithmeticException("Attempting to add "
-                                + "positive and negative infinity.");
-                        //return (T) (Double) Double.NaN;
-                    } else {
-                        return (T) xd;
-                    }
-                } else if (xd == Double.NEGATIVE_INFINITY) {
-                    if (y0 == Double.POSITIVE_INFINITY) {
-                        throw new ArithmeticException("Attempting to add "
-                                + "positive and negative infinity.");
-                        //return (T) (Double) Double.NaN;
-                    } else {
-                        return (T) xd;
-                    }
-                } else {
-                    BigDecimal x1 = BigDecimal.valueOf(xd);
-                    BigDecimal y1 = BigDecimal.valueOf(y0);
-                    BigDecimal sum = x1.add(y1);
-                    testDouble(sum);
-                    return (T) (Double) sum.doubleValue();
-                }
-            } else if (x instanceof Float xf) {
-                // Deal with special cases.
-                if (xf.isNaN()) {
-                    return (T) xf;
-                }
-                Float y0 = (Float) y;
-                if (y0.isNaN()) {
-                    return (T) y0;
-                }
-                if (xf == Float.POSITIVE_INFINITY) {
-                    if (y0 == Float.NEGATIVE_INFINITY) {
-                        throw new ArithmeticException("Attempting to add "
-                                + "positive and negative infinity.");
-                        //return (T) (Float) Float.NaN;
-                    } else {
-                        return (T) xf;
-                    }
-                } else if (xf == Float.NEGATIVE_INFINITY) {
-                    if (y0 == Float.POSITIVE_INFINITY) {
-                        throw new ArithmeticException("Attempting to add "
-                                + "positive and negative infinity.");
-                        //return (T) (Float) Float.NaN;
-                    } else {
-                        return (T) xf;
-                    }
-                } else {
-                    BigDecimal x1 = BigDecimal.valueOf(xf);
-                    
-                    if (y0.isInfinite()) {
-                        int debug = 1;
-                    }
-                    
-                    BigDecimal y1 = BigDecimal.valueOf(y0);
-                    BigDecimal sum = x1.add(y1);
-                    testFloat(sum);
-                    return (T) (Float) sum.floatValue();
-                }
-            } else if (x instanceof Long xl) {
-                BigInteger x0 = BigInteger.valueOf(xl);
-                BigInteger y0 = BigInteger.valueOf((Long) y);
-                return (T) (Long) x0.add(y0).longValueExact();
-            } else if (x instanceof Integer xi) {
-                BigInteger x0 = BigInteger.valueOf(xi);
-                BigInteger y0 = BigInteger.valueOf((Integer) y);
-                return (T) (Integer) x0.add(y0).intValueExact();
-            } else if (x instanceof Short xs) {
-                BigInteger x0 = BigInteger.valueOf(xs);
-                BigInteger y0 = BigInteger.valueOf((Short) y);
-                return (T) (Short) x0.add(y0).shortValueExact();
-            } else if (x instanceof Byte xb) {
-                BigInteger x0 = BigInteger.valueOf(xb);
-                BigInteger y0 = BigInteger.valueOf((Byte) y);
-                return (T) (Byte) x0.add(y0).byteValueExact();
+            if (x instanceof BigDecimal xbd) {
+                @SuppressWarnings("unchecked")
+                T r = (T) xbd.add((BigDecimal) y);
+                return r;
+            } else if (x instanceof BigInteger xbi) {
+                @SuppressWarnings("unchecked")
+                T r = (T) xbi.add((BigInteger) y);
+                return r;
             } else {
-                throw new IllegalArgumentException("Type T=" + x.getClass()
-                        + " is not supported in Generic_Collections.add(T, T)");
+                if (x instanceof Double xd) {
+                    // Deal with special cases.
+                    if (xd.isNaN()) {
+                        @SuppressWarnings("unchecked")
+                        T r = (T) xd;
+                        return r;
+                    }
+                    Double y0 = (Double) y;
+                    if (y0.isNaN()) {
+                        @SuppressWarnings("unchecked")
+                        T r = (T) y0;
+                        return r;
+                    }
+                    if (xd == Double.POSITIVE_INFINITY) {
+                        if (y0 == Double.NEGATIVE_INFINITY) {
+                            throw new ArithmeticException("Attempting to add "
+                                    + "positive and negative infinity.");
+                            //return (T) (Double) Double.NaN;
+                        } else {
+                            @SuppressWarnings("unchecked")
+                            T r = (T) xd;
+                            return r;
+                        }
+                    } else if (xd == Double.NEGATIVE_INFINITY) {
+                        if (y0 == Double.POSITIVE_INFINITY) {
+                            throw new ArithmeticException("Attempting to add "
+                                    + "positive and negative infinity.");
+                            //return (T) (Double) Double.NaN;
+                        } else {
+                            @SuppressWarnings("unchecked")
+                            T r = (T) xd;
+                            return r;
+                        }
+                    } else {
+                        BigDecimal x1 = BigDecimal.valueOf(xd);
+                        BigDecimal y1 = BigDecimal.valueOf(y0);
+                        BigDecimal sum = x1.add(y1);
+                        testDouble(sum);
+                        @SuppressWarnings("unchecked")
+                        T r = (T) (Double) sum.doubleValue();
+                        return r;
+                    }
+                } else if (x instanceof Float xf) {
+                    // Deal with special cases.
+                    if (xf.isNaN()) {
+                        @SuppressWarnings("unchecked")
+                        T r = (T) xf;
+                        return r;
+                    }
+                    Float y0 = (Float) y;
+                    if (y0.isNaN()) {
+                        @SuppressWarnings("unchecked")
+                        T r = (T) y0;
+                        return r;
+                    }
+                    if (xf == Float.POSITIVE_INFINITY) {
+                        if (y0 == Float.NEGATIVE_INFINITY) {
+                            throw new ArithmeticException("Attempting to add "
+                                    + "positive and negative infinity.");
+                            //return (T) (Float) Float.NaN;
+                        } else {
+                            @SuppressWarnings("unchecked")
+                            T r = (T) xf;
+                            return r;
+                        }
+                    } else if (xf == Float.NEGATIVE_INFINITY) {
+                        if (y0 == Float.POSITIVE_INFINITY) {
+                            throw new ArithmeticException("Attempting to add "
+                                    + "positive and negative infinity.");
+                            //return (T) (Float) Float.NaN;
+                        } else {
+                            @SuppressWarnings("unchecked")
+                            T r = (T) xf;
+                            return r;
+                        }
+                    } else {
+                        if (y0.isInfinite()) {
+                            throw new ArithmeticException("Attempting to add "
+                                    + "to negative infinity.");
+                        }
+                        BigDecimal x1 = BigDecimal.valueOf(xf);
+                        BigDecimal y1 = BigDecimal.valueOf(y0);
+                        BigDecimal sum = x1.add(y1);
+                        testFloat(sum);
+                        @SuppressWarnings("unchecked")
+                        T r = (T) (Float) sum.floatValue();
+                        return r;
+                    }
+                } else if (x instanceof Long xl) {
+                    BigInteger x0 = BigInteger.valueOf(xl);
+                    BigInteger y0 = BigInteger.valueOf((Long) y);
+                    @SuppressWarnings("unchecked")
+                    T r = (T) (Long) x0.add(y0).longValueExact();
+                    return r;
+                } else if (x instanceof Integer xi) {
+                    BigInteger x0 = BigInteger.valueOf(xi);
+                    BigInteger y0 = BigInteger.valueOf((Integer) y);
+                    @SuppressWarnings("unchecked")
+                    T r = (T) (Integer) x0.add(y0).intValueExact();
+                    return r;
+                } else if (x instanceof Short xs) {
+                    BigInteger x0 = BigInteger.valueOf(xs);
+                    BigInteger y0 = BigInteger.valueOf((Short) y);
+                    @SuppressWarnings("unchecked")
+                    T r = (T) (Short) x0.add(y0).shortValueExact();
+                    return r;
+                } else if (x instanceof Byte xb) {
+                    BigInteger x0 = BigInteger.valueOf(xb);
+                    BigInteger y0 = BigInteger.valueOf((Byte) y);
+                    @SuppressWarnings("unchecked")
+                    T r = (T) (Byte) x0.add(y0).byteValueExact();
+                    return r;
+                } else {
+                    throw new IllegalArgumentException("Type T=" + x.getClass()
+                            + " is not supported in Generic_Collections.add(T, T)");
+                }
             }
         }
     }
@@ -259,21 +299,37 @@ public class Math_Math {
         if (x instanceof BigDecimal) {
             BigDecimal x0 = (BigDecimal) x;
             if (y instanceof BigDecimal) {
-                return (T1) x0.add((BigDecimal) y);
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add((BigDecimal) y);
+                    return r;
             } else if (y instanceof BigInteger) {
-                return (T1) x0.add(new BigDecimal((BigInteger) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(new BigDecimal((BigInteger) y));
+                    return r;
             } else if (y instanceof Double) {
-                return (T1) x0.add(new BigDecimal((Double) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(new BigDecimal((Double) y));
+                    return r;
             } else if (y instanceof Float) {
-                return (T1) x0.add(new BigDecimal((Float) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(new BigDecimal((Float) y));
+                    return r;
             } else if (y instanceof Long) {
-                return (T1) x0.add(new BigDecimal((Long) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(new BigDecimal((Long) y));
+                    return r;
             } else if (y instanceof Integer) {
-                return (T1) x0.add(new BigDecimal((Integer) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(new BigDecimal((Integer) y));
+                    return r;
             } else if (y instanceof Short) {
-                return (T1) x0.add(new BigDecimal((Short) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(new BigDecimal((Short) y));
+                    return r;
             } else if (y instanceof Byte) {
-                return (T1) x0.add(new BigDecimal((Byte) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(new BigDecimal((Byte) y));
+                    return r;
             } else {
                 throw new IllegalArgumentException("Type T2=" + y.getClass()
                         + " is not supported in Generic_Math.add(T1, T2)");
@@ -281,21 +337,37 @@ public class Math_Math {
         } else if (x instanceof BigInteger) {
             BigInteger x0 = (BigInteger) x;
             if (y instanceof BigDecimal) {
-                return (T1) x0.add(((BigDecimal) y).toBigInteger());
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(((BigDecimal) y).toBigInteger());
+                    return r;
             } else if (y instanceof BigInteger) {
-                return (T1) x0.add((BigInteger) y);
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add((BigInteger) y);
+                    return r;
             } else if (y instanceof Double) {
-                return (T1) x0.add(BigInteger.valueOf(((Double) y).longValue()));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(BigInteger.valueOf(((Double) y).longValue()));
+                    return r;
             } else if (y instanceof Float) {
-                return (T1) x0.add(BigInteger.valueOf(((Float) y).longValue()));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(BigInteger.valueOf(((Float) y).longValue()));
+                    return r;
             } else if (y instanceof Long) {
-                return (T1) x0.add(BigInteger.valueOf((Long) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(BigInteger.valueOf((Long) y));
+                    return r;
             } else if (y instanceof Integer) {
-                return (T1) x0.add(BigInteger.valueOf((Integer) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(BigInteger.valueOf((Integer) y));
+                    return r;
             } else if (y instanceof Short) {
-                return (T1) x0.add(BigInteger.valueOf((Short) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(BigInteger.valueOf((Short) y));
+                    return r;
             } else if (y instanceof Byte) {
-                return (T1) x0.add(BigInteger.valueOf((Byte) y));
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0.add(BigInteger.valueOf((Byte) y));
+                    return r;
             } else {
                 throw new IllegalArgumentException("Type T2=" + y.getClass()
                         + " is not supported in Generic_Math.add(T1, T2)");
@@ -304,17 +376,23 @@ public class Math_Math {
             Double x0 = (Double) x;
             // Deal with special cases.
             if (x0.isNaN()) {
-                return (T1) x0;
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
             }
             if (y instanceof Double) {
                 Double y0 = (Double) y;
                 if (y0.isNaN()) {
-                    return (T1) (Double) Double.NaN;
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) Double.NaN;
+                    return r;
                 }
             } else if (y instanceof Float) {
                 Float y0 = (Float) y;
                 if (y0.isNaN()) {
-                    return (T1) (Double) Double.NaN;
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) Double.NaN;
+                    return r;
                 }
             }
             if (x0 == Double.POSITIVE_INFINITY) {
@@ -325,7 +403,9 @@ public class Math_Math {
                                 + "positive and negative infinity.");
                         //return (T1) (Double) Double.NaN;
                     } else {
-                        return (T1) x0;
+                        @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                     }
                 } else if (y instanceof Float) {
                     Float y0 = (Float) y;
@@ -334,10 +414,14 @@ public class Math_Math {
                                 + "positive and negative infinity.");
                         //return (T1) (Double) Double.NaN;
                     } else {
-                        return (T1) x0;
+                        @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                     }
                 } else {
-                    return (T1) x0;
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                 }
             } else if (x0 == Double.NEGATIVE_INFINITY) {
                 if (y instanceof Double) {
@@ -347,7 +431,9 @@ public class Math_Math {
                                 + "positive and negative infinity.");
                         //return (T1) (Double) Double.NaN;
                     } else {
-                        return (T1) x0;
+                        @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                     }
                 } else if (y instanceof Float) {
                     Float y0 = (Float) y;
@@ -356,45 +442,65 @@ public class Math_Math {
                                 + "positive and negative infinity.");
                         //return (T1) (Double) Double.NaN;
                     } else {
-                        return (T1) x0;
+                        @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                     }
                 } else {
-                    return (T1) x0;
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                 }
             } else {
                 BigDecimal x1 = BigDecimal.valueOf(x0);
                 if (y instanceof BigDecimal) {
                     BigDecimal sum = x1.add((BigDecimal) y);
                     testDouble(sum);
-                    return (T1) (Double) sum.doubleValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) sum.doubleValue();
+                    return r;
                 } else if (y instanceof BigInteger) {
                     BigDecimal sum = x1.add(new BigDecimal((BigInteger) y));
                     testDouble(sum);
-                    return (T1) (Double) sum.doubleValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) sum.doubleValue();
+                    return r;
                 } else if (y instanceof Double) {
                     BigDecimal sum = x1.add(new BigDecimal((Double) y));
                     testDouble(sum);
-                    return (T1) (Double) sum.doubleValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) sum.doubleValue();
+                    return r;
                 } else if (y instanceof Float) {
                     BigDecimal sum = x1.add(new BigDecimal((Float) y));
                     testDouble(sum);
-                    return (T1) (Double) sum.doubleValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) sum.doubleValue();
+                    return r;
                 } else if (y instanceof Long) {
                     BigDecimal sum = x1.add(new BigDecimal((Long) y));
                     testDouble(sum);
-                    return (T1) (Double) sum.doubleValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) sum.doubleValue();
+                    return r;
                 } else if (y instanceof Integer) {
                     BigDecimal sum = x1.add(new BigDecimal((Integer) y));
                     testDouble(sum);
-                    return (T1) (Double) sum.doubleValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) sum.doubleValue();
+                    return r;
                 } else if (y instanceof Short) {
                     BigDecimal sum = x1.add(new BigDecimal((Short) y));
                     testDouble(sum);
-                    return (T1) (Double) sum.doubleValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) sum.doubleValue();
+                    return r;
                 } else if (y instanceof Byte) {
                     BigDecimal sum = x1.add(new BigDecimal((Byte) y));
                     testDouble(sum);
-                    return (T1) (Double) sum.doubleValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Double) sum.doubleValue();
+                    return r;
                 } else {
                     throw new IllegalArgumentException("Type T2=" + y.getClass()
                             + " is not supported in Generic_Math.add(T1, T2)");
@@ -404,17 +510,23 @@ public class Math_Math {
             Float x0 = (Float) x;
             // Deal with special cases.
             if (x0.isNaN()) {
-                return (T1) x0;
+                @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
             }
             if (y instanceof Double) {
                 Double y0 = (Double) y;
                 if (y0.isNaN()) {
-                    return (T1) (Float) Float.NaN;
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) Float.NaN;
+                    return r;
                 }
             } else if (y instanceof Float) {
                 Float y0 = (Float) y;
                 if (y0.isNaN()) {
-                    return (T1) (Float) Float.NaN;
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) Float.NaN;
+                    return r;
                 }
             }
             if (x0 == Float.POSITIVE_INFINITY) {
@@ -425,7 +537,9 @@ public class Math_Math {
                                 + "positive and negative infinity.");
                         //return (T1) (Float) Float.NaN;
                     } else {
-                        return (T1) x0;
+                        @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                     }
                 } else if (y instanceof Float) {
                     Float y0 = (Float) y;
@@ -434,10 +548,14 @@ public class Math_Math {
                                 + "positive and negative infinity.");
                         //return (T1) (Float) Float.NaN;
                     } else {
-                        return (T1) x0;
+                        @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                     }
                 } else {
-                    return (T1) x0;
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                 }
             } else if (x0 == Float.NEGATIVE_INFINITY) {
                 if (y instanceof Double) {
@@ -447,7 +565,9 @@ public class Math_Math {
                                 + "positive and negative infinity.");
                         //return (T1) (Float) Float.NaN;
                     } else {
-                        return (T1) x0;
+                        @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                     }
                 } else if (y instanceof Float) {
                     Float y0 = (Float) y;
@@ -456,45 +576,65 @@ public class Math_Math {
                                 + "positive and negative infinity.");
                         //return (T1) (Float) Float.NaN;
                     } else {
-                        return (T1) x0;
+                        @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                     }
                 } else {
-                    return (T1) x0;
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) x0;
+                    return r;
                 }
             } else {
                 BigDecimal x1 = BigDecimal.valueOf(x0);
                 if (y instanceof BigDecimal) {
                     BigDecimal sum = x1.add((BigDecimal) y);
                     testFloat(sum);
-                    return (T1) (Float) sum.floatValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) sum.floatValue();
+                    return r;
                 } else if (y instanceof BigInteger) {
                     BigDecimal sum = x1.add(new BigDecimal((BigInteger) y));
                     testFloat(sum);
-                    return (T1) (Float) sum.floatValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) sum.floatValue();
+                    return r;
                 } else if (y instanceof Double) {
                     BigDecimal sum = x1.add(new BigDecimal((Double) y));
                     testFloat(sum);
-                    return (T1) (Float) sum.floatValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) sum.floatValue();
+                    return r;
                 } else if (y instanceof Float) {
                     BigDecimal sum = x1.add(new BigDecimal((Float) y));
                     testFloat(sum);
-                    return (T1) (Float) sum.floatValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) sum.floatValue();
+                    return r;
                 } else if (y instanceof Long) {
                     BigDecimal sum = x1.add(new BigDecimal((Long) y));
                     testFloat(sum);
-                    return (T1) (Float) sum.floatValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) sum.floatValue();
+                    return r;
                 } else if (y instanceof Integer) {
                     BigDecimal sum = x1.add(new BigDecimal((Integer) y));
                     testFloat(sum);
-                    return (T1) (Float) sum.floatValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) sum.floatValue();
+                    return r;
                 } else if (y instanceof Short) {
                     BigDecimal sum = x1.add(new BigDecimal((Short) y));
                     testFloat(sum);
-                    return (T1) (Float) sum.floatValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) sum.floatValue();
+                    return r;
                 } else if (y instanceof Byte) {
                     BigDecimal sum = x1.add(new BigDecimal((Byte) y));
                     testFloat(sum);
-                    return (T1) (Float) sum.floatValue();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Float) sum.floatValue();
+                    return r;
                 } else {
                     throw new IllegalArgumentException("Type T2=" + y.getClass()
                             + " is not supported in Generic_Math.add(T1, T2)");
@@ -510,8 +650,10 @@ public class Math_Math {
                             + "Double and NaN in Generic_Math.add(T1, T2)");
                 } else {
                     BigInteger x1 = BigInteger.valueOf(x0);
-                    return (T1) (Long) x1.add((new BigDecimal((Double) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Long) x1.add((new BigDecimal((Double) y))
                             .toBigInteger()).longValueExact();
+                    return r;
                 }
             } else if (y instanceof Float) {
                 Float y0 = (Float) y;
@@ -520,28 +662,42 @@ public class Math_Math {
                             + "Float and NaN in Generic_Math.add(T1, T2)");
                 } else {
                     BigInteger x1 = BigInteger.valueOf(x0);
-                    return (T1) (Long) x1.add((new BigDecimal((Float) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Long) x1.add((new BigDecimal((Float) y))
                             .toBigInteger()).longValueExact();
+                    return r;
                 }
             } else {
                 BigInteger x1 = BigInteger.valueOf(x0);
                 if (y instanceof BigDecimal) {
-                    return (T1) (Long) x1.add(((BigDecimal) y).toBigInteger())
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Long) x1.add(((BigDecimal) y).toBigInteger())
                             .longValueExact();
+                    return r;
                 } else if (y instanceof BigInteger) {
-                    return (T1) (Long) x1.add((BigInteger) y).longValueExact();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Long) x1.add((BigInteger) y).longValueExact();
+                    return r;
                 } else if (y instanceof Long) {
-                    return (T1) (Long) x1.add(BigInteger.valueOf((Long) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Long) x1.add(BigInteger.valueOf((Long) y))
                             .longValueExact();
+                    return r;
                 } else if (y instanceof Integer) {
-                    return (T1) (Long) x1.add(BigInteger.valueOf((Integer) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Long) x1.add(BigInteger.valueOf((Integer) y))
                             .longValueExact();
+                    return r;
                 } else if (y instanceof Short) {
-                    return (T1) (Long) x1.add(BigInteger.valueOf((Short) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Long) x1.add(BigInteger.valueOf((Short) y))
                             .longValueExact();
+                    return r;
                 } else if (y instanceof Byte) {
-                    return (T1) (Long) x1.add(BigInteger.valueOf((Byte) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Long) x1.add(BigInteger.valueOf((Byte) y))
                             .longValueExact();
+                    return r;
                 } else {
                     throw new IllegalArgumentException("Type T2=" + y.getClass()
                             + " is not supported in Generic_Math.add(T1, T2)");
@@ -557,8 +713,10 @@ public class Math_Math {
                             + " Double and NaN in Generic_Math.add(T1, T2)");
                 } else {
                     BigInteger x1 = BigInteger.valueOf(x0);
-                    return (T1) (Integer) x1.add((new BigDecimal((Double) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Integer) x1.add((new BigDecimal((Double) y))
                             .toBigInteger()).intValueExact();
+                    return r;
                 }
             } else if (y instanceof Float) {
                 Float y0 = (Float) y;
@@ -567,28 +725,42 @@ public class Math_Math {
                             + " Float and NaN in Generic_Math.add(T1, T2)");
                 } else {
                     BigInteger x1 = BigInteger.valueOf(x0);
-                    return (T1) (Integer) x1.add((new BigDecimal((Float) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Integer) x1.add((new BigDecimal((Float) y))
                             .toBigInteger()).intValueExact();
+                    return r;
                 }
             } else {
                 BigInteger x1 = BigInteger.valueOf(x0);
                 if (y instanceof BigDecimal) {
-                    return (T1) (Integer) x1.add(((BigDecimal) y).
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Integer) x1.add(((BigDecimal) y).
                             toBigInteger()).intValueExact();
+                    return r;
                 } else if (y instanceof BigInteger) {
-                    return (T1) (Integer) x1.add((BigInteger) y).intValueExact();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Integer) x1.add((BigInteger) y).intValueExact();
+                    return r;
                 } else if (y instanceof Long) {
-                    return (T1) (Integer) x1.add(BigInteger.valueOf((Long) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Integer) x1.add(BigInteger.valueOf((Long) y))
                             .intValueExact();
+                    return r;
                 } else if (y instanceof Integer) {
-                    return (T1) (Integer) x1.add(BigInteger.valueOf((Integer) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Integer) x1.add(BigInteger.valueOf((Integer) y))
                             .intValueExact();
+                    return r;
                 } else if (y instanceof Short) {
-                    return (T1) (Integer) x1.add(BigInteger.valueOf((Short) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Integer) x1.add(BigInteger.valueOf((Short) y))
                             .intValueExact();
+                    return r;
                 } else if (y instanceof Byte) {
-                    return (T1) (Integer) x1.add(BigInteger.valueOf((Byte) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Integer) x1.add(BigInteger.valueOf((Byte) y))
                             .intValueExact();
+                    return r;
                 } else {
                     throw new IllegalArgumentException("Type T2=" + y.getClass()
                             + " is not supported in Generic_Math.add(T1, T2)");
@@ -604,8 +776,10 @@ public class Math_Math {
                             + " Double and NaN in Generic_Math.add(T1, T2)");
                 } else if (y instanceof Double) {
                     BigInteger x1 = BigInteger.valueOf(x0);
-                    return (T1) (Short) x1.add((new BigDecimal((Double) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Short) x1.add((new BigDecimal((Double) y))
                             .toBigInteger()).shortValueExact();
+                    return r;
                 }
             } else if (y instanceof Float) {
                 Float y0 = (Float) y;
@@ -614,28 +788,42 @@ public class Math_Math {
                             + " Float and NaN in Generic_Math.add(T1, T2)");
                 } else {
                     BigInteger x1 = BigInteger.valueOf(x0);
-                    return (T1) (Short) x1.add((new BigDecimal((Float) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Short) x1.add((new BigDecimal((Float) y))
                             .toBigInteger()).shortValueExact();
+                    return r;
                 }
             } else {
                 BigInteger x1 = BigInteger.valueOf(x0);
                 if (y instanceof BigDecimal) {
-                    return (T1) (Short) x1.add(((BigDecimal) y).toBigInteger())
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Short) x1.add(((BigDecimal) y).toBigInteger())
                             .shortValueExact();
+                    return r;
                 } else if (y instanceof BigInteger) {
-                    return (T1) (Short) x1.add((BigInteger) y).shortValueExact();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Short) x1.add((BigInteger) y).shortValueExact();
+                    return r;
                 } else if (y instanceof Long) {
-                    return (T1) (Short) x1.add(BigInteger.valueOf((Long) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Short) x1.add(BigInteger.valueOf((Long) y))
                             .shortValueExact();
+                    return r;
                 } else if (y instanceof Integer) {
-                    return (T1) (Short) x1.add(BigInteger.valueOf((Integer) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Short) x1.add(BigInteger.valueOf((Integer) y))
                             .shortValueExact();
+                    return r;
                 } else if (y instanceof Short) {
-                    return (T1) (Short) x1.add(BigInteger.valueOf((Short) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Short) x1.add(BigInteger.valueOf((Short) y))
                             .shortValueExact();
+                    return r;
                 } else if (y instanceof Byte) {
-                    return (T1) (Short) x1.add(BigInteger.valueOf((Byte) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Short) x1.add(BigInteger.valueOf((Byte) y))
                             .shortValueExact();
+                    return r;
                 } else {
                     throw new IllegalArgumentException("Type T2=" + y.getClass()
                             + " is not supported in Generic_Math.add(T1, T2)");
@@ -651,8 +839,10 @@ public class Math_Math {
                             + " Double and NaN in Generic_Math.add(T1, T2)");
                 } else {
                     BigInteger x1 = BigInteger.valueOf(x0);
-                    return (T1) (Byte) x1.add((new BigDecimal((Double) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Byte) x1.add((new BigDecimal((Double) y))
                             .toBigInteger()).byteValueExact();
+                    return r;
                 }
             } else if (y instanceof Float) {
                 Float y0 = (Float) y;
@@ -661,28 +851,42 @@ public class Math_Math {
                             + " Float and NaN in Generic_Math.add(T1, T2)");
                 } else {
                     BigInteger x1 = BigInteger.valueOf(x0);
-                    return (T1) (Byte) x1.add((new BigDecimal((Float) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Byte) x1.add((new BigDecimal((Float) y))
                             .toBigInteger()).byteValueExact();
+                    return r;
                 }
             } else {
                 BigInteger x1 = BigInteger.valueOf(x0);
                 if (y instanceof BigDecimal) {
-                    return (T1) (Byte) x1.add(((BigDecimal) y).toBigInteger())
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Byte) x1.add(((BigDecimal) y).toBigInteger())
                             .byteValueExact();
+                    return r;
                 } else if (y instanceof BigInteger) {
-                    return (T1) (Byte) x1.add((BigInteger) y).byteValueExact();
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Byte) x1.add((BigInteger) y).byteValueExact();
+                    return r;
                 } else if (y instanceof Long) {
-                    return (T1) (Byte) x1.add(BigInteger.valueOf((Long) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Byte) x1.add(BigInteger.valueOf((Long) y))
                             .byteValueExact();
+                    return r;
                 } else if (y instanceof Integer) {
-                    return (T1) (Byte) x1.add(BigInteger.valueOf((Integer) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Byte) x1.add(BigInteger.valueOf((Integer) y))
                             .byteValueExact();
+                    return r;
                 } else if (y instanceof Short) {
-                    return (T1) (Byte) x1.add(BigInteger.valueOf((Short) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Byte) x1.add(BigInteger.valueOf((Short) y))
                             .byteValueExact();
+                    return r;
                 } else if (y instanceof Byte) {
-                    return (T1) (Byte) x1.add(BigInteger.valueOf((Byte) y))
+                    @SuppressWarnings("unchecked")
+                    T1 r = (T1) (Byte) x1.add(BigInteger.valueOf((Byte) y))
                             .byteValueExact();
+                    return r;
                 } else {
                     throw new IllegalArgumentException("Type T2=" + y.getClass()
                             + " is not supported in Generic_Math.add(T1, T2)");
@@ -768,7 +972,7 @@ public class Math_Math {
      * @param x A number to compare.
      * @param xd A number to compare.
      * @param epsilon The allowed error epsilon.
-     * @return -1 if x is less than xd.subtract(epsilon), 1 if x is greater than 
+     * @return -1 if x is less than xd.subtract(epsilon), 1 if x is greater than
      * xd.add(epsilon) and 0 otherwise.
      */
     public static int compare(BigDecimal x, BigDecimal xd, BigDecimal epsilon) {
@@ -812,6 +1016,7 @@ public class Math_Math {
 
     /**
      * For getting a MathContext for {@code x} for comparison purposes.
+     *
      * @param x A BigDecimal.
      * @return A MathContext.
      */
@@ -826,9 +1031,10 @@ public class Math_Math {
 
     /**
      * Use x.precision() instead.
+     *
      * @param x A BigDecimal.
      * @return An integer representing the precision of {@code x}.
-     * @deprecated As of Version 1.1 - this is likely to removed in a future 
+     * @deprecated As of Version 1.1 - this is likely to removed in a future
      * release.
      */
     @Deprecated
@@ -839,6 +1045,7 @@ public class Math_Math {
 
     /**
      * {@code x.precision() + 2}
+     *
      * @param x A BigDecimal.
      * @return An integer representing the precision of {@code x}.
      */
@@ -854,7 +1061,7 @@ public class Math_Math {
      * @param x A number to compare.
      * @param xd A number to compare.
      * @param epsilon The allowed error epsilon.
-     * @return true if x is less than xd.add(epsilon) and greater than 
+     * @return true if x is less than xd.add(epsilon) and greater than
      * xd.subtract(epsilon) and false otherwise.
      */
     public static boolean compare2(BigDecimal x, BigDecimal xd, BigDecimal epsilon) {

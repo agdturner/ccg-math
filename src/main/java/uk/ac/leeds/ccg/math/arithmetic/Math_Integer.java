@@ -28,6 +28,11 @@ import uk.ac.leeds.ccg.math.core.Math_Strings;
 public class Math_Integer {
 
     /**
+     * Create a new instance;
+     */
+    public Math_Integer(){}
+    
+    /**
      * In most instances this behaves like
      * {@link java.lang.Integer#parseInt(java.lang.String)}, but if a
      * {@link java.lang.NumberFormatException} is thrown then this method deals

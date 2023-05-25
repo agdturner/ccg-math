@@ -28,6 +28,11 @@ import uk.ac.leeds.ccg.math.util.Math_Collections;
 public class Math_Long {
 
     /**
+     * Create a new instance;
+     */
+    public Math_Long(){}
+    
+    /**
      * {@code INTEGER_MAX_VALUE = Integer.MAX_VALUE}
      */
     public static final long INTEGER_MAX_VALUE = Integer.MAX_VALUE;

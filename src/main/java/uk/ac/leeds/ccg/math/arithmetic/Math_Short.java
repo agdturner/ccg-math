@@ -23,6 +23,11 @@ import uk.ac.leeds.ccg.math.core.Math_Strings;
  * @version 2.0
  */
 public class Math_Short {
+    
+    /**
+     * Create a new instance;
+     */
+    public Math_Short(){}
 
     /**
      * In most instances this behaves like

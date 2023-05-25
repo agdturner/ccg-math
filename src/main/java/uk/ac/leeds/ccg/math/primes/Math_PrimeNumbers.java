@@ -55,10 +55,11 @@ public class Math_PrimeNumbers {
 
     /**
      * Creates a load of prime numbers and stores them in the data directory.
-     * 
+     *
      * @throws IOException If encountered.
      * @throws ClassNotFoundException If encountered.
      */
+    @SuppressWarnings("unchecked")
     public void run() throws IOException, ClassNotFoundException {
         Path p = Paths.get(System.getProperty("user.dir"), "data");
         Files.createDirectories(p);
@@ -72,15 +73,15 @@ public class Math_PrimeNumbers {
         Path fPrimeList = Paths.get(p.toString(), "PrimesUpTo_" + maxSize + "_ArrayList_Integer.dat");
         Path fPrimeIndexMap = Paths.get(p.toString(), "PrimesIndexMapUpTo_" + maxSize + "_HashMap_Integer_Integer.dat");
         BitSet numbList;
-        ArrayList<Integer> PrimeList;
-        HashMap<Integer, Integer> PrimeIndexMap;
+        ArrayList<Integer> primeList;
+        HashMap<Integer, Integer> primeIndexMap;
         int maxPrime;
         String name;
         int million = 1000000;
 
         if (!Files.exists(fBitSet)) {
-            PrimeList = new ArrayList<>();
-            PrimeIndexMap = new HashMap<>();
+            primeList = new ArrayList<>();
+            primeIndexMap = new HashMap<>();
 
             int maxNumber;
             int maxSearch;
@@ -116,8 +117,8 @@ public class Math_PrimeNumbers {
             for (int k = 3; k <= maxSize; k += 2) {
                 if (numbList.get(k)) {
                     maxPrime = k;
-                    PrimeList.add(k);
-                    PrimeIndexMap.put(k, i);
+                    primeList.add(k);
+                    primeIndexMap.put(k, i);
                     i++;
                     primeCount += 1;
                     if (primeCount % million == 0) {
@@ -127,8 +128,8 @@ public class Math_PrimeNumbers {
                     }
                 }
             }
-            IO_Utilities.writeObject(PrimeList, fPrimeList);
-            IO_Utilities.writeObject(PrimeIndexMap, fPrimeIndexMap);
+            IO_Utilities.writeObject(primeList, fPrimeList);
+            IO_Utilities.writeObject(primeIndexMap, fPrimeIndexMap);
             IO_Utilities.writeObject(numbList, fBitSet);
 
             System.out.format("array size         : %,11d%n", maxNumber);
@@ -141,11 +142,19 @@ public class Math_PrimeNumbers {
             System.out.println("That took " + (stopTime - startTime)
                     / 1000.0 + " seconds");
         } else {
-            PrimeList = (ArrayList<Integer>) IO_Utilities.readObject(fPrimeList);
-            PrimeIndexMap = (HashMap<Integer, Integer>) IO_Utilities.readObject(
-                    fPrimeIndexMap);
-            numbList = (BitSet) IO_Utilities.readObject(fBitSet);
-            maxPrime = PrimeList.get(PrimeList.size() - 1);
+            Object o = IO_Utilities.readObject(fPrimeList);
+            if (o instanceof ArrayList<?>) {
+                primeList = (ArrayList<Integer>) o;
+                //primeList = (ArrayList<Integer>) IO_Utilities.readObject(fPrimeList);
+                primeIndexMap = (HashMap<Integer, Integer>) IO_Utilities.readObject(
+                        fPrimeIndexMap);
+                numbList = (BitSet) IO_Utilities.readObject(fBitSet);
+                maxPrime = primeList.get(primeList.size() - 1);
+            } else {
+                throw new ClassCastException("Object read from " 
+                        + fPrimeList.toString()
+                        + " is not instanceof ArrayList<?>");
+            }
         }
         while (getQuit().compareTo("-1") != 0) {
             name = getTheNthPrime();
@@ -153,7 +162,7 @@ public class Math_PrimeNumbers {
                 int n = Integer.parseInt(name);
                 if (n < numbList.cardinality()) {
                     System.out.println("The " + n + "th prime is "
-                            + PrimeList.get(n));
+                            + primeList.get(n));
                 } else {
                     System.out.println("Sorry, not calculated the " + n + "th "
                             + "prime yet, only calculated the first "
@@ -165,9 +174,9 @@ public class Math_PrimeNumbers {
             name = getTestPrime();
             while (name.compareTo("-1") != 0) {
                 int n = Integer.parseInt(name);
-                if (PrimeIndexMap.containsKey(n)) {
-                    System.out.println(n + " is the " 
-                            + PrimeIndexMap.get(n).toString() 
+                if (primeIndexMap.containsKey(n)) {
+                    System.out.println(n + " is the "
+                            + primeIndexMap.get(n).toString()
                             + "th prime greater than 2.");
                 } else {
                     if (n < maxPrime) {

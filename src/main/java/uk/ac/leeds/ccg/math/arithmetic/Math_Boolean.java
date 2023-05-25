@@ -24,6 +24,11 @@ import uk.ac.leeds.ccg.math.core.Math_Strings;
  * @version 2.0
  */
 public class Math_Boolean {
+    
+    /**
+     * Create a new instance;
+     */
+    public Math_Boolean(){}
 
     /**
      * {@code if (isTrue(s)) {return true;} return isFalse(s);}

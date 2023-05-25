@@ -22,6 +22,11 @@ package uk.ac.leeds.ccg.math.arithmetic;
  * @version 2.0
  */
 public class Math_Byte {
+    
+    /**
+     * Create a new instance;
+     */
+    public Math_Byte(){}
 
     /**
      * For testing if {@code s} can be parsed as a {@code byte}. If the result is equal

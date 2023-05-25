@@ -28,6 +28,11 @@ import java.math.RoundingMode;
 public class Math_Float {
 
     /**
+     * Create a new instance;
+     */
+    public Math_Float(){}
+    
+    /**
      * {@code Float.toString(Float.NaN)}.
      */
     public static final String SFNAN = Float.toString(Float.NaN);
