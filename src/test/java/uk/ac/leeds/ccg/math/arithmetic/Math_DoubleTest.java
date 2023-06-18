@@ -225,7 +225,7 @@ public class Math_DoubleTest {
         result = Math_Double.parseDouble(s);
         assertEquals(expResult, result, 0.0d);
     }
-
+    
     @Test
     public void testEquals() {
         String funcName = "testEquals";
@@ -251,4 +251,31 @@ public class Math_DoubleTest {
         d1 = epsilon * 2d;
         assertFalse(Math_Double.equals(d0, d1, epsilon));
     }
+    
+    @Test
+    public void testGetTolerance() {
+        System.out.println("Test getTolerance");
+        double zt = Math_Double.getTolerance(0d);
+        //System.out.println(zt);
+        assertTrue(zt == 1.0E-323d);
+        // nano
+        double nt = Math_Double.getTolerance(0.000000001d);
+        //System.out.println(nt);
+        assertTrue(nt == 4.1359030627651384E-25d);
+        // micro
+        double mt = Math_Double.getTolerance(0.000001d);
+        //System.out.println(mt);
+        assertTrue(mt == 4.2351647362715017E-22d);
+        double ot = Math_Double.getTolerance(1d);
+        //System.out.println(ot);
+        assertTrue(ot == 3.3306690738754696E-16d);
+        double tt = Math_Double.getTolerance(10d);
+        //System.out.println(tt);
+        assertTrue(tt == 3.552713678800501E-15);
+        double Mt = Math_Double.getTolerance(1000000d);
+        //System.out.println(Mt);
+        assertTrue(Mt == 2.3283064365386963E-10d);
+        
+    }
+    
 }

@@ -41,8 +41,9 @@ public class Math_Double {
     /**
      * Create a new instance.
      */
-    public Math_Double(){}
-    
+    public Math_Double() {
+    }
+
     /**
      * In most instances this behaves like
      * {@link java.lang.Double#parseDouble(java.lang.String)}, but if a
@@ -209,23 +210,24 @@ public class Math_Double {
     public static String toPlainString(double d) {
         return new BigDecimal(d).toPlainString();
     }
-    
+
     /**
      * @param d1 A double to check if it is within epsilon of d2;
      * @param d2 A double to check if it is within epsilon of d1;
      * @param epsilon Usually a small amount.
-     * @return {@code true} iff d1 and d2 are less than or equal to epsilon 
+     * @return {@code true} iff d1 and d2 are less than or equal to epsilon
      * different.
      */
     public static boolean equals(double d1, double d2, double epsilon) {
         return d1 <= d2 + epsilon && d1 >= d2 - epsilon;
     }
-    
+
     /**
      * Take the square root preserving the sign.
+     *
      * @param d The number to be square rooted.
-     * @return The square root which is negative of the positive square root for 
-     * a negative d. 
+     * @return The square root which is negative of the positive square root for
+     * a negative d.
      */
     public static double sqrt(double d) {
         double r;
@@ -235,5 +237,18 @@ public class Math_Double {
             r = Math.sqrt(d);
         }
         return r;
+    }
+
+    /**
+     * For getting a tight tolerance value for d.
+     *
+     * @param d The number for which a tolerance is wanted.
+     * @return The difference between the next bigger than d and next smaller
+     * than d numbers.
+     */
+    public static double getTolerance(double d) {
+        double rp = Math.nextAfter(d, Double.POSITIVE_INFINITY);
+        double rn = Math.nextAfter(d, Double.NEGATIVE_INFINITY);
+        return rp - rn;
     }
 }
