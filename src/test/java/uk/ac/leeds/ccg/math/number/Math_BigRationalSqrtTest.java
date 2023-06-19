@@ -845,5 +845,31 @@ public class Math_BigRationalSqrtTest {
         instance = Math_BigRationalSqrt.ZERO;
         assertTrue(instance.isZero());
     }
+    
+    /**
+     * Test of abs method, of class Math_BigRationalSqrt.
+     */
+    @Test
+    public void testAbs() {
+        System.out.println("isAbs");
+        Math_BigRationalSqrt instance = Math_BigRationalSqrt.ONE;
+        Math_BigRationalSqrt result = instance.abs();
+        Math_BigRationalSqrt expResult = Math_BigRationalSqrt.ONE;
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        instance = Math_BigRationalSqrt.ONE.negate();
+        result = instance.abs();
+        expResult = Math_BigRationalSqrt.ONE;
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        instance = new Math_BigRationalSqrt(4096L, 64L).negate();
+        assertTrue(instance.isNegative());
+        result = instance.abs();
+        assertFalse(result.isNegative());
+        expResult = new Math_BigRationalSqrt(4096L, 64L);
+        assertTrue(expResult.compareTo(result) == 0);
+        
+        
+    }
 
 }

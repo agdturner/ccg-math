@@ -525,7 +525,20 @@ public class Math_BigRationalSqrt implements Serializable,
     public boolean isZero(int oom) {
         return equals(ZERO, oom);
     }
-
+    
+    /**
+     * @return The absolute value of this. (If negative then return the negate,
+     * else return a copy of this.
+     */
+    public Math_BigRationalSqrt abs() {
+        if (isNegative()) {
+            return negate();
+        } else {
+            return new Math_BigRationalSqrt(this);
+        }
+    }
+    
+    
     /**
      * @param y The number to multiply by.
      * @param oom The Order of Magnitude for the precision.
