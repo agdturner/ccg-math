@@ -244,11 +244,26 @@ public class Math_Double {
      *
      * @param d The number for which a tolerance is wanted.
      * @return The difference between the next bigger than d and next smaller
-     * than d numbers.
+     * than d number.
      */
     public static double getTolerance(double d) {
         double rp = Math.nextAfter(d, Double.POSITIVE_INFINITY);
         double rn = Math.nextAfter(d, Double.NEGATIVE_INFINITY);
         return rp - rn;
+    }
+    
+    /**
+     * For getting a tight tolerance value for ds.
+     *
+     * @param ds The numbers for which a tolerance is wanted.
+     * @return The difference between the next bigger than ds and next smaller
+     * than ds numbers.
+     */
+    public static double getTolerance(double... ds) {
+        double r = getTolerance(ds[0]);
+        for (var d : ds) {
+            r = Math.max(r, getTolerance(d));
+        }
+        return r;
     }
 }

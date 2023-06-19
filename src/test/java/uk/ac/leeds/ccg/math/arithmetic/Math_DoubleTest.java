@@ -275,7 +275,15 @@ public class Math_DoubleTest {
         double Mt = Math_Double.getTolerance(1000000d);
         //System.out.println(Mt);
         assertTrue(Mt == 2.3283064365386963E-10d);
-        
+    }
+    
+    @Test
+    public void testGetTolerance_doubles() {
+        System.out.println("Test getTolerance");
+        double tt = Math_Double.getTolerance(0d, 0.000000001d, 0.000001d, 1d, 10d);
+        assertTrue(tt == 3.552713678800501E-15);
+        double Mt = Math_Double.getTolerance(0d, 0.000000001d, 0.000001d, 1d, 10d, 1000000d);
+        assertTrue(Mt == 2.3283064365386963E-10d);
     }
     
 }
