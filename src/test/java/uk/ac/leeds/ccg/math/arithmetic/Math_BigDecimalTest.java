@@ -2489,6 +2489,41 @@ public class Math_BigDecimalTest {
 //        assertTrue(expResult.compareTo(result) == 0);
     }
 
+
+    @Test
+    public void testGetMostSignificantDigit(){
+        System.out.println("getMostSignificantDigit");
+        BigDecimal x = BigDecimal.valueOf(27);
+        int expResult = 2;
+        int result = Math_BigDecimal.getMostSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 1
+        x = BigDecimal.valueOf(3.14159);
+        expResult = 3;
+        result = Math_BigDecimal.getMostSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 2
+        x = BigDecimal.valueOf(31415.9);
+        expResult = 3;
+        result = Math_BigDecimal.getMostSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 3
+        x = BigDecimal.valueOf(0.314159);
+        expResult = 3;
+        result = Math_BigDecimal.getMostSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 4
+        x = BigDecimal.valueOf(-0.314159);
+        expResult = 3;
+        result = Math_BigDecimal.getMostSignificantDigit(x);
+        assertEquals(expResult, result);
+        // Test 5
+        x = BigDecimal.valueOf(-314.159);
+        expResult = 3;
+        result = Math_BigDecimal.getMostSignificantDigit(x);
+        assertEquals(expResult, result);
+    }
+    
     /**
      * Test of rootNoRounding method, of class Math_BigDecimal.
      */

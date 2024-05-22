@@ -21,7 +21,6 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 import uk.ac.leeds.ccg.math.util.Math_Collections;
@@ -154,14 +153,11 @@ public class Math_BigInteger {
      */
     public static int getOrderOfMagnitudeOfMostSignificantDigit(BigInteger x) {
         int xs = x.signum();
-        switch (xs) {
-            case -1:
-                return log10(x.negate());
-            case 0:
-                return 0;
-            default:
-                return log10(x);
-        }
+        return switch (xs) {
+            case -1 -> log10(x.negate());
+            case 0 -> 0;
+            default -> log10(x);
+        };
     }
 
     /**
@@ -685,9 +681,7 @@ public class Math_BigInteger {
             return powersOfTwo.subList(0, powersOfTwo.size() - 1);
         } else {
             List<BigInteger> r = new ArrayList<>();
-            Iterator<BigInteger> ite = powersOfTwo.iterator();
-            while (ite.hasNext()) {
-                BigInteger p2 = ite.next();
+            for (BigInteger p2 : powersOfTwo) {
                 if (x.compareTo(p2) != 1) {
                     return r;
                 } else {

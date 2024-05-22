@@ -318,6 +318,23 @@ public class Math_BigDecimal {
         int scale = x.scale();
         return getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
     }
+    
+    /**
+     * 
+     * @param x The number for which the most significant digit is returned.
+     * @return The most significant digit of x. For example if x=314.159, the 
+     * result is 3. The value returned is a non-zero numerical digit 
+     * (1, 2, 3, 4, 5, 6, 7, 8, 9).
+     */
+    public static int getMostSignificantDigit(BigDecimal x) {
+        int oomomsd = getOrderOfMagnitudeOfMostSignificantDigit(x);
+        if (oomomsd >= 0) {
+            return Integer.parseInt(x.abs().toString().substring(0, 1));
+        } else {
+            int i = Math.abs(oomomsd) + 1;
+            return Integer.parseInt(x.abs().toPlainString().substring(i, i + 1));
+        }
+    }
 
     /**
      * For getting the OOM of the most significant digit of {@code x}. This
