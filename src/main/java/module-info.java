@@ -38,6 +38,7 @@ module uk.ac.leeds.ccg.math {
      */
     exports uk.ac.leeds.ccg.math.arithmetic;
     exports uk.ac.leeds.ccg.math.core;
+    exports uk.ac.leeds.ccg.math.geometry;
     exports uk.ac.leeds.ccg.math.matrices;
     exports uk.ac.leeds.ccg.math.number;
     exports uk.ac.leeds.ccg.math.primes;
@@ -49,6 +50,7 @@ module uk.ac.leeds.ccg.math {
      */
     opens uk.ac.leeds.ccg.math.arithmetic;
     opens uk.ac.leeds.ccg.math.core;
+    opens uk.ac.leeds.ccg.math.geometry;
     opens uk.ac.leeds.ccg.math.matrices;
     opens uk.ac.leeds.ccg.math.number;
     opens uk.ac.leeds.ccg.math.primes;

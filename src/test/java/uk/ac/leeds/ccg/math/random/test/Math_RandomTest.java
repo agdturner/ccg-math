@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math.random;
+package uk.ac.leeds.ccg.math.random.test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import uk.ac.leeds.ccg.math.arithmetic.Math_BigDecimal;
 import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
+import uk.ac.leeds.ccg.math.random.Math_Random;
 import uk.ac.leeds.ccg.math.random.Math_Random;
 
 /**

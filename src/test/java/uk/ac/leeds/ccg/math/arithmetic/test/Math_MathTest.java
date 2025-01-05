@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math.arithmetic;
+package uk.ac.leeds.ccg.math.arithmetic.test;
 
 import java.math.BigDecimal;
 import org.junit.jupiter.api.AfterEach;
@@ -23,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import uk.ac.leeds.ccg.math.arithmetic.Math_Math;
 
 /**
  * Tests for the {@link Math_Math} class.

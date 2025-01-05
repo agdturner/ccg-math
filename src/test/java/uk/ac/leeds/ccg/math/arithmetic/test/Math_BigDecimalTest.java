@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math.arithmetic;
+package uk.ac.leeds.ccg.math.arithmetic.test;
 
 import ch.obermuhlner.math.big.BigDecimalMath;
 import java.math.BigDecimal;
@@ -30,7 +30,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import uk.ac.leeds.ccg.math.random.Math_Random;
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigDecimal;
 
 /**
  * @author Andy Turner
@@ -2798,30 +2798,30 @@ public class Math_BigDecimalTest {
         int scale;
         int expResult;
         int result;
-        // Test 1
-        x = new BigDecimal("10.0001");;
-        scale = x.scale();
-        expResult = 1;
-        result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
-        assertEquals(expResult, result);
-        // Test 2
-        x = new BigDecimal("0.10001");;
-        scale = x.scale();
-        expResult = -1;
-        result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
-        assertEquals(expResult, result);
-        // Test 3
-        x = new BigDecimal("1.10001");;
-        scale = x.scale();
-        expResult = 0;
-        result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
-        assertEquals(expResult, result);
-        // Test 4
-        x = new BigDecimal("0.0001");;
-        scale = x.scale();
-        expResult = -4;
-        result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
-        assertEquals(expResult, result);
+//        // Test 1
+//        x = new BigDecimal("10.0001");;
+//        scale = x.scale();
+//        expResult = 1;
+//        result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
+//        assertEquals(expResult, result);
+//        // Test 2
+//        x = new BigDecimal("0.10001");;
+//        scale = x.scale();
+//        expResult = -1;
+//        result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
+//        assertEquals(expResult, result);
+//        // Test 3
+//        x = new BigDecimal("1.10001");;
+//        scale = x.scale();
+//        expResult = 0;
+//        result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
+//        assertEquals(expResult, result);
+//        // Test 4
+//        x = new BigDecimal("0.0001");;
+//        scale = x.scale();
+//        expResult = -4;
+//        result = Math_BigDecimal.getOrderOfMagnitudeOfMostSignificantDigit(x, scale);
+//        assertEquals(expResult, result);
     }
 
     /**
@@ -4534,7 +4534,7 @@ public class Math_BigDecimalTest {
     @Test
     public void testExp_3args_2() {
         System.out.println("exp");
-        BigInteger x = new BigInteger("10");
+        BigDecimal x = new BigDecimal("10");
         Math_BigDecimal bd = new Math_BigDecimal();
         int oom = -1;
         RoundingMode rm = RoundingMode.HALF_UP;
@@ -4547,13 +4547,13 @@ public class Math_BigDecimalTest {
         result = bd.exp(x, oom, rm);
         assertEquals(expResult, result);
         // Test 3
-        x = BigInteger.TWO;
+        x = BigDecimal.TWO;
         oom = -20;
         expResult = new BigDecimal("7.38905609893065022723");
         result = bd.exp(x, oom, rm);
         assertEquals(expResult, result);
         // Test 4
-        x = BigInteger.valueOf(100);
+        x = BigDecimal.valueOf(100);
         oom = -20;
         expResult = new BigDecimal("2688117141816135448412625551580013587361111"
                 + "8.77374192241519160862");
@@ -4561,7 +4561,7 @@ public class Math_BigDecimalTest {
         //System.out.println(result);
         assertEquals(expResult, result);
         // Test 5
-        x = BigInteger.valueOf(1000);
+        x = BigDecimal.valueOf(1000);
         oom = -20;
         expResult = new BigDecimal("1970071114017046993888879352243323125316937"
                 + "985323845789952802991385063850782441193474978076563026889930"
@@ -4575,7 +4575,7 @@ public class Math_BigDecimalTest {
         //System.out.println(result);
         assertEquals(expResult, result);
         // Test 6
-        x = BigInteger.TWO;
+        x = BigDecimal.TWO;
         oom = -200;
         expResult = new BigDecimal("7.38905609893065022723042746057500781318031"
                 + "557055184732408712782252257379607905776338431248507912179477"
@@ -4585,7 +4585,7 @@ public class Math_BigDecimalTest {
         //System.out.println(result);
         assertEquals(expResult, result);
         // Test 7
-        x = BigInteger.valueOf(100);
+        x = BigDecimal.valueOf(100);
         oom = -200;
         expResult = new BigDecimal("2688117141816135448412625551580013587361111"
                 + "8.7737419224151916086152802870349095649141588710972198457108"

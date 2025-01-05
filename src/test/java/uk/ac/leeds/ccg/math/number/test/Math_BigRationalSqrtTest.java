@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math.number;
+package uk.ac.leeds.ccg.math.number.test;
 
 import ch.obermuhlner.math.big.BigRational;
 import java.math.BigDecimal;
@@ -28,6 +28,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import uk.ac.leeds.ccg.math.number.Math_BigRationalSqrt;
 
 /**
  * @author Andy Turner
@@ -107,7 +108,7 @@ public class Math_BigRationalSqrtTest {
                 BigRational.valueOf(10).divide(
                         BigRational.valueOf(3)), oom, rm);
         y = BigRational.valueOf(15).divide(BigRational.valueOf(4));
-        expResult = new Math_BigRationalSqrt(y.pow(2).multiply(x.x), oom, rm);
+        expResult = new Math_BigRationalSqrt(y.pow(2).multiply(x.getX()), oom, rm);
         result = x.multiply(y, oom, rm);
         assertTrue(expResult.equals(result));
         // Test 6
@@ -115,7 +116,7 @@ public class Math_BigRationalSqrtTest {
                 BigRational.valueOf(10).divide(
                         BigRational.valueOf(3)), oom, rm);
         y = BigRational.valueOf(-15).divide(BigRational.valueOf(4));
-        expResult = new Math_BigRationalSqrt(y.pow(2).multiply(x.x), oom, rm,
+        expResult = new Math_BigRationalSqrt(y.pow(2).multiply(x.getX()), oom, rm,
                 true);
         result = x.multiply(y, oom, rm);
         assertTrue(expResult.equals(result));

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math.arithmetic;
+package uk.ac.leeds.ccg.math.arithmetic.test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Test;
 //import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
 
 /**
  * @author Andy Turner

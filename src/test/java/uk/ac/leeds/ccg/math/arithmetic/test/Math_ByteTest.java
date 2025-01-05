@@ -13,23 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math.arithmetic;
+package uk.ac.leeds.ccg.math.arithmetic.test;
 
-import uk.ac.leeds.ccg.math.arithmetic.Math_Short;
+import uk.ac.leeds.ccg.math.arithmetic.Math_Byte;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import uk.ac.leeds.ccg.math.arithmetic.Math_Byte;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Andy Turner
  * @version 1.0.0
  */
-public class Math_ShortTest {
+public class Math_ByteTest {
     
-    public Math_ShortTest() {
+    public Math_ByteTest() {
     }
     
     @BeforeAll
@@ -49,22 +50,21 @@ public class Math_ShortTest {
     }
 
     @Test
-    public void testIsShort() {
-        String funcName = "isShort";
+    public void testIsByte() {
+        String funcName = "isByte";
         System.out.println("Test " + funcName);
-        short x;
-        String s;
         boolean result;
         // Test 1
-        x = Short.MIN_VALUE;
-        s = Short.toString(x);
-        result = Math_Short.isShort(s);
+        String s;
+        byte x = Byte.MIN_VALUE;
+        s = Byte.toString(x);
+        result = Math_Byte.isByte(s);
         assertFalse(result);
         // Test 2
         x += 1;
-        s = Short.toString(x);
-        result = Math_Short.isShort(s);
-        assertTrue(Math_Short.isShort(s));
+        s = Byte.toString(x);
+        result = Math_Byte.isByte(s);
+        assertTrue(result);
     }
     
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.leeds.ccg.math.number;
+package uk.ac.leeds.ccg.math.number.test;
 
 import ch.obermuhlner.math.big.BigRational;
 import java.math.BigDecimal;
@@ -25,6 +25,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
 import static org.junit.jupiter.api.Assertions.*;
+import uk.ac.leeds.ccg.math.number.Math_BigRationalRoot;
 
 /**
  * Test for class Math_BigRationalRoot.
