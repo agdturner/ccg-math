@@ -24,7 +24,7 @@ import uk.ac.leeds.ccg.math.arithmetic.Math_BigRational;
  *
  * @author Andy Turner
  */
-public class Math_Angle {
+public class Math_AngleBigRational {
 
     /**
      * For calculating/loading pi.
@@ -50,7 +50,7 @@ public class Math_Angle {
     /**
      * Create a new instance
      */
-    public Math_Angle() {
+    public Math_AngleBigRational() {
         bd = new Math_BigDecimal();
     }
 
@@ -59,7 +59,7 @@ public class Math_Angle {
      *
      * @param bd What bd is set to.
      */
-    public Math_Angle(Math_BigDecimal bd) {
+    public Math_AngleBigRational(Math_BigDecimal bd) {
         this.bd = bd;
     }
 

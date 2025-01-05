@@ -15,19 +15,13 @@
  */
 package uk.ac.leeds.ccg.math.geometry.test;
 
-import ch.obermuhlner.math.big.BigRational;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import uk.ac.leeds.ccg.math.arithmetic.Math_BigDecimal;
-import uk.ac.leeds.ccg.math.arithmetic.Math_BigRational;
-import uk.ac.leeds.ccg.math.geometry.Math_Angle;
-import uk.ac.leeds.ccg.math.geometry.Math_Angle;
+import uk.ac.leeds.ccg.math.geometry.Math_AngleDouble;
 
 /**
  * Test class for V3D_Angle.
@@ -35,9 +29,9 @@ import uk.ac.leeds.ccg.math.geometry.Math_Angle;
  * @author Andy Turner
  * @version 1.0
  */
-public class Math_AngleTest {
+public class Math_AngleDoubleTest {
 
-    public Math_AngleTest() {
+    public Math_AngleDoubleTest() {
         super();
     }
 
@@ -63,32 +57,33 @@ public class Math_AngleTest {
     @Test
     public void testNormalise() {
         System.out.println("normalise");
-        Math_Angle ma = new Math_Angle();
-        int oom = -3;
-        RoundingMode rm = RoundingMode.HALF_UP;
-        BigRational pi = Math_BigRational.getPi(new Math_BigDecimal(), oom, rm);
-        BigRational dpi = pi.multiply(2);
-        BigRational hpi = pi.divide(2);
         // Positive angle
-        BigRational theta = dpi.multiply(BigInteger.TEN).add(pi);
-        BigRational result = ma.normalise(theta, oom, rm);
-        BigRational expResult = pi;
-        assertTrue(result.compareTo(expResult) == 0);
+        double tolerance = 0.00000000000001D;
+        //double tolerance = 0.000000000000001D; // This tolerance is too little.
+        double theta = Math.PI * 21D;
+        double result = Math_AngleDouble.normalise(theta);
+        double expResult = Math.PI;
+        assertTrue((result + tolerance > expResult) && (result - tolerance < expResult));
         // Test 2
-        theta = dpi.multiply(BigInteger.TEN).add(hpi);
-        result = ma.normalise(theta, oom, rm);
-        expResult = hpi;
-        assertTrue(result.compareTo(expResult) == 0);
-        // Negative angle
-        theta = dpi.multiply(BigInteger.TEN).add(pi).negate();
-        result = ma.normalise(theta, oom, rm);
-        expResult = pi;
-        assertTrue(result.compareTo(expResult) == 0);
+        theta = Math.PI * 20D + Math.PI / 2.0D;
+        result = Math_AngleDouble.normalise(theta);
+        expResult = Math.PI / 2.0D;
+        assertTrue((result + tolerance > expResult) && (result - tolerance < expResult));
+        // Negative angles
+        // Test 3
+        tolerance = 0.0000000000001D;
+        //tolerance = 0.00000000000001D; // This tolerance is too little.
+        theta = -Math.PI * 21D;
+        result = Math_AngleDouble.normalise(theta);
+        expResult = Math.PI;
+        assertTrue((result + tolerance > expResult) && (result - tolerance < expResult));
         // Test 4
-        theta = dpi.multiply(BigInteger.TEN).add(hpi).negate();
-        result = ma.normalise(theta, oom, rm);
-        expResult = hpi.multiply(3);
-        assertTrue(result.compareTo(expResult) == 0);
+        tolerance = 0.00000000000001D;
+        //tolerance = 0.000000000000001D; // This tolerance is too little.
+        theta = -(Math.PI * 20D +  Math.PI / 2.0D);
+        result = Math_AngleDouble.normalise(theta);
+        expResult = Math.PI * 3D / 2D;
+        assertTrue((result + tolerance > expResult) && (result - tolerance < expResult));
     }
 
 }
