@@ -30,6 +30,8 @@ public class Math_AngleDouble {
 
     public static double PIBY4 = Math.PI/4.0d;
 
+    public static double PIBY6 = Math.PI/6.0d;
+
     /**
      * Returns a normal angle in the range 0 to 2PI.
      *
@@ -50,5 +52,25 @@ public class Math_AngleDouble {
             }
         }
         return theta;
+    }
+    
+    /**
+     * Calculate at return the x*180/Pi.
+     *
+     * @param x The angle in radians to convert to decimal degrees.
+     * @return The angle of x in decimal degrees.
+     */
+    public static double toDegrees(double x) {
+        return x * 180.0 / Math.PI;
+    }
+
+    /**
+     * Calculate at return the x*Math.PI/180.
+     *
+     * @param x The angle in decimal degrees to convert to radians.
+     * @return The angle of x in radians.
+     */
+    public static double toRadians(double x) {
+        return x * Math.PI / 180.0;
     }
 }

@@ -58,7 +58,7 @@ public class Math_AngleBigRationalTest {
     }
 
     /**
-     * Test of isIntersectedBy method, of class V3D_LineDouble.
+     * Test of normalise.
      */
     @Test
     public void testNormalise() {
@@ -91,4 +91,45 @@ public class Math_AngleBigRationalTest {
         assertTrue(result.compareTo(expResult) == 0);
     }
 
+    /**
+     * Test of toDegrees.
+     */
+    @Test
+    public void testToDegrees() {
+        System.out.println("toDegrees");
+        Math_AngleBigRational ma = new Math_AngleBigRational();
+        int oom = -3;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigRational theta = ma.getPi(oom, rm);
+        BigRational result = ma.toDegrees(theta, oom, rm);
+        BigRational expResult = Math_AngleBigRational.P180;
+        assertTrue(result.compareTo(expResult) == 0);
+        // Test 2
+        oom = -100;
+        theta = ma.getPi(oom, rm);
+        result = ma.toDegrees(theta, oom, rm);
+        expResult = Math_AngleBigRational.P180;
+        assertTrue(result.compareTo(expResult) == 0);
+    }
+    
+    /**
+     * Test of toDegrees.
+     */
+    @Test
+    public void testToRadians() {
+        System.out.println("toRadians");
+        Math_AngleBigRational ma = new Math_AngleBigRational();
+        int oom = -3;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigRational theta = Math_AngleBigRational.P180;
+        BigRational result = ma.toRadians(theta, oom, rm);
+        BigRational expResult = ma.getPi(oom, rm);
+        assertTrue(result.compareTo(expResult) == 0);
+        // Test 2
+        oom = -100;
+        theta = Math_AngleBigRational.P180;
+        result = ma.toRadians(theta, oom, rm);
+        expResult = ma.getPi(oom, rm);
+        assertTrue(result.compareTo(expResult) == 0);
+    }
 }

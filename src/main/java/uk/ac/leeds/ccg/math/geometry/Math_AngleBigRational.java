@@ -46,6 +46,8 @@ public class Math_AngleBigRational {
      * The RoundingMode used for rounding {@link pi}.
      */
     private RoundingMode rmpi;
+    
+    public static final BigRational P180 = BigRational.valueOf(180);
 
     /**
      * Create a new instance
@@ -71,7 +73,7 @@ public class Math_AngleBigRational {
      * @param rm The RoundingMode for rounding.
      * @return pi to the given order of magnitude using the given RoundingMode.
      */
-    public BigRational getPI(int oom, RoundingMode rm) {
+    public BigRational getPi(int oom, RoundingMode rm) {
         if (pi != null) {
             if (oompi <= oom) {
                 if (oompi < oom) {
@@ -110,15 +112,30 @@ public class Math_AngleBigRational {
                 r = theta.subtract(twoPi.multiply(n));
             }
         }
-        //        BigRational r = theta;
-        //        // Change a negative angle into a positive one.
-        //        while (r.compareTo(BigRational.ZERO) == -1) {
-        //            r = r.add(twoPi);
-        //        }
-        //        // Only rotate less than 2Pi radians.
-        //        while (r.compareTo(twoPi) == 1) {
-        //            r = r.subtract(twoPi);
-        //        }
         return r;
+    }
+    
+    /**
+     * Calculate and return the x*180/Pi.
+     *
+     * @param x The angle in radians to convert to decimal degrees.
+     * @param oom The Order of Magnitude for the precision.
+     * @param rm The RoundingMode for any rounding.
+     * @return The angle of x in decimal degrees.
+     */
+    public BigRational toDegrees(BigRational x, int oom, RoundingMode rm) {
+        return x.multiply(P180).divide(getPi(oom, rm));
+    }
+
+    /**
+     * Calculate and return the x*Math.PI/180.
+     *
+     * @param x The angle in decimal degrees to convert to radians.
+     * @param oom The Order of Magnitude for the precision.
+     * @param rm The RoundingMode for any rounding.
+     * @return The angle of x in radians.
+     */
+    public BigRational toRadians(BigRational x, int oom, RoundingMode rm) {
+        return x.multiply(getPi(oom, rm)).divide(P180);
     }
 }

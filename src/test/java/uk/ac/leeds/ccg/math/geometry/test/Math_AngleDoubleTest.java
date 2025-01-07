@@ -52,7 +52,7 @@ public class Math_AngleDoubleTest {
     }
 
     /**
-     * Test of isIntersectedBy method, of class V3D_LineDouble.
+     * Test of normalise.
      */
     @Test
     public void testNormalise() {
@@ -85,5 +85,32 @@ public class Math_AngleDoubleTest {
         expResult = Math.PI * 3D / 2D;
         assertTrue((result + tolerance > expResult) && (result - tolerance < expResult));
     }
-
+    
+    /**
+     * Test of toDegrees.
+     */
+    @Test
+    public void testToDegrees() {
+        System.out.println("toDegrees");
+        //double tolerance = 0.00000000000001D; // Too small!
+        double tolerance = 0.0000000000001D;
+        double theta = Math.PI;
+        double result = Math_AngleDouble.toDegrees(theta);
+        double expResult = 180D;
+        assertTrue((result + tolerance > expResult) && (result - tolerance < expResult));
+    }
+    
+    /**
+     * Test of toDegrees.
+     */
+    @Test
+    public void testToRadians() {
+        System.out.println("toRadians");
+        //double tolerance = 0.0000000000000001D; // Too small!
+        double tolerance = 0.000000000000001D;
+        double theta = 180;
+        double result = Math_AngleDouble.toRadians(theta);
+        double expResult = Math.PI;
+        assertTrue((result + tolerance > expResult) && (result - tolerance < expResult));
+    }
 }
