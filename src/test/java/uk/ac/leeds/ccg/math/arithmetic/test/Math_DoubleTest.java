@@ -287,4 +287,30 @@ public class Math_DoubleTest {
         assertTrue(Mt == 2.3283064365386963E-10d);
     }
     
+    @Test
+    public void testMin() {
+        System.out.println("Test min");
+        double a = Double.MAX_VALUE;
+        double b = -Double.MAX_VALUE;
+        double c = Double.NEGATIVE_INFINITY;
+        double d = Double.POSITIVE_INFINITY;
+        double nan = Double.NaN;
+        assertTrue(Math_Double.min(a, b, c, d, nan) == c);
+        assertTrue(Math_Double.min(a, d, nan) == a);
+        assertTrue(Math_Double.min(0d, 10d, -10d, nan) == -10d);
+    }
+    
+    @Test
+    public void testMax() {
+        System.out.println("Test max");
+        double a = Double.MAX_VALUE;
+        double b = -Double.MAX_VALUE;
+        double c = Double.NEGATIVE_INFINITY;
+        double d = Double.POSITIVE_INFINITY;
+        double nan = Double.NaN;
+        assertTrue(Math_Double.max(a, b, c, d, nan) == d);
+        assertTrue(Math_Double.max(b, c, nan) == b);
+        assertTrue(Math_Double.max(0d, 10d, -10d, nan) == 10d);
+    }
+    
 }
