@@ -181,7 +181,7 @@ public class Math_Integer {
     public static int max(int... values) {
         int r = values[0];
         for (int i = 1; i < values.length; i ++) {
-            r = Math.min(r, values[i]);
+            r = Math.max(r, values[i]);
         }
         return r;
     }

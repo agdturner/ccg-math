@@ -15,8 +15,6 @@
  */
 package uk.ac.leeds.ccg.math.arithmetic.test;
 
-import uk.ac.leeds.ccg.math.arithmetic.Math_Long;
-import uk.ac.leeds.ccg.math.arithmetic.Math_Integer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -266,5 +264,23 @@ public class Math_IntegerTest {
         assertThrows(ArithmeticException.class, () -> {
             Math_Integer.multiply(Integer.MAX_VALUE, 2);
         });
+    }
+    
+    @Test
+    public void testMin() {
+        System.out.println("Test min");
+        int a = Integer.MAX_VALUE;
+        int b = -Integer.MAX_VALUE;
+        assertTrue(Math_Integer.min(a, b, 0) == b);
+        assertTrue(Math_Integer.min(0, 10, -10) == -10);
+    }
+    
+    @Test
+    public void testMax() {
+        System.out.println("Test max");
+        int a = Integer.MAX_VALUE;
+        int b = -Integer.MAX_VALUE;
+        assertTrue(Math_Integer.max(a, b, 0) == a);
+        assertTrue(Math_Integer.max(0, 10, -10) == 10);
     }
 }
