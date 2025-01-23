@@ -219,7 +219,8 @@ public class Math_Double {
      * different.
      */
     public static boolean equals(double d1, double d2, double epsilon) {
-        return d1 <= d2 + epsilon && d1 >= d2 - epsilon;
+        return (d1 <= d2 + epsilon && d1 >= d2 - epsilon);
+        //return Math.abs(d1 - d2) < epsilon;
     }
 
     /**

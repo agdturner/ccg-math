@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-module uk.ac.leeds.ccg.v3d.test {
+module uk.ac.leeds.ccg.math.test {
     requires uk.ac.leeds.ccg.math;
     requires org.junit.jupiter.api;
     requires org.junit.jupiter.engine;
