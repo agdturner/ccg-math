@@ -157,4 +157,32 @@ public class Math_Integer {
         }
         return r;
     }
+    
+    
+    
+    /**
+     * A convenience method to get the minimum of input int numbers.
+     * @param values
+     * @return The minimum of all the values.
+     */
+    public static int min(int... values) {
+        int r = values[0];
+        for (int i = 1; i < values.length; i ++) {
+            r = Math.min(r, values[i]);
+        }
+        return r;
+    }
+    
+    /**
+     * A convenience method to get the maximum of input int numbers.
+     * @param values
+     * @return The maximum of all the values.
+     */
+    public static int max(int... values) {
+        int r = values[0];
+        for (int i = 1; i < values.length; i ++) {
+            r = Math.min(r, values[i]);
+        }
+        return r;
+    }
 }
