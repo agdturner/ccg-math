@@ -44,7 +44,8 @@ public class Math_BigRational {
      */
     public static boolean equals(BigRational x, BigRational y, int oom) {
         BigRational oomb = BigRational.TEN.pow(oom);
-        return x.compareTo(y.add(oomb)) != 1 && x.compareTo(y.subtract(oomb)) != -1;
+        return x.compareTo(y.add(oomb)) != 1 
+                && x.compareTo(y.subtract(oomb)) != -1;
     }
     
     /**

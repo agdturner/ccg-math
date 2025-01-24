@@ -63,30 +63,30 @@ public class Math_AngleBigRationalTest {
     @Test
     public void testNormalise() {
         System.out.println("normalise");
-        Math_AngleBigRational ma = new Math_AngleBigRational();
+        Math_BigDecimal bd = new Math_BigDecimal();
         int oom = -3;
         RoundingMode rm = RoundingMode.HALF_UP;
-        BigRational pi = Math_BigRational.getPi(new Math_BigDecimal(), oom, rm);
+        BigRational pi = Math_BigRational.getPi(bd, oom, rm);
         BigRational dpi = pi.multiply(2);
         BigRational hpi = pi.divide(2);
         // Positive angle
         BigRational theta = dpi.multiply(BigInteger.TEN).add(pi);
-        BigRational result = ma.normalise(theta, oom, rm);
+        BigRational result = Math_AngleBigRational.normalise(theta, bd, oom, rm);
         BigRational expResult = pi;
         assertTrue(result.compareTo(expResult) == 0);
         // Test 2
         theta = dpi.multiply(BigInteger.TEN).add(hpi);
-        result = ma.normalise(theta, oom, rm);
+        result = Math_AngleBigRational.normalise(theta, bd, oom, rm);
         expResult = hpi;
         assertTrue(result.compareTo(expResult) == 0);
         // Negative angle
         theta = dpi.multiply(BigInteger.TEN).add(pi).negate();
-        result = ma.normalise(theta, oom, rm);
+        result = Math_AngleBigRational.normalise(theta, bd, oom, rm);
         expResult = pi;
         assertTrue(result.compareTo(expResult) == 0);
         // Test 4
         theta = dpi.multiply(BigInteger.TEN).add(hpi).negate();
-        result = ma.normalise(theta, oom, rm);
+        result = Math_AngleBigRational.normalise(theta, bd, oom, rm);
         expResult = hpi.multiply(3);
         assertTrue(result.compareTo(expResult) == 0);
     }
