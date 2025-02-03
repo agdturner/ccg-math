@@ -94,11 +94,13 @@ public class Math_AngleBigRational {
      * Returns a normal angle in the range 0 to 2PI.
      *
      * @param theta The angle to be normalised.
+     * @param bd The Math_BigDecimal for getting a Pi approximation.
      * @param oom The Order of Magnitude for the precision.
      * @param rm The RoundingMode for any rounding.
      * @return A normalised angle.
      */
-    public static BigRational normalise(BigRational theta, Math_BigDecimal bd, int oom, RoundingMode rm) {
+    public static BigRational normalise(BigRational theta, Math_BigDecimal bd,
+            int oom, RoundingMode rm) {
         BigRational twoPi = BigRational.valueOf(bd.getPi(oom, rm)).multiply(2);
         BigRational r = theta;
         // Change a negative angle into a positive one.

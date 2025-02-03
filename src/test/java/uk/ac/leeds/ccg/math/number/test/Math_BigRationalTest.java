@@ -28,6 +28,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import uk.ac.leeds.ccg.math.arithmetic.Math_BigDecimal;
 import uk.ac.leeds.ccg.math.arithmetic.Math_BigInteger;
 
 /**
@@ -283,35 +284,36 @@ public class Math_BigRationalTest {
     public void testAsin() {
         System.out.println("asin");
         int oom = -3;
-        BigRational x = BigRational.ONE;
         RoundingMode rm = RoundingMode.HALF_UP;
+        Math_BigDecimal bd = new Math_BigDecimal();
+        BigRational x = BigRational.ONE;
         BigRational expResult = Math_BigRational.round(BigRational.valueOf(Math.asin(1.0d)), oom, rm);
         System.out.println(expResult.toString());
-        BigRational result = Math_BigRational.asin(x, oom, rm);
+        BigRational result = Math_BigRational.asin(x, bd, oom, rm);
         System.out.println(result.toString());
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         x = BigRational.ZERO;
         expResult = Math_BigRational.round(BigRational.valueOf(Math.asin(0.0d)), oom, rm);
-        result = Math_BigRational.asin(x, oom, rm);
+        result = Math_BigRational.asin(x, bd, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
         x = BigRational.ONE.negate();
         expResult = Math_BigRational.round(BigRational.valueOf(Math.asin(-1.0d)), oom, rm);
-        result = Math_BigRational.asin(x, oom, rm);
+        result = Math_BigRational.asin(x, bd, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
         x = BigRational.valueOf(1, 2);
         expResult = Math_BigRational.round(BigRational.valueOf(Math.asin(0.5d)), oom, rm);
         //System.out.println(expResult.toString());
-        result = Math_BigRational.asin(x, oom, rm);
+        result = Math_BigRational.asin(x, bd, oom, rm);
         //System.out.println(result.toString());
         assertTrue(expResult.compareTo(result) == 0);
         // Test 5
         x = BigRational.valueOf(-1, 2);
         expResult = Math_BigRational.round(BigRational.valueOf(Math.asin(-0.5d)), oom, rm);
         //System.out.println(expResult.toString());
-        result = Math_BigRational.asin(x, oom, rm);
+        result = Math_BigRational.asin(x, bd, oom, rm);
         //System.out.println(result.toString());
         assertTrue(expResult.compareTo(result) == 0);
     }

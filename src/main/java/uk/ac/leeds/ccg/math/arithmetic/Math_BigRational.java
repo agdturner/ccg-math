@@ -285,6 +285,7 @@ public class Math_BigRational {
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
      *
      * @param x the number to process.
+     * @param bd The Math_BigDecimal used to approximate Pi.
      * @param oom The Order of Magnitude for the precision.
      * @param rm The RoundingMode if rounding is necessary.
      * @return The arctangent a.k.a the inverse tangent.
@@ -321,24 +322,24 @@ public class Math_BigRational {
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
      *
      * @param x the number to process.
+     * @param bd The Math_BigDecimal used to approximate Pi.
      * @param oom The Order of Magnitude for the precision.
      * @param rm The RoundingMode if rounding is necessary.
      * @return The arcsine a.k.a the inverse sine.
      */
-    public static BigRational asin(BigRational x, int oom, RoundingMode rm) {
+    public static BigRational asin(BigRational x, Math_BigDecimal bd, int oom, 
+            RoundingMode rm) {
         // Special cases
         if (x.abs().compareTo(BigRational.ONE) == 0) {
-            BigRational r = BigRational.valueOf(
-                    new Math_BigDecimal().getPi(oom, RoundingMode.HALF_UP),
-                    Math_BigDecimal.TWO);
+            BigRational r = BigRational.valueOf(bd.getPi(oom, 
+                    RoundingMode.HALF_UP), Math_BigDecimal.TWO);
             if (isPositive(x)) {
                 return r;
             }
             return r.negate();
         }
         if (x.compareTo(BigRational.ONE) == 0) {
-            return BigRational.valueOf(
-                    new Math_BigDecimal().getPi(oom, RoundingMode.HALF_UP),
+            return BigRational.valueOf(bd.getPi(oom, RoundingMode.HALF_UP),
                     Math_BigDecimal.TWO);
         }
         // General case
@@ -358,15 +359,16 @@ public class Math_BigRational {
      * https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
      *
      * @param x the number to process.
+     * @param bd The Math_BigDecimal used to approximate Pi.
      * @param oom The Order of Magnitude for the precision.
      * @param rm The RoundingMode if rounding is necessary.
      * @return The arccosine a.k.a the inverse cosine.
      */
-    public static BigRational arccos(BigRational x, int oom, RoundingMode rm) {
+    public static BigRational acos(BigRational x, Math_BigDecimal bd, int oom,
+            RoundingMode rm) {
         //Pi/2 - asin(oom)
-        Math_BigDecimal bd = new Math_BigDecimal();
         return BigRational.valueOf(bd.getPiBy2(oom, rm)).subtract(
-                asin(x, oom, rm));
+                asin(x, bd, oom, rm));
     }
 
     /**
