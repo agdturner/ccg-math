@@ -204,7 +204,7 @@ public class Math_BigRationalTest {
     public void testCos() {
         System.out.println("cos");
         Math_BigInteger bi = new Math_BigInteger();
-        int oom = -3;
+        int oom = -6;
         BigRational x = BigRational.ZERO;
         BigRational expResult = BigRational.ONE;
         RoundingMode rm = RoundingMode.HALF_UP;
@@ -235,6 +235,11 @@ public class Math_BigRationalTest {
         expResult = Math_BigRational.round(BigRational.valueOf(Math.cos(-0.25d)), oom, rm);
         result = Math_BigRational.cos(x, bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = BigRational.valueOf(1, 3).negate();
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.cos(-1d/3d)), oom, rm);
+        result = Math_BigRational.cos(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
@@ -244,20 +249,20 @@ public class Math_BigRationalTest {
     public void testSin() {
         System.out.println("sin");
         Math_BigInteger bi = new Math_BigInteger();
-        int oom = -3;
+        int oom = -6;
         BigRational x = BigRational.ONE;
         RoundingMode rm = RoundingMode.HALF_UP;
-        BigRational expResult = Math_BigRational.round(BigRational.valueOf(Math.sin(1.0d)), oom, rm);
+        BigRational expResult = Math_BigRational.round(BigRational.valueOf(Math.sin(1d)), oom, rm);
         BigRational result = Math_BigRational.sin(x, bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 2
         x = BigRational.ZERO;
-        expResult = Math_BigRational.round(BigRational.valueOf(Math.sin(0.0d)), oom, rm);
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.sin(0d)), oom, rm);
         result = Math_BigRational.sin(x, bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 3
         x = BigRational.ONE.negate();
-        expResult = Math_BigRational.round(BigRational.valueOf(Math.sin(-1.0d)), oom, rm);
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.sin(-1d)), oom, rm);
         result = Math_BigRational.sin(x, bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
         // Test 4
@@ -274,6 +279,56 @@ public class Math_BigRationalTest {
         x = BigRational.valueOf(1, 4);
         expResult = Math_BigRational.round(BigRational.valueOf(Math.sin(0.25d)), oom, rm);
         result = Math_BigRational.sin(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = BigRational.valueOf(1, 3);
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.sin(1d/3d)), oom, rm);
+        result = Math_BigRational.sin(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+    
+    /**
+     * Test of cos method, of class Math_BigRational.
+     */
+    @Test
+    public void testTan() {
+        System.out.println("tan");
+        Math_BigInteger bi = new Math_BigInteger();
+        int oom = -5;
+        BigRational x = BigRational.ONE;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigRational expResult = Math_BigRational.round(BigRational.valueOf(Math.tan(1d)), oom, rm);
+        BigRational result = Math_BigRational.tan(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = BigRational.ZERO;
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.tan(0d)), oom, rm);
+        result = Math_BigRational.tan(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = BigRational.ONE.negate();
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.tan(-1d)), oom, rm);
+        result = Math_BigRational.tan(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = BigRational.valueOf(1, 2);
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.tan(0.5d)), oom, rm);
+        result = Math_BigRational.tan(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = BigRational.valueOf(-1, 2);
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.tan(-0.5d)), oom, rm);
+        result = Math_BigRational.tan(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = BigRational.valueOf(1, 4);
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.tan(0.25d)), oom, rm);
+        result = Math_BigRational.tan(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = BigRational.valueOf(1, 3);
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.tan(1d/3d)), oom, rm);
+        result = Math_BigRational.tan(x, bi, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
     }
     
@@ -315,6 +370,100 @@ public class Math_BigRationalTest {
         //System.out.println(expResult.toString());
         result = Math_BigRational.asin(x, bd, oom, rm);
         //System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+    
+    /**
+     * Test of cos method, of class Math_BigRational.
+     */
+    @Test
+    public void testAtan() {
+        System.out.println("atan");
+        Math_BigInteger bi = new Math_BigInteger();
+        int oom = -4;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigRational x = BigRational.ONE;
+        BigRational expResult = Math_BigRational.round(BigRational.valueOf(Math.atan(1d)), oom, rm);
+        System.out.println(expResult.toString());
+        BigRational result = Math_BigRational.atan(x, oom, rm);
+        //BigRational result = Math_BigRational.atan(x, bi, oom, rm);
+        System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = BigRational.ZERO;
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.atan(0d)), oom, rm);
+        result = Math_BigRational.atan(x, oom, rm);
+        //result = Math_BigRational.atan(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = BigRational.ONE.negate();
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.atan(-1d)), oom, rm);
+        result = Math_BigRational.atan(x, oom, rm);
+        //result = Math_BigRational.atan(x, bi, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = BigRational.valueOf(1, 2);
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.atan(0.5d)), oom, rm);
+        System.out.println(expResult.toString());
+        result = Math_BigRational.atan(x, oom, rm);
+        //result = Math_BigRational.atan(x, bi, oom, rm);
+        System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = BigRational.valueOf(-1, 2);
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.atan(-0.5d)), oom, rm);
+        //System.out.println(expResult.toString());
+        result = Math_BigRational.atan(x, oom, rm);
+        //result = Math_BigRational.atan(x, bi, oom, rm);
+        //System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+    }
+    
+    /**
+     * Test of cos method, of class Math_BigRational.
+     */
+    @Test
+    public void testAtan2() {
+        System.out.println("atan2");
+        Math_BigDecimal bd = new Math_BigDecimal();
+        int oom = -4;
+        RoundingMode rm = RoundingMode.HALF_UP;
+        BigRational x = BigRational.ONE;
+        BigRational y = BigRational.ONE;
+        BigRational expResult = Math_BigRational.round(BigRational.valueOf(Math.atan2(1d, 1d)), oom, rm);
+        System.out.println(expResult.toString());
+        BigRational result = Math_BigRational.atan2(x, y, bd, oom, rm);
+        System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 2
+        x = BigRational.ZERO;
+        y = BigRational.ONE;
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.atan2(1d, 0d)), oom, rm);
+        result = Math_BigRational.atan2(x, y, bd, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = BigRational.ONE.negate();
+        y = BigRational.ONE;
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.atan2(1d, -1d)), oom, rm);
+        result = Math_BigRational.atan2(x, y, bd, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = BigRational.ONE;
+        y = BigRational.ONE.negate();
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.atan2(-1d, 1d)), oom, rm);
+        result = Math_BigRational.atan2(x, y, bd, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = BigRational.ZERO;
+        y = BigRational.ONE.negate();
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.atan2(-1d, 0d)), oom, rm);
+        result = Math_BigRational.atan2(x, y, bd, oom, rm);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = BigRational.ONE.negate();
+        y = BigRational.ONE.negate();
+        expResult = Math_BigRational.round(BigRational.valueOf(Math.atan2(-1d, -1d)), oom, rm);
+        result = Math_BigRational.atan2(x, y, bd, oom, rm);
         assertTrue(expResult.compareTo(result) == 0);
     }
 }
