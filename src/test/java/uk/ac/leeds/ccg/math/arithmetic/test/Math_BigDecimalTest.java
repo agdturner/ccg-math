@@ -801,98 +801,47 @@ public class Math_BigDecimalTest {
     @Test
     public void testPowerNoRounding_BigDecimal_BigDecimal() {
         System.out.println("powerNoRounding");
+        int oom;//-100;
+        RoundingMode rm = RoundingMode.HALF_UP;
         BigDecimal x;
-        int y;
+        BigDecimal y;
         BigDecimal expResult;
         BigDecimal result;
-        x = new BigDecimal("5.1");
-        y = 2;
         // Test 1
-        expResult = new BigDecimal("26.01");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertEquals(expResult, result);
+        // https://github.com/mtommila/apfloat/issues/60#issuecomment-2644528217
+        // 1.0000030588238052464490290006211942542706256820307636249... https://www.wolframalpha.com/input?i=1.0061363892207217940466534855659119784832000732421875%5E0.0005000000000000000104083408558608425664715468883514404296875
+        // 1.0000030588238052464519238536471846532785721466743258859
+        // 1.0000030588238052464
+        // 1.0000030588238051
+        x = new BigDecimal("1.0061363892207218");
+        y = new BigDecimal("0.0005");
+        oom = -100;
+        expResult = new BigDecimal("1.0000030588238052464519238536471846532785721466743258859944119238248609030448432949291002123328671814");
+        result = Math_BigDecimal.power(x, y, oom, rm);
+        //System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
+        oom = -20;
+        expResult = new BigDecimal("1.00000305882380524645");
+        result = Math_BigDecimal.power(x, y, oom, rm);
+        System.out.println(result.toString());
+        assertTrue(expResult.compareTo(result) == 0);
         // Test 2
-        x = new BigDecimal("5.1");
-        y = 20;
-        expResult = new BigDecimal("141710986707530.43575626125424226001");
-        result = Math_BigDecimal.powerNoRounding(x, y);
+        // https://github.com/mtommila/apfloat/issues/60#issuecomment-2644528217
+        // 1.00943297348289029462369268058198837821369992650778055771630627825428689610... https://www.wolframalpha.com/input?i=1.0000046943914231434291650657542049884796142578125%5E2000
+        // 1.009432973482802617372827611793722757595124623951244427585000127306614841616195637206003619771723216
+        // 1.0094329734828
+        // 1.0094329734828904
+        x = new BigDecimal("1.0000046943914231");
+        y = new BigDecimal("2000");
+        oom = -100;
+        expResult = new BigDecimal("1.009432973482802617372827611793722757595124623951244427585000127306614841616195637206003619771723216");
+        result = Math_BigDecimal.power(x, y, oom, rm);
+        //System.out.println(result.toString());
         assertTrue(expResult.compareTo(result) == 0);
-        // Test 3
-        x = new BigDecimal("5.10");
-        y = 20;
-        expResult = new BigDecimal(
-                "141710986707530.4357562612542422600100000000000000000000");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 4
-        x = new BigDecimal("5.10000000000000000000000000000000000000000000001");
-        y = 20;
-        expResult = new BigDecimal(
-                "141710986707530.4357562612542422600100000000000055572935963737"
-                + "425786769119310690200000000000001035182140500991264655503202"
-                + "846190000000000000012178613417658720760652978857014000000000"
-                + "000000101488445147156006338774823808450000000000000000636790"
-                + "244060586706439371443504000000000000000003121520804218562286"
-                + "467507076000000000000000000012241258055759067790068655200000"
-                + "000000000000000039004008510997029723257970000000000000000000"
-                + "000101971264081037986204596000000000000000000000000219938020"
-                + "566944676127560000000000000000000000000392046382472272149960"
-                + "000000000000000000000000000576538797753341397000000000000000"
-                + "000000000000000695672757470095200000000000000000000000000000"
-                + "000682032115166760000000000000000000000000000000000534927149"
-                + "150400000000000000000000000000000000000327773988450000000000"
-                + "000000000000000000000000000151222140000000000000000000000000"
-                + "000000000000000049419000000000000000000000000000000000000000"
-                + "000010200000000000000000000000000000000000000000000001");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 5
-        x = new BigDecimal("5.2");
-        y = 2;
-        expResult = new BigDecimal("27.04");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 6
-        x = new BigDecimal("5.3");
-        y = 2;
-        expResult = new BigDecimal("28.09");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 7
-        x = new BigDecimal("5.4");
-        y = 2;
-        expResult = new BigDecimal("29.16");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 8
-        x = new BigDecimal("5.5");
-        y = 2;
-        expResult = new BigDecimal("30.25");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 9
-        x = new BigDecimal("5.6");
-        y = 2;
-        expResult = new BigDecimal("31.36");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 10
-        x = new BigDecimal("5.7");
-        y = 2;
-        expResult = new BigDecimal("32.49");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 11
-        x = new BigDecimal("5.8");
-        y = 2;
-        expResult = new BigDecimal("33.64");
-        result = Math_BigDecimal.powerNoRounding(x, y);
-        assertTrue(expResult.compareTo(result) == 0);
-        // Test 12
-        x = new BigDecimal("5.9");
-        y = 2;
-        expResult = new BigDecimal("34.81");
-        result = Math_BigDecimal.powerNoRounding(x, y);
+        oom = -20;
+        expResult = new BigDecimal("1.00943297348280261737");
+        result = Math_BigDecimal.power(x, y, oom, rm);
+        //System.out.println(result.toString());
         assertTrue(expResult.compareTo(result) == 0);
     }
 
@@ -1874,16 +1823,101 @@ public class Math_BigDecimalTest {
      * Test of powerNoRounding method, of class Math_BigDecimal.
      */
     @Test
-    @Disabled
     public void testPowerNoRounding_BigDecimal_int() {
         System.out.println("powerNoRounding");
-        BigDecimal x = null;
-        int y = 0;
-        BigDecimal expResult = null;
-        BigDecimal result = Math_BigDecimal.powerNoRounding(x, y);
+        BigDecimal x;
+        int y;
+        BigDecimal expResult;
+        BigDecimal result;
+        x = new BigDecimal("5.1");
+        y = 2;
+        // Test 1
+        expResult = new BigDecimal("26.01");
+        result = Math_BigDecimal.powerNoRounding(x, y);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // Test 2
+        x = new BigDecimal("5.1");
+        y = 20;
+        expResult = new BigDecimal("141710986707530.43575626125424226001");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 3
+        x = new BigDecimal("5.10");
+        y = 20;
+        expResult = new BigDecimal(
+                "141710986707530.4357562612542422600100000000000000000000");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 4
+        x = new BigDecimal("5.10000000000000000000000000000000000000000000001");
+        y = 20;
+        expResult = new BigDecimal(
+                "141710986707530.4357562612542422600100000000000055572935963737"
+                + "425786769119310690200000000000001035182140500991264655503202"
+                + "846190000000000000012178613417658720760652978857014000000000"
+                + "000000101488445147156006338774823808450000000000000000636790"
+                + "244060586706439371443504000000000000000003121520804218562286"
+                + "467507076000000000000000000012241258055759067790068655200000"
+                + "000000000000000039004008510997029723257970000000000000000000"
+                + "000101971264081037986204596000000000000000000000000219938020"
+                + "566944676127560000000000000000000000000392046382472272149960"
+                + "000000000000000000000000000576538797753341397000000000000000"
+                + "000000000000000695672757470095200000000000000000000000000000"
+                + "000682032115166760000000000000000000000000000000000534927149"
+                + "150400000000000000000000000000000000000327773988450000000000"
+                + "000000000000000000000000000151222140000000000000000000000000"
+                + "000000000000000049419000000000000000000000000000000000000000"
+                + "000010200000000000000000000000000000000000000000000001");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 5
+        x = new BigDecimal("5.2");
+        y = 2;
+        expResult = new BigDecimal("27.04");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 6
+        x = new BigDecimal("5.3");
+        y = 2;
+        expResult = new BigDecimal("28.09");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 7
+        x = new BigDecimal("5.4");
+        y = 2;
+        expResult = new BigDecimal("29.16");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 8
+        x = new BigDecimal("5.5");
+        y = 2;
+        expResult = new BigDecimal("30.25");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 9
+        x = new BigDecimal("5.6");
+        y = 2;
+        expResult = new BigDecimal("31.36");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 10
+        x = new BigDecimal("5.7");
+        y = 2;
+        expResult = new BigDecimal("32.49");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 11
+        x = new BigDecimal("5.8");
+        y = 2;
+        expResult = new BigDecimal("33.64");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
+        // Test 12
+        x = new BigDecimal("5.9");
+        y = 2;
+        expResult = new BigDecimal("34.81");
+        result = Math_BigDecimal.powerNoRounding(x, y);
+        assertTrue(expResult.compareTo(result) == 0);
     }
 
     /**
